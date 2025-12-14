@@ -277,11 +277,11 @@
 // =====================================================
 // CONFIGURACIÓN
 // =====================================================
-const MANAGER_PASSWORD = 'manager';
+const MANAGER_PASSWORD [REDACTED:PASSWORD]ger';
 
 // JSONbin.io - TU configuración
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMKHaYCvBQaj5A.O';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OW[REDACTED:AWS_ACCESS_KEY]JQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const festivos2026 = [
@@ -306,16 +306,12 @@ let editingDay = null;
 // =====================================================
 // CONVERSIÓN TURNOS: STRING <-> ARRAY
 // =====================================================
-// Internamente usamos array, en la nube guardamos string (más compacto)
-
 function turnosToString(turnosArray) {
-    // Convierte array a string separado por comas
     if (!Array.isArray(turnosArray)) return turnosArray || '';
     return turnosArray.join(',');
 }
 
 function turnosToArray(turnosString) {
-    // Convierte string a array
     if (Array.isArray(turnosString)) return turnosString;
     if (!turnosString || turnosString === '') return Array(365).fill('');
     return turnosString.split(',');
@@ -328,7 +324,6 @@ async function saveToCloud() {
     try {
         setDataStatus('loading', '⏳ Guardando en la nube...');
         
-        // Convertir turnos de array a string para ahorrar espacio
         const empleadosOptimizados = allData.empleados.map(emp => ({
             crew: emp.crew,
             login: emp.login,
@@ -382,7 +377,6 @@ async function loadFromCloud() {
         const data = await response.json();
         
         if (data.record && data.record.empleados && data.record.empleados.length > 0) {
-            // Convertir turnos de string a array
             const empleados = data.record.empleados.map(emp => ({
                 crew: emp.crew,
                 login: emp.login,
@@ -411,43 +405,75 @@ function setDataStatus(type, message) {
 }
 
 // =====================================================
-// PARSEO TSV MEJORADO
+// PARSEO TSV - DETECTA FIN DE NÚMEROS AUTOMÁTICAMENTE
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
     const empleados = [];
     
-    lines.forEach(line => {
+    // Función para detectar si es número (entero o decimal, positivo o negativo)
+    function isNumeric(val) {
+        if (!val || val.trim() === '') return false;
+        const trimmed = val.trim();
+        return /^-?\d+(\.\d+)?$/.test(trimmed);
+    }
+    
+    lines.forEach((line, lineNum) => {
         const parts = line.split('\t');
-        if (parts.length < 10) return;
         
+        if (parts.length < 15) {
+            console.log(`Línea ${lineNum + 1} ignorada: pocas columnas (${parts.length})`);
+            return;
+        }
+        
+        // Formato:
+        // 0: GRUPO | 1: LOGIN | 2: NOMBRE | 3: (vacío) | 4: ROLE 
+        // 5+: números (cantidad variable) | después: turnos
         const crew = parts[0].trim();
         const login = parts[1].trim();
         const name = parts[2].trim();
         const role = parts[4].trim();
         
-        if (!login || login === '0' || !name) return;
-        
-        // Buscar columna con decimal (0.00) - los turnos empiezan después
-        let turnoStart = 12;
-        for (let i = 5; i < Math.min(parts.length, 15); i++) {
-            const val = parts[i].trim();
-            if (/^\d+\.\d+$/.test(val)) {
-                turnoStart = i + 1;
-                break;
-            }
+        if (!login || !name) {
+            console.log(`Línea ${lineNum + 1} ignorada: sin login/nombre`);
+            return;
         }
         
+        // Buscar dónde terminan los números (empezando en col 5)
+        // Los números pueden ser: 0, 22, 25, 0.00, 2.5, 4, -0.5, etc.
+        let turnoStart = 5;
+        while (turnoStart < parts.length && isNumeric(parts[turnoStart])) {
+            turnoStart++;
+        }
+        
+        // turnoStart ahora apunta a la primera columna NO numérica (primer turno)
+        
+        // Extraer turnos
         const turnos = [];
         for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
-            turnos.push((parts[i] || '').trim().toLowerCase());
+            const turno = (parts[i] || '').trim().toLowerCase();
+            turnos.push(turno);
         }
-        while (turnos.length < 365) turnos.push('');
         
-        // Internamente guardamos como array
-        empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
+        // Rellenar hasta 365 si faltan
+        while (turnos.length < 365) {
+            turnos.push('');
+        }
+        
+        // Debug
+        const conTurno = turnos.filter(t => t).length;
+        console.log(`✅ ${login}: turnos desde col ${turnoStart}, ${conTurno} días con turno`);
+        
+        empleados.push({ 
+            crew, 
+            login, 
+            name, 
+            role, 
+            turnos: turnos.slice(0, 365) 
+        });
     });
     
+    console.log(`📊 Total: ${empleados.length} empleados`);
     return empleados;
 }
 
@@ -740,7 +766,7 @@ function previewBulkImport() {
     let html = `<p style="color:green;">✅ ${empleados.length} empleados:</p><ul style="margin-left:15px;max-height:100px;overflow-y:auto;">`;
     empleados.slice(0, 10).forEach(e => {
         const turnosCount = e.turnos.filter(t => t).length;
-        html += `<li><strong>${e.name}</strong> - ${turnosCount} turnos</li>`;
+        html += `<li><strong>${e.name}</strong> (${e.login}) - ${turnosCount} turnos</li>`;
     });
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
     html += '</ul>';
@@ -800,7 +826,6 @@ async function resetAllData() {
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
     
-    // Exportar en formato optimizado (string)
     const empleadosOptimizados = allData.empleados.map(emp => ({
         crew: emp.crew,
         login: emp.login,
