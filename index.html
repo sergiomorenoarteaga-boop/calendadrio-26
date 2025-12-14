@@ -3,29 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario de Turnos 2026 - Dos Hermanas</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+    <title>Calendario de Turnos 2026</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --verde: rgb(146, 208, 80);
-            --verde-fuerte: rgb(0, 176, 80);
-            --naranja: rgb(255, 192, 0);
-            --azul: rgb(0, 32, 96);
-            --gris: rgb(200, 200, 200);
-            --rojo: rgb(220, 53, 69);
-            --rojo-vacaciones: rgb(255, 0, 0);
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             padding: 10px;
         }
         .header { text-align: center; padding: 15px; color: #fff; }
-        .header h1 { font-size: 1.8rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
-        .header p { color: #a0a0a0; font-size: 0.85rem; margin-top: 5px; }
-        
+        .header h1 { font-size: 1.8rem; }
         .filters-panel {
             background: rgba(255,255,255,0.1);
             border-radius: 12px;
@@ -51,7 +39,6 @@
             font-size: 0.9rem;
             min-width: 180px;
         }
-        
         .employee-info {
             background: rgba(255,255,255,0.95);
             border-radius: 12px;
@@ -63,7 +50,6 @@
             display: none;
         }
         .employee-info.active { display: block; }
-        .employee-info h2 { color: #333; font-size: 1.1rem; margin-bottom: 8px; }
         .employee-badge {
             display: inline-block;
             padding: 4px 10px;
@@ -74,7 +60,6 @@
         }
         .badge-crew { background: #667eea; color: white; }
         .badge-role { background: #27ae60; color: white; }
-        
         .legend {
             display: flex;
             justify-content: center;
@@ -102,52 +87,7 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.3);
         }
-        .color-verde { background: var(--verde); }
-        .color-verde-fuerte { background: var(--verde-fuerte); }
-        .color-naranja { background: var(--naranja); }
-        .color-azul { background: var(--azul); }
-        .color-gris { background: var(--gris); }
-        .color-rojo { background: var(--rojo); }
-        .color-rojo-vac { background: var(--rojo-vacaciones); }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .btn {
-            padding: 8px 14px;
-            border: none;
-            border-radius: 18px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: white;
-        }
-        .btn-manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
-        .btn-manager.active { background: linear-gradient(145deg, #27ae60, #2ecc71); }
-        .btn-save { background: linear-gradient(145deg, #27ae60, #2ecc71); }
-        .btn-export { background: linear-gradient(145deg, #3498db, #2980b9); }
-        .btn-import { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
-        .btn-reload { background: linear-gradient(145deg, #f39c12, #e67e22); }
-        .btn-print { background: linear-gradient(145deg, #95a5a6, #7f8c8d); }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .btn-view {
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            padding: 6px 12px;
-        }
-        .btn-view.active {
-            background: linear-gradient(145deg, #667eea, #764ba2);
-            border-color: transparent;
-        }
-        
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -155,9 +95,6 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-        .calendar-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
-        .calendar-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
-        
         .month-card {
             background: rgba(255,255,255,0.98);
             border-radius: 12px;
@@ -172,17 +109,8 @@
             border-radius: 12px 12px 0 0;
             color: white;
         }
-        .month-header h2 { font-size: 0.95rem; }
-        
         .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; }
-        .calendar-table th {
-            padding: 4px 2px;
-            text-align: center;
-            font-weight: 700;
-            color: #555;
-            font-size: 0.6rem;
-        }
-        .calendar-table th:first-child { color: #e74c3c; }
+        .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; }
         .calendar-table td {
             text-align: center;
             padding: 2px 1px;
@@ -190,285 +118,42 @@
             font-size: 0.65rem;
             height: 32px;
             vertical-align: middle;
-            position: relative;
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .calendar-table td:not(.empty):hover {
-            transform: scale(1.15);
-            z-index: 10;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
         .day-num { font-weight: 700; display: block; font-size: 0.7rem; }
         .shift-code { font-size: 0.45rem; font-weight: 600; display: block; }
-        
-        .shift-wm, .shift-m8, .shift-m { background: var(--verde) !important; color: #1a5c1a !important; }
-        .shift-wt, .shift-t8, .shift-t { background: var(--naranja) !important; color: #5a4000 !important; }
-        .shift-n8, .shift-n, .shift-nn { background: var(--azul) !important; color: white !important; }
-        .shift-c, .shift-cw { background: var(--gris) !important; color: #444 !important; }
-        .shift-v, .shift-v25, .shift-v26 { background: var(--rojo-vacaciones) !important; color: white !important; }
-        .shift-ap { background: var(--verde-fuerte) !important; color: white !important; }
-        .shift-tr { background: #ff9800 !important; color: white !important; }
-        .shift-bm, .shift-bp { background: #e0e0e0 !important; color: #666 !important; }
-        
-        .empty { background: transparent; }
+        .shift-wm { background: rgb(146, 208, 80) !important; color: #1a5c1a !important; }
+        .shift-wt { background: rgb(255, 192, 0) !important; color: #5a4000 !important; }
+        .shift-n8 { background: rgb(0, 32, 96) !important; color: white !important; }
+        .shift-c { background: rgb(200, 200, 200) !important; color: #444 !important; }
+        .shift-v { background: rgb(255, 0, 0) !important; color: white !important; }
         .libre { background: #f8f8f8; color: #ddd; }
-        
-        .festivo { border: 2px solid var(--rojo) !important; }
-        .festivo::before {
-            content: '';
-            position: absolute;
-            top: 1px;
-            right: 1px;
-            width: 5px;
-            height: 5px;
-            background: var(--rojo);
-            border-radius: 50%;
-        }
-        .compensado::after {
-            content: '★';
-            position: absolute;
-            bottom: 0;
-            right: 1px;
-            font-size: 0.4rem;
-            color: #9b59b6;
-        }
-        
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-        .modal-large { max-width: 800px; }
-        .modal h3 { margin-bottom: 8px; color: #333; font-size: 1.1rem; }
-        .festivo-badge {
-            display: inline-block;
-            background: var(--rojo);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-        .modal-buttons {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .modal-btn {
-            padding: 10px 6px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-        .modal-btn:hover { transform: scale(1.05); }
-        .modal-btn.btn-wm, .modal-btn.btn-m8 { background: var(--verde); color: #1a5c1a; }
-        .modal-btn.btn-wt, .modal-btn.btn-t8 { background: var(--naranja); color: #5a4000; }
-        .modal-btn.btn-n8 { background: var(--azul); color: white; }
-        .modal-btn.btn-c { background: var(--gris); color: #444; }
-        .modal-btn.btn-v { background: var(--rojo-vacaciones); color: white; }
-        .modal-btn.btn-ap { background: var(--verde-fuerte); color: white; }
-        .modal-btn.btn-tr { background: #ff9800; color: white; }
-        .modal-btn.btn-libre { background: #eee; color: #999; }
-        .modal-options { margin-bottom: 12px; }
-        .modal-options label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-        .modal-close {
-            padding: 8px 20px;
-            background: #95a5a6;
-            color: white;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        .manager-login { margin: 12px 0; }
-        .manager-login input {
-            padding: 10px 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            width: 100%;
-            max-width: 200px;
-            text-align: center;
-        }
-        .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
-        .manager-status.success { background: #d4edda; color: #155724; }
-        .manager-status.error { background: #f8d7da; color: #721c24; }
-        
-        .import-panel { text-align: left; margin-top: 15px; }
-        .import-panel textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.75rem;
-            resize: vertical;
-        }
-        .import-panel .btn-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .import-info {
-            background: #e7f3ff;
-            border: 1px solid #b3d7ff;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 0.8rem;
-            color: #004085;
-            text-align: left;
-        }
-        
+        .festivo { border: 2px solid rgb(220, 53, 69) !important; }
+        .select-message { text-align: center; padding: 50px 20px; color: #fff; font-size: 1.1rem; }
+        .select-message span { font-size: 3rem; display: block; margin-bottom: 15px; }
         .stats-container {
             max-width: 1400px;
             margin: 20px auto;
             padding: 15px;
             background: rgba(255,255,255,0.1);
             border-radius: 12px;
+            display: none;
         }
-        .stats-title { color: #fff; text-align: center; margin-bottom: 12px; font-size: 1rem; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 8px;
-        }
-        .stat-card {
-            background: rgba(255,255,255,0.95);
-            padding: 10px 6px;
-            border-radius: 8px;
-            text-align: center;
-        }
+        .stats-title { color: #fff; text-align: center; margin-bottom: 12px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
+        .stat-card { background: rgba(255,255,255,0.95); padding: 10px 6px; border-radius: 8px; text-align: center; }
         .stat-number { font-size: 1.4rem; font-weight: 800; }
-        .stat-label { color: #666; font-size: 0.55rem; margin-top: 2px; }
-        
-        .notification {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            padding: 12px 20px;
-            background: #27ae60;
-            color: white;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: transform 0.3s ease;
-            z-index: 2000;
-        }
-        .notification.show { transform: translateX(-50%) translateY(0); }
-        .notification.error { background: #e74c3c; }
-        
-        .select-message {
-            text-align: center;
-            padding: 50px 20px;
-            color: #fff;
-            font-size: 1.1rem;
-        }
-        .select-message span { font-size: 3rem; display: block; margin-bottom: 15px; }
-        
-        .employee-count { text-align: center; color: #a0a0a0; font-size: 0.75rem; margin-top: 5px; }
-        .data-status { text-align: center; padding: 5px; font-size: 0.7rem; color: #7bed9f; }
-        
-        .loading { text-align: center; padding: 50px; color: #fff; }
-        .loading-spinner {
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top: 4px solid #fff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .tab-buttons {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            padding: 8px 16px;
-            border: none;
-            background: #eee;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-        .tab-btn.active { background: #667eea; color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        .db-status {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 10px;
-        }
-        .db-status.online { background: #d4edda; color: #155724; }
-        .db-status.offline { background: #f8d7da; color: #721c24; }
-        
+        .stat-label { color: #666; font-size: 0.55rem; }
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) {
-            .calendar-grid { grid-template-columns: 1fr; }
-            .header h1 { font-size: 1.4rem; }
-            .filters-row { flex-direction: column; align-items: stretch; }
-            .filter-group select, .filter-group input { min-width: 100%; }
-            .modal-buttons { grid-template-columns: repeat(3, 1fr); }
-        }
-        
-        @media print {
-            body { background: white !important; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .select-message, .data-status { display: none !important; }
-            .employee-info { display: block !important; box-shadow: none !important; border: 1px solid #ccc; margin-bottom: 5mm !important; }
-            .calendar-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 3mm !important; }
-            .month-card { box-shadow: none !important; border: 1px solid #999; break-inside: avoid; }
-        }
-        @page { size: A4 landscape; margin: 5mm; }
+        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="header">
     <h1>📅 Calendario de Turnos 2026</h1>
-    <p>Dos Hermanas, Sevilla - Haz clic en un día para ver detalles</p>
-    <div class="employee-count" id="employeeCount"></div>
-    <div class="data-status" id="dataStatus"></div>
+    <p style="color:#a0a0a0; font-size:0.85rem;">Dos Hermanas - Selecciona un empleado</p>
+    <div id="employeeCount" style="color:#7bed9f; font-size:0.75rem; margin-top:5px;"></div>
 </div>
 
 <div class="filters-panel">
@@ -487,7 +172,7 @@
         </div>
         <div class="filter-group">
             <label>🔍 Buscar:</label>
-            <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="searchEmployee()">
+            <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
         </div>
     </div>
 </div>
@@ -496,151 +181,43 @@
     <h2 id="employeeName">Nombre</h2>
     <span class="employee-badge badge-crew" id="employeeCrew">CREW</span>
     <span class="employee-badge badge-role" id="employeeRole">ROLE</span>
-    <span style="color:#666; margin-left:8px; font-size:0.8rem;">Login: <strong id="employeeLogin">LOGIN</strong></span>
 </div>
 
 <div class="legend">
-    <div class="legend-item"><div class="legend-color color-verde"></div><span><b>WM/M8</b></span></div>
-    <div class="legend-item"><div class="legend-color color-naranja"></div><span><b>WT/T8</b></span></div>
-    <div class="legend-item"><div class="legend-color color-azul"></div><span><b>N8</b></span></div>
-    <div class="legend-item"><div class="legend-color color-gris"></div><span><b>C</b></span></div>
-    <div class="legend-item"><div class="legend-color color-rojo-vac"></div><span><b>V</b></span></div>
-    <div class="legend-item"><div class="legend-color color-verde-fuerte"></div><span><b>AP</b></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:#ff9800"></div><span><b>TR</b></span></div>
-    <div class="legend-item"><div class="legend-color color-rojo"></div><span>Festivo</span></div>
-    <div class="legend-item"><span>★Comp</span></div>
-</div>
-
-<div class="controls">
-    <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
-    <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
-    <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
-    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
-    <span style="width:10px"></span>
-    <button class="btn btn-view" onclick="setView(4, this)">4</button>
-    <button class="btn btn-view active" onclick="setView(3, this)">3</button>
-    <button class="btn btn-view" onclick="setView(2, this)">2</button>
+    <div class="legend-item"><div class="legend-color" style="background:rgb(146,208,80)"></div><span>M8/WM</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:rgb(255,192,0)"></div><span>T8/WT</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:rgb(0,32,96)"></div><span>N8</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:rgb(200,200,200)"></div><span>C</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:rgb(255,0,0)"></div><span>V</span></div>
 </div>
 
 <div class="calendar-grid" id="calendarGrid">
-    <div class="loading">
-        <div class="loading-spinner"></div>
-        <p>Cargando datos...</p>
-    </div>
+    <div class="select-message"><span>👆</span>Selecciona una persona</div>
 </div>
 
-<div class="stats-container" id="statsContainer" style="display:none;">
+<div class="stats-container" id="statsContainer">
     <h3 class="stats-title">📊 Resumen</h3>
     <div class="stats-grid" id="statsGrid"></div>
 </div>
 
-<!-- Modal editar día -->
-<div class="modal-overlay" id="editModal">
-    <div class="modal">
-        <h3 id="modalTitle">Día</h3>
-        <div id="festivoBadge" class="festivo-badge" style="display:none;"></div>
-        <div id="managerEditSection" style="display:none;">
-            <div class="modal-buttons">
-                <button class="modal-btn btn-wm" onclick="setShift('wm')">WM</button>
-                <button class="modal-btn btn-m8" onclick="setShift('m8')">M8</button>
-                <button class="modal-btn btn-wt" onclick="setShift('wt')">WT</button>
-                <button class="modal-btn btn-t8" onclick="setShift('t8')">T8</button>
-                <button class="modal-btn btn-n8" onclick="setShift('n8')">N8</button>
-                <button class="modal-btn btn-c" onclick="setShift('c')">C</button>
-                <button class="modal-btn btn-v" onclick="setShift('v')">V</button>
-                <button class="modal-btn btn-ap" onclick="setShift('ap')">AP</button>
-                <button class="modal-btn btn-tr" onclick="setShift('tr')">TR</button>
-                <button class="modal-btn btn-libre" onclick="setShift('')">LIBRE</button>
-            </div>
-            <div class="modal-options">
-                <label><input type="checkbox" id="checkCompensado"> ★ Compensado</label>
-            </div>
-        </div>
-        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">
-            🔒 Activa <strong>Modo Manager</strong> para editar
-        </div>
-        <button class="modal-close" onclick="closeModal()">Cerrar</button>
-    </div>
-</div>
-
-<!-- Modal Manager -->
-<div class="modal-overlay" id="managerModal">
-    <div class="modal modal-large">
-        <h3>🔐 Panel Manager <span class="db-status" id="dbStatus">...</span></h3>
-        
-        <div id="loginSection">
-            <div class="manager-login">
-                <input type="password" id="managerPassword" placeholder="Clave..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
-            </div>
-            <div id="managerStatus" class="manager-status" style="display:none;"></div>
-            <div style="margin-top:15px; display:flex; gap:8px; justify-content:center;">
-                <button class="btn btn-save" onclick="checkManagerPassword()">✅ Acceder</button>
-                <button class="modal-close" onclick="closeManagerModal()">Cancelar</button>
-            </div>
-        </div>
-        
-        <div id="managerPanel" style="display:none;">
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="switchTab('import', this)">📋 Importar TSV</button>
-                <button class="tab-btn" onclick="switchTab('github', this)">☁️ Cargar GitHub</button>
-            </div>
-            
-            <div id="tab-import" class="tab-content active">
-                <div class="import-info">
-                    <strong>📌 Instrucciones:</strong><br>
-                    Pega los datos de empleados en formato TSV (copiados desde Excel).<br>
-                    Los cambios se guardan en la <strong>base de datos online</strong> (permanentes).
-                </div>
-                <div class="import-panel">
-                    <textarea id="bulkImportData" placeholder="Pega aquí los datos de los empleados..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar</button>
-                        <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
-                    </div>
-                </div>
-                <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
-            </div>
-            
-            <div id="tab-github" class="tab-content">
-                <div style="padding:20px;">
-                    <p style="color:#666; margin-bottom:15px;">
-                        Descarga los datos desde el archivo <strong>datos.tsv</strong> de GitHub<br>
-                        y los guarda en la base de datos online.
-                    </p>
-                    <button class="btn btn-reload" onclick="loadFromGitHubAndSave()">☁️ Cargar desde GitHub</button>
-                    <p style="color:#999; font-size:0.75rem; margin-top:10px;">
-                        Esto sobrescribirá todos los datos actuales.
-                    </p>
-                </div>
-            </div>
-            
-            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
-                <button class="btn btn-manager" onclick="logoutManager()">🚪 Cerrar Sesión</button>
-                <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="notification" id="notification"></div>
-
 <script>
-// =====================================================
-// CONFIGURACIÓN
-// =====================================================
-const MANAGER_PASSWORD[REDACTED:PASSWORD]ager';
-const GITHUB_TSV_URL = 'https://sergiomorenoarteaga-boop.github.io/calendadrio-26/datos.tsv';
+// DATOS EMBEBIDOS - Aquí están los empleados
+const DATOS_TSV = `GRUPO 1A	IMMALLEN	Israel Perez Mallen		SRMET	0	0	0	25	25	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co	
+GRUPO 1A	JAVIFRAC	Francisco Javier Barrero		RMET	0	0	0	22	22	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co	
+GRUPO 1A	LAVADOIL	Inmaculada Hueso Lavado		RMET	0	0	0	22	22	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	m8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co	
+GRUPO 1A	PINTODOM	Daniel Pinto Dominguez		RMEO	0	0	0	22	22	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co	
+GRUPO 1B	NAVARAFR	Rafael Navarro Gonzalez		SRMET	0	0	0	25	25	0	0.00		nn			t-co		wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				t-co	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	m-co	m-co	m-co			m8	m8	m8			nn	n8	n				wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8				wm	wm			n	n		nn	n8			wt	wt		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8					wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	t-co				wm	wm	wm	m-co	
+GRUPO 1B	PBERNALV	Pedro Bernal Vargas		RMET	0	0	0	22	22	0	0.00		nn			t-co		wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				t-co	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	m-co	m-co	m-co			m8	m8	m8			nn	n8	n				wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8				wm	wm			n	n		nn	n8			wt	wt		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8					wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	t-co				wm	wm	wm	m-co	
+GRUPO 2A	MAJOMA	Jose Maria Mejias Martin		SRMET	0	0	0	25	25	0	0.00		wm			n-co		nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	V25	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			n-co	n-co	n-co					t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	t-co	t-co				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	TR	TR			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt					wm	wm	wm	wm				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm					nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	t-co	
+GRUPO 2B	CABRADR	Adrian Benitez Cabrera		SRMET	0	0	0	25	25	0	0.00			t8	wt	t-co		wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t-co		m-co	m-co					nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m-co			m-co	m-co	wt	wt	wt	wt				wm	wm	wm		wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8		wt	wt	wt	wt				wm	wm	wm	wm			m8	m8	m8			n8	n8		nn			wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8			wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m-co	
+GRUPO 3A	SERMOAR	Sergio Moreno Arteaga		SRMET	0	0	0	25	25	0	0.00			n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n-co			t-co			t-co	t-co		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt		wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8		wm	wm			wm	wm		wt	wt	wt	wt			m8	m8	m8	m8	m8				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	t8	t8		wm	wm	wm	wm			nn	n	n	n				wt	wt	wt		
+GRUPO 3B	JOSEDH	Jose Dominguez Huelva		SRMET	0	0	0	25	25	0	0.00		wt					nn	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8				n-co	n-co			nn	n-co			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n-co	n-co	n-co			t8	t8	t8			m8	m8	wm	wm				wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm		wm	wm			wm	wm	wt	wt	wt	wt					wm	wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8						n	n	n	n			t8	t8	t8	t8	t8		wm	wm	m-co				nn	n	n	n`;
 
-// JSONbin.io configuración
-const JSONBIN_BIN_ID = '693ea0ddae596e708f993621';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYI[REDACTED:AWS_ACCESS_KEY]j5A.O';
-const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
-
+// Festivos 2026
 const festivos2026 = [
     {month:1,day:1,name:"Año Nuevo"},{month:1,day:6,name:"Reyes"},
     {month:2,day:28,name:"Día de Andalucía"},{month:4,day:2,name:"Jueves Santo"},
     {month:4,day:3,name:"Viernes Santo"},{month:5,day:1,name:"Día del Trabajo"},
-    {month:7,day:25,name:"Santiago"},{month:7,day:26,name:"Santa Ana"},
     {month:8,day:15,name:"Asunción"},{month:10,day:12,name:"Fiesta Nacional"},
     {month:11,day:1,name:"Todos los Santos"},{month:12,day:6,name:"Constitución"},
     {month:12,day:8,name:"Inmaculada"},{month:12,day:25,name:"Navidad"}
@@ -650,94 +227,10 @@ const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AG
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 const startDays = [4,0,0,3,5,1,3,6,2,4,0,2];
 
-// =====================================================
-// VARIABLES GLOBALES
-// =====================================================
 let allData = null;
 let selectedEmployee = null;
-let isManager = false;
-let editingDay = null;
 
-// =====================================================
-// FUNCIONES JSONbin.io (BASE DE DATOS ONLINE)
-// =====================================================
-async function saveToCloud() {
-    try {
-        const dataToSave = {
-            empleados: allData.empleados,
-            lastModified: new Date().toISOString(),
-            version: '2.0'
-        };
-        
-        const response = await fetch(JSONBIN_URL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': JSONBIN_API_KEY
-            },
-            body: JSON.stringify(dataToSave)
-        });
-        
-        if (!response.ok) throw new Error('Error al guardar');
-        
-        updateDataStatus('cloud');
-        return true;
-    } catch (error) {
-        console.error('Error guardando en JSONbin:', error);
-        showNotification('❌ Error al guardar en la nube', true);
-        return false;
-    }
-}
-
-async function loadFromCloud() {
-    try {
-        const response = await fetch(JSONBIN_URL + '/latest', {
-            headers: {
-                'X-Master-Key': JSONBIN_API_KEY
-            }
-        });
-        
-        if (!response.ok) throw new Error('Error al cargar');
-        
-        const data = await response.json();
-        
-        if (data.record && data.record.empleados && data.record.empleados.length > 0) {
-            return data.record.empleados;
-        }
-        return null;
-    } catch (error) {
-        console.error('Error cargando desde JSONbin:', error);
-        return null;
-    }
-}
-
-function updateDataStatus(source) {
-    const statusEl = document.getElementById('dataStatus');
-    const dbStatusEl = document.getElementById('dbStatus');
-    
-    if (source === 'cloud') {
-        statusEl.textContent = '☁️ Datos sincronizados con la nube';
-        statusEl.style.color = '#74b9ff';
-        if (dbStatusEl) {
-            dbStatusEl.textContent = 'Online';
-            dbStatusEl.className = 'db-status online';
-        }
-    } else if (source === 'github') {
-        statusEl.textContent = '📄 Datos cargados desde GitHub';
-        statusEl.style.color = '#ffeaa7';
-    } else {
-        statusEl.textContent = '⚠️ Sin conexión';
-        statusEl.style.color = '#ff7675';
-        if (dbStatusEl) {
-            dbStatusEl.textContent = 'Offline';
-            dbStatusEl.className = 'db-status offline';
-        }
-    }
-}
-
-// =====================================================
-// PARSEO DE DATOS TSV
-// =====================================================
+// Parsear TSV
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
     const empleados = [];
@@ -751,24 +244,13 @@ function parseRawData(rawData) {
         const name = parts[2].trim();
         const role = parts[4].trim();
         
-        if (!login || login === '0' || !name) return;
+        if (!login || !name) return;
         
-        let turnoStart = 5;
-        for (let i = 5; i < parts.length && i < 20; i++) {
-            const val = parts[i].trim();
-            if (/^-?\d+(\.\d+)?$/.test(val)) {
-                turnoStart = i + 1;
-            } else {
-                break;
-            }
-        }
-        
+        let turnoStart = 11;
         const turnos = [];
         for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
-            const val = (parts[i] || '').trim().toLowerCase();
-            turnos.push(val);
+            turnos.push((parts[i] || '').trim().toLowerCase());
         }
-        
         while (turnos.length < 365) turnos.push('');
         
         empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
@@ -777,115 +259,23 @@ function parseRawData(rawData) {
     return empleados;
 }
 
-// =====================================================
-// CARGA DE DATOS
-// =====================================================
-async function loadFromGitHub() {
-    try {
-        const response = await fetch(GITHUB_TSV_URL + '?t=' + Date.now());
-        if (!response.ok) throw new Error('Error al cargar');
-        const text = await response.text();
-        const empleados = parseRawData(text);
-        if (empleados.length === 0) throw new Error('No se encontraron empleados');
-        return empleados;
-    } catch (error) {
-        console.error('Error cargando desde GitHub:', error);
-        return null;
-    }
+// Inicializar
+function init() {
+    const empleados = parseRawData(DATOS_TSV);
+    allData = { empleados, festivos: festivos2026 };
+    document.getElementById('employeeCount').textContent = `📊 ${empleados.length} empleados cargados`;
+    initializeFilters();
 }
 
-async function initializeData() {
-    const calendarGrid = document.getElementById('calendarGrid');
-    calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>';
-    
-    // 1. Primero intentar cargar desde JSONbin (nube)
-    let empleados = await loadFromCloud();
-    
-    if (empleados && empleados.length > 0) {
-        allData = { empleados, festivos: festivos2026 };
-        console.log('✅ Datos cargados desde JSONbin');
-        updateDataStatus('cloud');
-        initializeFilters();
-        calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-        return;
-    }
-    
-    // 2. Si JSONbin está vacío, cargar desde GitHub
-    empleados = await loadFromGitHub();
-    
-    if (empleados && empleados.length > 0) {
-        allData = { empleados, festivos: festivos2026 };
-        // Guardar en JSONbin para futuras visitas
-        await saveToCloud();
-        console.log('✅ Datos cargados desde GitHub y guardados en JSONbin');
-        updateDataStatus('cloud');
-        initializeFilters();
-        calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-    } else {
-        calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar datos</div>';
-        showNotification('❌ Error al cargar datos', true);
-    }
-}
-
-async function reloadFromCloud() {
-    const calendarGrid = document.getElementById('calendarGrid');
-    calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Recargando...</p></div>';
-    
-    const empleados = await loadFromCloud();
-    
-    if (empleados && empleados.length > 0) {
-        allData = { empleados, festivos: festivos2026 };
-        initializeFilters();
-        selectedEmployee = null;
-        document.getElementById('employeeInfo').classList.remove('active');
-        document.getElementById('statsContainer').style.display = 'none';
-        calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-        showNotification('✅ Datos recargados');
-    } else {
-        showNotification('❌ Error al recargar', true);
-        calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar</div>';
-    }
-}
-
-async function loadFromGitHubAndSave() {
-    if (!confirm('¿Cargar datos desde GitHub?\nEsto sobrescribirá todos los datos actuales.')) return;
-    
-    showNotification('⏳ Descargando desde GitHub...');
-    
-    const empleados = await loadFromGitHub();
-    
-    if (empleados && empleados.length > 0) {
-        allData = { empleados, festivos: festivos2026 };
-        const saved = await saveToCloud();
-        
-        if (saved) {
-            initializeFilters();
-            selectedEmployee = null;
-            document.getElementById('employeeInfo').classList.remove('active');
-            document.getElementById('statsContainer').style.display = 'none';
-            document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-            showNotification(`✅ ${empleados.length} empleados cargados y guardados`);
-        }
-    } else {
-        showNotification('❌ Error al descargar desde GitHub', true);
-    }
-}
-
-// =====================================================
-// FILTROS Y SELECCIÓN
-// =====================================================
 function initializeFilters() {
-    if (!allData) return;
     const crews = [...new Set(allData.empleados.map(e => e.crew))].sort();
     const crewSelect = document.getElementById('filterCrew');
     crewSelect.innerHTML = '<option value="">Todos</option>';
     crews.forEach(c => crewSelect.innerHTML += `<option value="${c}">${c}</option>`);
     filterEmployees();
-    document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados`;
 }
 
 function filterEmployees() {
-    if (!allData) return;
     const crewFilter = document.getElementById('filterCrew').value;
     const searchFilter = document.getElementById('searchInput').value.toLowerCase();
     let filtered = allData.empleados;
@@ -897,14 +287,12 @@ function filterEmployees() {
     const empSelect = document.getElementById('filterEmployee');
     empSelect.innerHTML = '<option value="">-- Selecciona --</option>';
     filtered.sort((a,b) => a.name.localeCompare(b.name));
-    filtered.forEach(e => empSelect.innerHTML += `<option value="${e.login}">${e.name} (${e.login})</option>`);
+    filtered.forEach(e => empSelect.innerHTML += `<option value="${e.login}">${e.name}</option>`);
 }
-
-function searchEmployee() { filterEmployees(); }
 
 function selectEmployee() {
     const login = document.getElementById('filterEmployee').value;
-    if (!login || !allData) {
+    if (!login) {
         selectedEmployee = null;
         document.getElementById('employeeInfo').classList.remove('active');
         document.getElementById('statsContainer').style.display = 'none';
@@ -912,50 +300,29 @@ function selectEmployee() {
         return;
     }
     selectedEmployee = allData.empleados.find(e => e.login === login);
-    if (!selectedEmployee) return;
     document.getElementById('employeeName').textContent = selectedEmployee.name;
     document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
     document.getElementById('employeeRole').textContent = selectedEmployee.role;
-    document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
     generateCalendar();
     generateStats();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
-// =====================================================
-// UTILIDADES DE TURNOS
-// =====================================================
-function parseShift(s) {
-    if (!s || s.trim() === '') return { shift: '', compensado: false };
-    let shift = s.trim().toLowerCase();
-    let compensado = shift.includes('-co');
-    if (compensado) shift = shift.replace('-co', '');
-    if (shift === 'nn') shift = 'n8';
-    return { shift, compensado };
-}
-
 function getShiftClass(shift) {
     if (!shift) return 'libre';
-    const s = shift.toLowerCase();
+    const s = shift.toLowerCase().replace('-co','');
     if (s === 'wm' || s === 'm8' || s === 'm') return 'shift-wm';
     if (s === 'wt' || s === 't8' || s === 't') return 'shift-wt';
     if (s === 'n8' || s === 'n' || s === 'nn') return 'shift-n8';
-    if (s === 'c' || s === 'cw') return 'shift-c';
+    if (s === 'c') return 'shift-c';
     if (s === 'v' || s === 'v25' || s === 'v26') return 'shift-v';
-    if (s === 'ap') return 'shift-ap';
-    if (s === 'tr') return 'shift-tr';
-    if (s === 'bm' || s === 'bp') return 'shift-bm';
     return 'libre';
 }
 
 function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
-function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m && f.day === d); return f ? f.name : ''; }
 function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
 
-// =====================================================
-// GENERACIÓN DE CALENDARIO
-// =====================================================
 function generateMonth(month) {
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>D</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th></tr></thead><tbody>`;
     let day = 1;
@@ -964,17 +331,14 @@ function generateMonth(month) {
         html += '<tr>';
         for (let d = 0; d < 7; d++) {
             if ((w === 0 && d < startDays[month-1]) || day > daysInMonth[month-1]) {
-                html += '<td class="empty"></td>';
+                html += '<td></td>';
             } else {
                 const doy = getDayOfYear(month, day);
-                let turnoRaw = selectedEmployee.turnos[doy] || '';
-                const { shift, compensado } = parseShift(turnoRaw);
+                let turno = (selectedEmployee.turnos[doy] || '').replace('-co','');
                 const fest = isFestivo(month, day);
-                let classes = [getShiftClass(shift)];
+                let classes = [getShiftClass(turno)];
                 if (fest) classes.push('festivo');
-                if (compensado) classes.push('compensado');
-                const title = fest ? `title="🎉 ${getFestivoName(month, day)}"` : '';
-                html += `<td class="${classes.join(' ')}" ${title} onclick="openEditModal(${month}, ${day})"><span class="day-num">${day}</span><span class="shift-code">${shift ? shift.toUpperCase() : ''}</span></td>`;
+                html += `<td class="${classes.join(' ')}"><span class="day-num">${day}</span><span class="shift-code">${turno ? turno.toUpperCase() : ''}</span></td>`;
                 day++;
             }
         }
@@ -985,272 +349,33 @@ function generateMonth(month) {
 }
 
 function generateCalendar() {
-    if (!selectedEmployee) return;
     let html = '';
     for (let m = 1; m <= 12; m++) html += generateMonth(m);
     document.getElementById('calendarGrid').innerHTML = html;
 }
 
 function generateStats() {
-    if (!selectedEmployee) return;
-    let stats = {verde:0, naranja:0, azul:0, gris:0, vacaciones:0, ap:0, libre:0, compensados:0};
+    let stats = {verde:0, naranja:0, azul:0, gris:0, vac:0};
     for (let doy = 0; doy < 365; doy++) {
-        let turnoRaw = selectedEmployee.turnos[doy] || '';
-        const { shift, compensado } = parseShift(turnoRaw);
-        const s = shift.toLowerCase();
-        if (s === 'wm' || s === 'm8' || s === 'm') stats.verde++;
-        else if (s === 'wt' || s === 't8' || s === 't') stats.naranja++;
-        else if (s === 'n8' || s === 'n' || s === 'nn') stats.azul++;
-        else if (s === 'c' || s === 'cw') stats.gris++;
-        else if (s === 'v' || s === 'v25' || s === 'v26') stats.vacaciones++;
-        else if (s === 'ap') stats.ap++;
-        else stats.libre++;
-        if (compensado) stats.compensados++;
+        let turno = (selectedEmployee.turnos[doy] || '').toLowerCase().replace('-co','');
+        if (turno === 'wm' || turno === 'm8' || turno === 'm') stats.verde++;
+        else if (turno === 'wt' || turno === 't8' || turno === 't') stats.naranja++;
+        else if (turno === 'n8' || turno === 'n' || turno === 'nn') stats.azul++;
+        else if (turno === 'c') stats.gris++;
+        else if (turno === 'v' || turno === 'v25' || turno === 'v26') stats.vac++;
     }
-    const total = stats.verde + stats.naranja + stats.azul + stats.gris;
     document.getElementById('statsGrid').innerHTML = `
-        <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.verde}</div><div class="stat-label">WM/M8</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:rgb(200,150,0)">${stats.naranja}</div><div class="stat-label">WT/T8</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.azul}</div><div class="stat-label">N8</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:#888">${stats.gris}</div><div class="stat-label">C/CW</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:red">${stats.vacaciones}</div><div class="stat-label">VAC</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:var(--verde-fuerte)">${stats.ap}</div><div class="stat-label">AP</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:#9b59b6">${stats.compensados}</div><div class="stat-label">COMP★</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:#2ecc71">${total}</div><div class="stat-label">TRABAJO</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:green">${stats.verde}</div><div class="stat-label">MAÑANA</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:orange">${stats.naranja}</div><div class="stat-label">TARDE</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:darkblue">${stats.azul}</div><div class="stat-label">NOCHE</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:gray">${stats.gris}</div><div class="stat-label">CENTRAL</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:red">${stats.vac}</div><div class="stat-label">VACACIONES</div></div>
     `;
 }
 
-// =====================================================
-// EDICIÓN DE DÍAS
-// =====================================================
-function openEditModal(month, day) {
-    if (!selectedEmployee) return;
-    editingDay = { month, day, doy: getDayOfYear(month, day) };
-    document.getElementById('modalTitle').textContent = `${day} de ${monthNames[month-1]} 2026`;
-    
-    const fest = isFestivo(month, day);
-    const festivoName = getFestivoName(month, day);
-    const festivoBadge = document.getElementById('festivoBadge');
-    if (fest && festivoName) {
-        festivoBadge.textContent = '🎉 ' + festivoName;
-        festivoBadge.style.display = 'inline-block';
-    } else {
-        festivoBadge.style.display = 'none';
-    }
-    
-    document.getElementById('managerEditSection').style.display = isManager ? 'block' : 'none';
-    document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
-    
-    let turnoRaw = selectedEmployee.turnos[editingDay.doy] || '';
-    const { compensado } = parseShift(turnoRaw);
-    document.getElementById('checkCompensado').checked = compensado;
-    
-    document.getElementById('editModal').classList.add('active');
-}
-
-function closeModal() {
-    document.getElementById('editModal').classList.remove('active');
-    editingDay = null;
-}
-
-async function setShift(shift) {
-    if (!editingDay || !isManager || !selectedEmployee) return;
-    const compensado = document.getElementById('checkCompensado').checked;
-    const turnoFinal = compensado && shift ? `${shift}-co` : shift;
-    
-    selectedEmployee.turnos[editingDay.doy] = turnoFinal;
-    
-    // Guardar en la nube
-    showNotification('⏳ Guardando...');
-    const saved = await saveToCloud();
-    
-    if (saved) {
-        generateCalendar();
-        generateStats();
-        closeModal();
-        showNotification('✅ Turno guardado en la nube');
-    } else {
-        showNotification('❌ Error al guardar', true);
-    }
-}
-
-// =====================================================
-// MANAGER
-// =====================================================
-function openManagerModal() {
-    if (isManager) {
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('managerPanel').style.display = 'block';
-    } else {
-        document.getElementById('loginSection').style.display = 'block';
-        document.getElementById('managerPanel').style.display = 'none';
-        document.getElementById('managerPassword').value = '';
-        document.getElementById('managerStatus').style.display = 'none';
-    }
-    document.getElementById('managerModal').classList.add('active');
-    if (!isManager) document.getElementById('managerPassword').focus();
-}
-
-function closeManagerModal() {
-    document.getElementById('managerModal').classList.remove('active');
-}
-
-function checkManagerPassword() {
-    const password = document.getElementById('managerPassword').value;
-    const statusDiv = document.getElementById('managerStatus');
-    if (password === MANAGER_PASSWORD) {
-        isManager = true;
-        document.getElementById('btnManager').classList.add('active');
-        document.getElementById('btnManager').innerHTML = '✅ Manager';
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('managerPanel').style.display = 'block';
-        showNotification('🔓 Modo Manager activado');
-    } else {
-        statusDiv.textContent = '❌ Clave incorrecta';
-        statusDiv.className = 'manager-status error';
-        statusDiv.style.display = 'block';
-    }
-}
-
-function logoutManager() {
-    isManager = false;
-    document.getElementById('btnManager').classList.remove('active');
-    document.getElementById('btnManager').innerHTML = '🔐 Manager';
-    closeManagerModal();
-    showNotification('🔒 Sesión cerrada');
-}
-
-function switchTab(tabName, btn) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + tabName).classList.add('active');
-}
-
-// =====================================================
-// IMPORTACIÓN MASIVA
-// =====================================================
-function previewBulkImport() {
-    const data = document.getElementById('bulkImportData').value;
-    if (!data.trim()) {
-        showNotification('⚠️ No hay datos', true);
-        return;
-    }
-    
-    const empleados = parseRawData(data);
-    const preview = document.getElementById('importPreview');
-    
-    if (empleados.length === 0) {
-        preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados válidos</p>';
-        return;
-    }
-    
-    let html = `<p style="color:green;">✅ ${empleados.length} empleado(s):</p><ul style="margin-left:15px;">`;
-    empleados.slice(0, 10).forEach(e => {
-        const turnosCount = e.turnos.filter(t => t).length;
-        html += `<li><strong>${e.name}</strong> (${e.login}) - ${turnosCount} turnos</li>`;
-    });
-    if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
-    html += '</ul>';
-    preview.innerHTML = html;
-}
-
-async function processBulkImport() {
-    const data = document.getElementById('bulkImportData').value;
-    if (!data.trim()) {
-        showNotification('⚠️ No hay datos', true);
-        return;
-    }
-    
-    const nuevosEmpleados = parseRawData(data);
-    
-    if (nuevosEmpleados.length === 0) {
-        showNotification('❌ No se pudieron importar', true);
-        return;
-    }
-    
-    let actualizados = 0, agregados = 0;
-    
-    nuevosEmpleados.forEach(nuevo => {
-        const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) {
-            allData.empleados[idx] = nuevo;
-            actualizados++;
-        } else {
-            allData.empleados.push(nuevo);
-            agregados++;
-        }
-    });
-    
-    // Guardar en la nube
-    showNotification('⏳ Guardando en la nube...');
-    const saved = await saveToCloud();
-    
-    if (saved) {
-        initializeFilters();
-        
-        if (selectedEmployee) {
-            selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
-            if (selectedEmployee) {
-                generateCalendar();
-                generateStats();
-            }
-        }
-        
-        document.getElementById('bulkImportData').value = '';
-        document.getElementById('importPreview').innerHTML = '';
-        
-        showNotification(`✅ ${actualizados} actualizados, ${agregados} nuevos - Guardado en la nube`);
-    }
-}
-
-// =====================================================
-// EXPORTAR JSON
-// =====================================================
-function exportData() {
-    const dataToExport = {
-        empleados: allData.empleados,
-        exportedAt: new Date().toISOString(),
-        version: '2.0'
-    };
-    
-    const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showNotification('📤 Datos exportados');
-}
-
-// =====================================================
-// UI
-// =====================================================
-function setView(cols, btn) {
-    const grid = document.getElementById('calendarGrid');
-    grid.className = 'calendar-grid';
-    if (cols !== 3) grid.classList.add('cols-' + cols);
-    document.querySelectorAll('.btn-view').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-}
-
-function showNotification(message, isError = false) {
-    const notif = document.getElementById('notification');
-    notif.textContent = message;
-    notif.className = 'notification' + (isError ? ' error' : '');
-    notif.classList.add('show');
-    setTimeout(() => notif.classList.remove('show'), 2500);
-}
-
-// =====================================================
-// INICIALIZACIÓN
-// =====================================================
-initializeData();
+// Iniciar
+init();
 </script>
 
 </body>
 </html>
-
