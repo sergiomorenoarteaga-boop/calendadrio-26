@@ -37,8 +37,10 @@
         .btn-manager.active { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-save { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-export { background: linear-gradient(145deg, #3498db, #2980b9); }
+        .btn-reload { background: linear-gradient(145deg, #f39c12, #e67e22); }
         .btn-print { background: linear-gradient(145deg, #95a5a6, #7f8c8d); }
         .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
         .btn-view.active { background: linear-gradient(145deg, #667eea, #764ba2); border-color: transparent; }
         .calendar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 1400px; margin: 0 auto; }
@@ -92,7 +94,7 @@
         .manager-status.error { background: #f8d7da; color: #721c24; }
         .import-panel { text-align: left; margin-top: 15px; }
         .import-panel textarea { width: 100%; height: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-family: monospace; font-size: 0.75rem; resize: vertical; }
-        .import-panel .btn-row { display: flex; gap: 10px; margin-top: 10px; justify-content: center; }
+        .import-panel .btn-row { display: flex; gap: 10px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
         .import-info { background: #e7f3ff; border: 1px solid #b3d7ff; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 0.8rem; color: #004085; text-align: left; }
         .stats-container { max-width: 1400px; margin: 20px auto; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 12px; }
         .stats-title { color: #fff; text-align: center; margin-bottom: 12px; }
@@ -106,15 +108,18 @@
         .select-message { text-align: center; padding: 50px 20px; color: #fff; font-size: 1.1rem; }
         .select-message span { font-size: 3rem; display: block; margin-bottom: 15px; }
         .employee-count { text-align: center; color: #a0a0a0; font-size: 0.75rem; margin-top: 5px; }
-        .data-status { text-align: center; padding: 5px; font-size: 0.7rem; color: #7bed9f; }
+        .data-status { text-align: center; padding: 5px; font-size: 0.7rem; }
+        .data-status.online { color: #7bed9f; }
+        .data-status.offline { color: #ff6b6b; }
+        .data-status.loading { color: #ffeaa7; }
         .tab-buttons { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
         .tab-btn { padding: 8px 16px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
         .tab-btn.active { background: #667eea; color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .no-data-message { text-align: center; padding: 40px; color: #fff; }
-        .no-data-message h2 { margin-bottom: 15px; }
-        .no-data-message p { color: #a0a0a0; margin-bottom: 20px; }
+        .loading { text-align: center; padding: 50px; color: #fff; }
+        .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #fff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: repeat(3, 1fr); } }
         @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
@@ -126,7 +131,7 @@
     <h1>📅 Calendario de Turnos 2026</h1>
     <p style="color:#a0a0a0; font-size:0.85rem;">Dos Hermanas, Sevilla</p>
     <div class="employee-count" id="employeeCount"></div>
-    <div class="data-status" id="dataStatus"></div>
+    <div class="data-status" id="dataStatus">Conectando...</div>
 </div>
 
 <div class="filters-panel">
@@ -166,6 +171,7 @@
 
 <div class="controls">
     <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
+    <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
     <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
     <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
     <span style="width:10px"></span>
@@ -175,11 +181,9 @@
 </div>
 
 <div class="calendar-grid" id="calendarGrid">
-    <div class="no-data-message">
-        <span style="font-size:4rem;">📋</span>
-        <h2>No hay datos cargados</h2>
-        <p>Haz clic en <strong>🔐 Manager</strong> → clave: <strong>manager</strong><br>
-        Luego pega los datos TSV en "Importar Datos"</p>
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando datos de la nube...</p>
     </div>
 </div>
 
@@ -239,14 +243,15 @@
             <div id="tab-import" class="tab-content active">
                 <div class="import-info">
                     <strong>📌 Instrucciones:</strong><br>
-                    1. Copia los datos TSV desde tu archivo Excel/datos.tsv<br>
-                    2. Pégalos en el cuadro de abajo<br>
-                    3. Haz clic en "✅ Importar"
+                    1. Copia los datos TSV desde tu archivo Excel<br>
+                    2. Pégalos aquí abajo<br>
+                    3. Haz clic en "✅ Importar y Guardar en Nube"<br>
+                    <strong>Los cambios se sincronizarán con todos los dispositivos.</strong>
                 </div>
                 <div class="import-panel">
                     <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
                     <div class="btn-row">
-                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button>
+                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar en Nube</button>
                         <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
                     </div>
                 </div>
@@ -254,7 +259,7 @@
             </div>
             <div id="tab-reset" class="tab-content">
                 <div style="padding:20px;">
-                    <p style="color:#666; margin-bottom:15px;">⚠️ Esto borrará todos los datos guardados.</p>
+                    <p style="color:#666; margin-bottom:15px;">⚠️ Esto borrará todos los datos de la nube.</p>
                     <button class="btn" style="background:#e74c3c;" onclick="resetAllData()">🗑️ Borrar Todo</button>
                 </div>
             </div>
@@ -269,8 +274,15 @@
 <div class="notification" id="notification"></div>
 
 <script>
+// =====================================================
+// CONFIGURACIÓN
+// =====================================================
 const MANAGER_PASSWORD = 'manager';
-const STORAGE_KEY = 'calendario_turnos_2026_v3';
+
+// JSONbin.io - TU configuración
+const JSONBIN_BIN_ID = '693ea0ddae596e708f993621';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OW[REDACTED:AWS_ACCESS_KEY]JQaj5A.O';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const festivos2026 = [
     {month:1,day:1,name:"Año Nuevo"},{month:1,day:6,name:"Reyes"},
@@ -292,7 +304,78 @@ let isManager = false;
 let editingDay = null;
 
 // =====================================================
-// PARSEO TSV MEJORADO - Busca dinámicamente los turnos
+// JSONBIN - GUARDAR EN LA NUBE
+// =====================================================
+async function saveToCloud() {
+    try {
+        setDataStatus('loading', '⏳ Guardando en la nube...');
+        
+        const dataToSave = {
+            empleados: allData.empleados,
+            lastModified: new Date().toISOString(),
+            version: '2.0'
+        };
+        
+        const response = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY
+            },
+            body: JSON.stringify(dataToSave)
+        });
+        
+        if (!response.ok) throw new Error('Error al guardar');
+        
+        setDataStatus('online', '☁️ Sincronizado: ' + new Date().toLocaleTimeString());
+        return true;
+    } catch (error) {
+        console.error('Error guardando:', error);
+        setDataStatus('offline', '❌ Error al guardar');
+        showNotification('❌ Error al guardar en la nube', true);
+        return false;
+    }
+}
+
+// =====================================================
+// JSONBIN - CARGAR DE LA NUBE
+// =====================================================
+async function loadFromCloud() {
+    try {
+        setDataStatus('loading', '⏳ Cargando de la nube...');
+        
+        const response = await fetch(JSONBIN_URL + '/latest', {
+            headers: {
+                'X-Master-Key': JSONBIN_API_KEY
+            }
+        });
+        
+        if (!response.ok) throw new Error('Error al cargar');
+        
+        const data = await response.json();
+        
+        if (data.record && data.record.empleados && data.record.empleados.length > 0) {
+            setDataStatus('online', '☁️ Conectado - ' + data.record.empleados.length + ' empleados');
+            return data.record.empleados;
+        }
+        
+        setDataStatus('online', '☁️ Conectado - Sin datos');
+        return [];
+    } catch (error) {
+        console.error('Error cargando:', error);
+        setDataStatus('offline', '❌ Error de conexión');
+        return null;
+    }
+}
+
+function setDataStatus(type, message) {
+    const el = document.getElementById('dataStatus');
+    el.textContent = message;
+    el.className = 'data-status ' + type;
+}
+
+// =====================================================
+// PARSEO TSV MEJORADO
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
@@ -309,14 +392,10 @@ function parseRawData(rawData) {
         
         if (!login || login === '0' || !name) return;
         
-        // Buscar dónde terminan las columnas numéricas (7 columnas después del role)
-        // Las columnas numéricas son: 5,6,7,8,9,10,11 (valores como 0, 0, 0, 25, 25, 0, 0.00)
-        let turnoStart = 12; // Por defecto empiezan en columna 12
-        
-        // Verificar buscando el patrón de números
+        // Buscar columna con decimal (0.00) - los turnos empiezan después
+        let turnoStart = 12;
         for (let i = 5; i < Math.min(parts.length, 15); i++) {
             const val = parts[i].trim();
-            // Si encontramos un valor decimal como "0.00", los turnos empiezan después
             if (/^\d+\.\d+$/.test(val)) {
                 turnoStart = i + 1;
                 break;
@@ -325,10 +404,8 @@ function parseRawData(rawData) {
         
         const turnos = [];
         for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
-            const val = (parts[i] || '').trim().toLowerCase();
-            turnos.push(val);
+            turnos.push((parts[i] || '').trim().toLowerCase());
         }
-        
         while (turnos.length < 365) turnos.push('');
         
         empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
@@ -338,50 +415,47 @@ function parseRawData(rawData) {
 }
 
 // =====================================================
-// ALMACENAMIENTO LOCAL
-// =====================================================
-function saveToStorage() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        empleados: allData.empleados,
-        lastModified: new Date().toISOString()
-    }));
-    updateDataStatus();
-}
-
-function loadFromStorage() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-        try {
-            const parsed = JSON.parse(saved);
-            if (parsed.empleados && parsed.empleados.length > 0) {
-                return parsed;
-            }
-        } catch (e) { console.error('Error:', e); }
-    }
-    return null;
-}
-
-function updateDataStatus() {
-    const saved = loadFromStorage();
-    const statusEl = document.getElementById('dataStatus');
-    if (saved && saved.lastModified) {
-        statusEl.textContent = `💾 Guardado: ${new Date(saved.lastModified).toLocaleString()}`;
-    } else {
-        statusEl.textContent = '⚠️ Sin datos - Importa desde Manager';
-    }
-}
-
-// =====================================================
 // INICIALIZACIÓN
 // =====================================================
-function initializeData() {
-    const saved = loadFromStorage();
-    if (saved && saved.empleados && saved.empleados.length > 0) {
-        allData = { empleados: saved.empleados, festivos: festivos2026 };
-        initializeFilters();
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+async function initializeData() {
+    document.getElementById('calendarGrid').innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Cargando datos de la nube...</p></div>';
+    
+    const empleados = await loadFromCloud();
+    
+    if (empleados === null) {
+        // Error de conexión
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>❌</span>Error de conexión<br><br><button class="btn btn-reload" onclick="initializeData()">🔄 Reintentar</button></div>';
+        return;
     }
-    updateDataStatus();
+    
+    if (empleados.length === 0) {
+        // Sin datos - mostrar mensaje para importar
+        allData = { empleados: [], festivos: festivos2026 };
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Haz clic en <strong>🔐 Manager</strong><br>Clave: <strong>manager</strong><br>y pega los datos TSV</div>';
+        return;
+    }
+    
+    // Datos cargados correctamente
+    allData = { empleados, festivos: festivos2026 };
+    initializeFilters();
+    document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+}
+
+async function reloadFromCloud() {
+    showNotification('🔄 Recargando...');
+    await initializeData();
+    
+    // Si había un empleado seleccionado, intentar reseleccionarlo
+    if (selectedEmployee) {
+        const login = selectedEmployee.login;
+        selectedEmployee = allData.empleados.find(e => e.login === login);
+        if (selectedEmployee) {
+            generateCalendar();
+            generateStats();
+        }
+    }
+    
+    showNotification('✅ Datos actualizados');
 }
 
 function initializeFilters() {
@@ -525,7 +599,7 @@ function generateStats() {
 }
 
 // =====================================================
-// EDICIÓN
+// EDICIÓN - GUARDA EN LA NUBE
 // =====================================================
 function openEditModal(month, day) {
     if (!selectedEmployee) return;
@@ -551,15 +625,22 @@ function closeModal() {
     editingDay = null;
 }
 
-function setShift(shift) {
+async function setShift(shift) {
     if (!editingDay || !isManager || !selectedEmployee) return;
+    
     const compensado = document.getElementById('checkCompensado').checked;
     selectedEmployee.turnos[editingDay.doy] = compensado && shift ? `${shift}-co` : shift;
-    saveToStorage();
-    generateCalendar();
-    generateStats();
-    closeModal();
-    showNotification('✅ Turno guardado');
+    
+    // Guardar en la nube
+    showNotification('⏳ Guardando...');
+    const saved = await saveToCloud();
+    
+    if (saved) {
+        generateCalendar();
+        generateStats();
+        closeModal();
+        showNotification('✅ Turno guardado en la nube');
+    }
 }
 
 // =====================================================
@@ -613,7 +694,7 @@ function switchTab(tabName, btn) {
 }
 
 // =====================================================
-// IMPORTACIÓN
+// IMPORTACIÓN - GUARDA EN LA NUBE
 // =====================================================
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
@@ -634,39 +715,56 @@ function previewBulkImport() {
     preview.innerHTML = html;
 }
 
-function processBulkImport() {
+async function processBulkImport() {
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
+    
     const nuevosEmpleados = parseRawData(data);
     if (nuevosEmpleados.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
     // Actualizar o agregar
+    let actualizados = 0, agregados = 0;
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) allData.empleados[idx] = nuevo;
-        else allData.empleados.push(nuevo);
+        if (idx >= 0) {
+            allData.empleados[idx] = nuevo;
+            actualizados++;
+        } else {
+            allData.empleados.push(nuevo);
+            agregados++;
+        }
     });
     
-    saveToStorage();
-    initializeFilters();
-    document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-    document.getElementById('bulkImportData').value = '';
-    document.getElementById('importPreview').innerHTML = '';
-    showNotification(`✅ ${nuevosEmpleados.length} empleados importados`);
+    // Guardar en la nube
+    showNotification('⏳ Guardando en la nube...');
+    const saved = await saveToCloud();
+    
+    if (saved) {
+        initializeFilters();
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+        document.getElementById('bulkImportData').value = '';
+        document.getElementById('importPreview').innerHTML = '';
+        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados - Guardado en la nube`);
+    }
 }
 
-function resetAllData() {
-    if (!confirm('¿Borrar todos los datos?')) return;
-    localStorage.removeItem(STORAGE_KEY);
+async function resetAllData() {
+    if (!confirm('¿Borrar todos los datos de la nube?\nEsta acción no se puede deshacer.')) return;
+    
     allData = { empleados: [], festivos: festivos2026 };
-    document.getElementById('filterCrew').innerHTML = '<option value="">Todos</option>';
-    document.getElementById('filterEmployee').innerHTML = '<option value="">-- Selecciona --</option>';
-    document.getElementById('employeeCount').textContent = '';
-    document.getElementById('employeeInfo').classList.remove('active');
-    document.getElementById('statsContainer').style.display = 'none';
-    document.getElementById('calendarGrid').innerHTML = '<div class="no-data-message"><span style="font-size:4rem;">📋</span><h2>No hay datos</h2><p>Importa datos desde Manager</p></div>';
-    updateDataStatus();
-    showNotification('🗑️ Datos borrados');
+    
+    showNotification('⏳ Borrando...');
+    const saved = await saveToCloud();
+    
+    if (saved) {
+        document.getElementById('filterCrew').innerHTML = '<option value="">Todos</option>';
+        document.getElementById('filterEmployee').innerHTML = '<option value="">-- Selecciona --</option>';
+        document.getElementById('employeeCount').textContent = '';
+        document.getElementById('employeeInfo').classList.remove('active');
+        document.getElementById('statsContainer').style.display = 'none';
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Importa datos desde Manager</div>';
+        showNotification('🗑️ Datos borrados de la nube');
+    }
 }
 
 function exportData() {
@@ -674,9 +772,9 @@ function exportData() {
     const blob = new Blob([JSON.stringify({ empleados: allData.empleados, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `turnos_${new Date().toISOString().slice(0,10)}.json`;
+    a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
     a.click();
-    showNotification('📤 Exportado');
+    showNotification('📤 Backup exportado');
 }
 
 // =====================================================
@@ -698,7 +796,9 @@ function showNotification(msg, isError = false) {
     setTimeout(() => n.classList.remove('show'), 2500);
 }
 
-// Iniciar
+// =====================================================
+// INICIAR
+// =====================================================
 initializeData();
 </script>
 </body>
