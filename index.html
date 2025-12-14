@@ -281,7 +281,7 @@ const MANAGER_PASSWORD = 'manager';
 
 // JSONbin.io - TU configuración
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMKHaYCvBQaj5A.O';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const festivos2026 = [
@@ -304,41 +304,14 @@ let isManager = false;
 let editingDay = null;
 
 // =====================================================
-// CONVERSIÓN TURNOS: STRING <-> ARRAY
-// =====================================================
-// Internamente usamos array, en la nube guardamos string (más compacto)
-
-function turnosToString(turnosArray) {
-    // Convierte array a string separado por comas
-    if (!Array.isArray(turnosArray)) return turnosArray || '';
-    return turnosArray.join(',');
-}
-
-function turnosToArray(turnosString) {
-    // Convierte string a array
-    if (Array.isArray(turnosString)) return turnosString;
-    if (!turnosString || turnosString === '') return Array(365).fill('');
-    return turnosString.split(',');
-}
-
-// =====================================================
-// JSONBIN - GUARDAR EN LA NUBE (formato optimizado)
+// JSONBIN - GUARDAR EN LA NUBE
 // =====================================================
 async function saveToCloud() {
     try {
         setDataStatus('loading', '⏳ Guardando en la nube...');
         
-        // Convertir turnos de array a string para ahorrar espacio
-        const empleadosOptimizados = allData.empleados.map(emp => ({
-            crew: emp.crew,
-            login: emp.login,
-            name: emp.name,
-            role: emp.role,
-            turnos: turnosToString(emp.turnos)
-        }));
-        
         const dataToSave = {
-            empleados: empleadosOptimizados,
+            empleados: allData.empleados,
             lastModified: new Date().toISOString(),
             version: '2.0'
         };
@@ -382,17 +355,8 @@ async function loadFromCloud() {
         const data = await response.json();
         
         if (data.record && data.record.empleados && data.record.empleados.length > 0) {
-            // Convertir turnos de string a array
-            const empleados = data.record.empleados.map(emp => ({
-                crew: emp.crew,
-                login: emp.login,
-                name: emp.name,
-                role: emp.role,
-                turnos: turnosToArray(emp.turnos)
-            }));
-            
-            setDataStatus('online', '☁️ Conectado - ' + empleados.length + ' empleados');
-            return empleados;
+            setDataStatus('online', '☁️ Conectado - ' + data.record.empleados.length + ' empleados');
+            return data.record.empleados;
         }
         
         setDataStatus('online', '☁️ Conectado - Sin datos');
@@ -444,7 +408,6 @@ function parseRawData(rawData) {
         }
         while (turnos.length < 365) turnos.push('');
         
-        // Internamente guardamos como array
         empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
     });
     
@@ -460,16 +423,19 @@ async function initializeData() {
     const empleados = await loadFromCloud();
     
     if (empleados === null) {
+        // Error de conexión
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>❌</span>Error de conexión<br><br><button class="btn btn-reload" onclick="initializeData()">🔄 Reintentar</button></div>';
         return;
     }
     
     if (empleados.length === 0) {
+        // Sin datos - mostrar mensaje para importar
         allData = { empleados: [], festivos: festivos2026 };
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Haz clic en <strong>🔐 Manager</strong><br>Clave: <strong>manager</strong><br>y pega los datos TSV</div>';
         return;
     }
     
+    // Datos cargados correctamente
     allData = { empleados, festivos: festivos2026 };
     initializeFilters();
     document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
@@ -479,6 +445,7 @@ async function reloadFromCloud() {
     showNotification('🔄 Recargando...');
     await initializeData();
     
+    // Si había un empleado seleccionado, intentar reseleccionarlo
     if (selectedEmployee) {
         const login = selectedEmployee.login;
         selectedEmployee = allData.empleados.find(e => e.login === login);
@@ -664,6 +631,7 @@ async function setShift(shift) {
     const compensado = document.getElementById('checkCompensado').checked;
     selectedEmployee.turnos[editingDay.doy] = compensado && shift ? `${shift}-co` : shift;
     
+    // Guardar en la nube
     showNotification('⏳ Guardando...');
     const saved = await saveToCloud();
     
@@ -754,6 +722,7 @@ async function processBulkImport() {
     const nuevosEmpleados = parseRawData(data);
     if (nuevosEmpleados.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
+    // Actualizar o agregar
     let actualizados = 0, agregados = 0;
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
@@ -766,6 +735,7 @@ async function processBulkImport() {
         }
     });
     
+    // Guardar en la nube
     showNotification('⏳ Guardando en la nube...');
     const saved = await saveToCloud();
     
@@ -799,22 +769,7 @@ async function resetAllData() {
 
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
-    
-    // Exportar en formato optimizado (string)
-    const empleadosOptimizados = allData.empleados.map(emp => ({
-        crew: emp.crew,
-        login: emp.login,
-        name: emp.name,
-        role: emp.role,
-        turnos: turnosToString(emp.turnos)
-    }));
-    
-    const blob = new Blob([JSON.stringify({ 
-        empleados: empleadosOptimizados, 
-        exportedAt: new Date().toISOString(),
-        version: '2.0'
-    }, null, 2)], { type: 'application/json' });
-    
+    const blob = new Blob([JSON.stringify({ empleados: allData.empleados, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
