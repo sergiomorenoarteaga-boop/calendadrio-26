@@ -9,10 +9,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --verde: rgb(146, 208, 80);
+            --verde-fuerte: rgb(0, 176, 80);
             --naranja: rgb(255, 192, 0);
+            --amarillo: rgb(255, 255, 0);
             --azul: rgb(0, 32, 96);
             --gris: rgb(200, 200, 200);
             --rojo: rgb(220, 53, 69);
+            --rojo-vacaciones: rgb(255, 0, 0);
         }
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -103,10 +106,13 @@
             border: 2px solid rgba(255,255,255,0.3);
         }
         .color-verde { background: var(--verde); }
+        .color-verde-fuerte { background: var(--verde-fuerte); }
         .color-naranja { background: var(--naranja); }
+        .color-amarillo { background: var(--amarillo); }
         .color-azul { background: var(--azul); }
         .color-gris { background: var(--gris); }
         .color-rojo { background: var(--rojo); }
+        .color-rojo-vac { background: var(--rojo-vacaciones); }
         
         .controls {
             display: flex;
@@ -128,8 +134,12 @@
         .btn-manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
         .btn-manager.active { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-save { background: linear-gradient(145deg, #27ae60, #2ecc71); }
-        .btn-print { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
+        .btn-export { background: linear-gradient(145deg, #3498db, #2980b9); }
+        .btn-import { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
+        .btn-reload { background: linear-gradient(145deg, #f39c12, #e67e22); }
+        .btn-print { background: linear-gradient(145deg, #95a5a6, #7f8c8d); }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .btn-view {
             background: rgba(255,255,255,0.15);
             border: 2px solid rgba(255,255,255,0.3);
@@ -194,14 +204,18 @@
         .day-num { font-weight: 700; display: block; font-size: 0.7rem; }
         .shift-code { font-size: 0.45rem; font-weight: 600; display: block; }
         
-        .shift-wm, .shift-m8 { background: var(--verde) !important; color: #1a5c1a !important; }
-        .shift-wt, .shift-t8 { background: var(--naranja) !important; color: #5a4000 !important; }
-        .shift-n8 { background: var(--azul) !important; color: white !important; }
+        /* Turnos colores */
+        .shift-wm, .shift-m8, .shift-m { background: var(--verde) !important; color: #1a5c1a !important; }
+        .shift-wt, .shift-t8, .shift-t { background: var(--naranja) !important; color: #5a4000 !important; }
+        .shift-n8, .shift-n, .shift-nn { background: var(--azul) !important; color: white !important; }
         .shift-c, .shift-cw { background: var(--gris) !important; color: #444 !important; }
-        .shift-bm, .shift-bp, .shift-tr, .shift-v25, .shift-v26, .shift-ap { 
-            background: #f0f0f0 !important; 
-            color: #999 !important; 
-        }
+        
+        /* Nuevos colores */
+        .shift-v, .shift-v25, .shift-v26 { background: var(--rojo-vacaciones) !important; color: white !important; }
+        .shift-ap { background: var(--verde-fuerte) !important; color: white !important; }
+        .shift-tr { background: #ff9800 !important; color: white !important; }
+        .shift-bm, .shift-bp { background: #e0e0e0 !important; color: #666 !important; }
+        
         .empty { background: transparent; }
         .libre { background: #f8f8f8; color: #ddd; }
         
@@ -224,15 +238,8 @@
             font-size: 0.4rem;
             color: #9b59b6;
         }
-        .modified::before {
-            content: '✎';
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            font-size: 0.35rem;
-            color: #e74c3c;
-        }
         
+        /* Modales */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -248,11 +255,14 @@
             background: white;
             padding: 20px;
             border-radius: 16px;
-            max-width: 400px;
+            max-width: 500px;
             width: 90%;
             text-align: center;
             max-height: 85vh;
             overflow-y: auto;
+        }
+        .modal-large {
+            max-width: 800px;
         }
         .modal h3 { margin-bottom: 8px; color: #333; font-size: 1.1rem; }
         .festivo-badge {
@@ -267,7 +277,7 @@
         }
         .modal-buttons {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 6px;
             margin-bottom: 12px;
         }
@@ -284,6 +294,9 @@
         .modal-btn.btn-wt, .modal-btn.btn-t8 { background: var(--naranja); color: #5a4000; }
         .modal-btn.btn-n8 { background: var(--azul); color: white; }
         .modal-btn.btn-c { background: var(--gris); color: #444; }
+        .modal-btn.btn-v { background: var(--rojo-vacaciones); color: white; }
+        .modal-btn.btn-ap { background: var(--verde-fuerte); color: white; }
+        .modal-btn.btn-tr { background: #ff9800; color: white; }
         .modal-btn.btn-libre { background: #eee; color: #999; }
         .modal-options { margin-bottom: 12px; }
         .modal-options label {
@@ -303,18 +316,6 @@
             cursor: pointer;
             font-weight: 600;
         }
-        .modification-history {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 8px;
-            margin: 10px 0;
-            text-align: left;
-            font-size: 0.75rem;
-            max-height: 100px;
-            overflow-y: auto;
-        }
-        .modification-history h4 { color: #666; margin-bottom: 5px; font-size: 0.8rem; }
-        .modification-item { padding: 4px 0; border-bottom: 1px solid #eee; color: #555; }
         
         .manager-login { margin: 12px 0; }
         .manager-login input {
@@ -329,6 +330,39 @@
         .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
         .manager-status.success { background: #d4edda; color: #155724; }
         .manager-status.error { background: #f8d7da; color: #721c24; }
+        
+        /* Panel de importación masiva */
+        .import-panel {
+            text-align: left;
+            margin-top: 15px;
+        }
+        .import-panel textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            resize: vertical;
+        }
+        .import-panel .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .import-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            color: #004085;
+            text-align: left;
+        }
         
         .stats-container {
             max-width: 1400px;
@@ -366,6 +400,7 @@
             z-index: 2000;
         }
         .notification.show { transform: translateX(-50%) translateY(0); }
+        .notification.error { background: #e74c3c; }
         
         .select-message {
             text-align: center;
@@ -382,21 +417,75 @@
             margin-top: 5px;
         }
         
+        .data-status {
+            text-align: center;
+            padding: 5px;
+            font-size: 0.7rem;
+            color: #7bed9f;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #fff;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Tabs en modal manager */
+        .tab-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 8px 16px;
+            border: none;
+            background: #eee;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) {
             .calendar-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.4rem; }
             .filters-row { flex-direction: column; align-items: stretch; }
             .filter-group select, .filter-group input { min-width: 100%; }
+            .modal-buttons { grid-template-columns: repeat(3, 1fr); }
         }
         
         @media print {
             body { background: white !important; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .select-message { display: none !important; }
+            .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .select-message, .data-status { display: none !important; }
             .employee-info { display: block !important; box-shadow: none !important; border: 1px solid #ccc; margin-bottom: 5mm !important; }
             .calendar-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 3mm !important; }
             .month-card { box-shadow: none !important; border: 1px solid #999; break-inside: avoid; }
-            .month-card:nth-child(7) { page-break-before: always; }
         }
         @page { size: A4 landscape; margin: 5mm; }
     </style>
@@ -407,6 +496,7 @@
     <h1>📅 Calendario de Turnos 2026</h1>
     <p>Dos Hermanas, Sevilla - Haz clic en un día para ver detalles</p>
     <div class="employee-count" id="employeeCount"></div>
+    <div class="data-status" id="dataStatus"></div>
 </div>
 
 <div class="filters-panel">
@@ -442,14 +532,19 @@
     <div class="legend-item"><div class="legend-color color-naranja"></div><span><b>WT/T8</b></span></div>
     <div class="legend-item"><div class="legend-color color-azul"></div><span><b>N8</b></span></div>
     <div class="legend-item"><div class="legend-color color-gris"></div><span><b>C</b></span></div>
+    <div class="legend-item"><div class="legend-color color-rojo-vac"></div><span><b>V</b></span></div>
+    <div class="legend-item"><div class="legend-color color-verde-fuerte"></div><span><b>AP</b></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#ff9800"></div><span><b>TR</b></span></div>
     <div class="legend-item"><div class="legend-color color-rojo"></div><span>Festivo</span></div>
     <div class="legend-item"><span>★Comp</span></div>
-    <div class="legend-item"><span>✎Edit</span></div>
 </div>
 
 <div class="controls">
     <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
-    <button class="btn btn-save" onclick="saveChanges()" id="btnSave" style="display:none;">💾 Guardar</button>
+    <button class="btn btn-reload" onclick="reloadFromGitHub()">🔄 Recargar</button>
+    <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
+    <button class="btn btn-import" onclick="document.getElementById('importFile').click()">📥 Importar</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
     <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
     <span style="width:10px"></span>
     <button class="btn btn-view" onclick="setView(4, this)">4</button>
@@ -458,9 +553,9 @@
 </div>
 
 <div class="calendar-grid" id="calendarGrid">
-    <div class="select-message">
-        <span>👆</span>
-        Selecciona una persona para ver su calendario
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando datos...</p>
     </div>
 </div>
 
@@ -469,14 +564,11 @@
     <div class="stats-grid" id="statsGrid"></div>
 </div>
 
+<!-- Modal editar día -->
 <div class="modal-overlay" id="editModal">
     <div class="modal">
         <h3 id="modalTitle">Día</h3>
         <div id="festivoBadge" class="festivo-badge" style="display:none;"></div>
-        <div id="modificationHistory" class="modification-history" style="display:none;">
-            <h4>📝 Historial:</h4>
-            <div id="historyContent"></div>
-        </div>
         <div id="managerEditSection" style="display:none;">
             <div class="modal-buttons">
                 <button class="modal-btn btn-wm" onclick="setShift('wm')">WM</button>
@@ -485,7 +577,9 @@
                 <button class="modal-btn btn-t8" onclick="setShift('t8')">T8</button>
                 <button class="modal-btn btn-n8" onclick="setShift('n8')">N8</button>
                 <button class="modal-btn btn-c" onclick="setShift('c')">C</button>
-                <button class="modal-btn btn-c" onclick="setShift('cw')">CW</button>
+                <button class="modal-btn btn-v" onclick="setShift('v')">V</button>
+                <button class="modal-btn btn-ap" onclick="setShift('ap')">AP</button>
+                <button class="modal-btn btn-tr" onclick="setShift('tr')">TR</button>
                 <button class="modal-btn btn-libre" onclick="setShift('')">LIBRE</button>
             </div>
             <div class="modal-options">
@@ -499,16 +593,55 @@
     </div>
 </div>
 
+<!-- Modal Manager -->
 <div class="modal-overlay" id="managerModal">
-    <div class="modal">
-        <h3>🔐 Acceso Manager</h3>
-        <div class="manager-login">
-            <input type="password" id="managerPassword" placeholder="Clave..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
+    <div class="modal modal-large">
+        <h3>🔐 Panel Manager</h3>
+        
+        <div id="loginSection">
+            <div class="manager-login">
+                <input type="password" id="managerPassword" placeholder="Clave..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
+            </div>
+            <div id="managerStatus" class="manager-status" style="display:none;"></div>
+            <div style="margin-top:15px; display:flex; gap:8px; justify-content:center;">
+                <button class="btn btn-save" onclick="checkManagerPassword()">✅ Acceder</button>
+                <button class="modal-close" onclick="closeManagerModal()">Cancelar</button>
+            </div>
         </div>
-        <div id="managerStatus" class="manager-status" style="display:none;"></div>
-        <div style="margin-top:15px; display:flex; gap:8px; justify-content:center;">
-            <button class="btn btn-save" onclick="checkManagerPassword()">✅ Acceder</button>
-            <button class="modal-close" onclick="closeManagerModal()">Cancelar</button>
+        
+        <div id="managerPanel" style="display:none;">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('import', this)">📋 Importar TSV</button>
+                <button class="tab-btn" onclick="switchTab('reset', this)">🔄 Resetear</button>
+            </div>
+            
+            <div id="tab-import" class="tab-content active">
+                <div class="import-info">
+                    <strong>📌 Instrucciones:</strong><br>
+                    Pega aquí los datos de empleados en formato TSV (copiados desde Excel).<br>
+                    Formato: <code>GRUPO | LOGIN | NOMBRE | [vacío] | ROLE | nums... | TURNOS</code>
+                </div>
+                <div class="import-panel">
+                    <textarea id="bulkImportData" placeholder="Pega aquí los datos de los empleados..."></textarea>
+                    <div class="btn-row">
+                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button>
+                        <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
+                    </div>
+                </div>
+                <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
+            </div>
+            
+            <div id="tab-reset" class="tab-content">
+                <div style="padding:20px;">
+                    <p style="color:#666; margin-bottom:15px;">⚠️ Esto descargará los datos originales desde GitHub y borrará las modificaciones locales.</p>
+                    <button class="btn" style="background:#e74c3c;" onclick="resetAllData()">🗑️ Resetear Todo</button>
+                </div>
+            </div>
+            
+            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
+                <button class="btn btn-manager" onclick="logoutManager()">🚪 Cerrar Sesión</button>
+                <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -517,88 +650,12 @@
 
 <script>
 // =====================================================
-// DATOS COMPLETOS - TODOS LOS EMPLEADOS (60+)
-// Formato: CREW | LOGIN | NAME | (vacío) | ROLE | nums... | TURNOS (365 días)
+// CONFIGURACIÓN
 // =====================================================
-const RAW_DATA = `GRUPO 1A	IMMALLEN	Israel Perez Mallen		SRMET	0	0	0	25	25	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co
-GRUPO 1A	JAVIFRAC	Francisco Javier Barrero		RMET	0	0	0	22	22	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co
-GRUPO 1A	LAVADOIL	Inmaculada Hueso Lavado		RMET	0	0	0	22	22	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	m8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co
-GRUPO 1A	PINTODOM	Daniel Pinto Dominguez		RMEO	0	0	0	22	22	0	0.00			m8	m8	m-co		wm			wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt			m8	m-co	m-co	m-co				m-co	m-co	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m-co			n-co	n-co	n	n				wt	wt		wm	wm		wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n	n	n		nn			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8		nn	n8			wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n	n8	n8	n8			t8	t8	t8			m8	m8				wm	wm	wm	wm		wt	wt	wt	wt			wm	wm	wm	m-co				wm	wm	wm	m-co
-GRUPO 1B	NAVARAFR	Rafael Navarro Gonzalez		SRMET	0	0	0	25	25	0	0.00		nn			t-co		wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				t-co	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	m-co	m-co	m-co			m8	m8	m8			nn	n8	n				wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8				wm	wm			n	n		nn	n8			wt	wt		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8					wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	t-co				wm	wm	wm	m-co
-GRUPO 1B	PBERNALV	Pedro Bernal Vargas		RMET	0	0	0	22	22	0	0.00		nn			t-co		wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				t-co	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	m-co	m-co	m-co			m8	m8	m8			nn	n8	n				wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8				wm	wm			n	n		nn	n8			wt	wt		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8					wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	t-co				wm	wm	wm	m-co
-GRUPO 1B	LUQJAIME	Jaime Rodriguez Luque		RMET	0	0	0	22	22	0	0.00		nn			t-co		wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				t-co	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	m-co	m-co	m-co			m8	m8	m8			nn	n8	n				wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8				wm	wm			n	n		nn	n8			wt	wt		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8					wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	t-co				wm	wm	wm	m-co
-GRUPO 1B	XMCASTAN	Marcos Castaño		RMEO	0	0	0	22	22	0	0.00		nn			t-co		wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				t-co	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	m-co	m-co	m-co			m8	m8	m8			nn	n8	n				wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8				wm	wm			n	n		nn	n8			wt	wt		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8					wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	t-co				wm	wm	wm	m-co
-GRUPO 2A	MAJOMA	Jose Maria Mejias Martin		SRMET	0	0	0	25	25	0	0.00		wm			n-co		nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	V25	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			n-co	n-co	n-co					t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	t-co	t-co				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	TR	TR			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt					wm	wm	wm	wm				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm					nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	t-co
-GRUPO 2A	XMORMARI	Maria Moreno Pruaño		RMET	0	0	0	22	22	0	0.00		BM			BM		BM	BM	BM			BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM	BM	BM	BM				BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM			BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM					BM	BM	BM	BM	BM			BM	BM	BM	BM	BM		BM	BM	BM	BM			n-co	n-co	n-co					t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	t-co	t-co				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt					wm	wm	wm	wm				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm					nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	t-co
-GRUPO 2A	OCCABEZA	Oscar Aguilar Cabeza		RMET	0	0	0	22	22	0	0.00		wm			n-co		nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			n-co	n-co	n-co					t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	t-co	t-co				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt					wm	wm	wm	wm				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm					nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	t-co
-GRUPO 2A	MARIOGOT	Mario Gonzalez Lopez		RMET	0	0	0	22	22	0	0.00		wm			n-co		nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			n-co	n-co	n-co					t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	t-co	t-co				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt					wm	wm	wm	wm				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm					nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	t-co
-GRUPO 2A	AGUSSALG	Agustin Salguero Sanchez		NRMEO	0	0	0	22	22	0	0.00		wm			n-co		nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			n-co	n-co	n-co					t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	t-co	t-co				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	TR	TR			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt					wm	wm	wm	wm				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm					nn	n	n			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	t-co
-GRUPO 2B	CABRADR	Adrian Benitez Cabrera		SRMET	0	0	0	25	25	0	0.00			t8	wt	t-co		wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t-co		m-co	m-co					nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m-co			m-co	m-co	wt	wt	wt	wt				wm	wm	wm		wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8		wt	wt	wt	wt				wm	wm	wm	wm			m8	m8	m8			n8	n8		nn			wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8			wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m-co
-GRUPO 2B	CAORTGA	Carlos Lopez Ortega		RMET	0	0	0	22	22	0	0.00			t8	wt	t-co		wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t-co		m-co	m-co					nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m-co			m-co	m-co	wt	wt	wt	wt				wm	wm	wm		wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8		wt	wt	wt	wt				wm	wm	wm	wm			m8	m8	m8			n8	n8		nn			wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8			wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8
-GRUPO 2B	OLMOJANE	Francisco de Asis Olmo Janeiro		RMET	0	0	0	22	22	0	0.00			t8	wt	t-co		wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t-co		m-co	m-co					nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m-co			m-co	m-co	wt	wt	wt	wt				wm	wm	wm		wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8		wt	wt	wt	wt				wm	wm	wm	wm			m8	m8	m8			n8	n8		nn			wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8			wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m-co
-GRUPO 2B	FLBERT	Alberto Alcazar Fernandez		RMET	0	0	0	22	22	0	0.00			t8	wt	t-co		wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t-co		m-co	m-co					nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m-co			m-co	m-co	wt	wt	wt	wt				wm	wm	wm		wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n	n			wt		wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm		t8	nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8		wt	wt	wt	wt				wm	wm	wm	wm			m8	m8	m8			n8	n8		nn			wt	wt	wt		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8			wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m-co
-GRUPO 3A	SERMOAR	Sergio Moreno Arteaga		SRMET	0	0	0	25	25	0	0.00			n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n-co			t-co			t-co	t-co		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt		wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8		wm	wm			wm	wm		wt	wt	wt	wt			m8	m8	m8	m8	m8				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	t8	t8		wm	wm	wm	wm			nn	n	n	n				wt	wt	wt
-GRUPO 3A	ACUANTON	Antonio Penalver Acuna		RMET	0	0	0	22	22	0	0.00			n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n-co			t-co			t-co	t-co		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt		wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8		wm	wm			wm	wm		wt	wt	wt	wt			m8	m8	m8	m8	m8				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	t8	t8		wm	wm	wm	wm			nn	n	n	n				wt	wt	wt
-GRUPO 3A	MANFERT	Manuel Fernandez Torres		RMET	0	0	0	22	22	0	0.00			n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n-co			t-co			t-co	t-co		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt		wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	t8	t8		t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8		wm	wm			wm	wm		wt	wt	wt	wt			m8	m8	m8	m8	m8				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	t8	t8		wm	wm	wm	wm			nn	n	n	n				wt	wt	wt
-GRUPO 3A	LUISMACA	Luis Manuel Campos Sanchez		RMEO	0	0	0	22	22	0	0.00			n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n-co			t-co			t-co	t-co		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	t-co			m-co	m-co	m8	m8	m8			m8	m8	wt	wt	wt		wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			wm	wm	wm				nn	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8		wm	wm			wm	wm		wt	wt	wt	wt			m8	m8	m8	m8	m8				wm	wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	t8	t8		wm	wm	wm	wm			nn	n	n	n				wt	wt	wt
-GRUPO 3B	JOSEDH	Jose Dominguez Huelva		SRMET	0	0	0	25	25	0	0.00		wt					nn	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8				n-co	n-co			nn	n-co			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n-co	n-co	n-co			t8	t8	t8			m8	m8	wm	wm				wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm		wm	wm			wm	wm	wt	wt	wt	wt					wm	wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8						n	n	n	n			t8	t8	t8	t8	t8		wm	wm	m-co				nn	n	n	n
-GRUPO 3B	AMANUEJU	Juan Carlos Manuel Rosado		RMET	0	0	0	22	22	0	0.00		wt					nn	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8				n-co	n-co			nn	n-co			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n-co	n-co	n-co			t8	t8	t8			m8	m8	wm	wm				wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm		wm	wm			wm	wm	wt	wt	wt	wt					wm	wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8						n	n	n	n			t8	t8	t8	t8	t8		wm	wm	m-co				nn	n	n	n
-GRUPO 3B	MARIGOMG	Maria del Carmen Gomez Garcia		RMET	0	0	0	22	22	0	0.00		wt					nn	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8				n-co	n-co			nn	n-co			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n-co	n-co	n-co			t8	t8	t8			m8	m8	wm	wm				wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm		wm	wm			wm	wm	wt	wt	wt	wt					wm	wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8						n	n	n	n			t8	t8	t8	t8	t8		wm	wm	m-co				nn	n	n	n
-GRUPO 3B	JAIHIDAL	Jairo Hidalgo Marquez		RMEO	0	0	0	22	22	0	0.00		wt					nn	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8				n-co	n-co			nn	n-co			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n-co	n-co	n-co			t8	t8	t8			m8	m8	wm	wm				wm	wm	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				wm	wm	wm	wm				m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm		wm	wm			wm	wm	wt	wt	wt	wt					wm	wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8						n	n	n	n			t8	t8	t8	t8	t8		wm	wm	m-co				nn	n	n	n
-GRUPO 4A	ELFUSA	Elena Fueyo Sánchez		SRMET	0	0	0	25	25	0	0.00		BP			BP		BP	BP	BP					BP	BP	BP	BP	BP			BP	BP	BP	BP	BP		BP	BP	BP	BP			BP	BP	BP	BP	BP			BP	BP	BP			BP	BP	BP	BP	BP	BP			BP	BP	BP	BP	BP	BP			BP	BP	BP	BP	BP			BP	BP	BP			BP	BP	BP	BP			BP	BP	BP		BP	BP	BP	BP			BP	BP	BP							BP	BP	BP	BP	BP			BP	BP	BP	BP	BP		BP	BP	BP	BP			BP	BP	BP	BP				BP	BP	BP			BP	BP	BP	BP	BP			BP	BP	BP	BP	BP	BP				BP	BP	BP	BP	BP			BP	BP	BP			BP	BP	BP	BP			BP	BP	BP		BP	BP	BP	BP			BP	BP	BP	BP	BP					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n					m8	m8	m8	m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm					wt	wt	wt					n8	n8	n8	n8	n8			m8	m-co		t8	t8	wt	wt	wt	t-co
-GRUPO 4A	ORTAGADA	Daniel Jesus Orta García		RMET	0	0	0	22	22	0	0.00		wm			t-co		wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t-co	t-co	t-co							n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	m-co	m-co	m-co			nn	n	n	n				t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt			t8	t8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n					m8	m8	m8	m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm					wt	wt	wt					n8	n8	n8	n8	n8			m8	m-co		t8	t8	wt	wt	wt	t-co
-GRUPO 4A	MCHJIMEN	Christian Morales Jimenez		RMET	0	0	0	22	22	0	0.00		wm			t-co		wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t-co	t-co	t-co							n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	m-co	m-co	m-co			nn	n	n	n				t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n					m8	m8	m8	m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm					wt	wt	wt					n8	n8	n8	n8	n8			m8	m-co		t8	t8	wt	wt	wt	t-co
-GRUPO 4B	JULMUR	Julio Murube		SRMET	0	0	0	25	25	0	0.00		wt	wt	wt	t-co		wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t-co	t-co	t-co	t-co					t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t-co	t-co	t-co	t-co	t-co		wm	wm	wm				nn	n	n		nn			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n			t8	t8	t8			m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8			wm	wm	wm			t8	t8	t8	t8	t8					n	n		nn	n			wt	t-co
-GRUPO 4B	ARUBIOJI	Adrian Rubio Jimenez		RMET	0	0	0	22	22	0	0.00		wt	wt	wt	t-co		wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t-co	t-co	t-co	t-co					t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t-co	t-co	t-co	t-co	t-co		wm	wm	wm				nn	n	n		nn			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n			t8	t8	t8			m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8			wm	wm	wm			t8	t8	t8	t8	t8					n	n		nn	n			wt	t-co
-GRUPO 4B	ALVAREIG	Ignacio Garrayo Alvarez		RMET	0	-4	4	22	22	0	0.00		wt	wt	wt	V25		V25	V25	V25			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t-co	t-co	t-co	t-co					t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t-co	t-co	t-co	t-co	t-co		wm	wm	wm				nn	n	n		nn			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n			t8	t8	t8			m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8			wm	wm	wm			t8	t8	t8	t8	t8					n	n		nn	n			wt	t-co
-GRUPO 4B	RYESANC	Maria Reyes Diaz		RMEO	0	0	0	22	22	0	0.00		wt	wt	wt	t-co		wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t-co	t-co	t-co	t-co					t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t-co	t-co	t-co	t-co	t-co		wm	wm	wm				nn	n	n		nn			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n	n	n			t8	t8	t8			m8	m8			m8	m8	m8	m8	m8		wt	wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8			wm	wm	wm			t8	t8	t8	t8	t8					n	n		nn	n			wt	t-co
-GRUPO 5A	JAVIBACI	Javier Baños Cintas		SRMET	0	0	0	25	25	0	0.00		nn	n	n	n-co			t8	t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8	t8			m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n-co	n-co	n-co				t-co	t-co		wm	wm	wm	wm			t8	t8	t8	t8	t8					n-co	n-co	n-co	n-co	n-co			wt	wt		wt	t8	t8	t8	t8		wm			nn	n8	n8	n8	n8		m8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	m8	m8	m8	m8			m8	n6	m8	m8	m8			m8	m8	m8			n8	n6	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt				wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8					wt	wt	wt		wm	wm	wm	wm			wt	wt	wt	t-co						n	n
-GRUPO 5A	GIMEDAN	Daniel Gimenez Carcas		RMET	0	0	0	22	22	0	0.00		nn	n	n	n-co			t8	t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8	t8			m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n-co	n-co	n-co				t-co	t-co		wm	wm	wm	wm			t8	t8	t8	t8	t8					n-co	n-co	n-co	n-co	n-co			wt	wt		wt	t8	t8	t8	t8		wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt				wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8					wt	wt	wt		wm	wm	wm	wm			wt	wt	wt	t-co						n	n
-GRUPO 5A	MACMANE	Manuel Gonzalez Macias		RMET	0	0	0	22	22	0	0.00		nn	n	n	n-co			t8	t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8	t8			m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n-co	n-co	n-co				t-co	t-co		wm	wm	wm	wm			t8	t8	t8	t8	t8					n-co	n-co	n-co	n-co	n-co			wt	wt		wt	t8	t8	t8	t8		wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt				wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8					wt	wt	wt		wm	wm	wm	wm			wt	wt	wt	t-co						n	n
-GRUPO 5A	TRINIDLU	Lucia Trinidad Escalante		RMET	0	0	0	22	22	0	0.00		nn	n	n	n-co			t8	t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8	t8			m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n-co	n-co	n-co				t-co	t-co		wm	wm	wm	wm			t8	t8	t8	t8	t8					n-co	n-co	n-co	n-co	n-co			wt	wt		wt	t8	t8	t8	t8		wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			wt	wt	wt				wm	m8	m8	m8	AP		m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8				wt	wt			wm	wm	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8					wt	wt	wt		wm	wm	wm	wm			wt	wt	wt	t-co						n	n
-GRUPO 5B	FRANHIDA	Francisco Guerrero Hidalgo		SRMET	0	0	0	25	25	0	0.00		wm			m-co		wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8				m-co	m-co			n-co	n-co	n8	n8	n8			t8	t8		wm	wm	wm	wm			wt	wt	t-co	t-co	t-co					n	n		nn	n8			wt		wt	wt	wt		wm	wm	wm	wm			nn	n	n	n	n			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8				t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	t8	t8	t8	t8				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8					m8	m8		n8	n8	n8	n8			t8	t8	t8		wm	wm	m-co				wt	wt	wt	t-co
-GRUPO 5B	RVEROAM	Jose Ramirez Rivero		RMET	0	0	0	22	22	0	0.00		wm			m-co		wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8				m-co	m-co			n-co	n-co	n8	n8	n8			t8	t8		wm	wm	wm	wm			wt	wt	t-co	t-co	t-co					n	n		nn	n8			wt		wt	wt	wt		wm	wm	wm	wm			nn	n	n	n	n			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8				t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	t8	t8	t8	t8				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8					m8	m8		n8	n8	n8	n8			t8	t8	t8		wm	wm	m-co				wt	wt	wt	t-co
-GRUPO 5B	AAESCOT	Alejandro Escot Arjona		RMET	0	0	0	22	22	0	0.00		wm			m-co		wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8				m-co	m-co			n-co	n-co	n8	n8	n8			t8	t8		wm	wm	wm	wm			wt	wt	t-co	t-co	t-co					n	n		nn	n8			wt		wt	wt	wt		wm	wm	wm	wm			nn	n	n	n	n			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8				t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	t8	t8	t8	t8				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8					m8	m8		n8	n8	n8	n8			t8	t8	t8		wm	wm	m-co				wt	wt	wt	t-co
-GRUPO 5B	MLVAA	Maria Teresa Nieto Alvarez		RMET	0	0	0	22	22	0	0.00		BM			BM		BM			BM	BM	BM	BM			BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM					BM	BM	BM	BM	BM			BM	BM	BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM	BM	BM			BM	BM	BM	BM	BM	BM			BM	BM	BM	BM	BM				BM	BM			BM	BM	BM	BM	BM			BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM					BM	BM		BM	BM			BM		BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM	BM	BM			BM	BM	BM	BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM			BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM					BM	BM	BM	BM	BM			BM	BM	BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM				BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM	BM	BM	BM				BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM			BM	BM	BM		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8					m8	m8		n8	n8	n8	n8			t8	t8	t8		wm	wm	m-co				wt	wt	wt	t-co
-GRUPO 5B	ZMAXIMOM	Máximo Martín Castro		RMEO	0	0	0	22	22	0	0.00		wm			m-co		wm			n	n	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8				m-co	m-co			n-co	n-co	n8	n8	n8			t8	t8		wm	wm	wm	wm			wt	wt	t-co	t-co	t-co					n	n		nn	n8			wt		wt	wt	wt		wm	wm	wm	wm			nn	n	n	n	n			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8				t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	t8	t8	t8	t8				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm				nn	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	m8			m8	t8	t8	t8	t8	t8			m8	m8	m8	m8	m8					m8	m8		n8	n8	n8	n8			t8	t8	t8		wm	wm	m-co				wt	wt	wt	t-co
-GRUPO 6A	ALBJAELA	Alberto Jaenes Lara		SRMET	0	0	0	25	25	0	0.00		wt			m-co		wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m-co	m-co	m-co					m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	m-co	m-co	m-co			wm	wm	wm	wm						n		nn	n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	TR	TR			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt						wm	wm	wm			m8	m8	m8			n8	n8	n8	n8	n8			t8	t8	wt	wt	wt	t-co
-GRUPO 6A	SEBASPB	Sebastian Perez Baena		RMET	0	0	0	22	22	0	0.00		wt			m-co		wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m-co	m-co	m-co					m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	m-co	m-co	m-co			wm	wm	wm	wm						n		nn	n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt						wm	wm	wm			m8	m8	m8			n8	n8	n8	n8	n8			t8	t8	wt	wt	wt	t-co
-GRUPO 6A	BORPINE	Borja Pineda Aguilera		RMET	0	0	0	22	22	0	0.00		wt			m-co		wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m-co	m-co	m-co					m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	m-co	m-co	m-co			wm	wm	wm	wm						n		nn	n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			m8	m8			wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt						wm	wm	wm			m8	m8	m8			n8	n8	n8	n8	n8			t8	t8	wt	wt	wt	t-co
-GRUPO 6A	MANERE	Manuel Pena Reyes		RMEO	0	0	0	22	22	0	0.00		wt			m-co		wm	wm	wm			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m-co	m-co	m-co					m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	m-co	m-co	m-co			wm	wm	wm	wm						n		nn	n	n			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			AP	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt						wm	wm	wm			m8	m8	m8			n8	n8	n8	n8	n8			t8	t8	wt	wt	wt	t-co
-GRUPO 6B	NOGALD	David Lancho Nogal		SRMET	0	0	0	25	25	0	0.00			wm	wm	t-co		wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n	n	n	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m-co	t-co	t-co	t-co					m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8	n-co			t-co	t-co	wt	wt	wt	wt				wt	wt	wt		wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8	AP		m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8			wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			nn	n8	n	n
-GRUPO 6B	MARTZAJO	Jose Miguel Jimenez Martinez		RMET	0	0	0	22	22	0	0.00			BM	BM	BM		BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM			BM	BM	BM		BM	BM	BM	BM			BM	BM	BM	BM	BM					BM	BM	BM	BM	BM			BM	BM	BM		BM		BM	BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM	BM	BM					BM	BM	BM	BM	BM			BM	BM	BM			BM	BM	BM	BM	BM			BM	BM	BM	BM	BM	BM				BM	BM	BM		BM					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8			wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			nn	n8	n	n
-GRUPO 6B	JRMEROK	Jose Antonio Jimenez Romero		RMET	0	0	0	22	22	0	0.00			wm	wm	t-co		wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n	n	n	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m-co	t-co	t-co	t-co					m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8	n-co			t-co	t-co	wt	wt	wt	wt				wt	wt	wt		wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8			wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			nn	n8	n	n
-GRUPO 6B	VALERODI	Diego Jose Roman Valero		RMET	0	0	0	22	22	0	0.00			wm	wm	t-co		wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n	n	n	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m-co	t-co	t-co	t-co					m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8	n-co			t-co	t-co	wt	wt	wt	wt				wt	wt	wt		wt					n8	n8	n8	n8	n8			t8	t8	t8	t8	t8		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm			t8	t8	t8	t8	t8					n8	n8	n8	n8	n8			wt	wt	wt		wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8	wt	wt	wt	wt				m8	m8	m8	m8	m8			m8	m8	m8			n8	n8	n8	n8			t8	t8	t8		wm	wm	wm	wm				wt	wt	wt	wt					n8	n8	n8	n8	n8				wt	wt	wt	wt		wm	wm	wm	wm			nn	n8	n8	n8	n8			t8	t8	t8			m8	m8	m8	m8	m8			m8	m8			wt	wt	wt			m8	m8	m8	m8	m8			m8	m8	m8			nn	n8	n	n
-C1	SILVIMED	Silvia Molinero Medrano		IRMEAM	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-C2	JEMARMAC	Jesus Martinez Macias		AAE	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	DABUROME	Daniel Burrero Romero		RMEM	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	ISABALVE	Isabel Fernandez Alves		RMEAM	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	MDIANTO	Antonio Alcala Medina		RMEAM	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	ZZJOSMAR	Jose Antonio Miranda Martinez		RMEAM	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	JOMARUMA	Jose Maria Ruiz-Marvizon		RMEAM	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	ARZUR	Arturo Rodriguez Paz		AE	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	JAVTENOR	Javier Molero Tenorio		AE	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	MGGYTM	Manuel Jesus Marin Gayte		AE	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	ANGERQ	Angela Rodriguez Quesada		RMEP	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	MANHERJI	Manuela Herrera Jimenez		RMEP	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	JJORSAN	Jorge Santaella Sanchez		RMET	0	0	0	22	22	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	MADAVIGO	David Mora Gonzalez		RMET	0	0	0	22	22	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	DVIBENI	David Fuentes Benito		SRMET	0	0	0	25	25	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-CENTRAL	GVALLS	Guillem Valls		GEM	0	0	0	26	26	0	0.00		c			c		c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c					c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c				c	c	c	c				c	c	c	c			c	c	c	c	c				c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c			c	c	c	c	c					c	c	c			c	c	c	c	c			c	c	c	c				c	c	c	c
-Prom 24-26 A	IASANDRA	Sandra Adame Sanchez		APP4	0	0	0	22	22	0	0.00
-Prom 24-26 A	LEONRODP	Antonio Leon Rodriguez		APP4	0	0	0	22	22	0	0.00
-Prom 24-26 B	ELGOMEZB	Elisabet Gomez Betanzo		APP4	0	0	0	22	22	0	0.00
-Prom 24-26 B	BULALEJA	Alejandro Bulnes Rivero		APP4	0	0	0	22	22	0	0.00
-Prom 24-26 B	EMANFER	Eduardo Manceras Fernandez		APP4	0	0	0	22	22	0	0.00
-Prom 24-26 C	ELISABPI	Elisabeth Perez Zamudio		APP4	0	0	0	22	22	0	0.00
-Prom 24-26 C	RDANID	Daniel Rodriguez Dominguez		APP4	0	0	0	22	22	0	0.00
-Prom 25-27 X	CRGOMEZN	Cristina Vazquez Gomez		APP2	0	0	0	0	22	0	0.00
-Prom 25-27 Y	RMORENOV	Raul Moreno Vega		APP2	0	0	0	0	22	0	0.00
-Prom 25-27 Y	HMIGRODR	Miguel Angel Rodriguez Ortega		APP2	0	0	0	0	22	0	0.00
-Prom 25-27 Z	UANTDOMI	Antonio Jesus Dominguez		APP2	0	0	0	8	22	0	0.00
-Prom 25-27 Z	MARIAMGF	Maria Magdalena Fernandez Mora		APP2	0	0	0	8	22	0	0.00`;
-
 const MANAGER_PASSWORD = 'manager';
+const STORAGE_KEY = 'calendario_turnos_2026';
+const GITHUB_TSV_URL = 'https://sergiomorenoarteaga-boop.github.io/calendadrio-26/datos.tsv';
+
 const festivos2026 = [
     {month:1,day:1,name:"Año Nuevo"},{month:1,day:6,name:"Reyes"},
     {month:2,day:28,name:"Día de Andalucía"},{month:4,day:2,name:"Jueves Santo"},
@@ -608,18 +665,64 @@ const festivos2026 = [
     {month:11,day:1,name:"Todos los Santos"},{month:12,day:6,name:"Constitución"},
     {month:12,day:8,name:"Inmaculada"},{month:12,day:25,name:"Navidad"}
 ];
+
 const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 const startDays = [4,0,0,3,5,1,3,6,2,4,0,2];
 
+// =====================================================
+// VARIABLES GLOBALES
+// =====================================================
 let allData = null;
 let selectedEmployee = null;
 let isManager = false;
-let modifications = {};
 let editingDay = null;
 
-function parseRawData() {
-    const lines = RAW_DATA.trim().split('\n');
+// =====================================================
+// FUNCIONES DE ALMACENAMIENTO
+// =====================================================
+function saveToStorage() {
+    const dataToSave = {
+        empleados: allData.empleados,
+        lastModified: new Date().toISOString()
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+    updateDataStatus('local');
+}
+
+function loadFromStorage() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        try {
+            return JSON.parse(saved);
+        } catch (e) {
+            console.error('Error parsing localStorage:', e);
+        }
+    }
+    return null;
+}
+
+function updateDataStatus(source) {
+    const statusEl = document.getElementById('dataStatus');
+    const saved = loadFromStorage();
+    if (source === 'github') {
+        statusEl.textContent = '☁️ Datos cargados desde GitHub';
+        statusEl.style.color = '#74b9ff';
+    } else if (saved && saved.lastModified) {
+        const date = new Date(saved.lastModified);
+        statusEl.textContent = `💾 Guardado local: ${date.toLocaleString()}`;
+        statusEl.style.color = '#7bed9f';
+    } else {
+        statusEl.textContent = '📄 Sin datos guardados';
+        statusEl.style.color = '#a0a0a0';
+    }
+}
+
+// =====================================================
+// PARSEO DE DATOS TSV
+// =====================================================
+function parseRawData(rawData) {
+    const lines = rawData.trim().split('\n');
     const empleados = [];
     
     lines.forEach(line => {
@@ -629,14 +732,20 @@ function parseRawData() {
         const crew = parts[0].trim();
         const login = parts[1].trim();
         const name = parts[2].trim();
-        // parts[3] está vacío en tu formato
         const role = parts[4].trim();
         
-        if (!login) return;
+        if (!login || login === '0' || !name) return;
         
-        // Los turnos empiezan después de los campos numéricos (aprox columna 11-12)
-        // Buscamos el primer turno válido
-        let turnoStart = 11; // Ajustado para tu formato con columnas numéricas
+        // Buscar dónde terminan las columnas numéricas
+        let turnoStart = 5;
+        for (let i = 5; i < parts.length && i < 20; i++) {
+            const val = parts[i].trim();
+            if (/^-?\d+(\.\d+)?$/.test(val)) {
+                turnoStart = i + 1;
+            } else {
+                break;
+            }
+        }
         
         const turnos = [];
         for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
@@ -644,7 +753,6 @@ function parseRawData() {
             turnos.push(val);
         }
         
-        // Rellenar hasta 365 días si es necesario
         while (turnos.length < 365) turnos.push('');
         
         empleados.push({ 
@@ -656,9 +764,81 @@ function parseRawData() {
         });
     });
     
-    return { empleados, festivos: festivos2026 };
+    return empleados;
 }
 
+// =====================================================
+// CARGA DE DATOS
+// =====================================================
+async function loadFromGitHub() {
+    try {
+        const response = await fetch(GITHUB_TSV_URL + '?t=' + Date.now()); // Cache bust
+        if (!response.ok) throw new Error('Error al cargar');
+        const text = await response.text();
+        const empleados = parseRawData(text);
+        if (empleados.length === 0) throw new Error('No se encontraron empleados');
+        return empleados;
+    } catch (error) {
+        console.error('Error cargando desde GitHub:', error);
+        return null;
+    }
+}
+
+async function initializeData() {
+    const calendarGrid = document.getElementById('calendarGrid');
+    calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>';
+    
+    // Primero intentar localStorage
+    const saved = loadFromStorage();
+    if (saved && saved.empleados && saved.empleados.length > 0) {
+        allData = { empleados: saved.empleados, festivos: festivos2026 };
+        console.log('✅ Datos cargados desde localStorage');
+        updateDataStatus('local');
+        initializeFilters();
+        calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+        return;
+    }
+    
+    // Si no hay localStorage, cargar desde GitHub
+    const empleados = await loadFromGitHub();
+    if (empleados && empleados.length > 0) {
+        allData = { empleados, festivos: festivos2026 };
+        saveToStorage(); // Guardar en localStorage
+        console.log('✅ Datos cargados desde GitHub');
+        updateDataStatus('github');
+        initializeFilters();
+        calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+    } else {
+        calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar datos. Intenta recargar.</div>';
+        showNotification('❌ Error al cargar datos', true);
+    }
+}
+
+async function reloadFromGitHub() {
+    if (!confirm('¿Descargar datos frescos desde GitHub?\nEsto sobrescribirá los cambios locales.')) return;
+    
+    const calendarGrid = document.getElementById('calendarGrid');
+    calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Descargando desde GitHub...</p></div>';
+    
+    const empleados = await loadFromGitHub();
+    if (empleados && empleados.length > 0) {
+        allData = { empleados, festivos: festivos2026 };
+        saveToStorage();
+        initializeFilters();
+        selectedEmployee = null;
+        document.getElementById('employeeInfo').classList.remove('active');
+        document.getElementById('statsContainer').style.display = 'none';
+        calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+        showNotification('✅ Datos actualizados desde GitHub');
+    } else {
+        showNotification('❌ Error al descargar', true);
+        calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar</div>';
+    }
+}
+
+// =====================================================
+// FILTROS Y SELECCIÓN
+// =====================================================
 function initializeFilters() {
     if (!allData) return;
     const crews = [...new Set(allData.empleados.map(e => e.crew))].sort();
@@ -666,9 +846,7 @@ function initializeFilters() {
     crewSelect.innerHTML = '<option value="">Todos</option>';
     crews.forEach(c => crewSelect.innerHTML += `<option value="${c}">${c}</option>`);
     filterEmployees();
-    
-    // Mostrar contador
-    document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados cargados`;
+    document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados`;
 }
 
 function filterEmployees() {
@@ -710,12 +888,15 @@ function selectEmployee() {
     document.getElementById('statsContainer').style.display = 'block';
 }
 
+// =====================================================
+// UTILIDADES DE TURNOS
+// =====================================================
 function parseShift(s) {
     if (!s || s.trim() === '') return { shift: '', compensado: false };
     let shift = s.trim().toLowerCase();
     let compensado = shift.includes('-co');
     if (compensado) shift = shift.replace('-co', '');
-    if (shift === 'n' || shift === 'nn') shift = 'n8';
+    if (shift === 'nn') shift = 'n8';
     return { shift, compensado };
 }
 
@@ -726,15 +907,20 @@ function getShiftClass(shift) {
     if (s === 'wt' || s === 't8' || s === 't') return 'shift-wt';
     if (s === 'n8' || s === 'n' || s === 'nn') return 'shift-n8';
     if (s === 'c' || s === 'cw') return 'shift-c';
-    if (['bm','bp','tr','v25','v26','ap','n6'].includes(s)) return 'shift-bm';
+    if (s === 'v' || s === 'v25' || s === 'v26') return 'shift-v';
+    if (s === 'ap') return 'shift-ap';
+    if (s === 'tr') return 'shift-tr';
+    if (s === 'bm' || s === 'bp') return 'shift-bm';
     return 'libre';
 }
 
 function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
 function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m && f.day === d); return f ? f.name : ''; }
 function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
-function getModification(login, doy) { return (modifications[login] && modifications[login][doy]) || null; }
 
+// =====================================================
+// GENERACIÓN DE CALENDARIO
+// =====================================================
 function generateMonth(month) {
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>D</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th></tr></thead><tbody>`;
     let day = 1;
@@ -747,14 +933,11 @@ function generateMonth(month) {
             } else {
                 const doy = getDayOfYear(month, day);
                 let turnoRaw = selectedEmployee.turnos[doy] || '';
-                const mod = getModification(selectedEmployee.login, doy);
-                if (mod && mod.length > 0) turnoRaw = mod[mod.length - 1].turno;
                 const { shift, compensado } = parseShift(turnoRaw);
                 const fest = isFestivo(month, day);
                 let classes = [getShiftClass(shift)];
                 if (fest) classes.push('festivo');
                 if (compensado) classes.push('compensado');
-                if (mod && mod.length > 0) classes.push('modified');
                 const title = fest ? `title="🎉 ${getFestivoName(month, day)}"` : '';
                 html += `<td class="${classes.join(' ')}" ${title} onclick="openEditModal(${month}, ${day})"><span class="day-num">${day}</span><span class="shift-code">${shift ? shift.toUpperCase() : ''}</span></td>`;
                 day++;
@@ -775,17 +958,17 @@ function generateCalendar() {
 
 function generateStats() {
     if (!selectedEmployee) return;
-    let stats = {verde:0, naranja:0, azul:0, gris:0, libre:0, compensados:0};
+    let stats = {verde:0, naranja:0, azul:0, gris:0, vacaciones:0, ap:0, libre:0, compensados:0};
     for (let doy = 0; doy < 365; doy++) {
         let turnoRaw = selectedEmployee.turnos[doy] || '';
-        const mod = getModification(selectedEmployee.login, doy);
-        if (mod && mod.length > 0) turnoRaw = mod[mod.length - 1].turno;
         const { shift, compensado } = parseShift(turnoRaw);
         const s = shift.toLowerCase();
         if (s === 'wm' || s === 'm8' || s === 'm') stats.verde++;
         else if (s === 'wt' || s === 't8' || s === 't') stats.naranja++;
         else if (s === 'n8' || s === 'n' || s === 'nn') stats.azul++;
         else if (s === 'c' || s === 'cw') stats.gris++;
+        else if (s === 'v' || s === 'v25' || s === 'v26') stats.vacaciones++;
+        else if (s === 'ap') stats.ap++;
         else stats.libre++;
         if (compensado) stats.compensados++;
     }
@@ -795,16 +978,21 @@ function generateStats() {
         <div class="stat-card"><div class="stat-number" style="color:rgb(200,150,0)">${stats.naranja}</div><div class="stat-label">WT/T8</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.azul}</div><div class="stat-label">N8</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#888">${stats.gris}</div><div class="stat-label">C/CW</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:red">${stats.vacaciones}</div><div class="stat-label">VAC</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:var(--verde-fuerte)">${stats.ap}</div><div class="stat-label">AP</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#9b59b6">${stats.compensados}</div><div class="stat-label">COMP★</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:#95a5a6">${stats.libre}</div><div class="stat-label">LIBRES</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#2ecc71">${total}</div><div class="stat-label">TRABAJO</div></div>
     `;
 }
 
+// =====================================================
+// EDICIÓN DE DÍAS
+// =====================================================
 function openEditModal(month, day) {
     if (!selectedEmployee) return;
     editingDay = { month, day, doy: getDayOfYear(month, day) };
     document.getElementById('modalTitle').textContent = `${day} de ${monthNames[month-1]} 2026`;
+    
     const fest = isFestivo(month, day);
     const festivoName = getFestivoName(month, day);
     const festivoBadge = document.getElementById('festivoBadge');
@@ -814,21 +1002,14 @@ function openEditModal(month, day) {
     } else {
         festivoBadge.style.display = 'none';
     }
-    const mod = getModification(selectedEmployee.login, editingDay.doy);
-    const historyDiv = document.getElementById('modificationHistory');
-    const historyContent = document.getElementById('historyContent');
-    if (mod && mod.length > 0) {
-        historyDiv.style.display = 'block';
-        historyContent.innerHTML = mod.map(m => `<div class="modification-item"><strong>${m.manager}</strong> → <strong>${m.turno || 'LIBRE'}</strong><br><small style="color:#999">${new Date(m.timestamp).toLocaleString()}</small></div>`).join('');
-    } else {
-        historyDiv.style.display = 'none';
-    }
+    
     document.getElementById('managerEditSection').style.display = isManager ? 'block' : 'none';
     document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
+    
     let turnoRaw = selectedEmployee.turnos[editingDay.doy] || '';
-    if (mod && mod.length > 0) turnoRaw = mod[mod.length - 1].turno;
     const { compensado } = parseShift(turnoRaw);
     document.getElementById('checkCompensado').checked = compensado;
+    
     document.getElementById('editModal').classList.add('active');
 }
 
@@ -840,35 +1021,31 @@ function closeModal() {
 function setShift(shift) {
     if (!editingDay || !isManager || !selectedEmployee) return;
     const compensado = document.getElementById('checkCompensado').checked;
-    const turnoFinal = compensado ? `${shift}-co` : shift;
-    const login = selectedEmployee.login;
-    if (!modifications[login]) modifications[login] = {};
-    if (!modifications[login][editingDay.doy]) modifications[login][editingDay.doy] = [];
-    modifications[login][editingDay.doy].push({
-        turno: turnoFinal,
-        manager: 'Manager',
-        timestamp: new Date().toISOString()
-    });
+    const turnoFinal = compensado && shift ? `${shift}-co` : shift;
+    
+    selectedEmployee.turnos[editingDay.doy] = turnoFinal;
+    saveToStorage();
     generateCalendar();
     generateStats();
-    document.getElementById('btnSave').style.display = 'inline-flex';
     closeModal();
-    showNotification('✅ Turno actualizado');
+    showNotification('✅ Turno guardado');
 }
 
+// =====================================================
+// MANAGER
+// =====================================================
 function openManagerModal() {
     if (isManager) {
-        isManager = false;
-        document.getElementById('btnManager').classList.remove('active');
-        document.getElementById('btnManager').innerHTML = '🔐 Manager';
-        document.getElementById('btnSave').style.display = 'none';
-        showNotification('🔒 Modo Manager desactivado');
-        return;
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('managerPanel').style.display = 'block';
+    } else {
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('managerPanel').style.display = 'none';
+        document.getElementById('managerPassword').value = '';
+        document.getElementById('managerStatus').style.display = 'none';
     }
-    document.getElementById('managerPassword').value = '';
-    document.getElementById('managerStatus').style.display = 'none';
     document.getElementById('managerModal').classList.add('active');
-    document.getElementById('managerPassword').focus();
+    if (!isManager) document.getElementById('managerPassword').focus();
 }
 
 function closeManagerModal() {
@@ -882,7 +1059,8 @@ function checkManagerPassword() {
         isManager = true;
         document.getElementById('btnManager').classList.add('active');
         document.getElementById('btnManager').innerHTML = '✅ Manager';
-        closeManagerModal();
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('managerPanel').style.display = 'block';
         showNotification('🔓 Modo Manager activado');
     } else {
         statusDiv.textContent = '❌ Clave incorrecta';
@@ -891,27 +1069,154 @@ function checkManagerPassword() {
     }
 }
 
-function saveChanges() {
-    const data = {
-        modifications: modifications,
-        savedAt: new Date().toISOString(),
-        savedBy: 'Manager'
+function logoutManager() {
+    isManager = false;
+    document.getElementById('btnManager').classList.remove('active');
+    document.getElementById('btnManager').innerHTML = '🔐 Manager';
+    closeManagerModal();
+    showNotification('🔒 Sesión cerrada');
+}
+
+function switchTab(tabName, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+}
+
+// =====================================================
+// IMPORTACIÓN MASIVA
+// =====================================================
+function previewBulkImport() {
+    const data = document.getElementById('bulkImportData').value;
+    if (!data.trim()) {
+        showNotification('⚠️ No hay datos', true);
+        return;
+    }
+    
+    const empleados = parseRawData(data);
+    const preview = document.getElementById('importPreview');
+    
+    if (empleados.length === 0) {
+        preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados válidos</p>';
+        return;
+    }
+    
+    let html = `<p style="color:green;">✅ ${empleados.length} empleado(s):</p><ul style="margin-left:15px;">`;
+    empleados.slice(0, 10).forEach(e => {
+        const turnosCount = e.turnos.filter(t => t).length;
+        html += `<li><strong>${e.name}</strong> (${e.login}) - ${turnosCount} turnos</li>`;
+    });
+    if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
+    html += '</ul>';
+    preview.innerHTML = html;
+}
+
+function processBulkImport() {
+    const data = document.getElementById('bulkImportData').value;
+    if (!data.trim()) {
+        showNotification('⚠️ No hay datos', true);
+        return;
+    }
+    
+    const nuevosEmpleados = parseRawData(data);
+    
+    if (nuevosEmpleados.length === 0) {
+        showNotification('❌ No se pudieron importar', true);
+        return;
+    }
+    
+    let actualizados = 0, agregados = 0;
+    
+    nuevosEmpleados.forEach(nuevo => {
+        const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
+        if (idx >= 0) {
+            allData.empleados[idx] = nuevo;
+            actualizados++;
+        } else {
+            allData.empleados.push(nuevo);
+            agregados++;
+        }
+    });
+    
+    saveToStorage();
+    initializeFilters();
+    
+    if (selectedEmployee) {
+        selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
+        if (selectedEmployee) {
+            generateCalendar();
+            generateStats();
+        }
+    }
+    
+    document.getElementById('bulkImportData').value = '';
+    document.getElementById('importPreview').innerHTML = '';
+    
+    showNotification(`✅ ${actualizados} actualizados, ${agregados} nuevos`);
+}
+
+async function resetAllData() {
+    if (!confirm('¿Resetear todos los datos desde GitHub?')) return;
+    
+    localStorage.removeItem(STORAGE_KEY);
+    closeManagerModal();
+    await initializeData();
+    showNotification('🔄 Datos reseteados');
+}
+
+// =====================================================
+// EXPORTAR / IMPORTAR JSON
+// =====================================================
+function exportData() {
+    const dataToExport = {
+        empleados: allData.empleados,
+        exportedAt: new Date().toISOString(),
+        version: '2.0'
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    
+    const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    const now = new Date();
-    const dateStr = now.toISOString().slice(0,10);
-    const timeStr = now.toTimeString().slice(0,5).replace(':','-');
-    a.download = `modificaciones_turnos_${dateStr}_${timeStr}.json`;
+    a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showNotification('💾 Cambios guardados en archivo');
+    showNotification('📤 Datos exportados');
 }
 
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+            if (imported.empleados && Array.isArray(imported.empleados)) {
+                allData.empleados = imported.empleados;
+                saveToStorage();
+                initializeFilters();
+                selectedEmployee = null;
+                document.getElementById('employeeInfo').classList.remove('active');
+                document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+                showNotification(`📥 ${imported.empleados.length} empleados importados`);
+            } else {
+                showNotification('❌ Formato inválido', true);
+            }
+        } catch (err) {
+            showNotification('❌ Error al leer archivo', true);
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+// =====================================================
+// UI
+// =====================================================
 function setView(cols, btn) {
     const grid = document.getElementById('calendarGrid');
     grid.className = 'calendar-grid';
@@ -920,24 +1225,18 @@ function setView(cols, btn) {
     btn.classList.add('active');
 }
 
-function showNotification(message) {
+function showNotification(message, isError = false) {
     const notif = document.getElementById('notification');
     notif.textContent = message;
+    notif.className = 'notification' + (isError ? ' error' : '');
     notif.classList.add('show');
     setTimeout(() => notif.classList.remove('show'), 2500);
 }
 
-function init() {
-    allData = parseRawData();
-    initializeFilters();
-    console.log(`✅ Cargados ${allData.empleados.length} empleados`);
-    
-    // Debug: mostrar grupos encontrados
-    const grupos = [...new Set(allData.empleados.map(e => e.crew))];
-    console.log('📋 Grupos:', grupos);
-}
-
-init();
+// =====================================================
+// INICIALIZACIÓN
+// =====================================================
+initializeData();
 </script>
 
 </body>
