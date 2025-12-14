@@ -25,6 +25,10 @@
         .filter-group select, .filter-group input { padding: 8px 12px; border: none; border-radius: 8px; font-size: 0.9rem; min-width: 180px; }
         .employee-info { background: rgba(255,255,255,0.95); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: none; }
         .employee-info.active { display: block; }
+        .general-view-info { background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; color: white; text-align: center; display: none; }
+        .general-view-info.active { display: block; }
+        .general-view-info h2 { font-size: 1.2rem; margin-bottom: 5px; }
+        .general-view-info p { font-size: 0.85rem; opacity: 0.9; }
         .employee-badge { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; }
         .badge-crew { background: #667eea; color: white; }
         .badge-role { background: #27ae60; color: white; }
@@ -39,6 +43,8 @@
         .btn-export { background: linear-gradient(145deg, #3498db, #2980b9); }
         .btn-reload { background: linear-gradient(145deg, #f39c12, #e67e22); }
         .btn-print { background: linear-gradient(145deg, #95a5a6, #7f8c8d); }
+        .btn-general { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
+        .btn-general.active { background: linear-gradient(145deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(102, 126, 234, 0.5); }
         .btn:hover { transform: translateY(-2px); }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
@@ -68,10 +74,14 @@
         .festivo { border: 2px solid var(--rojo) !important; }
         .festivo::before { content: ''; position: absolute; top: 1px; right: 1px; width: 5px; height: 5px; background: var(--rojo); border-radius: 50%; }
         .compensado::after { content: '★'; position: absolute; bottom: 0; right: 1px; font-size: 0.4rem; color: #9b59b6; }
+        .general-day { background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); }
+        .general-day:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .general-day:hover .day-num { color: white; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal { background: white; padding: 20px; border-radius: 16px; max-width: 500px; width: 90%; text-align: center; max-height: 85vh; overflow-y: auto; }
         .modal-large { max-width: 800px; }
+        .modal-xlarge { max-width: 95%; width: 1100px; }
         .modal h3 { margin-bottom: 8px; color: #333; }
         .festivo-badge { display: inline-block; background: var(--rojo); color: white; padding: 6px 12px; border-radius: 15px; margin-bottom: 10px; font-weight: 600; font-size: 0.8rem; }
         .modal-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
@@ -120,7 +130,38 @@
         .loading { text-align: center; padding: 50px; color: #fff; }
         .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #fff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        /* Estilos para modal de turnos del día */
+        .day-overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 15px 0; }
+        .shift-column { background: #f8f9fa; border-radius: 10px; padding: 10px; }
+        .shift-column-header { text-align: center; padding: 8px; border-radius: 6px; margin-bottom: 8px; font-weight: 700; font-size: 0.85rem; }
+        .shift-column-header.morning { background: var(--verde); color: #1a5c1a; }
+        .shift-column-header.afternoon { background: var(--naranja); color: #5a4000; }
+        .shift-column-header.night { background: var(--azul); color: white; }
+        .shift-column-header.central { background: var(--gris); color: #444; }
+        .employee-list { max-height: 250px; overflow-y: auto; }
+        .employee-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; margin-bottom: 4px; background: white; border-radius: 6px; font-size: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s; }
+        .employee-item:hover { background: #e3f2fd; transform: translateX(3px); }
+        .employee-item .name { font-weight: 600; color: #333; }
+        .employee-item .crew { font-size: 0.6rem; color: #888; background: #eee; padding: 2px 5px; border-radius: 8px; margin-left: 5px; }
+        .employee-item .shift-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 5px; border-radius: 4px; }
+        .shift-badge.morning { background: var(--verde); color: #1a5c1a; }
+        .shift-badge.afternoon { background: var(--naranja); color: #5a4000; }
+        .shift-badge.night { background: var(--azul); color: white; }
+        .shift-badge.central { background: var(--gris); color: #444; }
+        .column-count { text-align: center; font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; }
+        .column-count.morning { color: #1a5c1a; }
+        .column-count.afternoon { color: #5a4000; }
+        .column-count.night { color: var(--azul); }
+        .column-count.central { color: #666; }
+        .central-section { margin-top: 12px; padding-top: 12px; border-top: 2px dashed #ddd; }
+        .central-section .shift-column { max-width: 350px; margin: 0 auto; }
+        .no-employees { text-align: center; color: #999; font-style: italic; padding: 15px; font-size: 0.8rem; }
+        .day-summary { display: flex; justify-content: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+        .summary-item { display: flex; align-items: center; gap: 5px; padding: 5px 10px; background: #f0f0f0; border-radius: 12px; font-size: 0.8rem; }
+        .summary-dot { width: 10px; height: 10px; border-radius: 50%; }
+        
+        @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } }
         @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: repeat(3, 1fr); } }
         @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
@@ -142,13 +183,18 @@
         </div>
         <div class="filter-group">
             <label>👤 Persona:</label>
-            <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Selecciona --</option></select>
+            <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Vista General --</option></select>
         </div>
         <div class="filter-group">
             <label>🔍 Buscar:</label>
             <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
         </div>
     </div>
+</div>
+
+<div class="general-view-info" id="generalViewInfo">
+    <h2>📊 Vista General del Equipo</h2>
+    <p>Pulsa en cualquier día para ver quién trabaja en cada turno</p>
 </div>
 
 <div class="employee-info" id="employeeInfo">
@@ -170,6 +216,7 @@
 </div>
 
 <div class="controls">
+    <button class="btn btn-general active" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
     <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
     <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
     <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
@@ -218,6 +265,40 @@
             🔒 Activa <strong>Modo Manager</strong> para editar
         </div>
         <button class="modal-close" onclick="closeModal()">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal vista turnos del día -->
+<div class="modal-overlay" id="dayOverviewModal">
+    <div class="modal modal-xlarge">
+        <h3 id="dayOverviewTitle">📅 Día</h3>
+        <div id="dayOverviewFestivo" class="festivo-badge" style="display:none;"></div>
+        <div class="day-summary" id="daySummary"></div>
+        <div class="day-overview-grid">
+            <div class="shift-column">
+                <div class="shift-column-header morning">☀️ MAÑANA</div>
+                <div class="column-count morning" id="countMorning">0</div>
+                <div class="employee-list" id="listMorning"></div>
+            </div>
+            <div class="shift-column">
+                <div class="shift-column-header afternoon">🌅 TARDE</div>
+                <div class="column-count afternoon" id="countAfternoon">0</div>
+                <div class="employee-list" id="listAfternoon"></div>
+            </div>
+            <div class="shift-column">
+                <div class="shift-column-header night">🌙 NOCHE</div>
+                <div class="column-count night" id="countNight">0</div>
+                <div class="employee-list" id="listNight"></div>
+            </div>
+        </div>
+        <div class="central-section">
+            <div class="shift-column">
+                <div class="shift-column-header central">🏢 CENTRAL</div>
+                <div class="column-count central" id="countCentral">0</div>
+                <div class="employee-list" id="listCentral"></div>
+            </div>
+        </div>
+        <button class="modal-close" onclick="closeDayOverviewModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
 
@@ -275,13 +356,12 @@
 
 <script>
 // =====================================================
-// CONFIGURACIÓN
+// CONFIGURACIÓN - ORIGINAL SIN MODIFICAR
 // =====================================================
-const MANAGER_PASSWORD = 'manager';
+const MANAGER_PASSW[REDACTED:PASSWORD]manager';
 
-// JSONbin.io - TU configuración
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbi[REDACTED:AWS_ACCESS_KEY]rzEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const festivos2026 = [
@@ -302,9 +382,10 @@ let allData = { empleados: [], festivos: festivos2026 };
 let selectedEmployee = null;
 let isManager = false;
 let editingDay = null;
+let isGeneralView = true;
 
 // =====================================================
-// JSONBIN - GUARDAR EN LA NUBE
+// JSONBIN - GUARDAR EN LA NUBE (ORIGINAL)
 // =====================================================
 async function saveToCloud() {
     try {
@@ -338,7 +419,7 @@ async function saveToCloud() {
 }
 
 // =====================================================
-// JSONBIN - CARGAR DE LA NUBE
+// JSONBIN - CARGAR DE LA NUBE (ORIGINAL)
 // =====================================================
 async function loadFromCloud() {
     try {
@@ -375,7 +456,7 @@ function setDataStatus(type, message) {
 }
 
 // =====================================================
-// PARSEO TSV MEJORADO
+// PARSEO TSV MEJORADO (ORIGINAL)
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
@@ -423,29 +504,25 @@ async function initializeData() {
     const empleados = await loadFromCloud();
     
     if (empleados === null) {
-        // Error de conexión
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>❌</span>Error de conexión<br><br><button class="btn btn-reload" onclick="initializeData()">🔄 Reintentar</button></div>';
         return;
     }
     
     if (empleados.length === 0) {
-        // Sin datos - mostrar mensaje para importar
         allData = { empleados: [], festivos: festivos2026 };
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Haz clic en <strong>🔐 Manager</strong><br>Clave: <strong>manager</strong><br>y pega los datos TSV</div>';
         return;
     }
     
-    // Datos cargados correctamente
     allData = { empleados, festivos: festivos2026 };
     initializeFilters();
-    document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+    showGeneralView();
 }
 
 async function reloadFromCloud() {
     showNotification('🔄 Recargando...');
     await initializeData();
     
-    // Si había un empleado seleccionado, intentar reseleccionarlo
     if (selectedEmployee) {
         const login = selectedEmployee.login;
         selectedEmployee = allData.empleados.find(e => e.login === login);
@@ -476,7 +553,7 @@ function filterEmployees() {
     if (crewFilter) filtered = filtered.filter(e => e.crew === crewFilter);
     if (searchFilter) filtered = filtered.filter(e => e.name.toLowerCase().includes(searchFilter) || e.login.toLowerCase().includes(searchFilter));
     const empSelect = document.getElementById('filterEmployee');
-    empSelect.innerHTML = '<option value="">-- Selecciona --</option>';
+    empSelect.innerHTML = '<option value="">-- Vista General --</option>';
     filtered.sort((a,b) => a.name.localeCompare(b.name));
     filtered.forEach(e => empSelect.innerHTML += `<option value="${e.login}">${e.name} (${e.login})</option>`);
 }
@@ -484,14 +561,15 @@ function filterEmployees() {
 function selectEmployee() {
     const login = document.getElementById('filterEmployee').value;
     if (!login) {
-        selectedEmployee = null;
-        document.getElementById('employeeInfo').classList.remove('active');
-        document.getElementById('statsContainer').style.display = 'none';
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+        showGeneralView();
         return;
     }
     selectedEmployee = allData.empleados.find(e => e.login === login);
     if (!selectedEmployee) return;
+    
+    isGeneralView = false;
+    document.getElementById('btnGeneral').classList.remove('active');
+    document.getElementById('generalViewInfo').classList.remove('active');
     document.getElementById('employeeName').textContent = selectedEmployee.name;
     document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
     document.getElementById('employeeRole').textContent = selectedEmployee.role;
@@ -503,7 +581,146 @@ function selectEmployee() {
 }
 
 // =====================================================
-// TURNOS
+// VISTA GENERAL - NUEVO
+// =====================================================
+function showGeneralView() {
+    isGeneralView = true;
+    selectedEmployee = null;
+    document.getElementById('filterEmployee').value = '';
+    document.getElementById('btnGeneral').classList.add('active');
+    document.getElementById('generalViewInfo').classList.add('active');
+    document.getElementById('employeeInfo').classList.remove('active');
+    document.getElementById('statsContainer').style.display = 'none';
+    
+    if (!allData.empleados.length) {
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
+        return;
+    }
+    
+    generateGeneralCalendar();
+}
+
+function generateGeneralCalendar() {
+    let html = '';
+    for (let m = 1; m <= 12; m++) {
+        html += generateGeneralMonth(m);
+    }
+    document.getElementById('calendarGrid').innerHTML = html;
+}
+
+function generateGeneralMonth(month) {
+    let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>D</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th></tr></thead><tbody>`;
+    let day = 1;
+    const weeks = Math.ceil((daysInMonth[month-1] + startDays[month-1]) / 7);
+    
+    for (let w = 0; w < weeks; w++) {
+        html += '<tr>';
+        for (let d = 0; d < 7; d++) {
+            if ((w === 0 && d < startDays[month-1]) || day > daysInMonth[month-1]) {
+                html += '<td class="empty"></td>';
+            } else {
+                const fest = isFestivo(month, day);
+                let classes = ['general-day'];
+                if (fest) classes.push('festivo');
+                const title = fest ? `title="🎉 ${getFestivoName(month, day)}"` : '';
+                html += `<td class="${classes.join(' ')}" ${title} onclick="openDayOverviewModal(${month}, ${day})"><span class="day-num">${day}</span></td>`;
+                day++;
+            }
+        }
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    return html;
+}
+
+// =====================================================
+// MODAL VISTA DEL DÍA - NUEVO
+// =====================================================
+function openDayOverviewModal(month, day) {
+    const doy = getDayOfYear(month, day);
+    
+    const morning = [];
+    const afternoon = [];
+    const night = [];
+    const central = [];
+    
+    allData.empleados.forEach(emp => {
+        const turnoRaw = emp.turnos[doy] || '';
+        if (!turnoRaw) return;
+        
+        let shift = turnoRaw.trim().toLowerCase();
+        if (shift.includes('-co')) shift = shift.replace('-co', '');
+        
+        const empData = { name: emp.name, crew: emp.crew, login: emp.login, shift: turnoRaw.toUpperCase().replace('-CO','') };
+        
+        if (shift === 'wm' || shift === 'm8' || shift === 'm') morning.push(empData);
+        else if (shift === 'wt' || shift === 't8' || shift === 't') afternoon.push(empData);
+        else if (shift === 'n8' || shift === 'n' || shift === 'nn') night.push(empData);
+        else if (shift === 'c' || shift === 'cw') central.push(empData);
+    });
+    
+    morning.sort((a,b) => a.name.localeCompare(b.name));
+    afternoon.sort((a,b) => a.name.localeCompare(b.name));
+    night.sort((a,b) => a.name.localeCompare(b.name));
+    central.sort((a,b) => a.name.localeCompare(b.name));
+    
+    const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const date = new Date(2026, month - 1, day);
+    document.getElementById('dayOverviewTitle').textContent = `📅 ${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
+    
+    const fest = isFestivo(month, day);
+    const festivoBadge = document.getElementById('dayOverviewFestivo');
+    if (fest) {
+        festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
+        festivoBadge.style.display = 'inline-block';
+    } else {
+        festivoBadge.style.display = 'none';
+    }
+    
+    const total = morning.length + afternoon.length + night.length + central.length;
+    document.getElementById('daySummary').innerHTML = `
+        <div class="summary-item"><div class="summary-dot" style="background:var(--verde)"></div><strong>${morning.length}</strong> Mañana</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--naranja)"></div><strong>${afternoon.length}</strong> Tarde</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--azul)"></div><strong>${night.length}</strong> Noche</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--gris)"></div><strong>${central.length}</strong> Central</div>
+        <div class="summary-item" style="background:#d4edda;"><strong style="color:#155724;">${total}</strong> Total</div>
+    `;
+    
+    document.getElementById('countMorning').textContent = morning.length;
+    document.getElementById('countAfternoon').textContent = afternoon.length;
+    document.getElementById('countNight').textContent = night.length;
+    document.getElementById('countCentral').textContent = central.length;
+    
+    document.getElementById('listMorning').innerHTML = renderEmployeeList(morning, 'morning');
+    document.getElementById('listAfternoon').innerHTML = renderEmployeeList(afternoon, 'afternoon');
+    document.getElementById('listNight').innerHTML = renderEmployeeList(night, 'night');
+    document.getElementById('listCentral').innerHTML = renderEmployeeList(central, 'central');
+    
+    document.getElementById('dayOverviewModal').classList.add('active');
+}
+
+function renderEmployeeList(employees, type) {
+    if (employees.length === 0) return '<div class="no-employees">Sin personal</div>';
+    return employees.map(emp => `
+        <div class="employee-item" onclick="selectEmployeeFromModal('${emp.login}')">
+            <div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span></div>
+            <span class="shift-badge ${type}">${emp.shift}</span>
+        </div>
+    `).join('');
+}
+
+function selectEmployeeFromModal(login) {
+    closeDayOverviewModal();
+    document.getElementById('filterEmployee').value = login;
+    selectEmployee();
+}
+
+function closeDayOverviewModal() {
+    document.getElementById('dayOverviewModal').classList.remove('active');
+}
+
+// =====================================================
+// TURNOS (ORIGINAL)
 // =====================================================
 function parseShift(s) {
     if (!s || s.trim() === '') return { shift: '', compensado: false };
@@ -533,7 +750,7 @@ function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m &
 function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
 
 // =====================================================
-// CALENDARIO
+// CALENDARIO (ORIGINAL)
 // =====================================================
 function generateMonth(month) {
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>D</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th></tr></thead><tbody>`;
@@ -599,7 +816,7 @@ function generateStats() {
 }
 
 // =====================================================
-// EDICIÓN - GUARDA EN LA NUBE
+// EDICIÓN (ORIGINAL)
 // =====================================================
 function openEditModal(month, day) {
     if (!selectedEmployee) return;
@@ -631,7 +848,6 @@ async function setShift(shift) {
     const compensado = document.getElementById('checkCompensado').checked;
     selectedEmployee.turnos[editingDay.doy] = compensado && shift ? `${shift}-co` : shift;
     
-    // Guardar en la nube
     showNotification('⏳ Guardando...');
     const saved = await saveToCloud();
     
@@ -644,7 +860,7 @@ async function setShift(shift) {
 }
 
 // =====================================================
-// MANAGER
+// MANAGER (ORIGINAL)
 // =====================================================
 function openManagerModal() {
     if (isManager) {
@@ -694,7 +910,7 @@ function switchTab(tabName, btn) {
 }
 
 // =====================================================
-// IMPORTACIÓN - GUARDA EN LA NUBE
+// IMPORTACIÓN (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
@@ -722,7 +938,6 @@ async function processBulkImport() {
     const nuevosEmpleados = parseRawData(data);
     if (nuevosEmpleados.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
-    // Actualizar o agregar
     let actualizados = 0, agregados = 0;
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
@@ -735,13 +950,12 @@ async function processBulkImport() {
         }
     });
     
-    // Guardar en la nube
     showNotification('⏳ Guardando en la nube...');
     const saved = await saveToCloud();
     
     if (saved) {
         initializeFilters();
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+        showGeneralView();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
         showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados - Guardado en la nube`);
@@ -758,7 +972,7 @@ async function resetAllData() {
     
     if (saved) {
         document.getElementById('filterCrew').innerHTML = '<option value="">Todos</option>';
-        document.getElementById('filterEmployee').innerHTML = '<option value="">-- Selecciona --</option>';
+        document.getElementById('filterEmployee').innerHTML = '<option value="">-- Vista General --</option>';
         document.getElementById('employeeCount').textContent = '';
         document.getElementById('employeeInfo').classList.remove('active');
         document.getElementById('statsContainer').style.display = 'none';
@@ -778,7 +992,7 @@ function exportData() {
 }
 
 // =====================================================
-// UI
+// UI (ORIGINAL)
 // =====================================================
 function setView(cols, btn) {
     const grid = document.getElementById('calendarGrid');
@@ -803,4 +1017,3 @@ initializeData();
 </script>
 </body>
 </html>
-
