@@ -11,7 +11,6 @@
             --verde: rgb(146, 208, 80);
             --verde-fuerte: rgb(0, 176, 80);
             --naranja: rgb(255, 192, 0);
-            --amarillo: rgb(255, 255, 0);
             --azul: rgb(0, 32, 96);
             --gris: rgb(200, 200, 200);
             --rojo: rgb(220, 53, 69);
@@ -108,7 +107,6 @@
         .color-verde { background: var(--verde); }
         .color-verde-fuerte { background: var(--verde-fuerte); }
         .color-naranja { background: var(--naranja); }
-        .color-amarillo { background: var(--amarillo); }
         .color-azul { background: var(--azul); }
         .color-gris { background: var(--gris); }
         .color-rojo { background: var(--rojo); }
@@ -204,13 +202,10 @@
         .day-num { font-weight: 700; display: block; font-size: 0.7rem; }
         .shift-code { font-size: 0.45rem; font-weight: 600; display: block; }
         
-        /* Turnos colores */
         .shift-wm, .shift-m8, .shift-m { background: var(--verde) !important; color: #1a5c1a !important; }
         .shift-wt, .shift-t8, .shift-t { background: var(--naranja) !important; color: #5a4000 !important; }
         .shift-n8, .shift-n, .shift-nn { background: var(--azul) !important; color: white !important; }
         .shift-c, .shift-cw { background: var(--gris) !important; color: #444 !important; }
-        
-        /* Nuevos colores */
         .shift-v, .shift-v25, .shift-v26 { background: var(--rojo-vacaciones) !important; color: white !important; }
         .shift-ap { background: var(--verde-fuerte) !important; color: white !important; }
         .shift-tr { background: #ff9800 !important; color: white !important; }
@@ -239,7 +234,6 @@
             color: #9b59b6;
         }
         
-        /* Modales */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -261,9 +255,7 @@
             max-height: 85vh;
             overflow-y: auto;
         }
-        .modal-large {
-            max-width: 800px;
-        }
+        .modal-large { max-width: 800px; }
         .modal h3 { margin-bottom: 8px; color: #333; font-size: 1.1rem; }
         .festivo-badge {
             display: inline-block;
@@ -331,11 +323,7 @@
         .manager-status.success { background: #d4edda; color: #155724; }
         .manager-status.error { background: #f8d7da; color: #721c24; }
         
-        /* Panel de importación masiva */
-        .import-panel {
-            text-align: left;
-            margin-top: 15px;
-        }
+        .import-panel { text-align: left; margin-top: 15px; }
         .import-panel textarea {
             width: 100%;
             height: 200px;
@@ -410,25 +398,10 @@
         }
         .select-message span { font-size: 3rem; display: block; margin-bottom: 15px; }
         
-        .employee-count {
-            text-align: center;
-            color: #a0a0a0;
-            font-size: 0.75rem;
-            margin-top: 5px;
-        }
+        .employee-count { text-align: center; color: #a0a0a0; font-size: 0.75rem; margin-top: 5px; }
+        .data-status { text-align: center; padding: 5px; font-size: 0.7rem; color: #7bed9f; }
         
-        .data-status {
-            text-align: center;
-            padding: 5px;
-            font-size: 0.7rem;
-            color: #7bed9f;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 50px;
-            color: #fff;
-        }
+        .loading { text-align: center; padding: 50px; color: #fff; }
         .loading-spinner {
             border: 4px solid rgba(255,255,255,0.3);
             border-top: 4px solid #fff;
@@ -438,12 +411,8 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Tabs en modal manager */
         .tab-buttons {
             display: flex;
             gap: 5px;
@@ -460,16 +429,19 @@
             font-weight: 600;
             font-size: 0.85rem;
         }
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
+        .tab-btn.active { background: #667eea; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .db-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 10px;
         }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
+        .db-status.online { background: #d4edda; color: #155724; }
+        .db-status.offline { background: #f8d7da; color: #721c24; }
         
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) {
@@ -541,10 +513,8 @@
 
 <div class="controls">
     <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
-    <button class="btn btn-reload" onclick="reloadFromGitHub()">🔄 Recargar</button>
+    <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
     <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
-    <button class="btn btn-import" onclick="document.getElementById('importFile').click()">📥 Importar</button>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
     <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
     <span style="width:10px"></span>
     <button class="btn btn-view" onclick="setView(4, this)">4</button>
@@ -596,7 +566,7 @@
 <!-- Modal Manager -->
 <div class="modal-overlay" id="managerModal">
     <div class="modal modal-large">
-        <h3>🔐 Panel Manager</h3>
+        <h3>🔐 Panel Manager <span class="db-status" id="dbStatus">...</span></h3>
         
         <div id="loginSection">
             <div class="manager-login">
@@ -612,29 +582,35 @@
         <div id="managerPanel" style="display:none;">
             <div class="tab-buttons">
                 <button class="tab-btn active" onclick="switchTab('import', this)">📋 Importar TSV</button>
-                <button class="tab-btn" onclick="switchTab('reset', this)">🔄 Resetear</button>
+                <button class="tab-btn" onclick="switchTab('github', this)">☁️ Cargar GitHub</button>
             </div>
             
             <div id="tab-import" class="tab-content active">
                 <div class="import-info">
                     <strong>📌 Instrucciones:</strong><br>
-                    Pega aquí los datos de empleados en formato TSV (copiados desde Excel).<br>
-                    Formato: <code>GRUPO | LOGIN | NOMBRE | [vacío] | ROLE | nums... | TURNOS</code>
+                    Pega los datos de empleados en formato TSV (copiados desde Excel).<br>
+                    Los cambios se guardan en la <strong>base de datos online</strong> (permanentes).
                 </div>
                 <div class="import-panel">
                     <textarea id="bulkImportData" placeholder="Pega aquí los datos de los empleados..."></textarea>
                     <div class="btn-row">
-                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button>
+                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar</button>
                         <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
                     </div>
                 </div>
                 <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
             </div>
             
-            <div id="tab-reset" class="tab-content">
+            <div id="tab-github" class="tab-content">
                 <div style="padding:20px;">
-                    <p style="color:#666; margin-bottom:15px;">⚠️ Esto descargará los datos originales desde GitHub y borrará las modificaciones locales.</p>
-                    <button class="btn" style="background:#e74c3c;" onclick="resetAllData()">🗑️ Resetear Todo</button>
+                    <p style="color:#666; margin-bottom:15px;">
+                        Descarga los datos desde el archivo <strong>datos.tsv</strong> de GitHub<br>
+                        y los guarda en la base de datos online.
+                    </p>
+                    <button class="btn btn-reload" onclick="loadFromGitHubAndSave()">☁️ Cargar desde GitHub</button>
+                    <p style="color:#999; font-size:0.75rem; margin-top:10px;">
+                        Esto sobrescribirá todos los datos actuales.
+                    </p>
                 </div>
             </div>
             
@@ -652,9 +628,13 @@
 // =====================================================
 // CONFIGURACIÓN
 // =====================================================
-const MANAGER_PASSWORD = 'manager';
-const STORAGE_KEY = 'calendario_turnos_2026';
+const MANAGER_PASSWORD[REDACTED:PASSWORD]ager';
 const GITHUB_TSV_URL = 'https://sergiomorenoarteaga-boop.github.io/calendadrio-26/datos.tsv';
+
+// JSONbin.io configuración
+const JSONBIN_BIN_ID = '693ea0ddae596e708f993621';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIkFOLABHFEj5A.O';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const festivos2026 = [
     {month:1,day:1,name:"Año Nuevo"},{month:1,day:6,name:"Reyes"},
@@ -679,42 +659,79 @@ let isManager = false;
 let editingDay = null;
 
 // =====================================================
-// FUNCIONES DE ALMACENAMIENTO
+// FUNCIONES JSONbin.io (BASE DE DATOS ONLINE)
 // =====================================================
-function saveToStorage() {
-    const dataToSave = {
-        empleados: allData.empleados,
-        lastModified: new Date().toISOString()
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
-    updateDataStatus('local');
+async function saveToCloud() {
+    try {
+        const dataToSave = {
+            empleados: allData.empleados,
+            lastModified: new Date().toISOString(),
+            version: '2.0'
+        };
+        
+        const response = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY
+            },
+            body: JSON.stringify(dataToSave)
+        });
+        
+        if (!response.ok) throw new Error('Error al guardar');
+        
+        updateDataStatus('cloud');
+        return true;
+    } catch (error) {
+        console.error('Error guardando en JSONbin:', error);
+        showNotification('❌ Error al guardar en la nube', true);
+        return false;
+    }
 }
 
-function loadFromStorage() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-        try {
-            return JSON.parse(saved);
-        } catch (e) {
-            console.error('Error parsing localStorage:', e);
+async function loadFromCloud() {
+    try {
+        const response = await fetch(JSONBIN_URL + '/latest', {
+            headers: {
+                'X-Master-Key': JSONBIN_API_KEY
+            }
+        });
+        
+        if (!response.ok) throw new Error('Error al cargar');
+        
+        const data = await response.json();
+        
+        if (data.record && data.record.empleados && data.record.empleados.length > 0) {
+            return data.record.empleados;
         }
+        return null;
+    } catch (error) {
+        console.error('Error cargando desde JSONbin:', error);
+        return null;
     }
-    return null;
 }
 
 function updateDataStatus(source) {
     const statusEl = document.getElementById('dataStatus');
-    const saved = loadFromStorage();
-    if (source === 'github') {
-        statusEl.textContent = '☁️ Datos cargados desde GitHub';
+    const dbStatusEl = document.getElementById('dbStatus');
+    
+    if (source === 'cloud') {
+        statusEl.textContent = '☁️ Datos sincronizados con la nube';
         statusEl.style.color = '#74b9ff';
-    } else if (saved && saved.lastModified) {
-        const date = new Date(saved.lastModified);
-        statusEl.textContent = `💾 Guardado local: ${date.toLocaleString()}`;
-        statusEl.style.color = '#7bed9f';
+        if (dbStatusEl) {
+            dbStatusEl.textContent = 'Online';
+            dbStatusEl.className = 'db-status online';
+        }
+    } else if (source === 'github') {
+        statusEl.textContent = '📄 Datos cargados desde GitHub';
+        statusEl.style.color = '#ffeaa7';
     } else {
-        statusEl.textContent = '📄 Sin datos guardados';
-        statusEl.style.color = '#a0a0a0';
+        statusEl.textContent = '⚠️ Sin conexión';
+        statusEl.style.color = '#ff7675';
+        if (dbStatusEl) {
+            dbStatusEl.textContent = 'Offline';
+            dbStatusEl.className = 'db-status offline';
+        }
     }
 }
 
@@ -736,7 +753,6 @@ function parseRawData(rawData) {
         
         if (!login || login === '0' || !name) return;
         
-        // Buscar dónde terminan las columnas numéricas
         let turnoStart = 5;
         for (let i = 5; i < parts.length && i < 20; i++) {
             const val = parts[i].trim();
@@ -755,13 +771,7 @@ function parseRawData(rawData) {
         
         while (turnos.length < 365) turnos.push('');
         
-        empleados.push({ 
-            crew, 
-            login, 
-            name, 
-            role, 
-            turnos: turnos.slice(0, 365) 
-        });
+        empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
     });
     
     return empleados;
@@ -772,7 +782,7 @@ function parseRawData(rawData) {
 // =====================================================
 async function loadFromGitHub() {
     try {
-        const response = await fetch(GITHUB_TSV_URL + '?t=' + Date.now()); // Cache bust
+        const response = await fetch(GITHUB_TSV_URL + '?t=' + Date.now());
         if (!response.ok) throw new Error('Error al cargar');
         const text = await response.text();
         const empleados = parseRawData(text);
@@ -788,51 +798,76 @@ async function initializeData() {
     const calendarGrid = document.getElementById('calendarGrid');
     calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>';
     
-    // Primero intentar localStorage
-    const saved = loadFromStorage();
-    if (saved && saved.empleados && saved.empleados.length > 0) {
-        allData = { empleados: saved.empleados, festivos: festivos2026 };
-        console.log('✅ Datos cargados desde localStorage');
-        updateDataStatus('local');
+    // 1. Primero intentar cargar desde JSONbin (nube)
+    let empleados = await loadFromCloud();
+    
+    if (empleados && empleados.length > 0) {
+        allData = { empleados, festivos: festivos2026 };
+        console.log('✅ Datos cargados desde JSONbin');
+        updateDataStatus('cloud');
         initializeFilters();
         calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
         return;
     }
     
-    // Si no hay localStorage, cargar desde GitHub
-    const empleados = await loadFromGitHub();
+    // 2. Si JSONbin está vacío, cargar desde GitHub
+    empleados = await loadFromGitHub();
+    
     if (empleados && empleados.length > 0) {
         allData = { empleados, festivos: festivos2026 };
-        saveToStorage(); // Guardar en localStorage
-        console.log('✅ Datos cargados desde GitHub');
-        updateDataStatus('github');
+        // Guardar en JSONbin para futuras visitas
+        await saveToCloud();
+        console.log('✅ Datos cargados desde GitHub y guardados en JSONbin');
+        updateDataStatus('cloud');
         initializeFilters();
         calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
     } else {
-        calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar datos. Intenta recargar.</div>';
+        calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar datos</div>';
         showNotification('❌ Error al cargar datos', true);
     }
 }
 
-async function reloadFromGitHub() {
-    if (!confirm('¿Descargar datos frescos desde GitHub?\nEsto sobrescribirá los cambios locales.')) return;
-    
+async function reloadFromCloud() {
     const calendarGrid = document.getElementById('calendarGrid');
-    calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Descargando desde GitHub...</p></div>';
+    calendarGrid.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Recargando...</p></div>';
     
-    const empleados = await loadFromGitHub();
+    const empleados = await loadFromCloud();
+    
     if (empleados && empleados.length > 0) {
         allData = { empleados, festivos: festivos2026 };
-        saveToStorage();
         initializeFilters();
         selectedEmployee = null;
         document.getElementById('employeeInfo').classList.remove('active');
         document.getElementById('statsContainer').style.display = 'none';
         calendarGrid.innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-        showNotification('✅ Datos actualizados desde GitHub');
+        showNotification('✅ Datos recargados');
     } else {
-        showNotification('❌ Error al descargar', true);
+        showNotification('❌ Error al recargar', true);
         calendarGrid.innerHTML = '<div class="select-message"><span>❌</span>Error al cargar</div>';
+    }
+}
+
+async function loadFromGitHubAndSave() {
+    if (!confirm('¿Cargar datos desde GitHub?\nEsto sobrescribirá todos los datos actuales.')) return;
+    
+    showNotification('⏳ Descargando desde GitHub...');
+    
+    const empleados = await loadFromGitHub();
+    
+    if (empleados && empleados.length > 0) {
+        allData = { empleados, festivos: festivos2026 };
+        const saved = await saveToCloud();
+        
+        if (saved) {
+            initializeFilters();
+            selectedEmployee = null;
+            document.getElementById('employeeInfo').classList.remove('active');
+            document.getElementById('statsContainer').style.display = 'none';
+            document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
+            showNotification(`✅ ${empleados.length} empleados cargados y guardados`);
+        }
+    } else {
+        showNotification('❌ Error al descargar desde GitHub', true);
     }
 }
 
@@ -1018,17 +1053,25 @@ function closeModal() {
     editingDay = null;
 }
 
-function setShift(shift) {
+async function setShift(shift) {
     if (!editingDay || !isManager || !selectedEmployee) return;
     const compensado = document.getElementById('checkCompensado').checked;
     const turnoFinal = compensado && shift ? `${shift}-co` : shift;
     
     selectedEmployee.turnos[editingDay.doy] = turnoFinal;
-    saveToStorage();
-    generateCalendar();
-    generateStats();
-    closeModal();
-    showNotification('✅ Turno guardado');
+    
+    // Guardar en la nube
+    showNotification('⏳ Guardando...');
+    const saved = await saveToCloud();
+    
+    if (saved) {
+        generateCalendar();
+        generateStats();
+        closeModal();
+        showNotification('✅ Turno guardado en la nube');
+    } else {
+        showNotification('❌ Error al guardar', true);
+    }
 }
 
 // =====================================================
@@ -1112,7 +1155,7 @@ function previewBulkImport() {
     preview.innerHTML = html;
 }
 
-function processBulkImport() {
+async function processBulkImport() {
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) {
         showNotification('⚠️ No hay datos', true);
@@ -1139,34 +1182,30 @@ function processBulkImport() {
         }
     });
     
-    saveToStorage();
-    initializeFilters();
+    // Guardar en la nube
+    showNotification('⏳ Guardando en la nube...');
+    const saved = await saveToCloud();
     
-    if (selectedEmployee) {
-        selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
+    if (saved) {
+        initializeFilters();
+        
         if (selectedEmployee) {
-            generateCalendar();
-            generateStats();
+            selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
+            if (selectedEmployee) {
+                generateCalendar();
+                generateStats();
+            }
         }
+        
+        document.getElementById('bulkImportData').value = '';
+        document.getElementById('importPreview').innerHTML = '';
+        
+        showNotification(`✅ ${actualizados} actualizados, ${agregados} nuevos - Guardado en la nube`);
     }
-    
-    document.getElementById('bulkImportData').value = '';
-    document.getElementById('importPreview').innerHTML = '';
-    
-    showNotification(`✅ ${actualizados} actualizados, ${agregados} nuevos`);
-}
-
-async function resetAllData() {
-    if (!confirm('¿Resetear todos los datos desde GitHub?')) return;
-    
-    localStorage.removeItem(STORAGE_KEY);
-    closeManagerModal();
-    await initializeData();
-    showNotification('🔄 Datos reseteados');
 }
 
 // =====================================================
-// EXPORTAR / IMPORTAR JSON
+// EXPORTAR JSON
 // =====================================================
 function exportData() {
     const dataToExport = {
@@ -1185,33 +1224,6 @@ function exportData() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     showNotification('📤 Datos exportados');
-}
-
-function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const imported = JSON.parse(e.target.result);
-            if (imported.empleados && Array.isArray(imported.empleados)) {
-                allData.empleados = imported.empleados;
-                saveToStorage();
-                initializeFilters();
-                selectedEmployee = null;
-                document.getElementById('employeeInfo').classList.remove('active');
-                document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>👆</span>Selecciona una persona</div>';
-                showNotification(`📥 ${imported.empleados.length} empleados importados`);
-            } else {
-                showNotification('❌ Formato inválido', true);
-            }
-        } catch (err) {
-            showNotification('❌ Error al leer archivo', true);
-        }
-    };
-    reader.readAsText(file);
-    event.target.value = '';
 }
 
 // =====================================================
