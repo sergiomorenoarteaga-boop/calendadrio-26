@@ -45,7 +45,6 @@
         .btn-general { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
         .btn-general.active { background: linear-gradient(145deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(102, 126, 234, 0.5); }
         .btn:hover { transform: translateY(-2px); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
         .btn-view.active { background: linear-gradient(145deg, #667eea, #764ba2); border-color: transparent; }
         .calendar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 1400px; margin: 0 auto; }
@@ -352,13 +351,13 @@
 
 <script>
 // =====================================================
-// CONFIGURACIÓN
+// CONFIGURACIÓN - DATOS CORRECTOS
 // =====================================================
-const MANAGER_PASSWO[REDACTED:PASSWORD]anager';
+const MANAGER_PASSWORD = 'manager';
 
-// JSONbin.io - TU configuración
-const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid[REDACTED:AWS_ACCESS_KEY]zEJJQaj5A.O';
+// JSONbin.io - TUS NUEVOS DATOS
+const JSONBIN_BIN_ID = '693ffecfae596e708f9b7bd9';
+const JSONBIN_API_KEY = '$2a$10$JoDdIoBxJKzAIe4aq3rjaewI6/B6vrUQoz[REDACTED:AWS_SECRET_KEY]rz3BGi';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const festivos2026 = [
@@ -373,7 +372,7 @@ const festivos2026 = [
 
 const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
-const startDays = [4,0,0,3,5,1,3,6,2,4,0,2]; // Día semana del 1 de cada mes en 2026
+const startDays = [4,0,0,3,5,1,3,6,2,4,0,2];
 
 let allData = { empleados: [], festivos: festivos2026 };
 let selectedEmployee = null;
@@ -382,44 +381,28 @@ let editingDay = null;
 let isGeneralView = true;
 
 // =====================================================
-// *** FUNCIONES DE CONVERSIÓN DE TURNOS ***
+// CONVERSIÓN DE TURNOS: STRING <-> ARRAY
 // =====================================================
-
-/**
- * Convierte string de turnos (separados por coma) a array
- * ",,n,n,,,t8,t8" → ["", "", "n", "n", "", "", "t8", "t8"]
- * Índice 0 = 1 de enero
- */
 function turnosStringToArray(turnosString) {
-    if (Array.isArray(turnosString)) {
-        return turnosString; // Ya es array
-    }
-    if (!turnosString || typeof turnosString !== 'string') {
-        return new Array(365).fill('');
-    }
+    if (Array.isArray(turnosString)) return turnosString;
+    if (!turnosString || typeof turnosString !== 'string') return new Array(365).fill('');
     const arr = turnosString.split(',');
     while (arr.length < 365) arr.push('');
     return arr.slice(0, 365);
 }
 
-/**
- * Convierte array de turnos a string separado por comas
- */
 function turnosArrayToString(turnosArray) {
-    if (!turnosArray || !Array.isArray(turnosArray)) {
-        return new Array(365).fill('').join(',');
-    }
+    if (!turnosArray || !Array.isArray(turnosArray)) return new Array(365).fill('').join(',');
     return turnosArray.join(',');
 }
 
 // =====================================================
-// JSONBIN - GUARDAR EN LA NUBE
+// JSONBIN - GUARDAR
 // =====================================================
 async function saveToCloud() {
     try {
-        setDataStatus('loading', '⏳ Guardando en la nube...');
+        setDataStatus('loading', '⏳ Guardando...');
         
-        // *** Convertir turnos de array a string antes de guardar ***
         const empleadosParaGuardar = allData.empleados.map(emp => ({
             crew: emp.crew,
             login: emp.login,
@@ -428,52 +411,47 @@ async function saveToCloud() {
             turnos: turnosArrayToString(emp.turnos)
         }));
         
-        const dataToSave = {
-            empleados: empleadosParaGuardar,
-            lastModified: new Date().toISOString(),
-            version: '2.0'
-        };
-        
         const response = await fetch(JSONBIN_URL, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Master-Key': JSONBIN_API_KEY
             },
-            body: JSON.stringify(dataToSave)
+            body: JSON.stringify({
+                empleados: empleadosParaGuardar,
+                lastModified: new Date().toISOString(),
+                version: '2.0'
+            })
         });
         
         if (!response.ok) throw new Error('Error al guardar');
-        
         setDataStatus('online', '☁️ Sincronizado: ' + new Date().toLocaleTimeString());
         return true;
     } catch (error) {
         console.error('Error guardando:', error);
         setDataStatus('offline', '❌ Error al guardar');
-        showNotification('❌ Error al guardar en la nube', true);
+        showNotification('❌ Error al guardar', true);
         return false;
     }
 }
 
 // =====================================================
-// JSONBIN - CARGAR DE LA NUBE
+// JSONBIN - CARGAR
 // =====================================================
 async function loadFromCloud() {
     try {
-        setDataStatus('loading', '⏳ Cargando de la nube...');
+        setDataStatus('loading', '⏳ Cargando...');
         
         const response = await fetch(JSONBIN_URL + '/latest', {
-            headers: {
-                'X-Master-Key': JSONBIN_API_KEY
-            }
+            headers: { 'X-Master-Key': JSONBIN_API_KEY }
         });
         
         if (!response.ok) throw new Error('Error al cargar');
         
         const data = await response.json();
+        console.log('Datos cargados:', data);
         
         if (data.record && data.record.empleados && data.record.empleados.length > 0) {
-            // *** CRÍTICO: Convertir turnos de string a array ***
             const empleados = data.record.empleados.map(emp => ({
                 crew: emp.crew || '',
                 login: emp.login || '',
@@ -481,16 +459,15 @@ async function loadFromCloud() {
                 role: emp.role || '',
                 turnos: turnosStringToArray(emp.turnos)
             }));
-            
-            setDataStatus('online', '☁️ Conectado - ' + empleados.length + ' empleados');
+            setDataStatus('online', '☁️ ' + empleados.length + ' empleados');
             return empleados;
         }
         
-        setDataStatus('online', '☁️ Conectado - Sin datos');
+        setDataStatus('online', '☁️ Sin datos');
         return [];
     } catch (error) {
         console.error('Error cargando:', error);
-        setDataStatus('offline', '❌ Error de conexión');
+        setDataStatus('offline', '❌ Error conexión');
         return null;
     }
 }
@@ -502,7 +479,7 @@ function setDataStatus(type, message) {
 }
 
 // =====================================================
-// PARSEO TSV (importar desde Excel)
+// PARSEO TSV
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
@@ -519,17 +496,14 @@ function parseRawData(rawData) {
         
         if (!login || login === '0' || !name) return;
         
-        // Buscar columna 0.00 para saber dónde empiezan los turnos
         let turnoStart = 12;
         for (let i = 5; i < Math.min(parts.length, 15); i++) {
-            const val = parts[i].trim();
-            if (/^\d+\.\d+$/.test(val)) {
+            if (/^\d+\.\d+$/.test(parts[i].trim())) {
                 turnoStart = i + 1;
                 break;
             }
         }
         
-        // Extraer turnos como ARRAY
         const turnos = [];
         for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
             turnos.push((parts[i] || '').trim().toLowerCase());
@@ -569,7 +543,6 @@ async function initializeData() {
 async function reloadFromCloud() {
     showNotification('🔄 Recargando...');
     await initializeData();
-    
     if (selectedEmployee) {
         const login = selectedEmployee.login;
         selectedEmployee = allData.empleados.find(e => e.login === login);
@@ -578,7 +551,6 @@ async function reloadFromCloud() {
             generateStats();
         }
     }
-    
     showNotification('✅ Datos actualizados');
 }
 
@@ -607,11 +579,7 @@ function filterEmployees() {
 
 function selectEmployee() {
     const login = document.getElementById('filterEmployee').value;
-    
-    if (!login) {
-        showGeneralView();
-        return;
-    }
+    if (!login) { showGeneralView(); return; }
     
     selectedEmployee = allData.empleados.find(e => e.login === login);
     if (!selectedEmployee) return;
@@ -619,13 +587,11 @@ function selectEmployee() {
     isGeneralView = false;
     document.getElementById('btnGeneral').classList.remove('active');
     document.getElementById('generalViewInfo').style.display = 'none';
-    
     document.getElementById('employeeName').textContent = selectedEmployee.name;
     document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
     document.getElementById('employeeRole').textContent = selectedEmployee.role;
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
-    
     generateCalendar();
     generateStats();
     document.getElementById('statsContainer').style.display = 'block';
@@ -637,13 +603,11 @@ function selectEmployee() {
 function showGeneralView() {
     isGeneralView = true;
     selectedEmployee = null;
-    
     document.getElementById('filterEmployee').value = '';
     document.getElementById('btnGeneral').classList.add('active');
     document.getElementById('generalViewInfo').style.display = 'block';
     document.getElementById('employeeInfo').classList.remove('active');
     document.getElementById('statsContainer').style.display = 'none';
-    
     generateGeneralCalendar();
 }
 
@@ -652,11 +616,8 @@ function generateGeneralCalendar() {
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
         return;
     }
-    
     let html = '';
-    for (let m = 1; m <= 12; m++) {
-        html += generateGeneralMonth(m);
-    }
+    for (let m = 1; m <= 12; m++) html += generateGeneralMonth(m);
     document.getElementById('calendarGrid').innerHTML = html;
 }
 
@@ -664,7 +625,6 @@ function generateGeneralMonth(month) {
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>D</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th></tr></thead><tbody>`;
     let day = 1;
     const weeks = Math.ceil((daysInMonth[month-1] + startDays[month-1]) / 7);
-    
     for (let w = 0; w < weeks; w++) {
         html += '<tr>';
         for (let d = 0; d < 7; d++) {
@@ -674,11 +634,7 @@ function generateGeneralMonth(month) {
                 const fest = isFestivo(month, day);
                 let classes = ['general-day'];
                 if (fest) classes.push('festivo');
-                const title = fest ? `title="🎉 ${getFestivoName(month, day)}"` : '';
-                
-                html += `<td class="${classes.join(' ')}" ${title} onclick="openDayOverviewModal(${month}, ${day})">
-                    <span class="day-num">${day}</span>
-                </td>`;
+                html += `<td class="${classes.join(' ')}" onclick="openDayOverviewModal(${month}, ${day})"><span class="day-num">${day}</span></td>`;
                 day++;
             }
         }
@@ -693,101 +649,55 @@ function generateGeneralMonth(month) {
 // =====================================================
 function openDayOverviewModal(month, day) {
     const doy = getDayOfYear(month, day);
-    
-    const morning = [];
-    const afternoon = [];
-    const night = [];
-    const central = [];
+    const morning = [], afternoon = [], night = [], central = [];
     
     allData.empleados.forEach(emp => {
-        // *** emp.turnos ahora es un array ***
         const turnoRaw = emp.turnos[doy] || '';
         const { shift } = parseShift(turnoRaw);
         const s = shift.toLowerCase();
+        const empData = { name: emp.name, crew: emp.crew, login: emp.login, shift: shift.toUpperCase() };
         
-        const empData = {
-            name: emp.name,
-            crew: emp.crew,
-            login: emp.login,
-            shift: shift.toUpperCase()
-        };
-        
-        if (s === 'wm' || s === 'm8' || s === 'm') {
-            morning.push(empData);
-        } else if (s === 'wt' || s === 't8' || s === 't') {
-            afternoon.push(empData);
-        } else if (s === 'n8' || s === 'n' || s === 'nn' || s === 'wn') {
-            night.push(empData);
-        } else if (s === 'c' || s === 'cw') {
-            central.push(empData);
-        }
+        if (s === 'wm' || s === 'm8' || s === 'm') morning.push(empData);
+        else if (s === 'wt' || s === 't8' || s === 't') afternoon.push(empData);
+        else if (s === 'n8' || s === 'n' || s === 'nn' || s === 'wn') night.push(empData);
+        else if (s === 'c' || s === 'cw') central.push(empData);
     });
     
-    morning.sort((a,b) => a.name.localeCompare(b.name));
-    afternoon.sort((a,b) => a.name.localeCompare(b.name));
-    night.sort((a,b) => a.name.localeCompare(b.name));
-    central.sort((a,b) => a.name.localeCompare(b.name));
+    [morning, afternoon, night, central].forEach(arr => arr.sort((a,b) => a.name.localeCompare(b.name)));
     
     const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const date = new Date(2026, month - 1, day);
-    document.getElementById('dayOverviewTitle').textContent = 
-        `📅 ${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
+    document.getElementById('dayOverviewTitle').textContent = `📅 ${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
     
     const fest = isFestivo(month, day);
     const festivoBadge = document.getElementById('dayOverviewFestivo');
-    if (fest) {
-        festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
-        festivoBadge.style.display = 'inline-block';
-    } else {
-        festivoBadge.style.display = 'none';
-    }
+    festivoBadge.style.display = fest ? 'inline-block' : 'none';
+    if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
     document.getElementById('daySummary').innerHTML = `
-        <div class="summary-item">
-            <div class="summary-dot" style="background:var(--verde)"></div>
-            <span>${morning.length}</span> Mañana
-        </div>
-        <div class="summary-item">
-            <div class="summary-dot" style="background:var(--naranja)"></div>
-            <span>${afternoon.length}</span> Tarde
-        </div>
-        <div class="summary-item">
-            <div class="summary-dot" style="background:var(--azul)"></div>
-            <span>${night.length}</span> Noche
-        </div>
-        <div class="summary-item">
-            <div class="summary-dot" style="background:var(--gris)"></div>
-            <span>${central.length}</span> Central
-        </div>
-        <div class="summary-item" style="background:#e8f5e9;">
-            <span style="color:#27ae60;">${morning.length + afternoon.length + night.length + central.length}</span> Total
-        </div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--verde)"></div><span>${morning.length}</span> Mañana</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--naranja)"></div><span>${afternoon.length}</span> Tarde</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--azul)"></div><span>${night.length}</span> Noche</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--gris)"></div><span>${central.length}</span> Central</div>
+        <div class="summary-item" style="background:#e8f5e9;"><span style="color:#27ae60;">${morning.length + afternoon.length + night.length + central.length}</span> Total</div>
     `;
     
     document.getElementById('countMorning').textContent = morning.length;
     document.getElementById('countAfternoon').textContent = afternoon.length;
     document.getElementById('countNight').textContent = night.length;
     document.getElementById('countCentral').textContent = central.length;
-    
     document.getElementById('listMorning').innerHTML = renderEmployeeList(morning, 'morning');
     document.getElementById('listAfternoon').innerHTML = renderEmployeeList(afternoon, 'afternoon');
     document.getElementById('listNight').innerHTML = renderEmployeeList(night, 'night');
     document.getElementById('listCentral').innerHTML = renderEmployeeList(central, 'central');
-    
     document.getElementById('dayOverviewModal').classList.add('active');
 }
 
 function renderEmployeeList(employees, type) {
-    if (employees.length === 0) {
-        return '<div class="no-employees">Sin personal asignado</div>';
-    }
-    
+    if (employees.length === 0) return '<div class="no-employees">Sin personal asignado</div>';
     return employees.map(emp => `
         <div class="employee-item" onclick="selectEmployeeFromModal('${emp.login}')">
-            <div>
-                <span class="name">${emp.name}</span>
-                <span class="crew">${emp.crew}</span>
-            </div>
+            <div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span></div>
             <span class="shift-badge ${type}">${emp.shift}</span>
         </div>
     `).join('');
@@ -799,9 +709,7 @@ function selectEmployeeFromModal(login) {
     selectEmployee();
 }
 
-function closeDayOverviewModal() {
-    document.getElementById('dayOverviewModal').classList.remove('active');
-}
+function closeDayOverviewModal() { document.getElementById('dayOverviewModal').classList.remove('active'); }
 
 // =====================================================
 // TURNOS
@@ -831,20 +739,10 @@ function getShiftClass(shift) {
 
 function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
 function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m && f.day === d); return f ? f.name : ''; }
-
-/**
- * Calcula índice del día del año (0-364)
- * getDayOfYear(1, 1) = 0 (1 enero)
- * getDayOfYear(1, 2) = 1 (2 enero)
- */
-function getDayOfYear(m, d) { 
-    let doy = 0; 
-    for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; 
-    return doy + d - 1; 
-}
+function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
 
 // =====================================================
-// CALENDARIO (empleado individual)
+// CALENDARIO INDIVIDUAL
 // =====================================================
 function generateMonth(month) {
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>D</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th></tr></thead><tbody>`;
@@ -857,15 +755,13 @@ function generateMonth(month) {
                 html += '<td class="empty"></td>';
             } else {
                 const doy = getDayOfYear(month, day);
-                // *** selectedEmployee.turnos es un array ***
                 const turnoRaw = selectedEmployee.turnos[doy] || '';
                 const { shift, compensado } = parseShift(turnoRaw);
                 const fest = isFestivo(month, day);
                 let classes = [getShiftClass(shift)];
                 if (fest) classes.push('festivo');
                 if (compensado) classes.push('compensado');
-                const title = fest ? `title="🎉 ${getFestivoName(month, day)}"` : '';
-                html += `<td class="${classes.join(' ')}" ${title} onclick="openEditModal(${month}, ${day})"><span class="day-num">${day}</span><span class="shift-code">${shift ? shift.toUpperCase() : ''}</span></td>`;
+                html += `<td class="${classes.join(' ')}" onclick="openEditModal(${month}, ${day})"><span class="day-num">${day}</span><span class="shift-code">${shift ? shift.toUpperCase() : ''}</span></td>`;
                 day++;
             }
         }
@@ -919,12 +815,8 @@ function openEditModal(month, day) {
     document.getElementById('modalTitle').textContent = `${day} de ${monthNames[month-1]} 2026`;
     const fest = isFestivo(month, day);
     const festivoBadge = document.getElementById('festivoBadge');
-    if (fest) {
-        festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
-        festivoBadge.style.display = 'inline-block';
-    } else {
-        festivoBadge.style.display = 'none';
-    }
+    festivoBadge.style.display = fest ? 'inline-block' : 'none';
+    if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     document.getElementById('managerEditSection').style.display = isManager ? 'block' : 'none';
     document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
     const turnoRaw = selectedEmployee.turnos[editingDay.doy] || '';
@@ -932,26 +824,15 @@ function openEditModal(month, day) {
     document.getElementById('editModal').classList.add('active');
 }
 
-function closeModal() {
-    document.getElementById('editModal').classList.remove('active');
-    editingDay = null;
-}
+function closeModal() { document.getElementById('editModal').classList.remove('active'); editingDay = null; }
 
 async function setShift(shift) {
     if (!editingDay || !isManager || !selectedEmployee) return;
-    
     const compensado = document.getElementById('checkCompensado').checked;
     selectedEmployee.turnos[editingDay.doy] = compensado && shift ? `${shift}-co` : shift;
-    
     showNotification('⏳ Guardando...');
     const saved = await saveToCloud();
-    
-    if (saved) {
-        generateCalendar();
-        generateStats();
-        closeModal();
-        showNotification('✅ Turno guardado en la nube');
-    }
+    if (saved) { generateCalendar(); generateStats(); closeModal(); showNotification('✅ Guardado'); }
 }
 
 // =====================================================
@@ -974,8 +855,7 @@ function openManagerModal() {
 function closeManagerModal() { document.getElementById('managerModal').classList.remove('active'); }
 
 function checkManagerPassword() {
-    const password = document.getElementById('managerPassword').value;
-    if (password === MANAGER_PASSWORD) {
+    if (document.getElementById('managerPassword').value === MANAGER_PASSWORD) {
         isManager = true;
         document.getElementById('btnManager').classList.add('active');
         document.getElementById('btnManager').innerHTML = '✅ Manager';
@@ -1012,88 +892,60 @@ function previewBulkImport() {
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
     const empleados = parseRawData(data);
     const preview = document.getElementById('importPreview');
-    if (empleados.length === 0) {
-        preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>';
-        return;
-    }
-    let html = `<p style="color:green;">✅ ${empleados.length} empleados:</p><ul style="margin-left:15px;max-height:100px;overflow-y:auto;">`;
-    empleados.slice(0, 10).forEach(e => {
-        const turnosCount = e.turnos.filter(t => t).length;
-        html += `<li><strong>${e.name}</strong> - ${turnosCount} turnos</li>`;
-    });
+    if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
+    let html = `<p style="color:green;">✅ ${empleados.length} empleados:</p><ul>`;
+    empleados.slice(0, 10).forEach(e => html += `<li><strong>${e.name}</strong> - ${e.turnos.filter(t => t).length} turnos</li>`);
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
-    html += '</ul>';
-    preview.innerHTML = html;
+    preview.innerHTML = html + '</ul>';
 }
 
 async function processBulkImport() {
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
-    
     const nuevosEmpleados = parseRawData(data);
     if (nuevosEmpleados.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
     let actualizados = 0, agregados = 0;
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) {
-            allData.empleados[idx] = nuevo;
-            actualizados++;
-        } else {
-            allData.empleados.push(nuevo);
-            agregados++;
-        }
+        if (idx >= 0) { allData.empleados[idx] = nuevo; actualizados++; }
+        else { allData.empleados.push(nuevo); agregados++; }
     });
     
-    showNotification('⏳ Guardando en la nube...');
-    const saved = await saveToCloud();
-    
-    if (saved) {
+    showNotification('⏳ Guardando...');
+    if (await saveToCloud()) {
         initializeFilters();
         showGeneralView();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
-        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados - Guardado en la nube`);
+        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
     }
 }
 
 async function resetAllData() {
-    if (!confirm('¿Borrar todos los datos de la nube?\nEsta acción no se puede deshacer.')) return;
-    
+    if (!confirm('¿Borrar todos los datos?')) return;
     allData = { empleados: [], festivos: festivos2026 };
-    
     showNotification('⏳ Borrando...');
-    const saved = await saveToCloud();
-    
-    if (saved) {
+    if (await saveToCloud()) {
         document.getElementById('filterCrew').innerHTML = '<option value="">Todos</option>';
         document.getElementById('filterEmployee').innerHTML = '<option value="">-- Vista General --</option>';
         document.getElementById('employeeCount').textContent = '';
         document.getElementById('employeeInfo').classList.remove('active');
         document.getElementById('statsContainer').style.display = 'none';
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Importa datos desde Manager</div>';
-        showNotification('🗑️ Datos borrados de la nube');
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
+        showNotification('🗑️ Datos borrados');
     }
 }
 
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
-    
-    // Exportar con turnos como string
-    const empleadosExport = allData.empleados.map(emp => ({
-        crew: emp.crew,
-        login: emp.login,
-        name: emp.name,
-        role: emp.role,
-        turnos: turnosArrayToString(emp.turnos)
-    }));
-    
+    const empleadosExport = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
     const blob = new Blob([JSON.stringify({ empleados: empleadosExport, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
     a.click();
-    showNotification('📤 Backup exportado');
+    showNotification('📤 Exportado');
 }
 
 // =====================================================
