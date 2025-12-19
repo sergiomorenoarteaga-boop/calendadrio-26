@@ -32,13 +32,10 @@
         .employee-badge { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; }
         .badge-crew { background: #667eea; color: white; }
         .badge-role { background: #27ae60; color: white; }
-        
-        /* LEYENDA MEJORADA */
         .legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; max-width: 1400px; margin-left: auto; margin-right: auto; }
         .legend-item { display: flex; align-items: center; gap: 4px; color: #fff; font-size: 0.65rem; padding: 4px 8px; background: rgba(0,0,0,0.2); border-radius: 10px; }
         .legend-color { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 700; }
         .legend-hours { opacity: 0.7; font-size: 0.55rem; }
-        
         .controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
         .btn { padding: 8px 14px; border: none; border-radius: 18px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.3s ease; color: white; }
         .btn-manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
@@ -59,27 +56,30 @@
         .month-header { text-align: center; padding: 8px; margin: -8px -8px 8px -8px; background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px 12px 0 0; color: white; }
         .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; }
         .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; }
-        .calendar-table th:last-child { color: #e74c3c; } /* Domingo al final */
-        .calendar-table th:nth-child(6) { color: #3498db; } /* Sábado */
+        .calendar-table th:last-child { color: #e74c3c; }
+        .calendar-table th:nth-child(6) { color: #3498db; }
         .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; }
         .calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
         .day-num { font-weight: 700; display: block; font-size: 0.75rem; line-height: 1.1; }
         .shift-code { font-size: 0.55rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase; }
         .shift-hours { font-size: 0.4rem; display: block; opacity: 0.8; line-height: 1; }
         
-        /* TURNOS CON MEJOR DIFERENCIACIÓN */
+        /* Turnos de MAÑANA - Verde */
         .shift-wm { background: linear-gradient(135deg, var(--verde), #7cb342) !important; color: #1a5c1a !important; border-left: 3px solid #2e7d32; }
         .shift-m8 { background: linear-gradient(135deg, #81c784, var(--verde)) !important; color: #1a5c1a !important; border-left: 3px solid #43a047; }
         .shift-m { background: var(--verde) !important; color: #1a5c1a !important; border-left: 3px solid #66bb6a; }
         
+        /* Turnos de TARDE - Naranja */
         .shift-wt { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; color: #5a4000 !important; border-left: 3px solid #ef6c00; }
         .shift-t8 { background: linear-gradient(135deg, #ffca28, var(--naranja)) !important; color: #5a4000 !important; border-left: 3px solid #f57c00; }
         .shift-t { background: var(--naranja) !important; color: #5a4000 !important; border-left: 3px solid #ffb300; }
         
+        /* Turnos de NOCHE - Azul */
         .shift-n8 { background: linear-gradient(135deg, var(--azul), #1a237e) !important; color: white !important; border-left: 3px solid #4a148c; }
         .shift-n { background: linear-gradient(135deg, #303f9f, var(--azul)) !important; color: white !important; border-left: 3px solid #283593; }
         .shift-nn { background: linear-gradient(135deg, #5c6bc0, #3949ab) !important; color: white !important; border-left: 3px solid #1a237e; }
         
+        /* Otros turnos */
         .shift-c, .shift-cw { background: linear-gradient(135deg, #e0e0e0, #bdbdbd) !important; color: #444 !important; border-left: 3px solid #757575; }
         .shift-v, .shift-v25, .shift-v26 { background: linear-gradient(135deg, #ef5350, #e53935) !important; color: white !important; border-left: 3px solid #b71c1c; }
         .shift-ap { background: linear-gradient(135deg, var(--verde-fuerte), #00c853) !important; color: white !important; border-left: 3px solid #1b5e20; }
@@ -95,8 +95,6 @@
         .general-day:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white !important; }
         .general-day .day-num { color: #333; }
         .general-day:hover .day-num { color: white; }
-        
-        /* Weekend styling in general view */
         .weekend-sat { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
         .weekend-sun { background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
         
@@ -107,15 +105,12 @@
         .modal-xlarge { max-width: 95%; width: 1200px; }
         .modal h3 { margin-bottom: 8px; color: #333; }
         .festivo-badge { display: inline-block; background: var(--rojo); color: white; padding: 6px 12px; border-radius: 15px; margin-bottom: 10px; font-weight: 600; font-size: 0.8rem; }
-        
-        /* MODAL BOTONES MEJORADOS */
         .modal-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
         .modal-btn { padding: 12px 8px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: transform 0.2s; }
         .modal-btn:hover { transform: scale(1.05); }
         .modal-btn .btn-code { font-size: 1rem; }
         .modal-btn .btn-hours { font-size: 0.65rem; opacity: 0.8; }
         .modal-btn .btn-desc { font-size: 0.6rem; opacity: 0.7; }
-        
         .modal-btn.btn-wm { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
         .modal-btn.btn-m8 { background: linear-gradient(135deg, #81c784, var(--verde)); color: #1a5c1a; }
         .modal-btn.btn-wt { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
@@ -128,18 +123,14 @@
         .modal-btn.btn-ap { background: linear-gradient(135deg, var(--verde-fuerte), #00c853); color: white; }
         .modal-btn.btn-tr { background: linear-gradient(135deg, #ff9800, #f57c00); color: white; }
         .modal-btn.btn-libre { background: #f5f5f5; color: #999; border: 2px dashed #ddd; }
-        
         .modal-options { margin-bottom: 12px; }
         .modal-options label { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; font-size: 0.85rem; }
         .modal-close { padding: 8px 20px; background: #95a5a6; color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: 600; }
-        
-        /* TURNO ACTUAL EN MODAL */
         .current-shift-display { background: #f8f9fa; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
         .current-shift-display .shift-label { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
         .current-shift-display .shift-info { display: flex; align-items: center; justify-content: center; gap: 10px; }
         .current-shift-display .shift-badge-large { padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 1.2rem; }
         .current-shift-display .shift-time { font-size: 1rem; color: #333; }
-        
         .manager-login { margin: 12px 0; }
         .manager-login input { padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; max-width: 200px; text-align: center; }
         .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
@@ -246,56 +237,19 @@
     <span style="color:#666; margin-left:8px; font-size:0.8rem;">Login: <strong id="employeeLogin">LOGIN</strong></span>
 </div>
 
-<!-- LEYENDA MEJORADA CON HORARIOS -->
 <div class="legend">
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div>
-        <span><b>WM</b> <span class="legend-hours">06:00-15:10</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div>
-        <span><b>M8</b> <span class="legend-hours">06:00-14:10</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div>
-        <span><b>WT</b> <span class="legend-hours">14:00-23:10</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div>
-        <span><b>T8</b> <span class="legend-hours">14:00-22:10</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div>
-        <span><b>N8</b> <span class="legend-hours">22:00-06:10</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div>
-        <span><b>N</b> <span class="legend-hours">22:00-06:30</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div>
-        <span><b>NN</b> <span class="legend-hours">00:00-06:30</span></span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:var(--gris)">C</div>
-        <span><b>C</b> Central</span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:var(--rojo-vacaciones)">V</div>
-        <span><b>V</b> Vacaciones</span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:var(--verde-fuerte)">AP</div>
-        <span><b>AP</b> Asuntos P.</span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:var(--rojo); border-radius:50%"></div>
-        <span>Festivo</span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-color" style="background:transparent; color:var(--morado)">★</div>
-        <span>Compensado</span>
-    </div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div><span><b>WM</b> <span class="legend-hours">06:00-15:10</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div><span><b>M8</b> <span class="legend-hours">06:00-14:10</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div><span><b>WT</b> <span class="legend-hours">14:00-23:10</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div><span><b>T8</b> <span class="legend-hours">14:00-22:10</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div><span><b>N8</b> <span class="legend-hours">22:00-06:10</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div><span><b>N</b> <span class="legend-hours">22:00-06:30</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div><span><b>NN</b> <span class="legend-hours">00:00-06:30</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:var(--gris)">C</div><span><b>C</b> Central</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:var(--rojo-vacaciones)">V</div><span><b>V</b> Vacaciones</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:var(--verde-fuerte)">AP</div><span><b>AP</b> Asuntos P.</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:transparent; color:var(--morado)">★</div><span>Compensado</span></div>
 </div>
 
 <div class="controls">
@@ -311,10 +265,7 @@
 </div>
 
 <div class="calendar-grid" id="calendarGrid">
-    <div class="loading">
-        <div class="loading-spinner"></div>
-        <p>Cargando datos de la nube...</p>
-    </div>
+    <div class="loading"><div class="loading-spinner"></div><p>Cargando datos de la nube...</p></div>
 </div>
 
 <div class="stats-container" id="statsContainer" style="display:none;">
@@ -327,8 +278,6 @@
     <div class="modal">
         <h3 id="modalTitle">Día</h3>
         <div id="festivoBadge" class="festivo-badge" style="display:none;"></div>
-        
-        <!-- TURNO ACTUAL -->
         <div class="current-shift-display" id="currentShiftDisplay">
             <div class="shift-label">Turno actual:</div>
             <div class="shift-info">
@@ -336,78 +285,25 @@
                 <span class="shift-time" id="currentShiftTime"></span>
             </div>
         </div>
-        
         <div id="managerEditSection" style="display:none;">
             <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Selecciona el nuevo turno:</p>
             <div class="modal-buttons">
-                <button class="modal-btn btn-wm" onclick="setShift('wm')">
-                    <span class="btn-code">WM</span>
-                    <span class="btn-hours">06:00 - 15:10</span>
-                    <span class="btn-desc">Mañana Weekend</span>
-                </button>
-                <button class="modal-btn btn-m8" onclick="setShift('m8')">
-                    <span class="btn-code">M8</span>
-                    <span class="btn-hours">06:00 - 14:10</span>
-                    <span class="btn-desc">Mañana 8h</span>
-                </button>
-                <button class="modal-btn btn-wt" onclick="setShift('wt')">
-                    <span class="btn-code">WT</span>
-                    <span class="btn-hours">14:00 - 23:10</span>
-                    <span class="btn-desc">Tarde Weekend</span>
-                </button>
-                <button class="modal-btn btn-t8" onclick="setShift('t8')">
-                    <span class="btn-code">T8</span>
-                    <span class="btn-hours">14:00 - 22:10</span>
-                    <span class="btn-desc">Tarde 8h</span>
-                </button>
-                <button class="modal-btn btn-n8" onclick="setShift('n8')">
-                    <span class="btn-code">N8</span>
-                    <span class="btn-hours">22:00 - 06:10</span>
-                    <span class="btn-desc">Noche 8h</span>
-                </button>
-                <button class="modal-btn btn-n" onclick="setShift('n')">
-                    <span class="btn-code">N</span>
-                    <span class="btn-hours">22:00 - 06:30</span>
-                    <span class="btn-desc">Noche</span>
-                </button>
-                <button class="modal-btn btn-nn" onclick="setShift('nn')">
-                    <span class="btn-code">NN</span>
-                    <span class="btn-hours">00:00 - 06:30</span>
-                    <span class="btn-desc">Noche Corta</span>
-                </button>
-                <button class="modal-btn btn-c" onclick="setShift('c')">
-                    <span class="btn-code">C</span>
-                    <span class="btn-hours">09:00 - 18:00</span>
-                    <span class="btn-desc">Central</span>
-                </button>
-                <button class="modal-btn btn-v" onclick="setShift('v')">
-                    <span class="btn-code">V</span>
-                    <span class="btn-hours">-</span>
-                    <span class="btn-desc">Vacaciones</span>
-                </button>
-                <button class="modal-btn btn-ap" onclick="setShift('ap')">
-                    <span class="btn-code">AP</span>
-                    <span class="btn-hours">-</span>
-                    <span class="btn-desc">Asuntos Propios</span>
-                </button>
-                <button class="modal-btn btn-tr" onclick="setShift('tr')">
-                    <span class="btn-code">TR</span>
-                    <span class="btn-hours">-</span>
-                    <span class="btn-desc">Formación</span>
-                </button>
-                <button class="modal-btn btn-libre" onclick="setShift('')">
-                    <span class="btn-code">LIBRE</span>
-                    <span class="btn-hours">-</span>
-                    <span class="btn-desc">Sin turno</span>
-                </button>
+                <button class="modal-btn btn-wm" onclick="setShift('wm')"><span class="btn-code">WM</span><span class="btn-hours">06:00 - 15:10</span><span class="btn-desc">Mañana Weekend</span></button>
+                <button class="modal-btn btn-m8" onclick="setShift('m8')"><span class="btn-code">M8</span><span class="btn-hours">06:00 - 14:10</span><span class="btn-desc">Mañana 8h</span></button>
+                <button class="modal-btn btn-wt" onclick="setShift('wt')"><span class="btn-code">WT</span><span class="btn-hours">14:00 - 23:10</span><span class="btn-desc">Tarde Weekend</span></button>
+                <button class="modal-btn btn-t8" onclick="setShift('t8')"><span class="btn-code">T8</span><span class="btn-hours">14:00 - 22:10</span><span class="btn-desc">Tarde 8h</span></button>
+                <button class="modal-btn btn-n8" onclick="setShift('n8')"><span class="btn-code">N8</span><span class="btn-hours">22:00 - 06:10</span><span class="btn-desc">Noche 8h</span></button>
+                <button class="modal-btn btn-n" onclick="setShift('n')"><span class="btn-code">N</span><span class="btn-hours">22:00 - 06:30</span><span class="btn-desc">Noche</span></button>
+                <button class="modal-btn btn-nn" onclick="setShift('nn')"><span class="btn-code">NN</span><span class="btn-hours">00:00 - 06:30</span><span class="btn-desc">Noche Corta</span></button>
+                <button class="modal-btn btn-c" onclick="setShift('c')"><span class="btn-code">C</span><span class="btn-hours">09:00 - 18:00</span><span class="btn-desc">Central</span></button>
+                <button class="modal-btn btn-v" onclick="setShift('v')"><span class="btn-code">V</span><span class="btn-hours">-</span><span class="btn-desc">Vacaciones</span></button>
+                <button class="modal-btn btn-ap" onclick="setShift('ap')"><span class="btn-code">AP</span><span class="btn-hours">-</span><span class="btn-desc">Asuntos Propios</span></button>
+                <button class="modal-btn btn-tr" onclick="setShift('tr')"><span class="btn-code">TR</span><span class="btn-hours">-</span><span class="btn-desc">Formación</span></button>
+                <button class="modal-btn btn-libre" onclick="setShift('')"><span class="btn-code">LIBRE</span><span class="btn-hours">-</span><span class="btn-desc">Sin turno</span></button>
             </div>
-            <div class="modal-options">
-                <label><input type="checkbox" id="checkCompensado"> ★ Marcar como Compensado</label>
-            </div>
+            <div class="modal-options"><label><input type="checkbox" id="checkCompensado"> ★ Marcar como Compensado</label></div>
         </div>
-        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">
-            🔒 Activa <strong>Modo Manager</strong> para editar
-        </div>
+        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">🔒 Activa <strong>Modo Manager</strong> para editar</div>
         <button class="modal-close" onclick="closeModal()">Cerrar</button>
     </div>
 </div>
@@ -420,36 +316,24 @@
         <div class="day-summary" id="daySummary"></div>
         <div class="day-overview-grid">
             <div class="shift-column">
-                <div class="shift-column-header morning">
-                    ☀️ MAÑANA
-                    <span class="header-hours">WM: 06:00-15:10 | M8: 06:00-14:10</span>
-                </div>
+                <div class="shift-column-header morning">☀️ MAÑANA<span class="header-hours">WM: 06:00-15:10 | M8: 06:00-14:10</span></div>
                 <div class="column-count morning" id="countMorning">0</div>
                 <div class="employee-list" id="listMorning"></div>
             </div>
             <div class="shift-column">
-                <div class="shift-column-header afternoon">
-                    🌅 TARDE
-                    <span class="header-hours">WT: 14:00-23:10 | T8: 14:00-22:10</span>
-                </div>
+                <div class="shift-column-header afternoon">🌅 TARDE<span class="header-hours">WT: 14:00-23:10 | T8: 14:00-22:10</span></div>
                 <div class="column-count afternoon" id="countAfternoon">0</div>
                 <div class="employee-list" id="listAfternoon"></div>
             </div>
             <div class="shift-column">
-                <div class="shift-column-header night">
-                    🌙 NOCHE
-                    <span class="header-hours">N8: 22:00-06:10 | N: 22:00-06:30 | NN: 00:00-06:30</span>
-                </div>
+                <div class="shift-column-header night">🌙 NOCHE<span class="header-hours">N8: 22:00-06:10 | N: 22:00-06:30 | NN: 00:00-06:30</span></div>
                 <div class="column-count night" id="countNight">0</div>
                 <div class="employee-list" id="listNight"></div>
             </div>
         </div>
         <div class="central-section">
             <div class="shift-column">
-                <div class="shift-column-header central">
-                    🏢 CENTRAL
-                    <span class="header-hours">09:00 - 18:00</span>
-                </div>
+                <div class="shift-column-header central">🏢 CENTRAL<span class="header-hours">09:00 - 18:00</span></div>
                 <div class="column-count central" id="countCentral">0</div>
                 <div class="employee-list" id="listCentral"></div>
             </div>
@@ -510,46 +394,42 @@
 <div class="notification" id="notification"></div>
 
 <script>
-/*
-    ╔══════════════════════════════════════════════════════════════════════════════╗
-    ║                           CONFIGURACIÓN                                       ║
-    ╚══════════════════════════════════════════════════════════════════════════════╝
-*/
-
-// Contraseña para acceder al modo manager
+// =====================================================
+// CONFIGURACIÓN - ¡¡IMPORTANTE: NO MODIFICAR LA API KEY!!
+// =====================================================
 const MANAGER_PASSWORD = 'manager';
 
-// CONFIGURACIÓN DE JSONbin.io
+// JSONbin.io - Configuración de la nube
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
 const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYI[REDACTED:AWS_ACCESS_KEY]j5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 // =====================================================
-// HORARIOS DE TURNOS
+// HORARIOS DE LOS TURNOS
 // =====================================================
 const SHIFT_SCHEDULES = {
-    'wm':  { hours: '06:00 - 15:10', desc: 'Mañana Weekend', type: 'morning' },
-    'm8':  { hours: '06:00 - 14:10', desc: 'Mañana 8h', type: 'morning' },
-    'm':   { hours: '08:00 - 13:00', desc: 'Mañana', type: 'morning' },
-    'm-co':{ hours: '08:00 - 13:00', desc: 'Mañana Compensado', type: 'morning' },
-    'wt':  { hours: '14:00 - 23:10', desc: 'Tarde Weekend', type: 'afternoon' },
-    't8':  { hours: '14:00 - 22:10', desc: 'Tarde 8h', type: 'afternoon' },
-    't':   { hours: '13:00 - 18:00', desc: 'Tarde', type: 'afternoon' },
-    't-co':{ hours: '13:00 - 18:00', desc: 'Tarde Compensado', type: 'afternoon' },
-    'n8':  { hours: '22:00 - 06:10', desc: 'Noche 8h', type: 'night' },
-    'n':   { hours: '22:00 - 06:30', desc: 'Noche', type: 'night' },
-    'nn':  { hours: '00:00 - 06:30', desc: 'Noche Corta', type: 'night' },
-    'n-co':{ hours: '23:00 - 04:00', desc: 'Noche Compensado', type: 'night' },
-    'wn':  { hours: '22:00 - 06:30', desc: 'Noche Weekend', type: 'night' },
-    'c':   { hours: '09:00 - 18:00', desc: 'Central', type: 'central' },
-    'cw':  { hours: '09:00 - 18:00', desc: 'Central Weekend', type: 'central' },
-    'v':   { hours: '-', desc: 'Vacaciones', type: 'vacation' },
-    'v25': { hours: '-', desc: 'Vacaciones 2025', type: 'vacation' },
-    'v26': { hours: '-', desc: 'Vacaciones 2026', type: 'vacation' },
-    'ap':  { hours: '-', desc: 'Asuntos Propios', type: 'personal' },
-    'tr':  { hours: '-', desc: 'Formación', type: 'training' },
-    'bm':  { hours: '-', desc: 'Baja Médica', type: 'leave' },
-    'bp':  { hours: '-', desc: 'Baja Paternidad', type: 'leave' }
+    'wm':   { hours: '06:00 - 15:10', desc: 'Mañana Weekend', type: 'morning' },
+    'm8':   { hours: '06:00 - 14:10', desc: 'Mañana 8h', type: 'morning' },
+    'm':    { hours: '08:00 - 13:00', desc: 'Mañana', type: 'morning' },
+    'm-co': { hours: '08:00 - 13:00', desc: 'Mañana Compensado', type: 'morning' },
+    'wt':   { hours: '14:00 - 23:10', desc: 'Tarde Weekend', type: 'afternoon' },
+    't8':   { hours: '14:00 - 22:10', desc: 'Tarde 8h', type: 'afternoon' },
+    't':    { hours: '13:00 - 18:00', desc: 'Tarde', type: 'afternoon' },
+    't-co': { hours: '13:00 - 18:00', desc: 'Tarde Compensado', type: 'afternoon' },
+    'n8':   { hours: '22:00 - 06:10', desc: 'Noche 8h', type: 'night' },
+    'n':    { hours: '22:00 - 06:30', desc: 'Noche', type: 'night' },
+    'nn':   { hours: '00:00 - 06:30', desc: 'Noche Corta', type: 'night' },
+    'n-co': { hours: '23:00 - 04:00', desc: 'Noche Compensado', type: 'night' },
+    'wn':   { hours: '22:00 - 06:30', desc: 'Noche Weekend', type: 'night' },
+    'c':    { hours: '09:00 - 18:00', desc: 'Central', type: 'central' },
+    'cw':   { hours: '09:00 - 18:00', desc: 'Central Weekend', type: 'central' },
+    'v':    { hours: '-', desc: 'Vacaciones', type: 'vacation' },
+    'v25':  { hours: '-', desc: 'Vacaciones 2025', type: 'vacation' },
+    'v26':  { hours: '-', desc: 'Vacaciones 2026', type: 'vacation' },
+    'ap':   { hours: '-', desc: 'Asuntos Propios', type: 'personal' },
+    'tr':   { hours: '-', desc: 'Formación', type: 'training' },
+    'bm':   { hours: '-', desc: 'Baja Médica', type: 'leave' },
+    'bp':   { hours: '-', desc: 'Baja Paternidad', type: 'leave' }
 };
 
 function getShiftInfo(shift) {
@@ -558,6 +438,9 @@ function getShiftInfo(shift) {
     return SHIFT_SCHEDULES[s] || { hours: '-', desc: shift.toUpperCase(), type: 'unknown' };
 }
 
+// =====================================================
+// FESTIVOS 2026
+// =====================================================
 const festivos2026 = [
     {month:1,day:1,name:"Año Nuevo"},{month:1,day:6,name:"Reyes"},
     {month:2,day:28,name:"Día de Andalucía"},{month:4,day:2,name:"Jueves Santo"},
@@ -568,13 +451,18 @@ const festivos2026 = [
     {month:12,day:8,name:"Inmaculada"},{month:12,day:25,name:"Navidad"}
 ];
 
+// =====================================================
+// CONFIGURACIÓN DEL CALENDARIO 2026
+// =====================================================
 const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 
-// SEMANA EMPIEZA EN LUNES: startDays ahora indica el día de la semana (Lunes=0) del día 1 de cada mes
-// 2026: Enero 1 = Jueves (3), Feb 1 = Domingo (6), Mar 1 = Domingo (6), etc.
+// Día de la semana del 1 de cada mes (Lunes=0, Domingo=6)
 const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 
+// =====================================================
+// VARIABLES GLOBALES
+// =====================================================
 let allData = { empleados: [], festivos: festivos2026 };
 let selectedEmployee = null;
 let isManager = false;
@@ -582,7 +470,7 @@ let editingDay = null;
 let isGeneralView = true;
 
 // =====================================================
-// CONVERSIÓN DE TURNOS: STRING <-> ARRAY
+// CONVERSIÓN DE TURNOS
 // =====================================================
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
@@ -620,15 +508,12 @@ function normalizarEmpleados(empleados) {
 async function saveToCloud() {
     try {
         setDataStatus('loading', '⏳ Guardando...');
-        
         const empleadosParaGuardar = allData.empleados.map(emp => ({
             crew: emp.crew || '',
             login: emp.login || '',
             name: emp.name || '',
             role: emp.role || '',
-            turnos: Array.isArray(emp.turnos) 
-                ? turnosArrayToString(emp.turnos) 
-                : (emp.turnos || '')
+            turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
         }));
         
         const response = await fetch(JSONBIN_URL, {
@@ -661,22 +546,18 @@ async function saveToCloud() {
 async function loadFromCloud() {
     try {
         setDataStatus('loading', '⏳ Cargando...');
-        
         const response = await fetch(JSONBIN_URL + '/latest', {
             headers: { 'X-Master-Key': JSONBIN_API_KEY }
         });
         
         if (!response.ok) throw new Error('Error al cargar');
-        
         const data = await response.json();
-        console.log('Datos cargados:', data);
         
         if (data.record && data.record.empleados && data.record.empleados.length > 0) {
             const empleados = normalizarEmpleados(data.record.empleados);
             setDataStatus('online', '☁️ ' + empleados.length + ' empleados');
             return empleados;
         }
-        
         setDataStatus('online', '☁️ Sin datos');
         return [];
     } catch (error) {
@@ -836,7 +717,6 @@ function generateGeneralCalendar() {
 }
 
 function generateGeneralMonth(month) {
-    // SEMANA EMPIEZA EN LUNES
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr></thead><tbody>`;
     let day = 1;
     const weeks = Math.ceil((daysInMonth[month-1] + startDays[month-1]) / 7);
@@ -849,7 +729,6 @@ function generateGeneralMonth(month) {
                 const fest = isFestivo(month, day);
                 let classes = ['general-day'];
                 if (fest) classes.push('festivo');
-                // Marcar fines de semana (d=5 es sábado, d=6 es domingo)
                 if (d === 5) classes.push('weekend-sat');
                 if (d === 6) classes.push('weekend-sun');
                 html += `<td class="${classes.join(' ')}" onclick="openDayOverviewModal(${month}, ${day})"><span class="day-num">${day}</span></td>`;
@@ -917,10 +796,7 @@ function renderEmployeeList(employees, type) {
     return employees.map(emp => `
         <div class="employee-item" onclick="selectEmployeeFromModal('${emp.login}')">
             <div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span></div>
-            <span class="shift-badge ${type}">
-                ${emp.shift}
-                <span class="badge-hours">${emp.hours}</span>
-            </span>
+            <span class="shift-badge ${type}">${emp.shift}<span class="badge-hours">${emp.hours}</span></span>
         </div>
     `).join('');
 }
@@ -934,7 +810,7 @@ function selectEmployeeFromModal(login) {
 function closeDayOverviewModal() { document.getElementById('dayOverviewModal').classList.remove('active'); }
 
 // =====================================================
-// TURNOS
+// TURNOS - UTILIDADES
 // =====================================================
 function parseShift(s) {
     if (!s || s.trim() === '') return { shift: '', compensado: false };
@@ -972,7 +848,6 @@ function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy +
 // CALENDARIO INDIVIDUAL
 // =====================================================
 function generateMonth(month) {
-    // SEMANA EMPIEZA EN LUNES
     let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr></thead><tbody>`;
     let day = 1;
     const weeks = Math.ceil((daysInMonth[month-1] + startDays[month-1]) / 7);
@@ -991,7 +866,6 @@ function generateMonth(month) {
                 if (fest) classes.push('festivo');
                 if (compensado) classes.push('compensado');
                 
-                // Mostrar horas resumidas en el calendario
                 let hoursDisplay = '';
                 if (shift && shiftInfo.hours !== '-') {
                     const hoursParts = shiftInfo.hours.split(' - ');
@@ -1000,11 +874,7 @@ function generateMonth(month) {
                     }
                 }
                 
-                html += `<td class="${classes.join(' ')}" onclick="openEditModal(${month}, ${day})" title="${shift ? shift.toUpperCase() + ': ' + shiftInfo.hours : 'Libre'}">
-                    <span class="day-num">${day}</span>
-                    <span class="shift-code">${shift ? shift.toUpperCase() : ''}</span>
-                    ${hoursDisplay}
-                </td>`;
+                html += `<td class="${classes.join(' ')}" onclick="openEditModal(${month}, ${day})" title="${shift ? shift.toUpperCase() + ': ' + shiftInfo.hours : 'Libre'}"><span class="day-num">${day}</span><span class="shift-code">${shift ? shift.toUpperCase() : ''}</span>${hoursDisplay}</td>`;
                 day++;
             }
         }
@@ -1040,10 +910,7 @@ function generateStats() {
         else if (s.startsWith('ap')) stats.ap++;
         if (compensado) stats.compensados++;
     }
-        const totalMañana = stats.wm + stats.m8;
-    const totalTarde = stats.wt + stats.t8;
-    const totalNoche = stats.n8 + stats.n + stats.nn;
-    const total = totalMañana + totalTarde + totalNoche + stats.central;
+    const total = stats.wm + stats.m8 + stats.wt + stats.t8 + stats.n8 + stats.n + stats.nn + stats.central;
     
     document.getElementById('statsGrid').innerHTML = `
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.wm}</div><div class="stat-label">WM</div></div>
@@ -1062,7 +929,7 @@ function generateStats() {
 }
 
 // =====================================================
-// EDICIÓN
+// EDICIÓN DE TURNOS
 // =====================================================
 function openEditModal(month, day) {
     if (!selectedEmployee) return;
@@ -1077,7 +944,6 @@ function openEditModal(month, day) {
     festivoBadge.style.display = fest ? 'inline-block' : 'none';
     if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
-    // Mostrar turno actual con horario
     const turnoRaw = selectedEmployee.turnos[editingDay.doy] || '';
     const { shift, compensado } = parseShift(turnoRaw);
     const shiftInfo = getShiftInfo(shift);
@@ -1096,9 +962,7 @@ function openEditModal(month, day) {
         currentShiftBadge.style.color = '#999';
         currentShiftTime.innerHTML = '<small>Sin turno asignado</small>';
     }
-    
-    document.getElementById('managerEditSection').style.display = isManager ? 'block' : 'none';
-    document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
+        document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
     document.getElementById('checkCompensado').checked = compensado;
     document.getElementById('editModal').classList.add('active');
 }
@@ -1129,7 +993,10 @@ function getShiftTextColor(shift) {
     return '#999';
 }
 
-function closeModal() { document.getElementById('editModal').classList.remove('active'); editingDay = null; }
+function closeModal() { 
+    document.getElementById('editModal').classList.remove('active'); 
+    editingDay = null; 
+}
 
 async function setShift(shift) {
     if (!editingDay || !isManager || !selectedEmployee) return;
@@ -1179,7 +1046,9 @@ function openManagerModal() {
     if (!isManager) document.getElementById('managerPassword').focus();
 }
 
-function closeManagerModal() { document.getElementById('managerModal').classList.remove('active'); }
+function closeManagerModal() { 
+    document.getElementById('managerModal').classList.remove('active'); 
+}
 
 function checkManagerPassword() {
     if (document.getElementById('managerPassword').value === MANAGER_PASSWORD) {
@@ -1212,7 +1081,7 @@ function switchTab(tabName, btn) {
 }
 
 // =====================================================
-// IMPORTACIÓN
+// IMPORTACIÓN / EXPORTACIÓN
 // =====================================================
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
@@ -1276,7 +1145,7 @@ function exportData() {
 }
 
 // =====================================================
-// UI
+// UI UTILIDADES
 // =====================================================
 function setView(cols, btn) {
     const grid = document.getElementById('calendarGrid');
@@ -1295,10 +1164,10 @@ function showNotification(msg, isError = false) {
 }
 
 // =====================================================
-// INICIAR
+// INICIAR APLICACIÓN
 // =====================================================
 initializeData();
 </script>
 </body>
 </html>
-
+    
