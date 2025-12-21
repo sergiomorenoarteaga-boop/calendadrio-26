@@ -68,16 +68,19 @@
         .shift-wm { background: linear-gradient(135deg, var(--verde), #7cb342) !important; color: #1a5c1a !important; border-left: 3px solid #2e7d32; }
         .shift-m8 { background: linear-gradient(135deg, #81c784, var(--verde)) !important; color: #1a5c1a !important; border-left: 3px solid #43a047; }
         .shift-m { background: var(--verde) !important; color: #1a5c1a !important; border-left: 3px solid #66bb6a; }
+        .shift-m-co { background: linear-gradient(135deg, #c8e6c9, #a5d6a7) !important; color: #2e7d32 !important; border-left: 3px solid #66bb6a; border-style: dashed; }
         
         /* Turnos de TARDE - Naranja */
         .shift-wt { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; color: #5a4000 !important; border-left: 3px solid #ef6c00; }
         .shift-t8 { background: linear-gradient(135deg, #ffca28, var(--naranja)) !important; color: #5a4000 !important; border-left: 3px solid #f57c00; }
         .shift-t { background: var(--naranja) !important; color: #5a4000 !important; border-left: 3px solid #ffb300; }
+        .shift-t-co { background: linear-gradient(135deg, #fff3cd, #ffe082) !important; color: #5a4000 !important; border-left: 3px solid #ffb300; border-style: dashed; }
         
         /* Turnos de NOCHE - Azul */
         .shift-n8 { background: linear-gradient(135deg, var(--azul), #1a237e) !important; color: white !important; border-left: 3px solid #4a148c; }
         .shift-n { background: linear-gradient(135deg, #303f9f, var(--azul)) !important; color: white !important; border-left: 3px solid #283593; }
         .shift-nn { background: linear-gradient(135deg, #5c6bc0, #3949ab) !important; color: white !important; border-left: 3px solid #1a237e; }
+        .shift-n-co { background: linear-gradient(135deg, #7986cb, #5c6bc0) !important; color: white !important; border-left: 3px solid #3949ab; border-style: dashed; }
         
         /* Otros turnos */
         .shift-c, .shift-cw { background: linear-gradient(135deg, #e0e0e0, #bdbdbd) !important; color: #444 !important; border-left: 3px solid #757575; }
@@ -90,7 +93,7 @@
         .libre { background: #f8f8f8; color: #ddd; }
         .festivo { border: 2px solid var(--rojo) !important; }
         .festivo::before { content: ''; position: absolute; top: 1px; right: 1px; width: 5px; height: 5px; background: var(--rojo); border-radius: 50%; }
-        .compensado::after { content: '★'; position: absolute; bottom: 0; right: 1px; font-size: 0.45rem; color: #9b59b6; }
+        .reducido::after { content: 'R'; position: absolute; bottom: 0; right: 1px; font-size: 0.4rem; color: #9b59b6; font-weight: bold; }
         .general-day { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%); }
         .general-day:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white !important; }
         .general-day .day-num { color: #333; }
@@ -105,7 +108,9 @@
         .modal-xlarge { max-width: 95%; width: 1200px; }
         .modal h3 { margin-bottom: 8px; color: #333; }
         .festivo-badge { display: inline-block; background: var(--rojo); color: white; padding: 6px 12px; border-radius: 15px; margin-bottom: 10px; font-weight: 600; font-size: 0.8rem; }
+        .modal-section-title { font-size: 0.75rem; color: #888; margin: 12px 0 8px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
         .modal-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+        .modal-buttons-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
         .modal-btn { padding: 12px 8px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: transform 0.2s; }
         .modal-btn:hover { transform: scale(1.05); }
         .modal-btn .btn-code { font-size: 1rem; }
@@ -113,18 +118,19 @@
         .modal-btn .btn-desc { font-size: 0.6rem; opacity: 0.7; }
         .modal-btn.btn-wm { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
         .modal-btn.btn-m8 { background: linear-gradient(135deg, #81c784, var(--verde)); color: #1a5c1a; }
+        .modal-btn.btn-m-co { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #2e7d32; border: 2px dashed #66bb6a; }
         .modal-btn.btn-wt { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
         .modal-btn.btn-t8 { background: linear-gradient(135deg, #ffca28, var(--naranja)); color: #5a4000; }
+        .modal-btn.btn-t-co { background: linear-gradient(135deg, #fff3cd, #ffe082); color: #5a4000; border: 2px dashed #ffb300; }
         .modal-btn.btn-n8 { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
         .modal-btn.btn-n { background: linear-gradient(135deg, #303f9f, var(--azul)); color: white; }
         .modal-btn.btn-nn { background: linear-gradient(135deg, #5c6bc0, #3949ab); color: white; }
+        .modal-btn.btn-n-co { background: linear-gradient(135deg, #7986cb, #5c6bc0); color: white; border: 2px dashed #3949ab; }
         .modal-btn.btn-c { background: linear-gradient(135deg, #e0e0e0, #bdbdbd); color: #444; }
         .modal-btn.btn-v { background: linear-gradient(135deg, #ef5350, #e53935); color: white; }
         .modal-btn.btn-ap { background: linear-gradient(135deg, var(--verde-fuerte), #00c853); color: white; }
         .modal-btn.btn-tr { background: linear-gradient(135deg, #ff9800, #f57c00); color: white; }
         .modal-btn.btn-libre { background: #f5f5f5; color: #999; border: 2px dashed #ddd; }
-        .modal-options { margin-bottom: 12px; }
-        .modal-options label { display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; font-size: 0.85rem; }
         .modal-close { padding: 8px 20px; background: #95a5a6; color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: 600; }
         .current-shift-display { background: #f8f9fa; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
         .current-shift-display .shift-label { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
@@ -195,7 +201,7 @@
         .summary-dot { width: 12px; height: 12px; border-radius: 50%; }
         .summary-item span { font-weight: 700; font-size: 1.1rem; }
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } }
         @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
@@ -238,18 +244,20 @@
 </div>
 
 <div class="legend">
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div><span><b>WM</b> <span class="legend-hours">06:00-15:10</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div><span><b>M8</b> <span class="legend-hours">06:00-14:10</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div><span><b>WT</b> <span class="legend-hours">14:00-23:10</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div><span><b>T8</b> <span class="legend-hours">14:00-22:10</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div><span><b>N8</b> <span class="legend-hours">22:00-06:10</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div><span><b>N</b> <span class="legend-hours">22:00-06:30</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div><span><b>NN</b> <span class="legend-hours">00:00-06:30</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div><span><b>WM</b> <span class="legend-hours">Mañana Larga</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div><span><b>M8</b> <span class="legend-hours">Mañana 8h</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #c8e6c9, #a5d6a7); border:1px dashed #66bb6a">M-CO</div><span><b>M-CO</b> <span class="legend-hours">Mañana Reducida</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div><span><b>WT</b> <span class="legend-hours">Tarde Larga</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div><span><b>T8</b> <span class="legend-hours">Tarde 8h</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #fff3cd, #ffe082); border:1px dashed #ffb300">T-CO</div><span><b>T-CO</b> <span class="legend-hours">Tarde Reducida</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div><span><b>N8</b> <span class="legend-hours">Noche 8h</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div><span><b>N</b> <span class="legend-hours">Noche</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div><span><b>NN</b> <span class="legend-hours">Noche Corta</span></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #7986cb, #5c6bc0); border:1px dashed #3949ab">N-CO</div><span><b>N-CO</b> <span class="legend-hours">Noche Reducida</span></span></div>
     <div class="legend-item"><div class="legend-color" style="background:var(--gris)">C</div><span><b>C</b> Central</span></div>
     <div class="legend-item"><div class="legend-color" style="background:var(--rojo-vacaciones)">V</div><span><b>V</b> Vacaciones</span></div>
     <div class="legend-item"><div class="legend-color" style="background:var(--verde-fuerte)">AP</div><span><b>AP</b> Asuntos P.</span></div>
     <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
-    <div class="legend-item"><div class="legend-color" style="background:transparent; color:var(--morado)">★</div><span>Compensado</span></div>
 </div>
 
 <div class="controls">
@@ -287,21 +295,40 @@
         </div>
         <div id="managerEditSection" style="display:none;">
             <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Selecciona el nuevo turno:</p>
-            <div class="modal-buttons">
-                <button class="modal-btn btn-wm" onclick="setShift('wm')"><span class="btn-code">WM</span><span class="btn-hours">06:00 - 15:10</span><span class="btn-desc">Mañana Weekend</span></button>
+            
+            <div class="modal-section-title">☀️ Turnos de Mañana</div>
+            <div class="modal-buttons-3col">
+                <button class="modal-btn btn-wm" onclick="setShift('wm')"><span class="btn-code">WM</span><span class="btn-hours">06:00 - 15:10</span><span class="btn-desc">Mañana Larga</span></button>
                 <button class="modal-btn btn-m8" onclick="setShift('m8')"><span class="btn-code">M8</span><span class="btn-hours">06:00 - 14:10</span><span class="btn-desc">Mañana 8h</span></button>
-                <button class="modal-btn btn-wt" onclick="setShift('wt')"><span class="btn-code">WT</span><span class="btn-hours">14:00 - 23:10</span><span class="btn-desc">Tarde Weekend</span></button>
+                <button class="modal-btn btn-m-co" onclick="setShift('m-co')"><span class="btn-code">M-CO</span><span class="btn-hours">08:00 - 13:00</span><span class="btn-desc">Mañana Reducida</span></button>
+            </div>
+            
+            <div class="modal-section-title">🌅 Turnos de Tarde</div>
+            <div class="modal-buttons-3col">
+                <button class="modal-btn btn-wt" onclick="setShift('wt')"><span class="btn-code">WT</span><span class="btn-hours">14:00 - 23:10</span><span class="btn-desc">Tarde Larga</span></button>
                 <button class="modal-btn btn-t8" onclick="setShift('t8')"><span class="btn-code">T8</span><span class="btn-hours">14:00 - 22:10</span><span class="btn-desc">Tarde 8h</span></button>
+                <button class="modal-btn btn-t-co" onclick="setShift('t-co')"><span class="btn-code">T-CO</span><span class="btn-hours">13:00 - 18:00</span><span class="btn-desc">Tarde Reducida</span></button>
+            </div>
+            
+            <div class="modal-section-title">🌙 Turnos de Noche</div>
+            <div class="modal-buttons">
                 <button class="modal-btn btn-n8" onclick="setShift('n8')"><span class="btn-code">N8</span><span class="btn-hours">22:00 - 06:10</span><span class="btn-desc">Noche 8h</span></button>
                 <button class="modal-btn btn-n" onclick="setShift('n')"><span class="btn-code">N</span><span class="btn-hours">22:00 - 06:30</span><span class="btn-desc">Noche</span></button>
                 <button class="modal-btn btn-nn" onclick="setShift('nn')"><span class="btn-code">NN</span><span class="btn-hours">00:00 - 06:30</span><span class="btn-desc">Noche Corta</span></button>
+                <button class="modal-btn btn-n-co" onclick="setShift('n-co')"><span class="btn-code">N-CO</span><span class="btn-hours">23:00 - 04:00</span><span class="btn-desc">Noche Reducida</span></button>
+            </div>
+            
+            <div class="modal-section-title">📋 Otros</div>
+            <div class="modal-buttons">
                 <button class="modal-btn btn-c" onclick="setShift('c')"><span class="btn-code">C</span><span class="btn-hours">09:00 - 18:00</span><span class="btn-desc">Central</span></button>
                 <button class="modal-btn btn-v" onclick="setShift('v')"><span class="btn-code">V</span><span class="btn-hours">-</span><span class="btn-desc">Vacaciones</span></button>
                 <button class="modal-btn btn-ap" onclick="setShift('ap')"><span class="btn-code">AP</span><span class="btn-hours">-</span><span class="btn-desc">Asuntos Propios</span></button>
                 <button class="modal-btn btn-tr" onclick="setShift('tr')"><span class="btn-code">TR</span><span class="btn-hours">-</span><span class="btn-desc">Formación</span></button>
-                <button class="modal-btn btn-libre" onclick="setShift('')"><span class="btn-code">LIBRE</span><span class="btn-hours">-</span><span class="btn-desc">Sin turno</span></button>
             </div>
-            <div class="modal-options"><label><input type="checkbox" id="checkCompensado"> ★ Marcar como Compensado</label></div>
+            
+            <div class="modal-buttons" style="margin-top:10px;">
+                <button class="modal-btn btn-libre" onclick="setShift('')" style="grid-column: span 2;"><span class="btn-code">LIBRE</span><span class="btn-hours">-</span><span class="btn-desc">Sin turno asignado</span></button>
+            </div>
         </div>
         <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">🔒 Activa <strong>Modo Manager</strong> para editar</div>
         <button class="modal-close" onclick="closeModal()">Cerrar</button>
@@ -316,17 +343,17 @@
         <div class="day-summary" id="daySummary"></div>
         <div class="day-overview-grid">
             <div class="shift-column">
-                <div class="shift-column-header morning">☀️ MAÑANA<span class="header-hours">WM: 06:00-15:10 | M8: 06:00-14:10</span></div>
+                <div class="shift-column-header morning">☀️ MAÑANA<span class="header-hours">WM / M8 / M-CO</span></div>
                 <div class="column-count morning" id="countMorning">0</div>
                 <div class="employee-list" id="listMorning"></div>
             </div>
             <div class="shift-column">
-                <div class="shift-column-header afternoon">🌅 TARDE<span class="header-hours">WT: 14:00-23:10 | T8: 14:00-22:10</span></div>
+                <div class="shift-column-header afternoon">🌅 TARDE<span class="header-hours">WT / T8 / T-CO</span></div>
                 <div class="column-count afternoon" id="countAfternoon">0</div>
                 <div class="employee-list" id="listAfternoon"></div>
             </div>
             <div class="shift-column">
-                <div class="shift-column-header night">🌙 NOCHE<span class="header-hours">N8: 22:00-06:10 | N: 22:00-06:30 | NN: 00:00-06:30</span></div>
+                <div class="shift-column-header night">🌙 NOCHE<span class="header-hours">N8 / N / NN / N-CO</span></div>
                 <div class="column-count night" id="countNight">0</div>
                 <div class="employee-list" id="listNight"></div>
             </div>
@@ -395,7 +422,7 @@
 
 <script>
 // =====================================================
-// CONFIGURACIÓN - ¡¡IMPORTANTE: NO MODIFICAR LA API KEY!!
+// CONFIGURACIÓN
 // =====================================================
 const MANAGER_PASSWORD = 'manager';
 
@@ -463,8 +490,6 @@ const festivos2026 = [
 // =====================================================
 const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
-
-// Día de la semana del 1 de cada mes (Lunes=0, Domingo=6)
 const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 
 // =====================================================
@@ -757,15 +782,14 @@ function openDayOverviewModal(month, day) {
     
     allData.empleados.forEach(emp => {
         const turnoRaw = emp.turnos[doy] || '';
-        const { shift } = parseShift(turnoRaw);
-        const s = shift.toLowerCase();
+        const shift = turnoRaw.toLowerCase();
         const shiftInfo = getShiftInfo(shift);
         const empData = { name: emp.name, crew: emp.crew, login: emp.login, shift: shift.toUpperCase(), hours: shiftInfo.hours };
         
-        if (s === 'wm' || s === 'm8' || s === 'm') morning.push(empData);
-        else if (s === 'wt' || s === 't8' || s === 't') afternoon.push(empData);
-        else if (s === 'n8' || s === 'n' || s === 'nn' || s === 'wn') night.push(empData);
-        else if (s === 'c' || s === 'cw') central.push(empData);
+        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) morning.push(empData);
+        else if (['wt', 't8', 't', 't-co'].includes(shift)) afternoon.push(empData);
+        else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) night.push(empData);
+        else if (['c', 'cw'].includes(shift)) central.push(empData);
     });
     
     [morning, afternoon, night, central].forEach(arr => arr.sort((a,b) => a.name.localeCompare(b.name)));
@@ -819,32 +843,33 @@ function closeDayOverviewModal() { document.getElementById('dayOverviewModal').c
 // =====================================================
 // TURNOS - UTILIDADES
 // =====================================================
-function parseShift(s) {
-    if (!s || s.trim() === '') return { shift: '', compensado: false };
-    let shift = s.trim().toLowerCase();
-    let compensado = shift.includes('-co');
-    if (compensado) shift = shift.replace('-co', '');
-    return { shift, compensado };
-}
-
 function getShiftClass(shift) {
     if (!shift) return 'libre';
     const s = shift.toLowerCase();
     if (s === 'wm') return 'shift-wm';
     if (s === 'm8') return 'shift-m8';
     if (s === 'm') return 'shift-m';
+    if (s === 'm-co') return 'shift-m-co';
     if (s === 'wt') return 'shift-wt';
     if (s === 't8') return 'shift-t8';
     if (s === 't') return 'shift-t';
+    if (s === 't-co') return 'shift-t-co';
     if (s === 'n8') return 'shift-n8';
-    if (s === 'n') return 'shift-n';
+    if (s === 'n' || s === 'wn') return 'shift-n';
     if (s === 'nn') return 'shift-nn';
+    if (s === 'n-co') return 'shift-n-co';
     if (s === 'c' || s === 'cw') return 'shift-c';
     if (s === 'v' || s === 'v25' || s === 'v26') return 'shift-v';
     if (s.startsWith('ap')) return 'shift-ap';
     if (s === 'tr') return 'shift-tr';
     if (s === 'bm' || s === 'bp') return 'shift-bm';
     return 'libre';
+}
+
+function isReducido(shift) {
+    if (!shift) return false;
+    const s = shift.toLowerCase();
+    return s.includes('-co');
 }
 
 function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
@@ -865,13 +890,12 @@ function generateMonth(month) {
                 html += '<td class="empty"></td>';
             } else {
                 const doy = getDayOfYear(month, day);
-                const turnoRaw = selectedEmployee.turnos[doy] || '';
-                const { shift, compensado } = parseShift(turnoRaw);
+                const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
                 const shiftInfo = getShiftInfo(shift);
                 const fest = isFestivo(month, day);
                 let classes = [getShiftClass(shift)];
                 if (fest) classes.push('festivo');
-                if (compensado) classes.push('compensado');
+                if (isReducido(shift)) classes.push('reducido');
                 
                 let hoursDisplay = '';
                 if (shift && shiftInfo.hours !== '-') {
@@ -900,37 +924,39 @@ function generateCalendar() {
 
 function generateStats() {
     if (!selectedEmployee) return;
-    let stats = {wm:0, m8:0, wt:0, t8:0, n8:0, n:0, nn:0, central:0, vacaciones:0, ap:0, compensados:0};
+    let stats = {wm:0, m8:0, mco:0, wt:0, t8:0, tco:0, n8:0, n:0, nn:0, nco:0, central:0, vacaciones:0, ap:0};
     for (let doy = 0; doy < 365; doy++) {
-        const turnoRaw = selectedEmployee.turnos[doy] || '';
-        const { shift, compensado } = parseShift(turnoRaw);
-        const s = shift.toLowerCase();
-        if (s === 'wm') stats.wm++;
-        else if (s === 'm8' || s === 'm') stats.m8++;
-        else if (s === 'wt') stats.wt++;
-        else if (s === 't8' || s === 't') stats.t8++;
-        else if (s === 'n8') stats.n8++;
-        else if (s === 'n' || s === 'wn') stats.n++;
-        else if (s === 'nn') stats.nn++;
-        else if (s === 'c' || s === 'cw') stats.central++;
-        else if (s === 'v' || s === 'v25' || s === 'v26') stats.vacaciones++;
-        else if (s.startsWith('ap')) stats.ap++;
-        if (compensado) stats.compensados++;
+        const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
+        if (shift === 'wm') stats.wm++;
+        else if (shift === 'm8' || shift === 'm') stats.m8++;
+        else if (shift === 'm-co') stats.mco++;
+        else if (shift === 'wt') stats.wt++;
+        else if (shift === 't8' || shift === 't') stats.t8++;
+        else if (shift === 't-co') stats.tco++;
+        else if (shift === 'n8') stats.n8++;
+        else if (shift === 'n' || shift === 'wn') stats.n++;
+        else if (shift === 'nn') stats.nn++;
+        else if (shift === 'n-co') stats.nco++;
+        else if (shift === 'c' || shift === 'cw') stats.central++;
+        else if (shift === 'v' || shift === 'v25' || shift === 'v26') stats.vacaciones++;
+        else if (shift.startsWith('ap')) stats.ap++;
     }
-    const total = stats.wm + stats.m8 + stats.wt + stats.t8 + stats.n8 + stats.n + stats.nn + stats.central;
+    const total = stats.wm + stats.m8 + stats.mco + stats.wt + stats.t8 + stats.tco + stats.n8 + stats.n + stats.nn + stats.nco + stats.central;
     
     document.getElementById('statsGrid').innerHTML = `
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.wm}</div><div class="stat-label">WM</div></div>
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.m8}</div><div class="stat-label">M8</div></div>
+                <div class="stat-card"><div class="stat-number" style="color:rgb(150,200,150)">${stats.mco}</div><div class="stat-label">M-CO</div></div>
         <div class="stat-card"><div class="stat-number" style="color:rgb(200,150,0)">${stats.wt}</div><div class="stat-label">WT</div></div>
         <div class="stat-card"><div class="stat-number" style="color:rgb(200,150,0)">${stats.t8}</div><div class="stat-label">T8</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:rgb(230,200,100)">${stats.tco}</div><div class="stat-label">T-CO</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.n8}</div><div class="stat-label">N8</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.n}</div><div class="stat-label">N</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#5c6bc0">${stats.nn}</div><div class="stat-label">NN</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:#7986cb">${stats.nco}</div><div class="stat-label">N-CO</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#888">${stats.central}</div><div class="stat-label">CENTRAL</div></div>
         <div class="stat-card"><div class="stat-number" style="color:red">${stats.vacaciones}</div><div class="stat-label">VAC</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--verde-fuerte)">${stats.ap}</div><div class="stat-label">AP</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:#9b59b6">${stats.compensados}</div><div class="stat-label">COMP★</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#2ecc71">${total}</div><div class="stat-label">TOTAL</div></div>
     `;
 }
@@ -951,15 +977,14 @@ function openEditModal(month, day) {
     festivoBadge.style.display = fest ? 'inline-block' : 'none';
     if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
-    const turnoRaw = selectedEmployee.turnos[editingDay.doy] || '';
-    const { shift, compensado } = parseShift(turnoRaw);
+    const shift = (selectedEmployee.turnos[editingDay.doy] || '').toLowerCase();
     const shiftInfo = getShiftInfo(shift);
     
     const currentShiftBadge = document.getElementById('currentShiftBadge');
     const currentShiftTime = document.getElementById('currentShiftTime');
     
     if (shift) {
-        currentShiftBadge.textContent = shift.toUpperCase() + (compensado ? ' ★' : '');
+        currentShiftBadge.textContent = shift.toUpperCase();
         currentShiftBadge.style.background = getShiftColor(shift);
         currentShiftBadge.style.color = getShiftTextColor(shift);
         currentShiftTime.innerHTML = `<strong>${shiftInfo.hours}</strong><br><small>${shiftInfo.desc}</small>`;
@@ -969,18 +994,22 @@ function openEditModal(month, day) {
         currentShiftBadge.style.color = '#999';
         currentShiftTime.innerHTML = '<small>Sin turno asignado</small>';
     }
-        document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
-    document.getElementById('checkCompensado').checked = compensado;
+    
+    document.getElementById('managerEditSection').style.display = isManager ? 'block' : 'none';
+    document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
     document.getElementById('editModal').classList.add('active');
 }
 
 function getShiftColor(shift) {
     const s = shift.toLowerCase();
     if (s === 'wm' || s === 'm8' || s === 'm') return 'linear-gradient(135deg, var(--verde), #7cb342)';
+    if (s === 'm-co') return 'linear-gradient(135deg, #c8e6c9, #a5d6a7)';
     if (s === 'wt' || s === 't8' || s === 't') return 'linear-gradient(135deg, var(--naranja), #ffa000)';
+    if (s === 't-co') return 'linear-gradient(135deg, #fff3cd, #ffe082)';
     if (s === 'n8') return 'linear-gradient(135deg, var(--azul), #1a237e)';
     if (s === 'n' || s === 'wn') return 'linear-gradient(135deg, #303f9f, var(--azul))';
     if (s === 'nn') return 'linear-gradient(135deg, #5c6bc0, #3949ab)';
+    if (s === 'n-co') return 'linear-gradient(135deg, #7986cb, #5c6bc0)';
     if (s === 'c' || s === 'cw') return 'linear-gradient(135deg, #e0e0e0, #bdbdbd)';
     if (s === 'v' || s === 'v25' || s === 'v26') return 'linear-gradient(135deg, #ef5350, #e53935)';
     if (s.startsWith('ap')) return 'linear-gradient(135deg, var(--verde-fuerte), #00c853)';
@@ -991,8 +1020,10 @@ function getShiftColor(shift) {
 function getShiftTextColor(shift) {
     const s = shift.toLowerCase();
     if (s === 'wm' || s === 'm8' || s === 'm') return '#1a5c1a';
+    if (s === 'm-co') return '#2e7d32';
     if (s === 'wt' || s === 't8' || s === 't') return '#5a4000';
-    if (s === 'n8' || s === 'n' || s === 'nn' || s === 'wn') return 'white';
+    if (s === 't-co') return '#5a4000';
+    if (s === 'n8' || s === 'n' || s === 'nn' || s === 'wn' || s === 'n-co') return 'white';
     if (s === 'c' || s === 'cw') return '#444';
     if (s === 'v' || s === 'v25' || s === 'v26') return 'white';
     if (s.startsWith('ap')) return 'white';
@@ -1008,9 +1039,6 @@ function closeModal() {
 async function setShift(shift) {
     if (!editingDay || !isManager || !selectedEmployee) return;
     
-    const compensado = document.getElementById('checkCompensado').checked;
-    const nuevoTurno = compensado && shift ? `${shift}-co` : shift;
-    
     const empleadoIndex = allData.empleados.findIndex(e => e.login === selectedEmployee.login);
     
     if (empleadoIndex === -1) {
@@ -1022,7 +1050,7 @@ async function setShift(shift) {
         allData.empleados[empleadoIndex].turnos = turnosStringToArray(allData.empleados[empleadoIndex].turnos);
     }
     
-    allData.empleados[empleadoIndex].turnos[editingDay.doy] = nuevoTurno;
+    allData.empleados[empleadoIndex].turnos[editingDay.doy] = shift;
     selectedEmployee = allData.empleados[empleadoIndex];
     
     showNotification('⏳ Guardando...');
@@ -1177,6 +1205,3 @@ initializeData();
 </script>
 </body>
 </html>
-    
-
-
