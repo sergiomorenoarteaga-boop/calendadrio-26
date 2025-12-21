@@ -408,21 +408,28 @@ const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 // HORARIOS DE LOS TURNOS
 // =====================================================
 const SHIFT_SCHEDULES = {
-    'wm':   { hours: '06:00 - 15:10', desc: 'Mañana Weekend', type: 'morning' },
+    // MAÑANA
+    'wm':   { hours: '06:00 - 15:10', desc: 'Mañana Larga', type: 'morning' },
     'm8':   { hours: '06:00 - 14:10', desc: 'Mañana 8h', type: 'morning' },
     'm':    { hours: '08:00 - 13:00', desc: 'Mañana', type: 'morning' },
-    'm-co': { hours: '08:00 - 13:00', desc: 'Mañana Compensado', type: 'morning' },
-    'wt':   { hours: '14:00 - 23:10', desc: 'Tarde Weekend', type: 'afternoon' },
+    'm-co': { hours: '08:00 - 13:00', desc: 'Mañana Reducida', type: 'morning' },
+    
+    // TARDE
+    'wt':   { hours: '14:00 - 23:10', desc: 'Tarde Larga', type: 'afternoon' },
     't8':   { hours: '14:00 - 22:10', desc: 'Tarde 8h', type: 'afternoon' },
     't':    { hours: '13:00 - 18:00', desc: 'Tarde', type: 'afternoon' },
-    't-co': { hours: '13:00 - 18:00', desc: 'Tarde Compensado', type: 'afternoon' },
+    't-co': { hours: '13:00 - 18:00', desc: 'Tarde Reducida', type: 'afternoon' },
+    
+    // NOCHE
     'n8':   { hours: '22:00 - 06:10', desc: 'Noche 8h', type: 'night' },
     'n':    { hours: '22:00 - 06:30', desc: 'Noche', type: 'night' },
     'nn':   { hours: '00:00 - 06:30', desc: 'Noche Corta', type: 'night' },
-    'n-co': { hours: '23:00 - 04:00', desc: 'Noche Compensado', type: 'night' },
-    'wn':   { hours: '22:00 - 06:30', desc: 'Noche Weekend', type: 'night' },
+    'n-co': { hours: '23:00 - 04:00', desc: 'Noche Reducida', type: 'night' },
+    'wn':   { hours: '22:00 - 06:30', desc: 'Noche Larga', type: 'night' },
+    
+    // OTROS
     'c':    { hours: '09:00 - 18:00', desc: 'Central', type: 'central' },
-    'cw':   { hours: '09:00 - 18:00', desc: 'Central Weekend', type: 'central' },
+    'cw':   { hours: '09:00 - 18:00', desc: 'Central', type: 'central' },
     'v':    { hours: '-', desc: 'Vacaciones', type: 'vacation' },
     'v25':  { hours: '-', desc: 'Vacaciones 2025', type: 'vacation' },
     'v26':  { hours: '-', desc: 'Vacaciones 2026', type: 'vacation' },
@@ -434,7 +441,7 @@ const SHIFT_SCHEDULES = {
 
 function getShiftInfo(shift) {
     if (!shift) return { hours: '-', desc: 'Libre', type: 'free' };
-    const s = shift.toLowerCase().replace('-co', '');
+    const s = shift.toLowerCase();
     return SHIFT_SCHEDULES[s] || { hours: '-', desc: shift.toUpperCase(), type: 'unknown' };
 }
 
@@ -1171,4 +1178,5 @@ initializeData();
 </body>
 </html>
     
+
 
