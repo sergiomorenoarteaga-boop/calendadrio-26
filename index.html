@@ -49,6 +49,8 @@
         .btn:hover { transform: translateY(-2px); }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
         .btn-view.active { background: linear-gradient(145deg, #667eea, #764ba2); border-color: transparent; }
+        .btn-danger { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+        .btn-warning { background: linear-gradient(145deg, #f39c12, #e67e22); }
         .calendar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 1400px; margin: 0 auto; }
         .calendar-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
         .calendar-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
@@ -58,46 +60,24 @@
         .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; width: 14.28%; }
         .calendar-table th:last-child { color: #e74c3c; }
         .calendar-table th:nth-child(6) { color: #3498db; }
-        .calendar-table td { 
-    text-align: center; 
-    padding: 2px 1px; 
-    border-radius: 6px; 
-    font-size: 0.65rem; 
-    height: 42px; 
-    width: 14.28%;
-    min-width: 0;
-    max-width: none;
-    vertical-align: middle; 
-    position: relative; 
-    cursor: pointer; 
-    transition: transform 0.2s;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-.calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
+        .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; width: 14.28%; min-width: 0; max-width: none; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; box-sizing: border-box; overflow: hidden; }
+        .calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
         .day-num { font-weight: 700; display: block; font-size: 0.75rem; line-height: 1.1; }
         .shift-code { font-size: 0.55rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase; }
         .shift-hours { font-size: 0.4rem; display: block; opacity: 0.8; line-height: 1; }
         
-        /* Turnos de MAÑANA - Verde */
         .shift-wm { background: linear-gradient(135deg, var(--verde), #7cb342) !important; color: #1a5c1a !important; border-left: 3px solid #2e7d32; }
         .shift-m8 { background: linear-gradient(135deg, #81c784, var(--verde)) !important; color: #1a5c1a !important; border-left: 3px solid #43a047; }
         .shift-m { background: var(--verde) !important; color: #1a5c1a !important; border-left: 3px solid #66bb6a; }
         .shift-m-co { background: linear-gradient(135deg, #c8e6c9, #a5d6a7) !important; color: #2e7d32 !important; border-left: 3px solid #66bb6a; border-style: dashed; }
-        
-        /* Turnos de TARDE - Naranja */
         .shift-wt { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; color: #5a4000 !important; border-left: 3px solid #ef6c00; }
         .shift-t8 { background: linear-gradient(135deg, #ffca28, var(--naranja)) !important; color: #5a4000 !important; border-left: 3px solid #f57c00; }
         .shift-t { background: var(--naranja) !important; color: #5a4000 !important; border-left: 3px solid #ffb300; }
         .shift-t-co { background: linear-gradient(135deg, #fff3cd, #ffe082) !important; color: #5a4000 !important; border-left: 3px solid #ffb300; border-style: dashed; }
-        
-        /* Turnos de NOCHE - Azul */
         .shift-n8 { background: linear-gradient(135deg, var(--azul), #1a237e) !important; color: white !important; border-left: 3px solid #4a148c; }
         .shift-n { background: linear-gradient(135deg, #303f9f, var(--azul)) !important; color: white !important; border-left: 3px solid #283593; }
         .shift-nn { background: linear-gradient(135deg, #5c6bc0, #3949ab) !important; color: white !important; border-left: 3px solid #1a237e; }
         .shift-n-co { background: linear-gradient(135deg, #7986cb, #5c6bc0) !important; color: white !important; border-left: 3px solid #3949ab; border-style: dashed; }
-        
-        /* Otros turnos */
         .shift-c, .shift-cw { background: linear-gradient(135deg, #e0e0e0, #bdbdbd) !important; color: #444 !important; border-left: 3px solid #757575; }
         .shift-v, .shift-v25, .shift-v26 { background: linear-gradient(135deg, #ef5350, #e53935) !important; color: white !important; border-left: 3px solid #b71c1c; }
         .shift-ap { background: linear-gradient(135deg, var(--verde-fuerte), #00c853) !important; color: white !important; border-left: 3px solid #1b5e20; }
@@ -116,27 +96,18 @@
         .weekend-sat { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
         .weekend-sun { background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
         
-        /* ============================================= */
-        /* ALARMAS DE PERSONAL - Solo colores */
-        /* ============================================= */
         .alarm-morning { background: linear-gradient(135deg, var(--verde), #7cb342) !important; }
         .alarm-morning .day-num { color: #1a5c1a !important; }
-        
         .alarm-afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; }
         .alarm-afternoon .day-num { color: #5a4000 !important; }
-        
         .alarm-night { background: linear-gradient(135deg, var(--azul), #1a237e) !important; }
         .alarm-night .day-num { color: white !important; }
-        
         .alarm-morning-afternoon { animation: blink-morning-afternoon 1.2s ease-in-out infinite; }
         .alarm-morning-afternoon .day-num { color: #333 !important; font-weight: 800; }
-        
         .alarm-morning-night { animation: blink-morning-night 1.2s ease-in-out infinite; }
         .alarm-morning-night .day-num { color: white !important; font-weight: 800; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
-        
         .alarm-afternoon-night { animation: blink-afternoon-night 1.2s ease-in-out infinite; }
         .alarm-afternoon-night .day-num { color: #333 !important; font-weight: 800; }
-        
         .alarm-all { animation: blink-all 1.8s ease-in-out infinite; }
         .alarm-all .day-num { color: white !important; font-weight: 800; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
         
@@ -194,10 +165,43 @@
         .current-shift-display .shift-info { display: flex; align-items: center; justify-content: center; gap: 10px; }
         .current-shift-display .shift-badge-large { padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 1.2rem; }
         .current-shift-display .shift-time { font-size: 1rem; color: #333; }
+        
         .manager-login { margin: 12px 0; }
-        .manager-login input { padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; max-width: 200px; text-align: center; }
+        .manager-login input, .manager-login select { padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; max-width: 280px; margin: 5px 0; }
         .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
         .manager-status.error { background: #f8d7da; color: #721c24; }
+        .manager-status.success { background: #d4edda; color: #155724; }
+        .manager-info { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .manager-info h4 { margin-bottom: 5px; }
+        .manager-info p { font-size: 0.85rem; opacity: 0.9; }
+        .manager-info .manager-role-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 10px; font-size: 0.75rem; margin-top: 5px; }
+        
+        .panel-nav { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
+        .panel-nav-btn { padding: 10px 16px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; }
+        .panel-nav-btn:hover { background: #ddd; }
+        .panel-nav-btn.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .panel-content { display: none; }
+        .panel-content.active { display: block; }
+        
+        .changelog-list { max-height: 350px; overflow-y: auto; text-align: left; }
+        .changelog-item { padding: 12px; margin-bottom: 8px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; }
+        .changelog-item .change-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; gap: 5px; }
+        .changelog-item .change-manager { font-weight: 700; color: #667eea; }
+        .changelog-item .change-role { font-size: 0.7rem; color: #888; background: #eee; padding: 2px 6px; border-radius: 8px; }
+        .changelog-item .change-date { font-size: 0.75rem; color: #888; }
+        .changelog-item .change-detail { font-size: 0.85rem; color: #333; }
+        .changelog-item .change-shift { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
+        .changelog-item .shift-old { background: #ffebee; color: #c62828; text-decoration: line-through; }
+        .changelog-item .shift-new { background: #e8f5e9; color: #2e7d32; }
+        .changelog-empty { text-align: center; color: #999; padding: 30px; font-style: italic; }
+        
+        .last-change-info { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 0.8rem; text-align: left; }
+        .last-change-info .change-title { font-weight: 700; color: #856404; margin-bottom: 5px; }
+        
+        .password-section { background: #f8f9fa; padding: 15px; border-radius: 12px; margin-top: 15px; }
+        .password-section h4 { margin-bottom: 10px; color: #333; }
+        .password-section input { margin: 5px auto; display: block; }
+        
         .import-panel { text-align: left; margin-top: 15px; }
         .import-panel textarea { width: 100%; height: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-family: monospace; font-size: 0.75rem; resize: vertical; }
         .import-panel .btn-row { display: flex; gap: 10px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
@@ -218,16 +222,10 @@
         .data-status.online { color: #7bed9f; }
         .data-status.offline { color: #ff6b6b; }
         .data-status.loading { color: #ffeaa7; }
-        .tab-buttons { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
-        .tab-btn { padding: 8px 16px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
-        .tab-btn.active { background: #667eea; color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
         .loading { text-align: center; padding: 50px; color: #fff; }
         .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #fff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Modal día - estilos mejorados */
         .day-overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0; }
         .shift-column { background: #f8f9fa; border-radius: 12px; padding: 12px; min-height: 200px; }
         .shift-column.column-alarm { background: #fff5f5 !important; border: 2px solid #e74c3c; }
@@ -262,8 +260,6 @@
         .central-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ddd; }
         .central-section .shift-column { max-width: 400px; margin: 0 auto; }
         .no-employees { text-align: center; color: #999; font-style: italic; padding: 20px; font-size: 0.85rem; }
-        
-        /* Resumen del día */
         .day-summary { display: flex; justify-content: center; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }
         .summary-item { display: flex; flex-direction: column; align-items: center; padding: 12px 16px; background: #f5f5f5; border-radius: 12px; min-width: 110px; }
         .summary-item.has-alarm { background: #ffebee; border: 2px solid #e74c3c; }
@@ -276,8 +272,10 @@
         .summary-item.total-item { background: #e8f5e9; }
         .summary-item.total-item .summary-total { color: #2e7d32; }
         
+        .no-managers-msg { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; color: #856404; margin: 10px 0; }
+        
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .day-summary { gap: 8px; } .summary-item { min-width: 90px; padding: 10px 12px; } }
+        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .day-summary { gap: 8px; } .summary-item { min-width: 90px; padding: 10px 12px; } .panel-nav { gap: 3px; } .panel-nav-btn { padding: 8px 10px; font-size: 0.7rem; } }
         @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
@@ -363,6 +361,10 @@
     <div class="modal">
         <h3 id="modalTitle">Día</h3>
         <div id="festivoBadge" class="festivo-badge" style="display:none;"></div>
+        <div id="lastChangeInfo" class="last-change-info" style="display:none;">
+            <div class="change-title">📝 Última modificación:</div>
+            <div id="lastChangeDetail"></div>
+        </div>
         <div class="current-shift-display" id="currentShiftDisplay">
             <div class="shift-label">Turno actual:</div>
             <div class="shift-info">
@@ -449,45 +451,74 @@
 <div class="modal-overlay" id="managerModal">
     <div class="modal modal-large">
         <h3>🔐 Panel Manager</h3>
+        
         <div id="loginSection">
+            <p style="color:#666; margin-bottom:15px;">Selecciona tu nombre e introduce tu contraseña</p>
             <div class="manager-login">
-                <input type="password" id="managerPassword" placeholder="Clave..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
+                <select id="managerSelect">
+                    <option value="">-- Selecciona tu nombre --</option>
+                </select>
+                <input type="password" id="managerPassword" placeholder="Contraseña..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
             </div>
             <div id="managerStatus" class="manager-status" style="display:none;"></div>
+            <div id="noManagersMessage" class="no-managers-msg" style="display:none;">
+                ⚠️ No hay managers disponibles. Primero importa los datos de empleados.
+            </div>
             <div style="margin-top:15px; display:flex; gap:8px; justify-content:center;">
                 <button class="btn btn-save" onclick="checkManagerPassword()">✅ Acceder</button>
                 <button class="modal-close" onclick="closeManagerModal()">Cancelar</button>
             </div>
         </div>
+        
         <div id="managerPanel" style="display:none;">
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="switchTab('import', this)">📋 Importar Datos</button>
-                <button class="tab-btn" onclick="switchTab('reset', this)">🔄 Resetear</button>
+            <div class="manager-info">
+                <h4>👤 <span id="currentManagerName"></span></h4>
+                <p>Login: <strong id="currentManagerLogin"></strong></p>
+                <span class="manager-role-badge" id="currentManagerRole"></span>
             </div>
-            <div id="tab-import" class="tab-content active">
+            
+            <div class="panel-nav">
+                <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
+                <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
+                <button class="panel-nav-btn" onclick="switchPanel('password', this)">🔑 Contraseña</button>
+            </div>
+            
+            <div id="panel-changelog" class="panel-content active">
+                <h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4>
+                <div class="changelog-list" id="changelogList">
+                    <div class="changelog-empty">No hay modificaciones registradas</div>
+                </div>
+            </div>
+            
+            <div id="panel-import" class="panel-content">
                 <div class="import-info">
                     <strong>📌 Instrucciones:</strong><br>
                     1. Copia los datos TSV desde tu archivo Excel<br>
                     2. Pégalos aquí abajo<br>
-                    3. Haz clic en "✅ Importar y Guardar en Nube"
+                    3. Haz clic en "✅ Importar y Guardar"
                 </div>
                 <div class="import-panel">
                     <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
                     <div class="btn-row">
-                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar en Nube</button>
+                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar</button>
                         <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
                     </div>
                 </div>
                 <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
             </div>
-            <div id="tab-reset" class="tab-content">
-                <div style="padding:20px;">
-                    <p style="color:#666; margin-bottom:15px;">⚠️ Esto borrará todos los datos de la nube.</p>
-                    <button class="btn" style="background:#e74c3c;" onclick="resetAllData()">🗑️ Borrar Todo</button>
+            
+            <div id="panel-password" class="panel-content">
+                <div class="password-section">
+                    <h4>🔑 Cambiar mi contraseña</h4>
+                    <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Introduce tu nueva contraseña</p>
+                    <input type="password" id="newPassword1" placeholder="Nueva contraseña..." style="max-width:250px;">
+                    <input type="password" id="newPassword2" placeholder="Repetir contraseña..." style="max-width:250px;">
+                    <button class="btn btn-save" onclick="changePassword()" style="margin-top:10px;">💾 Guardar contraseña</button>
                 </div>
             </div>
-            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
-                <button class="btn btn-manager" onclick="logoutManager()">🚪 Cerrar Sesión</button>
+            
+            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                <button class="btn btn-warning" onclick="logoutManager()">🚪 Cerrar Sesión</button>
                 <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
             </div>
         </div>
@@ -500,22 +531,22 @@
 // =====================================================
 // CONFIGURACIÓN
 // =====================================================
-const MANAGER_PASSWORD = 'manager';
-
-// JSONbin.io - Configuración de la nube
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyh[REDACTED:AWS_ACCESS_KEY]garzEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
-// =====================================================
-// CONFIGURACIÓN DE ALARMAS DE PERSONAL
-// =====================================================
+// Roles que pueden ser managers
+const MANAGER_ROLES = ['RMEAN', 'IRMEAM', 'RMEM', 'GEM'];
+
+// Contraseña por defecto para nuevos managers
+const DEFAULT_PASSWORD = '1234';
+
 const MIN_SRME_PER_SHIFT = 2;
 const MIN_RMET_PER_SHIFT = 3;
 const RMET_ROLES = ['RMET', 'APP4', 'RMEO', 'APP3', 'APP5', 'APP6-OK', 'APP6'];
 
 // =====================================================
-// HORARIOS DE LOS TURNOS
+// HORARIOS
 // =====================================================
 const SHIFT_SCHEDULES = {
     'wm': { hours: '06:00 - 15:10', desc: 'Mañana Larga', type: 'morning' },
@@ -557,6 +588,12 @@ function classifyRole(role) {
     return 'otros';
 }
 
+function isManagerRole(role) {
+    if (!role) return false;
+    const r = role.toUpperCase().trim();
+    return MANAGER_ROLES.some(mr => r.includes(mr) || r === mr);
+}
+
 // =====================================================
 // FESTIVOS 2026
 // =====================================================
@@ -574,8 +611,17 @@ const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AG
 const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 
-let allData = { empleados: [], festivos: festivos2026 };
+// =====================================================
+// VARIABLES GLOBALES
+// =====================================================
+let allData = { 
+    empleados: [], 
+    festivos: festivos2026,
+    managerPasswords: {}, // { login: password }
+    changelog: []
+};
 let selectedEmployee = null;
+let currentManager = null; // { login, name, role }
 let isManager = false;
 let editingDay = null;
 let isGeneralView = true;
@@ -608,20 +654,32 @@ function normalizarEmpleados(empleados) {
     }));
 }
 
+// Obtener lista de managers (empleados con rol de manager)
+function getManagersList() {
+    return allData.empleados.filter(emp => isManagerRole(emp.role)).sort((a,b) => a.name.localeCompare(b.name));
+}
+
 // =====================================================
 // JSONBIN
 // =====================================================
 async function saveToCloud() {
     try {
         setDataStatus('loading', '⏳ Guardando...');
-        const empleadosParaGuardar = allData.empleados.map(emp => ({
-            crew: emp.crew || '', login: emp.login || '', name: emp.name || '',
-            role: emp.role || '', turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
-        }));
+        const dataToSave = {
+            empleados: allData.empleados.map(emp => ({
+                crew: emp.crew || '', login: emp.login || '', name: emp.name || '',
+                role: emp.role || '', turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
+            })),
+            managerPasswords: allData.managerPasswords,
+            changelog: allData.changelog.slice(-100),
+            lastModified: new Date().toISOString(),
+            version: '3.0'
+        };
+        
         const response = await fetch(JSONBIN_URL, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
-            body: JSON.stringify({ empleados: empleadosParaGuardar, lastModified: new Date().toISOString(), version: '2.0' })
+            body: JSON.stringify(dataToSave)
         });
         if (!response.ok) throw new Error('Error');
         setDataStatus('online', '☁️ Sincronizado: ' + new Date().toLocaleTimeString());
@@ -639,13 +697,19 @@ async function loadFromCloud() {
         const response = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
         if (!response.ok) throw new Error('Error');
         const data = await response.json();
-        if (data.record?.empleados?.length > 0) {
-            const empleados = normalizarEmpleados(data.record.empleados);
-            setDataStatus('online', '☁️ ' + empleados.length + ' empleados');
-            return empleados;
+        
+        if (data.record) {
+            const result = {
+                empleados: data.record.empleados ? normalizarEmpleados(data.record.empleados) : [],
+                managerPasswords: data.record.managerPasswords || {},
+                changelog: data.record.changelog || [],
+                festivos: festivos2026
+            };
+            setDataStatus('online', '☁️ ' + result.empleados.length + ' empleados');
+            return result;
         }
         setDataStatus('online', '☁️ Sin datos');
-        return [];
+        return { empleados: [], managerPasswords: {}, changelog: [], festivos: festivos2026 };
     } catch (error) {
         setDataStatus('offline', '❌ Error conexión');
         return null;
@@ -656,6 +720,69 @@ function setDataStatus(type, message) {
     const el = document.getElementById('dataStatus');
     el.textContent = message;
     el.className = 'data-status ' + type;
+}
+
+// =====================================================
+// CHANGELOG
+// =====================================================
+function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift) {
+    const entry = {
+        timestamp: new Date().toISOString(),
+        managerLogin: currentManager.login,
+        managerName: currentManager.name,
+        managerRole: currentManager.role,
+        employeeLogin: employeeLogin,
+        employeeName: employeeName,
+        dayOfYear: doy,
+        dateStr: getDayString(doy),
+        oldShift: oldShift || 'LIBRE',
+        newShift: newShift || 'LIBRE'
+    };
+    allData.changelog.unshift(entry);
+    if (allData.changelog.length > 100) allData.changelog.pop();
+}
+
+function getDayString(doy) {
+    let remaining = doy;
+    for (let m = 0; m < 12; m++) {
+        if (remaining < daysInMonth[m]) {
+            return `${remaining + 1} de ${monthNames[m]}`;
+        }
+        remaining -= daysInMonth[m];
+    }
+    return 'Día ' + (doy + 1);
+}
+
+function getLastChangeForDay(employeeLogin, doy) {
+    return allData.changelog.find(c => c.employeeLogin === employeeLogin && c.dayOfYear === doy);
+}
+
+function renderChangelog() {
+    const container = document.getElementById('changelogList');
+    if (!allData.changelog || allData.changelog.length === 0) {
+        container.innerHTML = '<div class="changelog-empty">No hay modificaciones registradas</div>';
+        return;
+    }
+    
+    container.innerHTML = allData.changelog.slice(0, 50).map(c => {
+        const date = new Date(c.timestamp);
+        const dateStr = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        return `
+            <div class="changelog-item">
+                <div class="change-header">
+                    <span class="change-manager">👤 ${c.managerName}</span>
+                    <span class="change-role">${c.managerRole}</span>
+                    <span class="change-date">${dateStr}</span>
+                </div>
+                <div class="change-detail">
+                    <strong>${c.employeeName}</strong> - ${c.dateStr}<br>
+                    <span class="change-shift shift-old">${c.oldShift.toUpperCase()}</span>
+                    →
+                    <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // =====================================================
@@ -686,17 +813,20 @@ function parseRawData(rawData) {
 // =====================================================
 async function initializeData() {
     document.getElementById('calendarGrid').innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Cargando datos de la nube...</p></div>';
-    const empleados = await loadFromCloud();
-    if (empleados === null) {
+    const data = await loadFromCloud();
+    
+    if (data === null) {
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>❌</span>Error de conexión<br><br><button class="btn btn-reload" onclick="initializeData()">🔄 Reintentar</button></div>';
         return;
     }
-    if (empleados.length === 0) {
-        allData = { empleados: [], festivos: festivos2026 };
+    
+    allData = data;
+    
+    if (allData.empleados.length === 0) {
         document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Haz clic en <strong>🔐 Manager</strong><br>y pega los datos TSV</div>';
         return;
     }
-    allData = { empleados, festivos: festivos2026 };
+    
     initializeFilters();
     showGeneralView();
 }
@@ -1145,6 +1275,24 @@ function openEditModal(month, day) {
     festivoBadge.style.display = fest ? 'inline-block' : 'none';
     if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
+    // Mostrar última modificación si existe y está logueado
+    const lastChange = getLastChangeForDay(selectedEmployee.login, editingDay.doy);
+    const lastChangeInfo = document.getElementById('lastChangeInfo');
+    const lastChangeDetail = document.getElementById('lastChangeDetail');
+    
+    if (lastChange && isManager) {
+        const changeDate = new Date(lastChange.timestamp);
+        const dateStr = changeDate.toLocaleDateString('es-ES') + ' ' + changeDate.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        lastChangeDetail.innerHTML = `
+            <strong>${lastChange.managerName}</strong> (${lastChange.managerRole}) - ${dateStr}<br>
+            Cambió de <span style="color:#c62828; text-decoration:line-through;">${lastChange.oldShift.toUpperCase()}</span> 
+            a <span style="color:#2e7d32; font-weight:bold;">${lastChange.newShift.toUpperCase()}</span>
+        `;
+        lastChangeInfo.style.display = 'block';
+    } else {
+        lastChangeInfo.style.display = 'none';
+    }
+    
     const shift = (selectedEmployee.turnos[editingDay.doy] || '').toLowerCase();
     const shiftInfo = getShiftInfo(shift);
     
@@ -1200,8 +1348,8 @@ function closeModal() {
     editingDay = null; 
 }
 
-async function setShift(shift) {
-    if (!editingDay || !isManager || !selectedEmployee) return;
+async function setShift(newShift) {
+    if (!editingDay || !isManager || !selectedEmployee || !currentManager) return;
     
     const idx = allData.empleados.findIndex(e => e.login === selectedEmployee.login);
     if (idx === -1) { showNotification('❌ Error', true); return; }
@@ -1210,7 +1358,18 @@ async function setShift(shift) {
         allData.empleados[idx].turnos = turnosStringToArray(allData.empleados[idx].turnos);
     }
     
-    allData.empleados[idx].turnos[editingDay.doy] = shift;
+    const oldShift = allData.empleados[idx].turnos[editingDay.doy] || '';
+    
+    // Registrar el cambio con el login del manager
+    addChangelogEntry(
+        selectedEmployee.login,
+        selectedEmployee.name,
+        editingDay.doy,
+        oldShift,
+        newShift
+    );
+    
+    allData.empleados[idx].turnos[editingDay.doy] = newShift;
     selectedEmployee = allData.empleados[idx];
     
     showNotification('⏳ Guardando...');
@@ -1218,25 +1377,49 @@ async function setShift(shift) {
         generateCalendar();
         generateStats();
         closeModal();
-        showNotification('✅ Turno guardado');
+        showNotification(`✅ Guardado por ${currentManager.name}`);
     }
 }
 
 // =====================================================
 // MANAGER
 // =====================================================
+function populateManagerSelect() {
+    const select = document.getElementById('managerSelect');
+    const managers = getManagersList();
+    const noManagersMsg = document.getElementById('noManagersMessage');
+    
+    select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
+    
+    if (managers.length === 0) {
+        noManagersMsg.style.display = 'block';
+        select.style.display = 'none';
+    } else {
+        noManagersMsg.style.display = 'none';
+        select.style.display = 'block';
+        managers.forEach(m => {
+            select.innerHTML += `<option value="${m.login}">${m.name} (${m.role})</option>`;
+        });
+    }
+}
+
 function openManagerModal() {
-    if (isManager) {
+    if (isManager && currentManager) {
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('managerPanel').style.display = 'block';
+        document.getElementById('currentManagerName').textContent = currentManager.name;
+        document.getElementById('currentManagerLogin').textContent = currentManager.login;
+        document.getElementById('currentManagerRole').textContent = currentManager.role;
+        renderChangelog();
     } else {
         document.getElementById('loginSection').style.display = 'block';
         document.getElementById('managerPanel').style.display = 'none';
+        document.getElementById('managerSelect').value = '';
         document.getElementById('managerPassword').value = '';
         document.getElementById('managerStatus').style.display = 'none';
+        populateManagerSelect();
     }
     document.getElementById('managerModal').classList.add('active');
-    if (!isManager) document.getElementById('managerPassword').focus();
 }
 
 function closeManagerModal() { 
@@ -1244,15 +1427,46 @@ function closeManagerModal() {
 }
 
 function checkManagerPassword() {
-    if (document.getElementById('managerPassword').value === MANAGER_PASSWORD) {
+    const login = document.getElementById('managerSelect').value;
+    const password = document.getElementById('managerPassword').value;
+    
+    if (!login) {
+        document.getElementById('managerStatus').textContent = '❌ Selecciona tu nombre';
+        document.getElementById('managerStatus').className = 'manager-status error';
+        document.getElementById('managerStatus').style.display = 'block';
+        return;
+    }
+    
+    // Buscar el empleado
+    const manager = allData.empleados.find(e => e.login === login);
+    if (!manager) {
+        document.getElementById('managerStatus').textContent = '❌ Usuario no encontrado';
+        document.getElementById('managerStatus').className = 'manager-status error';
+        document.getElementById('managerStatus').style.display = 'block';
+        return;
+    }
+    
+    // Obtener contraseña (guardada o por defecto)
+    const storedPassword = allData.managerPasswords[login] || DEFAULT_PASSWORD;
+    
+    if (password === storedPassword) {
         isManager = true;
+        currentManager = { 
+            login: manager.login, 
+            name: manager.name, 
+            role: manager.role 
+        };
         document.getElementById('btnManager').classList.add('active');
-        document.getElementById('btnManager').innerHTML = '✅ Manager';
+        document.getElementById('btnManager').innerHTML = '✅ ' + manager.name.split(' ')[0];
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('managerPanel').style.display = 'block';
-        showNotification('🔓 Modo Manager activado');
+        document.getElementById('currentManagerName').textContent = manager.name;
+        document.getElementById('currentManagerLogin').textContent = manager.login;
+        document.getElementById('currentManagerRole').textContent = manager.role;
+        renderChangelog();
+        showNotification('🔓 Bienvenido ' + manager.name.split(' ')[0]);
     } else {
-        document.getElementById('managerStatus').textContent = '❌ Clave incorrecta';
+        document.getElementById('managerStatus').textContent = '❌ Contraseña incorrecta';
         document.getElementById('managerStatus').className = 'manager-status error';
         document.getElementById('managerStatus').style.display = 'block';
     }
@@ -1260,17 +1474,49 @@ function checkManagerPassword() {
 
 function logoutManager() {
     isManager = false;
+    currentManager = null;
     document.getElementById('btnManager').classList.remove('active');
     document.getElementById('btnManager').innerHTML = '🔐 Manager';
     closeManagerModal();
     showNotification('🔒 Sesión cerrada');
 }
 
-function switchTab(tabName, btn) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+async function changePassword() {
+    if (!isManager || !currentManager) return;
+    
+    const pass1 = document.getElementById('newPassword1').value;
+    const pass2 = document.getElementById('newPassword2').value;
+    
+    if (!pass1 || pass1.length < 4) {
+        showNotification('❌ Mínimo 4 caracteres', true);
+        return;
+    }
+    
+    if (pass1 !== pass2) {
+        showNotification('❌ Las contraseñas no coinciden', true);
+        return;
+    }
+    
+    // Guardar contraseña para este login
+    allData.managerPasswords[currentManager.login] = pass1;
+    
+    showNotification('⏳ Guardando...');
+    if (await saveToCloud()) {
+        document.getElementById('newPassword1').value = '';
+        document.getElementById('newPassword2').value = '';
+        showNotification('✅ Contraseña actualizada');
+    }
+}
+
+function switchPanel(panelName, btn) {
+    document.querySelectorAll('.panel-nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('tab-' + tabName).classList.add('active');
+    document.getElementById('panel-' + panelName).classList.add('active');
+    
+    if (panelName === 'changelog') {
+        renderChangelog();
+    }
 }
 
 // =====================================================
@@ -1282,8 +1528,13 @@ function previewBulkImport() {
     const empleados = parseRawData(data);
     const preview = document.getElementById('importPreview');
     if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
-    let html = `<p style="color:green;">✅ ${empleados.length} empleados:</p><ul>`;
-    empleados.slice(0, 10).forEach(e => html += `<li><strong>${e.name}</strong> (${e.role}) - ${e.turnos.filter(t => t).length} turnos</li>`);
+    
+    const managers = empleados.filter(e => isManagerRole(e.role));
+    let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p><ul>`;
+    empleados.slice(0, 10).forEach(e => {
+        const isM = isManagerRole(e.role) ? ' 👑' : '';
+        html += `<li><strong>${e.name}</strong> (${e.role})${isM}</li>`;
+    });
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
     preview.innerHTML = html + '</ul>';
 }
@@ -1307,29 +1558,21 @@ async function processBulkImport() {
         showGeneralView();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
-        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
-    }
-}
-
-async function resetAllData() {
-    if (!confirm('¿Borrar todos los datos?')) return;
-    allData = { empleados: [], festivos: festivos2026 };
-    showNotification('⏳ Borrando...');
-    if (await saveToCloud()) {
-        document.getElementById('filterCrew').innerHTML = '<option value="">Todos</option>';
-        document.getElementById('filterEmployee').innerHTML = '<option value="">-- Vista General --</option>';
-        document.getElementById('employeeCount').textContent = '';
-        document.getElementById('employeeInfo').classList.remove('active');
-        document.getElementById('statsContainer').style.display = 'none';
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
-        showNotification('🗑️ Datos borrados');
+        
+        const managers = getManagersList();
+        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados (${managers.length} managers)`);
     }
 }
 
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
     const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
-    const blob = new Blob([JSON.stringify({ empleados: exp, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ 
+        empleados: exp, 
+        changelog: allData.changelog,
+        exportedAt: new Date().toISOString(),
+        exportedBy: currentManager ? currentManager.name : 'Anónimo'
+    }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
@@ -1363,5 +1606,3 @@ initializeData();
 </script>
 </body>
 </html>
-
-
