@@ -54,12 +54,27 @@
         .calendar-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
         .month-card { background: rgba(255,255,255,0.98); border-radius: 12px; padding: 8px; box-shadow: 0 6px 25px rgba(0,0,0,0.2); }
         .month-header { text-align: center; padding: 8px; margin: -8px -8px 8px -8px; background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px 12px 0 0; color: white; }
-        .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; }
-        .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; }
+        .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; table-layout: fixed; }
+        .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; width: 14.28%; }
         .calendar-table th:last-child { color: #e74c3c; }
         .calendar-table th:nth-child(6) { color: #3498db; }
-        .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; }
-        .calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
+        .calendar-table td { 
+    text-align: center; 
+    padding: 2px 1px; 
+    border-radius: 6px; 
+    font-size: 0.65rem; 
+    height: 42px; 
+    width: 14.28%;
+    min-width: 0;
+    max-width: none;
+    vertical-align: middle; 
+    position: relative; 
+    cursor: pointer; 
+    transition: transform 0.2s;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
         .day-num { font-weight: 700; display: block; font-size: 0.75rem; line-height: 1.1; }
         .shift-code { font-size: 0.55rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase; }
         .shift-hours { font-size: 0.4rem; display: block; opacity: 0.8; line-height: 1; }
@@ -1348,3 +1363,4 @@ initializeData();
 </script>
 </body>
 </html>
+
