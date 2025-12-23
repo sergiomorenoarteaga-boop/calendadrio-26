@@ -193,10 +193,21 @@
         .changelog-item .change-shift { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
         .changelog-item .shift-old { background: #ffebee; color: #c62828; text-decoration: line-through; }
         .changelog-item .shift-new { background: #e8f5e9; color: #2e7d32; }
+        .changelog-item .change-comment { margin-top: 8px; padding: 8px 10px; background: #fff8e1; border-left: 3px solid #ffc107; border-radius: 0 6px 6px 0; font-size: 0.8rem; color: #5d4037; font-style: italic; }
+        .changelog-item .change-comment::before { content: '💬 '; }
         .changelog-empty { text-align: center; color: #999; padding: 30px; font-style: italic; }
         
         .last-change-info { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 0.8rem; text-align: left; }
         .last-change-info .change-title { font-weight: 700; color: #856404; margin-bottom: 5px; }
+        .last-change-comment { margin-top: 8px; padding: 8px 10px; background: #e3f2fd; border-left: 3px solid #2196f3; border-radius: 0 6px 6px 0; font-size: 0.85rem; color: #1565c0; }
+        .last-change-comment::before { content: '💬 Comentario: '; font-weight: 600; }
+        
+        .comment-preview { background: #f0f4f8; border-radius: 10px; padding: 12px; margin-bottom: 15px; text-align: left; }
+        .comment-preview .preview-employee { font-weight: 700; color: #333; }
+        .comment-preview .preview-date { font-size: 0.85rem; color: #666; }
+        .comment-preview .preview-shift { margin-top: 8px; }
+        .comment-preview .shift-old { background: #ffebee; color: #c62828; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-decoration: line-through; }
+        .comment-preview .shift-new { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
         
         .password-section { background: #f8f9fa; padding: 15px; border-radius: 12px; margin-top: 15px; }
         .password-section h4 { margin-bottom: 10px; color: #333; }
@@ -525,6 +536,23 @@
     </div>
 </div>
 
+<!-- Modal Comentario del cambio -->
+<div class="modal-overlay" id="commentModal">
+    <div class="modal">
+        <h3>📝 Añadir Comentario</h3>
+        <p style="color:#666; margin-bottom:15px; font-size:0.9rem;">
+            Escribe un comentario para explicar este cambio (opcional)
+        </p>
+        <div class="comment-preview" id="commentPreview"></div>
+        <textarea id="changeComment" placeholder="Ej: Cambio solicitado por el empleado, Cubre baja de compañero, etc..." style="width:100%; height:100px; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:0.9rem; resize:vertical; margin-bottom:15px;"></textarea>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn btn-save" onclick="confirmShiftChange()">✅ Guardar Cambio</button>
+            <button class="btn btn-warning" onclick="confirmShiftChange(true)">⚡ Guardar sin comentario</button>
+            <button class="modal-close" onclick="cancelShiftChange()">❌ Cancelar</button>
+        </div>
+    </div>
+</div>
+
 <div class="notification" id="notification"></div>
 
 <script>
@@ -536,7 +564,7 @@ const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQa
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 // Roles que pueden ser managers
-const MANAGER_ROLES = ['RMEAM', 'IRMEAM', 'RMEM', 'GEM'];
+const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];
 
 // Contraseña por defecto para nuevos managers
 const DEFAULT_PASSWORD = '1234';
@@ -617,14 +645,15 @@ const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 let allData = { 
     empleados: [], 
     festivos: festivos2026,
-    managerPasswords: {}, // { login: password }
+    managerPasswords: {},
     changelog: []
 };
 let selectedEmployee = null;
-let currentManager = null; // { login, name, role }
+let currentManager = null;
 let isManager = false;
 let editingDay = null;
 let isGeneralView = true;
+let pendingShiftChange = null;
 
 // =====================================================
 // FUNCIONES DE DATOS
@@ -654,7 +683,6 @@ function normalizarEmpleados(empleados) {
     }));
 }
 
-// Obtener lista de managers (empleados con rol de manager)
 function getManagersList() {
     return allData.empleados.filter(emp => isManagerRole(emp.role)).sort((a,b) => a.name.localeCompare(b.name));
 }
@@ -725,7 +753,7 @@ function setDataStatus(type, message) {
 // =====================================================
 // CHANGELOG
 // =====================================================
-function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift) {
+function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift, comment = '') {
     const entry = {
         timestamp: new Date().toISOString(),
         managerLogin: currentManager.login,
@@ -736,7 +764,8 @@ function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift)
         dayOfYear: doy,
         dateStr: getDayString(doy),
         oldShift: oldShift || 'LIBRE',
-        newShift: newShift || 'LIBRE'
+        newShift: newShift || 'LIBRE',
+        comment: comment || ''
     };
     allData.changelog.unshift(entry);
     if (allData.changelog.length > 100) allData.changelog.pop();
@@ -767,6 +796,8 @@ function renderChangelog() {
     container.innerHTML = allData.changelog.slice(0, 50).map(c => {
         const date = new Date(c.timestamp);
         const dateStr = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        const commentHtml = c.comment ? `<div class="change-comment">${c.comment}</div>` : '';
+        
         return `
             <div class="changelog-item">
                 <div class="change-header">
@@ -780,6 +811,7 @@ function renderChangelog() {
                     →
                     <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span>
                 </div>
+                ${commentHtml}
             </div>
         `;
     }).join('');
@@ -1275,7 +1307,6 @@ function openEditModal(month, day) {
     festivoBadge.style.display = fest ? 'inline-block' : 'none';
     if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
-    // Mostrar última modificación si existe y está logueado
     const lastChange = getLastChangeForDay(selectedEmployee.login, editingDay.doy);
     const lastChangeInfo = document.getElementById('lastChangeInfo');
     const lastChangeDetail = document.getElementById('lastChangeDetail');
@@ -1283,10 +1314,13 @@ function openEditModal(month, day) {
     if (lastChange && isManager) {
         const changeDate = new Date(lastChange.timestamp);
         const dateStr = changeDate.toLocaleDateString('es-ES') + ' ' + changeDate.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        const commentHtml = lastChange.comment ? `<div class="last-change-comment">${lastChange.comment}</div>` : '';
+        
         lastChangeDetail.innerHTML = `
             <strong>${lastChange.managerName}</strong> (${lastChange.managerRole}) - ${dateStr}<br>
             Cambió de <span style="color:#c62828; text-decoration:line-through;">${lastChange.oldShift.toUpperCase()}</span> 
             a <span style="color:#2e7d32; font-weight:bold;">${lastChange.newShift.toUpperCase()}</span>
+            ${commentHtml}
         `;
         lastChangeInfo.style.display = 'block';
     } else {
@@ -1360,25 +1394,61 @@ async function setShift(newShift) {
     
     const oldShift = allData.empleados[idx].turnos[editingDay.doy] || '';
     
-    // Registrar el cambio con el login del manager
+    pendingShiftChange = { newShift, oldShift, employeeIdx: idx };
+    
+    const shiftInfoOld = getShiftInfo(oldShift);
+    const shiftInfoNew = getShiftInfo(newShift);
+    
+    document.getElementById('commentPreview').innerHTML = `
+        <div class="preview-employee">${selectedEmployee.name}</div>
+        <div class="preview-date">${document.getElementById('modalTitle').textContent}</div>
+        <div class="preview-shift">
+            <span class="shift-old">${oldShift ? oldShift.toUpperCase() : 'LIBRE'}</span>
+            → 
+            <span class="shift-new">${newShift ? newShift.toUpperCase() : 'LIBRE'}</span>
+        </div>
+    `;
+    
+    document.getElementById('changeComment').value = '';
+    document.getElementById('editModal').classList.remove('active');
+    document.getElementById('commentModal').classList.add('active');
+}
+
+async function confirmShiftChange(skipComment = false) {
+    if (!pendingShiftChange || !editingDay || !currentManager) return;
+    
+    const comment = skipComment ? '' : document.getElementById('changeComment').value.trim();
+    const { newShift, oldShift, employeeIdx } = pendingShiftChange;
+    
     addChangelogEntry(
         selectedEmployee.login,
         selectedEmployee.name,
         editingDay.doy,
         oldShift,
-        newShift
+        newShift,
+        comment
     );
     
-    allData.empleados[idx].turnos[editingDay.doy] = newShift;
-    selectedEmployee = allData.empleados[idx];
+    allData.empleados[employeeIdx].turnos[editingDay.doy] = newShift;
+    selectedEmployee = allData.empleados[employeeIdx];
     
+    document.getElementById('commentModal').classList.remove('active');
     showNotification('⏳ Guardando...');
+    
     if (await saveToCloud()) {
         generateCalendar();
         generateStats();
-        closeModal();
         showNotification(`✅ Guardado por ${currentManager.name}`);
     }
+    
+    pendingShiftChange = null;
+    editingDay = null;
+}
+
+function cancelShiftChange() {
+    pendingShiftChange = null;
+    document.getElementById('commentModal').classList.remove('active');
+    document.getElementById('editModal').classList.add('active');
 }
 
 // =====================================================
@@ -1437,7 +1507,6 @@ function checkManagerPassword() {
         return;
     }
     
-    // Buscar el empleado
     const manager = allData.empleados.find(e => e.login === login);
     if (!manager) {
         document.getElementById('managerStatus').textContent = '❌ Usuario no encontrado';
@@ -1446,7 +1515,6 @@ function checkManagerPassword() {
         return;
     }
     
-    // Obtener contraseña (guardada o por defecto)
     const storedPassword = allData.managerPasswords[login] || DEFAULT_PASSWORD;
     
     if (password === storedPassword) {
@@ -1497,7 +1565,6 @@ async function changePassword() {
         return;
     }
     
-    // Guardar contraseña para este login
     allData.managerPasswords[currentManager.login] = pass1;
     
     showNotification('⏳ Guardando...');
@@ -1606,5 +1673,3 @@ initializeData();
 </script>
 </body>
 </html>
-
-
