@@ -15,7 +15,6 @@
             --rojo: rgb(220, 53, 69);
             --rojo-vacaciones: rgb(255, 0, 0);
             --morado: rgb(155, 89, 182);
-            --morado-ot: rgb(142, 68, 173);
         }
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 100vh; padding: 10px; }
         .header { text-align: center; padding: 15px; color: #fff; }
@@ -27,21 +26,18 @@
         .filter-group select, .filter-group input { padding: 8px 12px; border: none; border-radius: 8px; font-size: 0.9rem; min-width: 180px; }
         .employee-info { background: rgba(255,255,255,0.95); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: none; }
         .employee-info.active { display: block; }
-        .general-view-info { background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; color: white; text-align: center; }
+        .general-view-info { background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; color: white; text-align: center; display: none; }
         .general-view-info h2 { font-size: 1.2rem; margin-bottom: 5px; }
         .general-view-info p { font-size: 0.85rem; opacity: 0.9; }
         .employee-badge { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; }
         .badge-crew { background: #667eea; color: white; }
         .badge-role { background: #27ae60; color: white; }
-        .badge-manager { background: #e74c3c; color: white; }
         .legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; max-width: 1400px; margin-left: auto; margin-right: auto; }
         .legend-item { display: flex; align-items: center; gap: 4px; color: #fff; font-size: 0.65rem; padding: 4px 8px; background: rgba(0,0,0,0.2); border-radius: 10px; }
         .legend-color { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 700; }
         .legend-hours { opacity: 0.7; font-size: 0.55rem; }
         .controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
         .btn { padding: 8px 14px; border: none; border-radius: 18px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.3s ease; color: white; }
-        .btn-manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
-        .btn-manager.active { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-save { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-export { background: linear-gradient(145deg, #3498db, #2980b9); }
         .btn-reload { background: linear-gradient(145deg, #f39c12, #e67e22); }
@@ -50,8 +46,9 @@
         .btn-general.active { background: linear-gradient(145deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(102, 126, 234, 0.5); }
         .btn-logout { background: linear-gradient(145deg, #e74c3c, #c0392b); }
         .btn-user { background: linear-gradient(145deg, #3498db, #2980b9); }
-        .btn-user.manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
         .btn-ot { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
+        .btn-my-calendar { background: linear-gradient(145deg, #27ae60, #2ecc71); }
+        .btn-my-calendar.active { background: linear-gradient(145deg, #1e8449, #27ae60); box-shadow: 0 0 15px rgba(39, 174, 96, 0.5); }
         .btn:hover { transform: translateY(-2px); }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
         .btn-view.active { background: linear-gradient(145deg, #667eea, #764ba2); border-color: transparent; }
@@ -64,10 +61,10 @@
         .month-card { background: rgba(255,255,255,0.98); border-radius: 12px; padding: 8px; box-shadow: 0 6px 25px rgba(0,0,0,0.2); }
         .month-header { text-align: center; padding: 8px; margin: -8px -8px 8px -8px; background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px 12px 0 0; color: white; }
         .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; table-layout: fixed; }
-        .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; width: 14.28%; }
+        .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; }
         .calendar-table th:last-child { color: #e74c3c; }
         .calendar-table th:nth-child(6) { color: #3498db; }
-        .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; width: 14.28%; min-width: 0; max-width: none; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; box-sizing: border-box; overflow: hidden; }
+        .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; overflow: hidden; }
         .calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
         .day-num { font-weight: 700; display: block; font-size: 0.75rem; line-height: 1.1; }
         .shift-code { font-size: 0.55rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase; }
@@ -96,10 +93,7 @@
         .ot-file-day .shift-code { color: #f5b7b1 !important; font-size: 0.5rem !important; }
         .ot-file-day.user-signed { background: linear-gradient(135deg, #27ae60, #2ecc71) !important; border-color: #1e8449 !important; }
         .ot-file-day.user-assigned { background: linear-gradient(135deg, #f39c12, #e67e22) !important; border-color: #d68910 !important; }
-        @keyframes pulse-ot {
-            0%, 100% { box-shadow: 0 0 5px rgba(155, 89, 182, 0.5); }
-            50% { box-shadow: 0 0 15px rgba(155, 89, 182, 0.8); }
-        }
+        @keyframes pulse-ot { 0%, 100% { box-shadow: 0 0 5px rgba(155, 89, 182, 0.5); } 50% { box-shadow: 0 0 15px rgba(155, 89, 182, 0.8); } }
         
         .empty { background: transparent; }
         .libre { background: #f8f8f8; color: #ddd; }
@@ -113,38 +107,22 @@
         .weekend-sat { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
         .weekend-sun { background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
         
-        .alarm-morning { background: linear-gradient(135deg, var(--verde), #7cb342) !important; }
-        .alarm-morning .day-num { color: #1a5c1a !important; }
-        .alarm-afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; }
-        .alarm-afternoon .day-num { color: #5a4000 !important; }
-        .alarm-night { background: linear-gradient(135deg, var(--azul), #1a237e) !important; }
-        .alarm-night .day-num { color: white !important; }
-        .alarm-morning-afternoon { animation: blink-morning-afternoon 1.2s ease-in-out infinite; }
-        .alarm-morning-afternoon .day-num { color: #333 !important; font-weight: 800; }
-        .alarm-morning-night { animation: blink-morning-night 1.2s ease-in-out infinite; }
-        .alarm-morning-night .day-num { color: white !important; font-weight: 800; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
-        .alarm-afternoon-night { animation: blink-afternoon-night 1.2s ease-in-out infinite; }
-        .alarm-afternoon-night .day-num { color: #333 !important; font-weight: 800; }
-        .alarm-all { animation: blink-all 1.8s ease-in-out infinite; }
-        .alarm-all .day-num { color: white !important; font-weight: 800; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
+        .day-changed { animation: highlight-change 3s ease-out; position: relative; }
+        .day-changed::after { content: '⚠'; position: absolute; top: 0; left: 1px; font-size: 0.5rem; }
+        @keyframes highlight-change { 0%, 50% { box-shadow: 0 0 15px 3px rgba(231, 76, 60, 0.8); } 100% { box-shadow: none; } }
         
-        @keyframes blink-morning-afternoon {
-            0%, 49% { background: linear-gradient(135deg, var(--verde), #7cb342); }
-            50%, 100% { background: linear-gradient(135deg, var(--naranja), #ffa000); }
-        }
-        @keyframes blink-morning-night {
-            0%, 49% { background: linear-gradient(135deg, var(--verde), #7cb342); }
-            50%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); }
-        }
-        @keyframes blink-afternoon-night {
-            0%, 49% { background: linear-gradient(135deg, var(--naranja), #ffa000); }
-            50%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); }
-        }
-        @keyframes blink-all {
-            0%, 32% { background: linear-gradient(135deg, var(--verde), #7cb342); }
-            33%, 65% { background: linear-gradient(135deg, var(--naranja), #ffa000); }
-            66%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); }
-        }
+        .alarm-morning { background: linear-gradient(135deg, var(--verde), #7cb342) !important; }
+        .alarm-afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; }
+        .alarm-night { background: linear-gradient(135deg, var(--azul), #1a237e) !important; }
+        .alarm-morning-afternoon { animation: blink-morning-afternoon 1.2s ease-in-out infinite; }
+        .alarm-morning-night { animation: blink-morning-night 1.2s ease-in-out infinite; }
+        .alarm-afternoon-night { animation: blink-afternoon-night 1.2s ease-in-out infinite; }
+        .alarm-all { animation: blink-all 1.8s ease-in-out infinite; }
+        
+        @keyframes blink-morning-afternoon { 0%, 49% { background: linear-gradient(135deg, var(--verde), #7cb342); } 50%, 100% { background: linear-gradient(135deg, var(--naranja), #ffa000); } }
+        @keyframes blink-morning-night { 0%, 49% { background: linear-gradient(135deg, var(--verde), #7cb342); } 50%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); } }
+        @keyframes blink-afternoon-night { 0%, 49% { background: linear-gradient(135deg, var(--naranja), #ffa000); } 50%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); } }
+        @keyframes blink-all { 0%, 32% { background: linear-gradient(135deg, var(--verde), #7cb342); } 33%, 65% { background: linear-gradient(135deg, var(--naranja), #ffa000); } 66%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); } }
         
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
@@ -161,7 +139,6 @@
         .modal-btn:hover { transform: scale(1.05); }
         .modal-btn .btn-code { font-size: 1rem; }
         .modal-btn .btn-hours { font-size: 0.65rem; opacity: 0.8; }
-        .modal-btn .btn-desc { font-size: 0.6rem; opacity: 0.7; }
         .modal-btn.btn-wm { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
         .modal-btn.btn-m8 { background: linear-gradient(135deg, #81c784, var(--verde)); color: #1a5c1a; }
         .modal-btn.btn-m-co { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #2e7d32; border: 2px dashed #66bb6a; }
@@ -204,11 +181,6 @@
         .user-info-bar .user-badge.manager-badge { background: #e74c3c; }
         .user-info-bar .user-actions { display: flex; gap: 8px; flex-wrap: wrap; }
         
-        .manager-login { margin: 12px 0; }
-        .manager-login input, .manager-login select { padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; max-width: 280px; margin: 5px 0; }
-        .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
-        .manager-status.error { background: #f8d7da; color: #721c24; }
-        .manager-status.success { background: #d4edda; color: #155724; }
         .manager-info { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
         .manager-info h4 { margin-bottom: 5px; }
         .manager-info p { font-size: 0.85rem; opacity: 0.9; }
@@ -225,7 +197,6 @@
         .changelog-item { padding: 12px; margin-bottom: 8px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; }
         .changelog-item .change-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; gap: 5px; }
         .changelog-item .change-manager { font-weight: 700; color: #667eea; }
-        .changelog-item .change-role { font-size: 0.7rem; color: #888; background: #eee; padding: 2px 6px; border-radius: 8px; }
         .changelog-item .change-date { font-size: 0.75rem; color: #888; }
         .changelog-item .change-detail { font-size: 0.85rem; color: #333; }
         .changelog-item .change-shift { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
@@ -255,18 +226,18 @@
         .import-panel textarea { width: 100%; height: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-family: monospace; font-size: 0.75rem; resize: vertical; }
         .import-panel .btn-row { display: flex; gap: 10px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
         .import-info { background: #e7f3ff; border: 1px solid #b3d7ff; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 0.8rem; color: #004085; text-align: left; }
+        
         .stats-container { max-width: 1400px; margin: 20px auto; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 12px; }
         .stats-title { color: #fff; text-align: center; margin-bottom: 12px; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
         .stat-card { background: rgba(255,255,255,0.95); padding: 10px 6px; border-radius: 8px; text-align: center; }
         .stat-number { font-size: 1.4rem; font-weight: 800; }
         .stat-label { color: #666; font-size: 0.55rem; }
+        
         .notification { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 12px 20px; background: #27ae60; color: white; border-radius: 8px; font-weight: 600; transition: transform 0.3s ease; z-index: 2000; }
         .notification.show { transform: translateX(-50%) translateY(0); }
         .notification.error { background: #e74c3c; }
-        .select-message { text-align: center; padding: 50px 20px; color: #fff; font-size: 1.1rem; }
-        .select-message span { font-size: 3rem; display: block; margin-bottom: 15px; }
-        .employee-count { text-align: center; color: #a0a0a0; font-size: 0.75rem; margin-top: 5px; }
+        
         .data-status { text-align: center; padding: 5px; font-size: 0.7rem; }
         .data-status.online { color: #7bed9f; }
         .data-status.offline { color: #ff6b6b; }
@@ -279,13 +250,12 @@
         .shift-column { background: #f8f9fa; border-radius: 12px; padding: 12px; min-height: 200px; }
         .shift-column.column-alarm { background: #fff5f5 !important; border: 2px solid #e74c3c; }
         .shift-column-header { text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: 700; font-size: 0.9rem; }
-        .shift-column-header .header-hours { font-size: 0.7rem; font-weight: 400; opacity: 0.8; display: block; margin-top: 3px; }
         .shift-column-header.morning { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
         .shift-column-header.afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
         .shift-column-header.night { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
         .shift-column-header.central { background: linear-gradient(135deg, #e0e0e0, #bdbdbd); color: #444; }
         .employee-list { max-height: 300px; overflow-y: auto; }
-        .employee-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; margin-bottom: 6px; background: white; border-radius: 8px; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s; }
+        .employee-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; margin-bottom: 6px; background: white; border-radius: 8px; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s; }
         .employee-item:hover { transform: translateX(5px); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
         .employee-item .name { font-weight: 600; color: #333; }
         .employee-item .crew { font-size: 0.6rem; color: #888; background: #eee; padding: 2px 6px; border-radius: 10px; margin-left: 5px; }
@@ -360,11 +330,27 @@
         .ot-assigned-item { display: flex; align-items: center; justify-content: space-between; padding: 8px; margin-bottom: 5px; background: white; border-radius: 6px; font-size: 0.8rem; }
         .ot-assigned-item .remove-btn { background: #e74c3c; color: white; border: none; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
         
+        /* Alertas */
+        .alerts-container { max-width: 1400px; margin: 0 auto 12px auto; }
+        .changes-alert-box { background: linear-gradient(135deg, #fff3cd, #ffeeba); border: 2px solid #ffc107; border-radius: 12px; padding: 15px; margin-bottom: 12px; text-align: left; }
+        .changes-alert-box h4 { color: #856404; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .changes-alert-box .changes-list { max-height: 200px; overflow-y: auto; }
+        .changes-alert-box .change-item { background: white; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #ffc107; }
+        .changes-alert-box .change-item .change-date-label { font-weight: 700; color: #333; }
+        .changes-alert-box .change-item .change-shifts { font-size: 0.85rem; margin-top: 5px; }
+        
+        .new-ot-alert { background: linear-gradient(135deg, #e8daef, #d2b4de); border: 2px solid #9b59b6; border-radius: 12px; padding: 15px; margin-bottom: 12px; }
+        .new-ot-alert h4 { color: #6c3483; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .new-ot-alert .ot-item { background: white; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #9b59b6; cursor: pointer; transition: all 0.2s; }
+        .new-ot-alert .ot-item:hover { transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .new-ot-alert .ot-item .ot-date { font-weight: 700; color: #333; }
+        .new-ot-alert .ot-item .ot-name { font-size: 0.85rem; color: #666; }
+        
         .hidden { display: none !important; }
         
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } .ot-assignment-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .day-summary { gap: 8px; } .summary-item { min-width: 90px; padding: 10px 12px; } .panel-nav { gap: 3px; } .panel-nav-btn { padding: 8px 10px; font-size: 0.7rem; } .user-info-bar { flex-direction: column; text-align: center; } }
-        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .user-info-bar { flex-direction: column; text-align: center; } }
+        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
 <body>
@@ -382,16 +368,12 @@
         <div id="loginForm">
             <input type="text" id="loginSearchInput" placeholder="🔍 Buscar por nombre o login..." oninput="filterLoginUsers()">
             <div id="loginResultsCount" class="login-results-count"></div>
-            <select id="loginUserSelect">
-                <option value="">-- Selecciona tu nombre --</option>
-            </select>
+            <select id="loginUserSelect"><option value="">-- Selecciona tu nombre --</option></select>
             <input type="password" id="loginPassword" placeholder="Contraseña..." onkeypress="if(event.key==='Enter')attemptLogin()">
             <div id="loginStatus" class="login-status hidden"></div>
             <button class="btn btn-save" onclick="attemptLogin()">🚀 Entrar</button>
         </div>
-        <p style="margin-top: 20px; font-size: 0.75rem; color: #999;">
-            Contraseña por defecto: <strong>1234</strong>
-        </p>
+        <p style="margin-top: 20px; font-size: 0.75rem; color: #999;">Contraseña por defecto: <strong>1234</strong></p>
     </div>
 </div>
 
@@ -418,17 +400,31 @@
         </div>
     </div>
 
-    <div class="filters-panel">
+    <!-- Alertas -->
+    <div id="alertsContainer" class="alerts-container hidden">
+        <div id="changesAlertBox" class="changes-alert-box hidden">
+            <h4>⚠️ Cambios en tu calendario desde tu última visita</h4>
+            <div class="changes-list" id="changesAlertList"></div>
+            <button class="btn btn-small btn-warning" onclick="dismissChangesAlert()" style="margin-top:10px;">✓ Entendido</button>
+        </div>
+        <div id="newOtAlertBox" class="new-ot-alert hidden">
+            <h4>🔧 Nuevos días OT FILE disponibles</h4>
+            <div id="newOtAlertList"></div>
+            <button class="btn btn-small btn-ot" onclick="dismissOtAlert()" style="margin-top:10px;">✓ Entendido</button>
+        </div>
+    </div>
+
+    <div class="filters-panel" id="filtersPanel">
         <div class="filters-row">
-            <div class="filter-group">
+            <div class="filter-group hidden" id="filterCrewGroup">
                 <label>👥 Crew:</label>
                 <select id="filterCrew" onchange="filterEmployees()"><option value="">Todos</option></select>
             </div>
-            <div class="filter-group">
+            <div class="filter-group hidden" id="filterEmployeeGroup">
                 <label>👤 Persona:</label>
                 <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Vista General --</option></select>
             </div>
-            <div class="filter-group">
+            <div class="filter-group hidden" id="filterSearchGroup">
                 <label>🔍 Buscar:</label>
                 <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
             </div>
@@ -463,7 +459,8 @@
     </div>
 
     <div class="controls">
-        <button class="btn btn-general active" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
+        <button class="btn btn-my-calendar active" id="btnMyCalendar" onclick="showMyCalendar()">📅 Mi Calendario</button>
+        <button class="btn btn-general" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
         <button class="btn btn-user hidden" id="btnManagerPanel" onclick="openManagerModal()">👑 Panel Manager</button>
         <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
         <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
@@ -483,8 +480,7 @@
         <div class="stats-grid" id="statsGrid"></div>
     </div>
 </div>
-
-<!-- Todos los modales -->
+<!-- MODALES -->
 <div class="modal-overlay" id="editModal">
     <div class="modal">
         <h3 id="modalTitle">Día</h3>
@@ -543,33 +539,11 @@
         <div id="dayOverviewFestivo" class="festivo-badge" style="display:none;"></div>
         <div class="day-summary" id="daySummary"></div>
         <div class="day-overview-grid">
-            <div class="shift-column" id="columnMorning">
-                <div class="shift-column-header morning">☀️ MAÑANA</div>
-                <div class="column-count morning" id="countMorning">0</div>
-                <div class="role-breakdown" id="roleBreakdownMorning"></div>
-                <div class="employee-list" id="listMorning"></div>
-            </div>
-            <div class="shift-column" id="columnAfternoon">
-                <div class="shift-column-header afternoon">🌅 TARDE</div>
-                <div class="column-count afternoon" id="countAfternoon">0</div>
-                <div class="role-breakdown" id="roleBreakdownAfternoon"></div>
-                <div class="employee-list" id="listAfternoon"></div>
-            </div>
-            <div class="shift-column" id="columnNight">
-                <div class="shift-column-header night">🌙 NOCHE</div>
-                <div class="column-count night" id="countNight">0</div>
-                <div class="role-breakdown" id="roleBreakdownNight"></div>
-                <div class="employee-list" id="listNight"></div>
-            </div>
+            <div class="shift-column" id="columnMorning"><div class="shift-column-header morning">☀️ MAÑANA</div><div class="column-count morning" id="countMorning">0</div><div class="role-breakdown" id="roleBreakdownMorning"></div><div class="employee-list" id="listMorning"></div></div>
+            <div class="shift-column" id="columnAfternoon"><div class="shift-column-header afternoon">🌅 TARDE</div><div class="column-count afternoon" id="countAfternoon">0</div><div class="role-breakdown" id="roleBreakdownAfternoon"></div><div class="employee-list" id="listAfternoon"></div></div>
+            <div class="shift-column" id="columnNight"><div class="shift-column-header night">🌙 NOCHE</div><div class="column-count night" id="countNight">0</div><div class="role-breakdown" id="roleBreakdownNight"></div><div class="employee-list" id="listNight"></div></div>
         </div>
-        <div class="central-section">
-            <div class="shift-column" id="columnCentral">
-                <div class="shift-column-header central">🏢 CENTRAL</div>
-                <div class="column-count central" id="countCentral">0</div>
-                <div class="role-breakdown" id="roleBreakdownCentral"></div>
-                <div class="employee-list" id="listCentral"></div>
-            </div>
-        </div>
+        <div class="central-section"><div class="shift-column" id="columnCentral"><div class="shift-column-header central">🏢 CENTRAL</div><div class="column-count central" id="countCentral">0</div><div class="role-breakdown" id="roleBreakdownCentral"></div><div class="employee-list" id="listCentral"></div></div></div>
         <button class="modal-close" onclick="closeDayOverviewModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
@@ -577,13 +551,8 @@
 <div class="modal-overlay" id="otFileModal">
     <div class="modal modal-large">
         <h3 id="otFileModalTitle">🔧 Día OT FILE</h3>
-        <div class="ot-badge" id="otFileBadge">OT FILE</div>
-        <div class="ot-info-box" id="otInfoBox">
-            <h4 id="otFileName">Día de Reparaciones</h4>
-            <p id="otFileDesc"></p>
-            <p><strong>Creado por:</strong> <span id="otFileCreator"></span></p>
-            <span class="ot-status-badge" id="otFileStatus">Abierto</span>
-        </div>
+        <div class="ot-badge">OT FILE</div>
+        <div class="ot-info-box"><h4 id="otFileName">Día OT</h4><p id="otFileDesc"></p><p><strong>Creado por:</strong> <span id="otFileCreator"></span></p><span class="ot-status-badge" id="otFileStatus">Abierto</span></div>
         <div id="otSignupSection">
             <div class="preference-selector">
                 <h4>📝 Indica tus preferencias de turno</h4>
@@ -595,20 +564,14 @@
                 <textarea id="otSignupComment" placeholder="Comentario opcional..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-top:10px; height:60px;"></textarea>
                 <div style="margin-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
                     <button class="btn btn-save" onclick="submitOtSignup()">✅ Apuntarme</button>
-                    <button class="btn btn-danger" id="btnCancelSignup" onclick="cancelOtSignup()" style="display:none;">❌ Cancelar inscripción</button>
+                    <button class="btn btn-danger" id="btnCancelSignup" onclick="cancelOtSignup()" style="display:none;">❌ Cancelar</button>
                 </div>
             </div>
-            <div id="currentUserSignup" style="display:none; background:#e8f5e9; padding:15px; border-radius:12px; margin:15px 0;">
-                <h4 style="color:#2e7d32;">✅ Ya estás apuntado</h4>
-                <p id="currentUserPrefs" style="font-size:0.9rem; color:#333;"></p>
-            </div>
+            <div id="currentUserSignup" style="display:none; background:#e8f5e9; padding:15px; border-radius:12px; margin:15px 0;"><h4 style="color:#2e7d32;">✅ Ya estás apuntado</h4><p id="currentUserPrefs" style="font-size:0.9rem; color:#333;"></p></div>
         </div>
         <div class="modal-section-title">👥 Personas apuntadas (<span id="otSignupCount">0</span>)</div>
         <div class="ot-requests-list" id="otRequestsList"><div class="no-employees">Nadie se ha apuntado todavía</div></div>
-        <div id="otAssignmentsSection" style="display:none;">
-            <div class="modal-section-title">📋 Asignación Final</div>
-            <div class="ot-assignment-grid" id="otAssignmentGrid"></div>
-        </div>
+        <div id="otAssignmentsSection" style="display:none;"><div class="modal-section-title">📋 Asignación Final</div><div class="ot-assignment-grid" id="otAssignmentGrid"></div></div>
         <button class="modal-close" onclick="closeOtFileModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
@@ -622,38 +585,18 @@
             <button class="panel-nav-btn" onclick="switchOtPanel('assign', this)">👥 Asignar</button>
         </div>
         <div id="ot-panel-create" class="panel-content active">
-            <div class="import-info"><strong>📌 Crear nuevo día OT FILE</strong></div>
-            <div style="margin:15px 0;">
-                <label style="display:block; margin-bottom:5px; font-weight:600;">📅 Fecha:</label>
-                <input type="date" id="otNewDate" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:250px;">
-            </div>
-            <div style="margin:15px 0;">
-                <label style="display:block; margin-bottom:5px; font-weight:600;">📝 Nombre:</label>
-                <input type="text" id="otNewName" placeholder="Ej: Reparación Línea A..." style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%;">
-            </div>
-            <div style="margin:15px 0;">
-                <label style="display:block; margin-bottom:5px; font-weight:600;">💬 Notas:</label>
-                <textarea id="otNewNotes" placeholder="Información adicional..." style="width:100%; padding:10px; border:2px solid #ddd; border-radius:8px; height:80px;"></textarea>
-            </div>
+            <div class="import-info"><strong>📌 Crear nuevo día OT FILE</strong><br>Al crear un OT, todos los usuarios verán una notificación al entrar.</div>
+            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Fecha:</label><input type="date" id="otNewDate" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:250px;"></div>
+            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📝 Nombre:</label><input type="text" id="otNewName" placeholder="Ej: Reparación Línea A..." style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%;"></div>
+            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">💬 Notas:</label><textarea id="otNewNotes" placeholder="Información adicional..." style="width:100%; padding:10px; border:2px solid #ddd; border-radius:8px; height:80px;"></textarea></div>
             <button class="btn btn-save" onclick="createOtDay()">✅ Crear Día OT FILE</button>
         </div>
-        <div id="ot-panel-list" class="panel-content">
-            <div id="otDaysList" class="changelog-list"><div class="changelog-empty">No hay días OT FILE creados</div></div>
-        </div>
+        <div id="ot-panel-list" class="panel-content"><div id="otDaysList" class="changelog-list"><div class="changelog-empty">No hay días OT FILE creados</div></div></div>
         <div id="ot-panel-assign" class="panel-content">
-            <div style="margin-bottom:15px;">
-                <label style="display:block; margin-bottom:5px; font-weight:600;">📅 Selecciona día OT:</label>
-                <select id="otSelectDay" onchange="loadOtDayForAssignment()" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:350px;">
-                    <option value="">-- Selecciona --</option>
-                </select>
-            </div>
+            <div style="margin-bottom:15px;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Selecciona día OT:</label><select id="otSelectDay" onchange="loadOtDayForAssignment()" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:350px;"><option value="">-- Selecciona --</option></select></div>
             <div id="otAssignmentPanel" style="display:none;">
-                <div class="ot-info-box">
-                    <h4 id="assignOtName"></h4>
-                    <p><strong>Apuntados:</strong> <span id="assignOtCount"></span></p>
-                </div>
-                <div class="modal-section-title">👥 Solicitudes</div>
-                <div class="ot-requests-list" id="otAssignRequestsList"></div>
+                <div class="ot-info-box"><h4 id="assignOtName"></h4><p><strong>Apuntados:</strong> <span id="assignOtCount"></span></p></div>
+                <div class="modal-section-title">👥 Solicitudes</div><div class="ot-requests-list" id="otAssignRequestsList"></div>
                 <div class="modal-section-title">📋 Asignación</div>
                 <div class="ot-assignment-grid">
                     <div class="ot-assignment-column"><div class="column-header morning">☀️ MAÑANA</div><div id="assignListMorning" class="employee-list"></div></div>
@@ -670,18 +613,8 @@
 <div class="modal-overlay" id="userSettingsModal">
     <div class="modal">
         <h3>⚙️ Mi Cuenta</h3>
-        <div class="manager-info">
-            <h4>👤 <span id="settingsUserName"></span></h4>
-            <p>Login: <strong id="settingsUserLogin"></strong></p>
-            <p>Crew: <strong id="settingsUserCrew"></strong></p>
-            <span class="manager-role-badge" id="settingsUserRole"></span>
-        </div>
-        <div class="password-section">
-            <h4>🔑 Cambiar contraseña</h4>
-            <input type="password" id="userNewPassword1" placeholder="Nueva contraseña..." style="max-width:250px;">
-            <input type="password" id="userNewPassword2" placeholder="Repetir contraseña..." style="max-width:250px;">
-            <button class="btn btn-save" onclick="changeUserPassword()" style="margin-top:10px;">💾 Guardar</button>
-        </div>
+        <div class="manager-info"><h4>👤 <span id="settingsUserName"></span></h4><p>Login: <strong id="settingsUserLogin"></strong></p><p>Crew: <strong id="settingsUserCrew"></strong></p><span class="manager-role-badge" id="settingsUserRole"></span></div>
+        <div class="password-section"><h4>🔑 Cambiar contraseña</h4><input type="password" id="userNewPassword1" placeholder="Nueva contraseña..." style="max-width:250px;"><input type="password" id="userNewPassword2" placeholder="Repetir contraseña..." style="max-width:250px;"><button class="btn btn-save" onclick="changeUserPassword()" style="margin-top:10px;">💾 Guardar</button></div>
         <div style="margin-top:20px;"><button class="modal-close" onclick="closeUserSettingsModal()">Cerrar</button></div>
     </div>
 </div>
@@ -689,28 +622,15 @@
 <div class="modal-overlay" id="managerModal">
     <div class="modal modal-large">
         <h3>👑 Panel Manager</h3>
-        <div class="manager-info">
-            <h4>👤 <span id="currentManagerName"></span></h4>
-            <p>Login: <strong id="currentManagerLogin"></strong></p>
-            <span class="manager-role-badge" id="currentManagerRole"></span>
-        </div>
+        <div class="manager-info"><h4>👤 <span id="currentManagerName"></span></h4><p>Login: <strong id="currentManagerLogin"></strong></p><span class="manager-role-badge" id="currentManagerRole"></span></div>
         <div class="panel-nav">
-                       <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
+            <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
             <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
         </div>
-        <div id="panel-changelog" class="panel-content active">
-            <h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4>
-            <div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div>
-        </div>
+        <div id="panel-changelog" class="panel-content active"><h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4><div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div></div>
         <div id="panel-import" class="panel-content">
             <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar</div>
-            <div class="import-panel">
-                <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
-                <div class="btn-row">
-                    <button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button>
-                    <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
-                </div>
-            </div>
+            <div class="import-panel"><textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea><div class="btn-row"><button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button><button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button></div></div>
             <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
         </div>
         <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeManagerModal()">Cerrar</button></div>
@@ -737,7 +657,7 @@
 // CONFIGURACIÓN
 // =====================================================
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid[REDACTED:AWS_ACCESS_KEY]zEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
 const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];
@@ -793,9 +713,12 @@ let selectedEmployee = null;
 let currentUser = null;
 let isManager = false;
 let editingDay = null;
-let isGeneralView = true;
+let isGeneralView = false;
+let isMyCalendarView = true;
 let pendingShiftChange = null;
 let currentOtDay = null;
+let changedDays = [];
+let newOtDays = [];
 
 // =====================================================
 // FUNCIONES UTILIDAD
@@ -848,8 +771,17 @@ function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day 
 function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m && f.day === d); return f ? f.name : ''; }
 function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
 function isReducido(shift) { return shift && shift.toLowerCase().includes('-co'); }
-function getOtDay(doy) { return allData.otDays.find(ot => ot.doy === doy); }
-function isOtFileDay(month, day) { return allData.otDays.some(ot => ot.doy === getDayOfYear(month, day)); }
+function getOtDay(doy) { return allData.otDays ? allData.otDays.find(ot => ot.doy === doy) : null; }
+function isOtFileDay(month, day) { return allData.otDays && allData.otDays.some(ot => ot.doy === getDayOfYear(month, day)); }
+
+function getDayString(doy) {
+    let remaining = doy;
+    for (let m = 0; m < 12; m++) {
+        if (remaining < daysInMonth[m]) return `${remaining + 1} de ${monthNames[m]}`;
+        remaining -= daysInMonth[m];
+    }
+    return 'Día ' + (doy + 1);
+}
 
 function setDataStatus(type, message) {
     const el = document.getElementById('dataStatus');
@@ -862,6 +794,100 @@ function showNotification(msg, isError = false) {
     n.className = 'notification' + (isError ? ' error' : '');
     n.classList.add('show');
     setTimeout(() => n.classList.remove('show'), 2500);
+}
+
+// =====================================================
+// LOCAL STORAGE - ÚLTIMA VISITA
+// =====================================================
+function getLastLoginTime(login) {
+    try { const stored = localStorage.getItem('lastLogin_' + login); return stored ? new Date(stored) : null; }
+    catch (e) { return null; }
+}
+
+function setLastLoginTime(login) {
+    try { localStorage.setItem('lastLogin_' + login, new Date().toISOString()); } catch (e) { }
+}
+
+function getSeenOtDays(login) {
+    try { const stored = localStorage.getItem('seenOtDays_' + login); return stored ? JSON.parse(stored) : []; }
+    catch (e) { return []; }
+}
+
+function addSeenOtDays(login, otDoys) {
+    try {
+        const current = getSeenOtDays(login);
+        const updated = [...new Set([...current, ...otDoys])];
+        localStorage.setItem('seenOtDays_' + login, JSON.stringify(updated));
+    } catch (e) { }
+}
+
+// =====================================================
+// DETECTAR CAMBIOS Y NUEVOS OT
+// =====================================================
+function detectChangesForUser(login, lastLoginTime) {
+    if (!lastLoginTime || !allData.changelog) return [];
+    return allData.changelog.filter(c => {
+        if (c.employeeLogin !== login) return false;
+        const changeTime = new Date(c.timestamp);
+        return changeTime > lastLoginTime;
+    });
+}
+
+function detectNewOtDays(login) {
+    if (!allData.otDays || allData.otDays.length === 0) return [];
+    const seenOts = getSeenOtDays(login);
+    return allData.otDays.filter(ot => !seenOts.includes(ot.doy));
+}
+
+function showAlertsIfNeeded() {
+    if (!currentUser) return;
+    
+    const lastLogin = getLastLoginTime(currentUser.login);
+    changedDays = detectChangesForUser(currentUser.login, lastLogin);
+    newOtDays = detectNewOtDays(currentUser.login);
+    
+    const alertsContainer = document.getElementById('alertsContainer');
+    const changesBox = document.getElementById('changesAlertBox');
+    const otBox = document.getElementById('newOtAlertBox');
+    let hasAlerts = false;
+    
+    if (changedDays.length > 0) {
+        hasAlerts = true;
+        changesBox.classList.remove('hidden');
+        document.getElementById('changesAlertList').innerHTML = changedDays.map(c => {
+            const commentHtml = c.comment ? `<div style="font-size:0.75rem; color:#666; margin-top:3px;">💬 ${c.comment}</div>` : '';
+            return `<div class="change-item"><div class="change-date-label">📅 ${c.dateStr}</div><div class="change-shifts"><span style="color:#c62828; text-decoration:line-through;">${(c.oldShift || 'LIBRE').toUpperCase()}</span> → <span style="color:#2e7d32; font-weight:bold;">${(c.newShift || 'LIBRE').toUpperCase()}</span><span style="font-size:0.75rem; color:#888;"> por ${c.managerName}</span></div>${commentHtml}</div>`;
+        }).join('');
+    } else { changesBox.classList.add('hidden'); }
+    
+    if (newOtDays.length > 0) {
+        hasAlerts = true;
+        otBox.classList.remove('hidden');
+        document.getElementById('newOtAlertList').innerHTML = newOtDays.map(ot => 
+            `<div class="ot-item" onclick="openOtFileModal(${ot.month}, ${ot.day})"><div class="ot-date">📅 ${ot.day} de ${monthNames[ot.month - 1]}</div><div class="ot-name">${ot.name}</div></div>`
+        ).join('');
+    } else { otBox.classList.add('hidden'); }
+    
+    alertsContainer.classList.toggle('hidden', !hasAlerts);
+}
+
+function dismissChangesAlert() {
+    document.getElementById('changesAlertBox').classList.add('hidden');
+    checkHideAlertsContainer();
+}
+
+function dismissOtAlert() {
+    if (currentUser && newOtDays.length > 0) {
+        addSeenOtDays(currentUser.login, newOtDays.map(ot => ot.doy));
+    }
+    document.getElementById('newOtAlertBox').classList.add('hidden');
+    checkHideAlertsContainer();
+}
+
+function checkHideAlertsContainer() {
+    const changesHidden = document.getElementById('changesAlertBox').classList.contains('hidden');
+    const otHidden = document.getElementById('newOtAlertBox').classList.contains('hidden');
+    if (changesHidden && otHidden) document.getElementById('alertsContainer').classList.add('hidden');
 }
 
 // =====================================================
@@ -879,7 +905,7 @@ async function saveToCloud() {
             changelog: allData.changelog.slice(-100),
             otDays: allData.otDays || [],
             lastModified: new Date().toISOString(),
-            version: '5.0'
+            version: '6.0'
         };
         const response = await fetch(JSONBIN_URL, {
             method: 'PUT',
@@ -905,7 +931,7 @@ async function loadFromCloud() {
         if (data.record) {
             const result = {
                 empleados: data.record.empleados ? normalizarEmpleados(data.record.empleados) : [],
-                userPasswords: data.record.userPasswords || data.record.managerPasswords || {},
+                userPasswords: data.record.userPasswords || {},
                 changelog: data.record.changelog || [],
                 otDays: data.record.otDays || [],
                 festivos: festivos2026
@@ -921,7 +947,7 @@ async function loadFromCloud() {
 }
 
 // =====================================================
-// LOGIN CON BÚSQUEDA
+// LOGIN
 // =====================================================
 function filterLoginUsers() {
     const searchTerm = document.getElementById('loginSearchInput').value.toLowerCase().trim();
@@ -929,38 +955,18 @@ function filterLoginUsers() {
     const countDiv = document.getElementById('loginResultsCount');
     
     select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
+    if (!allData.empleados || allData.empleados.length === 0) { countDiv.textContent = ''; return; }
     
-    if (!allData.empleados || allData.empleados.length === 0) {
-        countDiv.textContent = '';
-        return;
-    }
-    
-    let filtered = [...allData.empleados];
-    
-    if (searchTerm) {
-        filtered = filtered.filter(emp => 
-            emp.name.toLowerCase().includes(searchTerm) || 
-            emp.login.toLowerCase().includes(searchTerm)
-        );
-    }
-    
+    let filtered = searchTerm ? allData.empleados.filter(emp => emp.name.toLowerCase().includes(searchTerm) || emp.login.toLowerCase().includes(searchTerm)) : [...allData.empleados];
     filtered.sort((a, b) => a.name.localeCompare(b.name));
     
     filtered.forEach(emp => {
-        const isM = isManagerRole(emp.role);
-        const managerIcon = isM ? ' 👑' : '';
+        const managerIcon = isManagerRole(emp.role) ? ' 👑' : '';
         select.innerHTML += `<option value="${emp.login}">${emp.name}${managerIcon}</option>`;
     });
     
-    if (searchTerm) {
-        countDiv.textContent = `${filtered.length} resultado(s) encontrado(s)`;
-    } else {
-        countDiv.textContent = `${allData.empleados.length} empleados disponibles`;
-    }
-    
-    if (filtered.length === 1) {
-        select.value = filtered[0].login;
-    }
+    countDiv.textContent = searchTerm ? `${filtered.length} resultado(s)` : `${allData.empleados.length} empleados`;
+    if (filtered.length === 1) select.value = filtered[0].login;
 }
 
 async function initializeLogin() {
@@ -969,9 +975,10 @@ async function initializeLogin() {
     
     const data = await loadFromCloud();
     
+    document.getElementById('loginLoading').classList.add('hidden');
+    document.getElementById('loginForm').classList.remove('hidden');
+    
     if (data === null) {
-        document.getElementById('loginLoading').classList.add('hidden');
-        document.getElementById('loginForm').classList.remove('hidden');
         document.getElementById('loginStatus').textContent = '❌ Error de conexión. Intenta de nuevo.';
         document.getElementById('loginStatus').className = 'login-status error';
         document.getElementById('loginStatus').classList.remove('hidden');
@@ -981,19 +988,13 @@ async function initializeLogin() {
     allData = data;
     
     if (allData.empleados.length === 0) {
-        document.getElementById('loginLoading').classList.add('hidden');
-        document.getElementById('loginForm').classList.remove('hidden');
         document.getElementById('loginStatus').textContent = '⚠️ No hay empleados. Contacta al administrador.';
         document.getElementById('loginStatus').className = 'login-status error';
         document.getElementById('loginStatus').classList.remove('hidden');
         return;
     }
     
-    document.getElementById('loginSearchInput').value = '';
     filterLoginUsers();
-    
-    document.getElementById('loginLoading').classList.add('hidden');
-    document.getElementById('loginForm').classList.remove('hidden');
 }
 
 function attemptLogin() {
@@ -1001,38 +1002,20 @@ function attemptLogin() {
     const password = document.getElementById('loginPassword').value;
     const statusEl = document.getElementById('loginStatus');
     
-    if (!login) {
-        statusEl.textContent = '❌ Selecciona tu nombre';
-        statusEl.className = 'login-status error';
-        statusEl.classList.remove('hidden');
-        return;
-    }
-    
-    if (!password) {
-        statusEl.textContent = '❌ Introduce tu contraseña';
-        statusEl.className = 'login-status error';
-        statusEl.classList.remove('hidden');
-        return;
-    }
+    if (!login) { statusEl.textContent = '❌ Selecciona tu nombre'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
+    if (!password) { statusEl.textContent = '❌ Introduce tu contraseña'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
     
     const user = allData.empleados.find(e => e.login === login);
-    if (!user) {
-        statusEl.textContent = '❌ Usuario no encontrado';
-        statusEl.className = 'login-status error';
-        statusEl.classList.remove('hidden');
-        return;
-    }
+    if (!user) { statusEl.textContent = '❌ Usuario no encontrado'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
     
     const storedPassword = allData.userPasswords[login] || DEFAULT_PASSWORD;
     
     if (password === storedPassword) {
         currentUser = { login: user.login, name: user.name, role: user.role, crew: user.crew };
         isManager = isManagerRole(user.role);
-        
         statusEl.textContent = '✅ Acceso correcto. Cargando...';
         statusEl.className = 'login-status success';
         statusEl.classList.remove('hidden');
-        
         setTimeout(() => showMainApp(), 500);
     } else {
         statusEl.textContent = '❌ Contraseña incorrecta';
@@ -1052,19 +1035,22 @@ function showMainApp() {
     if (isManager) {
         document.getElementById('managerBadge').classList.remove('hidden');
         document.getElementById('btnManagerPanel').classList.remove('hidden');
-        document.getElementById('btnManagerPanel').classList.add('manager');
         document.getElementById('btnOtManager').classList.remove('hidden');
+        document.getElementById('filterCrewGroup').classList.remove('hidden');
+        document.getElementById('filterEmployeeGroup').classList.remove('hidden');
+        document.getElementById('filterSearchGroup').classList.remove('hidden');
     }
     
     initializeFilters();
-    showGeneralView();
+    showAlertsIfNeeded();
+    showMyCalendar();
+    setLastLoginTime(currentUser.login);
     showNotification('👋 Bienvenido ' + currentUser.name.split(' ')[0]);
 }
 
 function logout() {
-    currentUser = null;
-    isManager = false;
-    selectedEmployee = null;
+    currentUser = null; isManager = false; selectedEmployee = null;
+    isGeneralView = false; isMyCalendarView = true; changedDays = []; newOtDays = [];
     
     document.getElementById('mainApp').classList.add('hidden');
     document.getElementById('loginScreen').classList.remove('hidden');
@@ -1075,6 +1061,10 @@ function logout() {
     document.getElementById('managerBadge').classList.add('hidden');
     document.getElementById('btnManagerPanel').classList.add('hidden');
     document.getElementById('btnOtManager').classList.add('hidden');
+    document.getElementById('alertsContainer').classList.add('hidden');
+    document.getElementById('filterCrewGroup').classList.add('hidden');
+    document.getElementById('filterEmployeeGroup').classList.add('hidden');
+    document.getElementById('filterSearchGroup').classList.add('hidden');
     
     filterLoginUsers();
     showNotification('👋 Sesión cerrada');
@@ -1110,20 +1100,25 @@ function filterEmployees() {
 }
 
 function selectEmployee() {
+    if (!isManager) return;
     const login = document.getElementById('filterEmployee').value;
     if (!login) { showGeneralView(); return; }
+    
     selectedEmployee = allData.empleados.find(e => e.login === login);
     if (!selectedEmployee) return;
-    isGeneralView = false;
+    
+    isGeneralView = false; isMyCalendarView = false;
     document.getElementById('btnGeneral').classList.remove('active');
+    document.getElementById('btnMyCalendar').classList.remove('active');
     document.getElementById('generalViewInfo').style.display = 'none';
+    
     document.getElementById('employeeName').textContent = selectedEmployee.name;
     document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
     document.getElementById('employeeRole').textContent = selectedEmployee.role;
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
-    generateCalendar();
-    generateStats();
+    
+    generateCalendar(); generateStats();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
@@ -1133,23 +1128,51 @@ async function reloadFromCloud() {
     if (data) {
         allData = data;
         initializeFilters();
-        if (selectedEmployee) {
+        showAlertsIfNeeded();
+        if (isMyCalendarView) showMyCalendar();
+        else if (isGeneralView) showGeneralView();
+        else if (selectedEmployee) {
             selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
             if (selectedEmployee) { generateCalendar(); generateStats(); }
-            else { showGeneralView(); }
-        } else { showGeneralView(); }
+            else showMyCalendar();
+        }
         showNotification('✅ Datos actualizados');
     }
+}
+
+// =====================================================
+// MI CALENDARIO
+// =====================================================
+function showMyCalendar() {
+    if (!currentUser) return;
+    
+    isMyCalendarView = true; isGeneralView = false;
+    selectedEmployee = allData.empleados.find(e => e.login === currentUser.login);
+    if (!selectedEmployee) { showNotification('❌ No se encontró tu perfil', true); return; }
+    
+    document.getElementById('filterEmployee').value = '';
+    document.getElementById('btnMyCalendar').classList.add('active');
+    document.getElementById('btnGeneral').classList.remove('active');
+    document.getElementById('generalViewInfo').style.display = 'none';
+    
+    document.getElementById('employeeName').textContent = selectedEmployee.name + ' (Tú)';
+    document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
+    document.getElementById('employeeRole').textContent = selectedEmployee.role;
+    document.getElementById('employeeLogin').textContent = selectedEmployee.login;
+    document.getElementById('employeeInfo').classList.add('active');
+    
+    generateCalendar(); generateStats();
+    document.getElementById('statsContainer').style.display = 'block';
 }
 
 // =====================================================
 // VISTA GENERAL
 // =====================================================
 function showGeneralView() {
-    isGeneralView = true;
-    selectedEmployee = null;
+    isGeneralView = true; isMyCalendarView = false; selectedEmployee = null;
     document.getElementById('filterEmployee').value = '';
     document.getElementById('btnGeneral').classList.add('active');
+    document.getElementById('btnMyCalendar').classList.remove('active');
     document.getElementById('generalViewInfo').style.display = 'block';
     document.getElementById('employeeInfo').classList.remove('active');
     document.getElementById('statsContainer').style.display = 'none';
@@ -1157,10 +1180,7 @@ function showGeneralView() {
 }
 
 function generateGeneralCalendar() {
-    if (!allData.empleados.length) {
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
-        return;
-    }
+    if (!allData.empleados.length) { document.getElementById('calendarGrid').innerHTML = '<div class="loading">No hay datos</div>'; return; }
     let html = '';
     for (let m = 1; m <= 12; m++) html += generateGeneralMonth(m);
     document.getElementById('calendarGrid').innerHTML = html;
@@ -1189,8 +1209,8 @@ function generateGeneralMonth(month) {
                     const otDay = getOtDay(getDayOfYear(month, day));
                     if (otDay) {
                         extraContent = `<span class="shift-code">OT</span>`;
-                        if (currentUser && otDay.signups.some(s => s.login === currentUser.login)) classes.push('user-signed');
-                        if (currentUser && ['morning', 'afternoon', 'night'].some(shift => otDay.assignments[shift].some(a => a.login === currentUser.login))) classes.push('user-assigned');
+                        if (currentUser && otDay.signups && otDay.signups.some(s => s.login === currentUser.login)) classes.push('user-signed');
+                        if (currentUser && otDay.assignments && ['morning', 'afternoon', 'night'].some(shift => otDay.assignments[shift] && otDay.assignments[shift].some(a => a.login === currentUser.login))) classes.push('user-assigned');
                     }
                 } else if (alarmClass) {
                     classes.push(alarmClass);
@@ -1342,11 +1362,14 @@ function renderEmployeeList(employees, type) {
     if (employees.length === 0) return '<div class="no-employees">Sin personal asignado</div>';
     return employees.map(emp => {
         const roleClass = emp.roleType === 'srme' ? 'srme' : emp.roleType === 'rmet' ? 'rmet' : '';
-        return `<div class="employee-item" onclick="selectEmployeeFromModal('${emp.login}')"><div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span><span class="role-badge ${roleClass}">${emp.role || 'N/A'}</span></div><span class="shift-badge ${type}">${emp.shift}</span></div>`;
+        const onclick = isManager ? `onclick="selectEmployeeFromModal('${emp.login}')"` : '';
+        const cursor = isManager ? 'cursor:pointer;' : 'cursor:default;';
+        return `<div class="employee-item" ${onclick} style="${cursor}"><div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span><span class="role-badge ${roleClass}">${emp.role || 'N/A'}</span></div><span class="shift-badge ${type}">${emp.shift}</span></div>`;
     }).join('');
 }
 
 function selectEmployeeFromModal(login) {
+    if (!isManager) return;
     closeDayOverviewModal();
     document.getElementById('filterEmployee').value = login;
     selectEmployee();
@@ -1379,6 +1402,7 @@ function generateMonth(month) {
                 const shiftInfo = getShiftInfo(shift);
                 const fest = isFestivo(month, day);
                 const isOt = isOtFileDay(month, day);
+                const wasChanged = changedDays.some(c => c.dayOfYear === doy);
                 
                 let classes = [];
                 let onclick = `openEditModal(${month}, ${day})`;
@@ -1390,8 +1414,8 @@ function generateMonth(month) {
                     extraContent = `<span class="shift-code">OT</span>`;
                     const otDay = getOtDay(doy);
                     if (otDay && selectedEmployee) {
-                        if (otDay.signups.some(s => s.login === selectedEmployee.login)) classes.push('user-signed');
-                        if (['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) classes.push('user-assigned');
+                        if (otDay.signups && otDay.signups.some(s => s.login === selectedEmployee.login)) classes.push('user-signed');
+                        if (otDay.assignments && ['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh] && otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) classes.push('user-assigned');
                     }
                 } else {
                     classes.push(getShiftClass(shift));
@@ -1405,6 +1429,7 @@ function generateMonth(month) {
                 
                 if (fest) classes.push('festivo');
                 if (isReducido(shift)) classes.push('reducido');
+                if (wasChanged && isMyCalendarView) classes.push('day-changed');
                 
                 html += `<td class="${classes.join(' ')}" onclick="${onclick}"><span class="day-num">${day}</span>${extraContent}</td>`;
                 day++;
@@ -1441,29 +1466,25 @@ function getShiftClass(shift) {
 
 function generateStats() {
     if (!selectedEmployee) return;
-    let stats = {wm:0, m8:0, mco:0, wt:0, t8:0, tco:0, n8:0, n:0, nn:0, nco:0, central:0, vacaciones:0, ap:0, ot:0};
+    let stats = {wm:0, m8:0, wt:0, t8:0, n8:0, n:0, central:0, vacaciones:0, ap:0, ot:0};
     
     for (let doy = 0; doy < 365; doy++) {
         const otDay = getOtDay(doy);
-        if (otDay && ['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) {
+        if (otDay && otDay.assignments && ['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh] && otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) {
             stats.ot++; continue;
         }
         const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
         if (shift === 'wm') stats.wm++;
-        else if (shift === 'm8' || shift === 'm') stats.m8++;
-        else if (shift === 'm-co') stats.mco++;
+        else if (shift === 'm8' || shift === 'm' || shift === 'm-co') stats.m8++;
         else if (shift === 'wt') stats.wt++;
-        else if (shift === 't8' || shift === 't') stats.t8++;
-        else if (shift === 't-co') stats.tco++;
+        else if (shift === 't8' || shift === 't' || shift === 't-co') stats.t8++;
         else if (shift === 'n8') stats.n8++;
-        else if (shift === 'n' || shift === 'wn') stats.n++;
-        else if (shift === 'nn') stats.nn++;
-        else if (shift === 'n-co') stats.nco++;
+        else if (shift === 'n' || shift === 'wn' || shift === 'nn' || shift === 'n-co') stats.n++;
         else if (shift === 'c' || shift === 'cw') stats.central++;
         else if (shift === 'v' || shift === 'v25' || shift === 'v26') stats.vacaciones++;
         else if (shift.startsWith('ap')) stats.ap++;
     }
-    const total = stats.wm + stats.m8 + stats.mco + stats.wt + stats.t8 + stats.tco + stats.n8 + stats.n + stats.nn + stats.nco + stats.central + stats.ot;
+    const total = stats.wm + stats.m8 + stats.wt + stats.t8 + stats.n8 + stats.n + stats.central + stats.ot;
     
     document.getElementById('statsGrid').innerHTML = `
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.wm}</div><div class="stat-label">WM</div></div>
@@ -1590,14 +1611,9 @@ async function confirmShiftChange(skipComment = false) {
     document.getElementById('commentModal').classList.remove('active');
     showNotification('⏳ Guardando...');
     
-    if (await saveToCloud()) {
-        generateCalendar();
-        generateStats();
-        showNotification(`✅ Guardado`);
-    }
+    if (await saveToCloud()) { generateCalendar(); generateStats(); showNotification(`✅ Guardado`); }
     
-    pendingShiftChange = null;
-    editingDay = null;
+    pendingShiftChange = null; editingDay = null;
 }
 
 function cancelShiftChange() {
@@ -1626,17 +1642,8 @@ function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift,
     if (allData.changelog.length > 100) allData.changelog.pop();
 }
 
-function getDayString(doy) {
-    let remaining = doy;
-    for (let m = 0; m < 12; m++) {
-        if (remaining < daysInMonth[m]) return `${remaining + 1} de ${monthNames[m]}`;
-        remaining -= daysInMonth[m];
-    }
-    return 'Día ' + (doy + 1);
-}
-
 function getLastChangeForDay(employeeLogin, doy) {
-    return allData.changelog.find(c => c.employeeLogin === employeeLogin && c.dayOfYear === doy);
+    return allData.changelog ? allData.changelog.find(c => c.employeeLogin === employeeLogin && c.dayOfYear === doy) : null;
 }
 
 function renderChangelog() {
@@ -1669,7 +1676,7 @@ function openOtFileModal(month, day) {
     
     document.getElementById('otFileModalTitle').textContent = `🔧 ${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
     document.getElementById('otFileName').textContent = otDay.name;
-    document.getElementById('otFileDesc').textContent = otDay.notes || 'Sin descripción adicional';
+    document.getElementById('otFileDesc').textContent = otDay.notes || 'Sin descripción';
     document.getElementById('otFileCreator').textContent = otDay.createdByName;
     
     const statusBadge = document.getElementById('otFileStatus');
@@ -1677,7 +1684,7 @@ function openOtFileModal(month, day) {
     else if (otDay.status === 'assigned') { statusBadge.textContent = '🟡 Asignado'; statusBadge.className = 'ot-status-badge assigned'; }
     else { statusBadge.textContent = '⚫ Cerrado'; statusBadge.className = 'ot-status-badge closed'; }
     
-    const userSignup = otDay.signups.find(s => s.login === currentUser.login);
+    const userSignup = otDay.signups ? otDay.signups.find(s => s.login === currentUser.login) : null;
     
     if (userSignup) {
         document.getElementById('currentUserSignup').style.display = 'block';
@@ -1690,11 +1697,6 @@ function openOtFileModal(month, day) {
         let prefsText = userSignup.preferences.map((p, i) => `${i+1}º: ${prefNames[p] || '-'}`).join(', ');
         if (userSignup.comment) prefsText += `<br>💬 ${userSignup.comment}`;
         document.getElementById('currentUserPrefs').innerHTML = prefsText;
-        
-        document.getElementById('pref1').value = userSignup.preferences[0] || '';
-        document.getElementById('pref2').value = userSignup.preferences[1] || '';
-        document.getElementById('pref3').value = userSignup.preferences[2] || '';
-        document.getElementById('otSignupComment').value = userSignup.comment || '';
     } else {
         document.getElementById('currentUserSignup').style.display = 'none';
         document.getElementById('preferencesList').style.display = 'block';
@@ -1719,11 +1721,11 @@ async function submitOtSignup() {
     if (!currentOtDay || !currentUser) return;
     
     const pref1 = document.getElementById('pref1').value;
+    if (!pref1) { showNotification('❌ Selecciona al menos tu 1ª preferencia', true); return; }
+    
     const pref2 = document.getElementById('pref2').value;
     const pref3 = document.getElementById('pref3').value;
     const comment = document.getElementById('otSignupComment').value.trim();
-    
-    if (!pref1) { showNotification('❌ Selecciona al menos tu 1ª preferencia', true); return; }
     
     const preferences = [pref1];
     if (pref2 && pref2 !== pref1) preferences.push(pref2);
@@ -1731,6 +1733,8 @@ async function submitOtSignup() {
     
     const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
     if (otIdx === -1) { showNotification('❌ Error', true); return; }
+    
+    if (!allData.otDays[otIdx].signups) allData.otDays[otIdx].signups = [];
     
     const existingIdx = allData.otDays[otIdx].signups.findIndex(s => s.login === currentUser.login);
     const signupData = { login: currentUser.login, name: currentUser.name, role: currentUser.role, crew: currentUser.crew, preferences, comment, timestamp: new Date().toISOString() };
@@ -1753,10 +1757,16 @@ async function cancelOtSignup() {
     const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
     if (otIdx === -1) return;
     
-    allData.otDays[otIdx].signups = allData.otDays[otIdx].signups.filter(s => s.login !== currentUser.login);
-    ['morning', 'afternoon', 'night'].forEach(shift => {
-        allData.otDays[otIdx].assignments[shift] = allData.otDays[otIdx].assignments[shift].filter(a => a.login !== currentUser.login);
-    });
+    if (allData.otDays[otIdx].signups) {
+        allData.otDays[otIdx].signups = allData.otDays[otIdx].signups.filter(s => s.login !== currentUser.login);
+    }
+    if (allData.otDays[otIdx].assignments) {
+        ['morning', 'afternoon', 'night'].forEach(shift => {
+            if (allData.otDays[otIdx].assignments[shift]) {
+                allData.otDays[otIdx].assignments[shift] = allData.otDays[otIdx].assignments[shift].filter(a => a.login !== currentUser.login);
+            }
+        });
+    }
     
     showNotification('⏳ Guardando...');
     if (await saveToCloud()) {
@@ -1768,21 +1778,23 @@ async function cancelOtSignup() {
 
 function renderOtSignupsList(otDay) {
     const container = document.getElementById('otRequestsList');
-    document.getElementById('otSignupCount').textContent = otDay.signups.length;
+    const signups = otDay.signups || [];
+    document.getElementById('otSignupCount').textContent = signups.length;
     
-    if (otDay.signups.length === 0) {
-        container.innerHTML = '<div class="no-employees">Nadie se ha apuntado todavía</div>';
-        return;
-    }
+    if (signups.length === 0) { container.innerHTML = '<div class="no-employees">Nadie se ha apuntado todavía</div>'; return; }
     
     const prefNames = { morning: 'Mañana', afternoon: 'Tarde', night: 'Noche' };
     const prefClass = { morning: 'morning', afternoon: 'afternoon', night: 'night' };
     
-    container.innerHTML = otDay.signups.map(signup => {
+    container.innerHTML = signups.map(signup => {
         const prefs = signup.preferences.map((p, i) => `<span class="pref-tag ${prefClass[p]}">${i+1}º ${prefNames[p]}</span>`).join('');
         const time = new Date(signup.timestamp).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
         let assignedTo = null;
-        ['morning', 'afternoon', 'night'].forEach(shift => { if (otDay.assignments[shift].some(a => a.login === signup.login)) assignedTo = shift; });
+        if (otDay.assignments) {
+            ['morning', 'afternoon', 'night'].forEach(shift => { 
+                if (otDay.assignments[shift] && otDay.assignments[shift].some(a => a.login === signup.login)) assignedTo = shift; 
+            });
+        }
         const assignedBadge = assignedTo ? `<span class="pref-tag ${prefClass[assignedTo]}" style="margin-left:10px;">✅ ${prefNames[assignedTo]}</span>` : '';
         return `<div class="ot-request-item"><div class="request-info"><div class="request-name">${signup.name} <small>(${signup.crew})</small>${assignedBadge}</div><div class="request-prefs">${prefs}</div>${signup.comment ? `<div style="font-size:0.75rem; color:#666;">💬 ${signup.comment}</div>` : ''}<div class="request-time">📅 ${time}</div></div></div>`;
     }).join('');
@@ -1792,7 +1804,9 @@ function renderOtAssignments(otDay) {
     const section = document.getElementById('otAssignmentsSection');
     const grid = document.getElementById('otAssignmentGrid');
     
-    const hasAssignments = otDay.assignments.morning.length > 0 || otDay.assignments.afternoon.length > 0 || otDay.assignments.night.length > 0;
+    if (!otDay.assignments) { section.style.display = 'none'; return; }
+    
+    const hasAssignments = ['morning', 'afternoon', 'night'].some(s => otDay.assignments[s] && otDay.assignments[s].length > 0);
     if (!hasAssignments) { section.style.display = 'none'; return; }
     
     section.style.display = 'block';
@@ -1855,6 +1869,7 @@ async function createOtDay() {
         assignments: { morning: [], afternoon: [], night: [] }
     };
     
+    if (!allData.otDays) allData.otDays = [];
     allData.otDays.push(newOtDay);
     
     showNotification('⏳ Guardando...');
@@ -1894,8 +1909,9 @@ function renderOtDaysList() {
     const sorted = [...allData.otDays].sort((a, b) => a.doy - b.doy);
     container.innerHTML = sorted.map(ot => {
         const statusText = ot.status === 'open' ? '🟢 Abierto' : ot.status === 'assigned' ? '🟡 Asignado' : '⚫ Cerrado';
+        const signupCount = ot.signups ? ot.signups.length : 0;
         const date = `${ot.day} de ${monthNames[ot.month - 1]}`;
-        return `<div class="changelog-item" style="border-left-color: #9b59b6;"><div class="change-header"><span class="change-manager">🔧 ${ot.name}</span><span class="change-date">${date}</span></div><div class="change-detail">${statusText} · ${ot.signups.length} apuntados</div><div style="margin-top:8px; display:flex; gap:5px;"><button class="btn btn-small btn-ot" onclick="openOtFileModal(${ot.month}, ${ot.day}); closeOtManagerModal();">👁️ Ver</button><button class="btn btn-small btn-danger" onclick="deleteOtDay(${ot.doy})">🗑️ Eliminar</button></div></div>`;
+        return `<div class="changelog-item" style="border-left-color: #9b59b6;"><div class="change-header"><span class="change-manager">🔧 ${ot.name}</span><span class="change-date">${date}</span></div><div class="change-detail">${statusText} · ${signupCount} apuntados</div><div style="margin-top:8px; display:flex; gap:5px;"><button class="btn btn-small btn-ot" onclick="openOtFileModal(${ot.month}, ${ot.day}); closeOtManagerModal();">👁️ Ver</button><button class="btn btn-small btn-danger" onclick="deleteOtDay(${ot.doy})">🗑️ Eliminar</button></div></div>`;
     }).join('');
 }
 
@@ -1906,8 +1922,9 @@ function populateOtDaySelect() {
     
     const sorted = [...allData.otDays].sort((a, b) => a.doy - b.doy);
     sorted.forEach(ot => {
+        const signupCount = ot.signups ? ot.signups.length : 0;
         const date = `${ot.day}/${ot.month}`;
-        select.innerHTML += `<option value="${ot.doy}">${date} - ${ot.name} (${ot.signups.length} apuntados)</option>`;
+        select.innerHTML += `<option value="${ot.doy}">${date} - ${ot.name} (${signupCount} apuntados)</option>`;
     });
 }
 
@@ -1924,7 +1941,7 @@ function loadOtDayForAssignment() {
     panel.style.display = 'block';
     
     document.getElementById('assignOtName').textContent = otDay.name;
-    document.getElementById('assignOtCount').textContent = otDay.signups.length;
+    document.getElementById('assignOtCount').textContent = otDay.signups ? otDay.signups.length : 0;
     
     renderAssignmentRequestsList(otDay);
     renderAssignmentColumns(otDay);
@@ -1932,9 +1949,13 @@ function loadOtDayForAssignment() {
 
 function renderAssignmentRequestsList(otDay) {
     const container = document.getElementById('otAssignRequestsList');
+    const signups = otDay.signups || [];
     
-    const unassigned = otDay.signups.filter(signup => {
-        return !['morning', 'afternoon', 'night'].some(shift => otDay.assignments[shift].some(a => a.login === signup.login));
+    const unassigned = signups.filter(signup => {
+        if (!otDay.assignments) return true;
+        return !['morning', 'afternoon', 'night'].some(shift => 
+            otDay.assignments[shift] && otDay.assignments[shift].some(a => a.login === signup.login)
+        );
     });
     
     if (unassigned.length === 0) { container.innerHTML = '<div class="no-employees">Todos están asignados</div>'; return; }
@@ -1952,7 +1973,7 @@ function renderAssignmentRequestsList(otDay) {
 function renderAssignmentColumns(otDay) {
     ['morning', 'afternoon', 'night'].forEach(shift => {
         const container = document.getElementById('assignList' + shift.charAt(0).toUpperCase() + shift.slice(1));
-        const assigned = otDay.assignments[shift] || [];
+        const assigned = (otDay.assignments && otDay.assignments[shift]) ? otDay.assignments[shift] : [];
         
         if (assigned.length === 0) container.innerHTML = '<div class="no-employees" style="padding:10px;">Vacío</div>';
         else container.innerHTML = assigned.map(emp => `<div class="ot-assigned-item"><span>${emp.name}</span><button class="remove-btn" onclick="removeFromShift('${emp.login}', '${shift}')">×</button></div>`).join('');
@@ -1965,26 +1986,45 @@ function assignToShift(login, shift) {
     const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
     if (otIdx === -1) return;
     
-    const signup = currentOtDay.signups.find(s => s.login === login);
+    const signups = allData.otDays[otIdx].signups || [];
+    const signup = signups.find(s => s.login === login);
     if (!signup) return;
     
+    if (!allData.otDays[otIdx].assignments) {
+        allData.otDays[otIdx].assignments = { morning: [], afternoon: [], night: [] };
+    }
+    
     ['morning', 'afternoon', 'night'].forEach(s => {
-        allData.otDays[otIdx].assignments[s] = allData.otDays[otIdx].assignments[s].filter(a => a.login !== login);
+        if (allData.otDays[otIdx].assignments[s]) {
+            allData.otDays[otIdx].assignments[s] = allData.otDays[otIdx].assignments[s].filter(a => a.login !== login);
+        }
     });
     
-    allData.otDays[otIdx].assignments[shift].push({ login: signup.login, name: signup.name, role: signup.role, crew: signup.crew });
+    if (!allData.otDays[otIdx].assignments[shift]) {
+        allData.otDays[otIdx].assignments[shift] = [];
+    }
+    
+    allData.otDays[otIdx].assignments[shift].push({ 
+        login: signup.login, 
+        name: signup.name, 
+        role: signup.role, 
+        crew: signup.crew 
+    });
     
     currentOtDay = allData.otDays[otIdx];
     renderAssignmentRequestsList(currentOtDay);
     renderAssignmentColumns(currentOtDay);
 }
+
 function removeFromShift(login, shift) {
     if (!currentOtDay) return;
     
     const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
     if (otIdx === -1) return;
     
-    allData.otDays[otIdx].assignments[shift] = allData.otDays[otIdx].assignments[shift].filter(a => a.login !== login);
+    if (allData.otDays[otIdx].assignments && allData.otDays[otIdx].assignments[shift]) {
+        allData.otDays[otIdx].assignments[shift] = allData.otDays[otIdx].assignments[shift].filter(a => a.login !== login);
+    }
     
     currentOtDay = allData.otDays[otIdx];
     renderAssignmentRequestsList(currentOtDay);
@@ -1997,7 +2037,11 @@ async function saveOtAssignments() {
     const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
     if (otIdx === -1) return;
     
-    const hasAssignments = ['morning', 'afternoon', 'night'].some(s => allData.otDays[otIdx].assignments[s].length > 0);
+    const hasAssignments = allData.otDays[otIdx].assignments && 
+        ['morning', 'afternoon', 'night'].some(s => 
+            allData.otDays[otIdx].assignments[s] && allData.otDays[otIdx].assignments[s].length > 0
+        );
+    
     if (hasAssignments) allData.otDays[otIdx].status = 'assigned';
     
     showNotification('⏳ Guardando...');
@@ -2126,7 +2170,7 @@ async function processBulkImport() {
     showNotification('⏳ Guardando...');
     if (await saveToCloud()) {
         initializeFilters();
-        showGeneralView();
+        showMyCalendar();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
         showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
