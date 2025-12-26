@@ -32,6 +32,7 @@
         .employee-badge { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; }
         .badge-crew { background: #667eea; color: white; }
         .badge-role { background: #27ae60; color: white; }
+        .badge-manager { background: #e74c3c; color: white; }
         .legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; max-width: 1400px; margin-left: auto; margin-right: auto; }
         .legend-item { display: flex; align-items: center; gap: 4px; color: #fff; font-size: 0.65rem; padding: 4px 8px; background: rgba(0,0,0,0.2); border-radius: 10px; }
         .legend-color { width: 14px; height: 14px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 700; }
@@ -46,6 +47,9 @@
         .btn-print { background: linear-gradient(145deg, #95a5a6, #7f8c8d); }
         .btn-general { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
         .btn-general.active { background: linear-gradient(145deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(102, 126, 234, 0.5); }
+        .btn-logout { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+        .btn-user { background: linear-gradient(145deg, #3498db, #2980b9); }
+        .btn-user.manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
         .btn:hover { transform: translateY(-2px); }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
         .btn-view.active { background: linear-gradient(145deg, #667eea, #764ba2); border-color: transparent; }
@@ -166,6 +170,25 @@
         .current-shift-display .shift-badge-large { padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 1.2rem; }
         .current-shift-display .shift-time { font-size: 1rem; color: #333; }
         
+        .login-container { max-width: 400px; margin: 50px auto; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .login-container h2 { color: #333; margin-bottom: 10px; }
+        .login-container p { color: #666; margin-bottom: 20px; font-size: 0.9rem; }
+        .login-container .login-icon { font-size: 4rem; margin-bottom: 15px; }
+        .login-container input, .login-container select { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin-bottom: 10px; }
+        .login-container input:focus, .login-container select:focus { border-color: #667eea; outline: none; }
+        .login-container .btn { width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px; }
+        .login-status { padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: 600; }
+        .login-status.error { background: #f8d7da; color: #721c24; }
+        .login-status.success { background: #d4edda; color: #155724; }
+        
+        .user-info-bar { background: linear-gradient(145deg, #667eea, #764ba2); padding: 10px 20px; border-radius: 12px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .user-info-bar .user-details { color: white; }
+        .user-info-bar .user-name { font-weight: 700; font-size: 1.1rem; }
+        .user-info-bar .user-role { font-size: 0.8rem; opacity: 0.9; }
+        .user-info-bar .user-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 10px; font-size: 0.7rem; margin-left: 10px; }
+        .user-info-bar .user-badge.manager-badge { background: #e74c3c; }
+        .user-info-bar .user-actions { display: flex; gap: 8px; }
+        
         .manager-login { margin: 12px 0; }
         .manager-login input, .manager-login select { padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; max-width: 280px; margin: 5px 0; }
         .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
@@ -285,86 +308,129 @@
         
         .no-managers-msg { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; color: #856404; margin: 10px 0; }
         
+        .hidden { display: none !important; }
+        
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .day-summary { gap: 8px; } .summary-item { min-width: 90px; padding: 10px 12px; } .panel-nav { gap: 3px; } .panel-nav-btn { padding: 8px 10px; font-size: 0.7rem; } }
-        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .day-summary { gap: 8px; } .summary-item { min-width: 90px; padding: 10px 12px; } .panel-nav { gap: 3px; } .panel-nav-btn { padding: 8px 10px; font-size: 0.7rem; } .user-info-bar { flex-direction: column; text-align: center; } }
+        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>📅 Calendario de Turnos 2026</h1>
-    <p style="color:#a0a0a0; font-size:0.85rem;">Dos Hermanas, Sevilla</p>
-    <div class="employee-count" id="employeeCount"></div>
-    <div class="data-status" id="dataStatus">Conectando...</div>
-</div>
-
-<div class="filters-panel">
-    <div class="filters-row">
-        <div class="filter-group">
-            <label>👥 Crew:</label>
-            <select id="filterCrew" onchange="filterEmployees()"><option value="">Todos</option></select>
+<!-- PANTALLA DE LOGIN -->
+<div id="loginScreen">
+    <div class="login-container">
+        <div class="login-icon">🔐</div>
+        <h2>Calendario de Turnos 2026</h2>
+        <p>Introduce tus credenciales para acceder</p>
+        <div id="loginLoading" class="hidden">
+            <div class="loading-spinner" style="border-color: #667eea; border-top-color: #764ba2;"></div>
+            <p style="color: #666;">Cargando datos...</p>
         </div>
-        <div class="filter-group">
-            <label>👤 Persona:</label>
-            <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Vista General --</option></select>
+        <div id="loginForm">
+            <select id="loginUserSelect">
+                <option value="">-- Selecciona tu nombre --</option>
+            </select>
+            <input type="password" id="loginPassword" placeholder="Contraseña..." onkeypress="if(event.key==='Enter')attemptLogin()">
+            <div id="loginStatus" class="login-status hidden"></div>
+            <button class="btn btn-save" onclick="attemptLogin()">🚀 Entrar</button>
         </div>
-        <div class="filter-group">
-            <label>🔍 Buscar:</label>
-            <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
-        </div>
+        <p style="margin-top: 20px; font-size: 0.75rem; color: #999;">
+            Contraseña por defecto: <strong>1234</strong>
+        </p>
     </div>
 </div>
 
-<div class="general-view-info" id="generalViewInfo">
-    <h2>📊 Vista General del Equipo</h2>
-    <p>Pulsa en cualquier día para ver quién trabaja en cada turno</p>
-    <p style="font-size:0.75rem; margin-top:5px; opacity:0.8;">Los días con color indican falta de personal en ese turno</p>
-</div>
+<!-- APLICACIÓN PRINCIPAL (oculta hasta login) -->
+<div id="mainApp" class="hidden">
+    <div class="header">
+        <h1>📅 Calendario de Turnos 2026</h1>
+        <p style="color:#a0a0a0; font-size:0.85rem;">Dos Hermanas, Sevilla</p>
+        <div class="employee-count" id="employeeCount"></div>
+        <div class="data-status" id="dataStatus">Conectando...</div>
+    </div>
 
-<div class="employee-info" id="employeeInfo">
-    <h2 id="employeeName">Nombre</h2>
-    <span class="employee-badge badge-crew" id="employeeCrew">CREW</span>
-    <span class="employee-badge badge-role" id="employeeRole">ROLE</span>
-    <span style="color:#666; margin-left:8px; font-size:0.8rem;">Login: <strong id="employeeLogin">LOGIN</strong></span>
-</div>
+    <!-- Barra de información del usuario -->
+    <div class="user-info-bar" id="userInfoBar">
+        <div class="user-details">
+            <span class="user-name" id="loggedUserName">Usuario</span>
+            <span class="user-badge" id="loggedUserRole">ROL</span>
+            <span class="user-badge manager-badge hidden" id="managerBadge">👑 MANAGER</span>
+            <div class="user-role" id="loggedUserCrew">CREW</div>
+        </div>
+        <div class="user-actions">
+            <button class="btn btn-user" onclick="openUserSettingsModal()">⚙️ Mi Cuenta</button>
+            <button class="btn btn-logout" onclick="logout()">🚪 Salir</button>
+        </div>
+    </div>
 
-<div class="legend">
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div><span><b>WM</b> <span class="legend-hours">Mañana Larga</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div><span><b>M8</b> <span class="legend-hours">Mañana 8h</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #c8e6c9, #a5d6a7); border:1px dashed #66bb6a">M-CO</div><span><b>M-CO</b> <span class="legend-hours">Mañana Reducida</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div><span><b>WT</b> <span class="legend-hours">Tarde Larga</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div><span><b>T8</b> <span class="legend-hours">Tarde 8h</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #fff3cd, #ffe082); border:1px dashed #ffb300">T-CO</div><span><b>T-CO</b> <span class="legend-hours">Tarde Reducida</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div><span><b>N8</b> <span class="legend-hours">Noche 8h</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div><span><b>N</b> <span class="legend-hours">Noche</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div><span><b>NN</b> <span class="legend-hours">Noche Corta</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #7986cb, #5c6bc0); border:1px dashed #3949ab">N-CO</div><span><b>N-CO</b> <span class="legend-hours">Noche Reducida</span></span></div>
-    <div class="legend-item"><div class="legend-color" style="background:var(--gris)">C</div><span><b>C</b> Central</span></div>
-    <div class="legend-item"><div class="legend-color" style="background:var(--rojo-vacaciones)">V</div><span><b>V</b> Vacaciones</span></div>
-    <div class="legend-item"><div class="legend-color" style="background:var(--verde-fuerte)">AP</div><span><b>AP</b> Asuntos P.</span></div>
-    <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
-</div>
+    <div class="filters-panel">
+        <div class="filters-row">
+            <div class="filter-group">
+                <label>👥 Crew:</label>
+                <select id="filterCrew" onchange="filterEmployees()"><option value="">Todos</option></select>
+            </div>
+            <div class="filter-group">
+                <label>👤 Persona:</label>
+                <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Vista General --</option></select>
+            </div>
+            <div class="filter-group">
+                <label>🔍 Buscar:</label>
+                <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
+            </div>
+        </div>
+    </div>
 
-<div class="controls">
-    <button class="btn btn-general active" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
-    <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
-    <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
-    <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
-    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
-    <span style="width:10px"></span>
-    <button class="btn btn-view" onclick="setView(4, this)">4</button>
-    <button class="btn btn-view active" onclick="setView(3, this)">3</button>
-    <button class="btn btn-view" onclick="setView(2, this)">2</button>
-</div>
+    <div class="general-view-info" id="generalViewInfo">
+        <h2>📊 Vista General del Equipo</h2>
+        <p>Pulsa en cualquier día para ver quién trabaja en cada turno</p>
+        <p style="font-size:0.75rem; margin-top:5px; opacity:0.8;">Los días con color indican falta de personal en ese turno</p>
+    </div>
 
-<div class="calendar-grid" id="calendarGrid">
-    <div class="loading"><div class="loading-spinner"></div><p>Cargando datos de la nube...</p></div>
-</div>
+    <div class="employee-info" id="employeeInfo">
+        <h2 id="employeeName">Nombre</h2>
+        <span class="employee-badge badge-crew" id="employeeCrew">CREW</span>
+        <span class="employee-badge badge-role" id="employeeRole">ROLE</span>
+        <span style="color:#666; margin-left:8px; font-size:0.8rem;">Login: <strong id="employeeLogin">LOGIN</strong></span>
+    </div>
 
-<div class="stats-container" id="statsContainer" style="display:none;">
-    <h3 class="stats-title">📊 Resumen</h3>
-    <div class="stats-grid" id="statsGrid"></div>
+    <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div><span><b>WM</b> <span class="legend-hours">Mañana Larga</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div><span><b>M8</b> <span class="legend-hours">Mañana 8h</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #c8e6c9, #a5d6a7); border:1px dashed #66bb6a">M-CO</div><span><b>M-CO</b> <span class="legend-hours">Mañana Reducida</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div><span><b>WT</b> <span class="legend-hours">Tarde Larga</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div><span><b>T8</b> <span class="legend-hours">Tarde 8h</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #fff3cd, #ffe082); border:1px dashed #ffb300">T-CO</div><span><b>T-CO</b> <span class="legend-hours">Tarde Reducida</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div><span><b>N8</b> <span class="legend-hours">Noche 8h</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div><span><b>N</b> <span class="legend-hours">Noche</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div><span><b>NN</b> <span class="legend-hours">Noche Corta</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #7986cb, #5c6bc0); border:1px dashed #3949ab">N-CO</div><span><b>N-CO</b> <span class="legend-hours">Noche Reducida</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:var(--gris)">C</div><span><b>C</b> Central</span></div>
+        <div class="legend-item"><div class="legend-color" style="background:var(--rojo-vacaciones)">V</div><span><b>V</b> Vacaciones</span></div>
+        <div class="legend-item"><div class="legend-color" style="background:var(--verde-fuerte)">AP</div><span><b>AP</b> Asuntos P.</span></div>
+        <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-general active" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
+        <button class="btn btn-user hidden" id="btnManagerPanel" onclick="openManagerModal()">👑 Panel Manager</button>
+        <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
+        <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
+        <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
+        <span style="width:10px"></span>
+        <button class="btn btn-view" onclick="setView(4, this)">4</button>
+        <button class="btn btn-view active" onclick="setView(3, this)">3</button>
+        <button class="btn btn-view" onclick="setView(2, this)">2</button>
+    </div>
+
+    <div class="calendar-grid" id="calendarGrid">
+        <div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>
+    </div>
+
+    <div class="stats-container" id="statsContainer" style="display:none;">
+        <h3 class="stats-title">📊 Resumen</h3>
+        <div class="stats-grid" id="statsGrid"></div>
+    </div>
 </div>
 
 <!-- Modal editar día -->
@@ -415,7 +481,7 @@
                 <button class="modal-btn btn-libre" onclick="setShift('')" style="grid-column: span 2;"><span class="btn-code">LIBRE</span><span class="btn-hours">-</span><span class="btn-desc">Sin turno asignado</span></button>
             </div>
         </div>
-        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">🔒 Activa <strong>Modo Manager</strong> para editar</div>
+        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">🔒 Solo los <strong>Managers</strong> pueden editar turnos</div>
         <button class="modal-close" onclick="closeModal()">Cerrar</button>
     </div>
 </div>
@@ -458,80 +524,73 @@
     </div>
 </div>
 
-<!-- Modal Manager -->
+<!-- Modal Configuración de Usuario -->
+<div class="modal-overlay" id="userSettingsModal">
+    <div class="modal">
+        <h3>⚙️ Mi Cuenta</h3>
+        <div class="manager-info">
+            <h4>👤 <span id="settingsUserName"></span></h4>
+            <p>Login: <strong id="settingsUserLogin"></strong></p>
+            <p>Crew: <strong id="settingsUserCrew"></strong></p>
+            <span class="manager-role-badge" id="settingsUserRole"></span>
+        </div>
+        
+        <div class="password-section">
+            <h4>🔑 Cambiar mi contraseña</h4>
+            <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Introduce tu nueva contraseña</p>
+            <input type="password" id="userNewPassword1" placeholder="Nueva contraseña..." style="max-width:250px;">
+            <input type="password" id="userNewPassword2" placeholder="Repetir contraseña..." style="max-width:250px;">
+            <button class="btn btn-save" onclick="changeUserPassword()" style="margin-top:10px;">💾 Guardar contraseña</button>
+        </div>
+        
+        <div style="margin-top:20px;">
+            <button class="modal-close" onclick="closeUserSettingsModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Manager (solo para managers) -->
 <div class="modal-overlay" id="managerModal">
     <div class="modal modal-large">
-        <h3>🔐 Panel Manager</h3>
+        <h3>👑 Panel Manager</h3>
         
-        <div id="loginSection">
-            <p style="color:#666; margin-bottom:15px;">Selecciona tu nombre e introduce tu contraseña</p>
-            <div class="manager-login">
-                <select id="managerSelect">
-                    <option value="">-- Selecciona tu nombre --</option>
-                </select>
-                <input type="password" id="managerPassword" placeholder="Contraseña..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
-            </div>
-            <div id="managerStatus" class="manager-status" style="display:none;"></div>
-            <div id="noManagersMessage" class="no-managers-msg" style="display:none;">
-                ⚠️ No hay managers disponibles. Primero importa los datos de empleados.
-            </div>
-            <div style="margin-top:15px; display:flex; gap:8px; justify-content:center;">
-                <button class="btn btn-save" onclick="checkManagerPassword()">✅ Acceder</button>
-                <button class="modal-close" onclick="closeManagerModal()">Cancelar</button>
+        <div class="manager-info">
+            <h4>👤 <span id="currentManagerName"></span></h4>
+            <p>Login: <strong id="currentManagerLogin"></strong></p>
+            <span class="manager-role-badge" id="currentManagerRole"></span>
+        </div>
+        
+        <div class="panel-nav">
+            <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
+            <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
+        </div>
+        
+        <div id="panel-changelog" class="panel-content active">
+            <h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4>
+            <div class="changelog-list" id="changelogList">
+                <div class="changelog-empty">No hay modificaciones registradas</div>
             </div>
         </div>
         
-        <div id="managerPanel" style="display:none;">
-            <div class="manager-info">
-                <h4>👤 <span id="currentManagerName"></span></h4>
-                <p>Login: <strong id="currentManagerLogin"></strong></p>
-                <span class="manager-role-badge" id="currentManagerRole"></span>
+        <div id="panel-import" class="panel-content">
+            <div class="import-info">
+                <strong>📌 Instrucciones:</strong><br>
+                1. Copia los datos TSV desde tu archivo Excel<br>
+                2. Pégalos aquí abajo<br>
+                3. Haz clic en "✅ Importar y Guardar"
             </div>
-            
-            <div class="panel-nav">
-                <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
-                <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
-                <button class="panel-nav-btn" onclick="switchPanel('password', this)">🔑 Contraseña</button>
-            </div>
-            
-            <div id="panel-changelog" class="panel-content active">
-                <h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4>
-                <div class="changelog-list" id="changelogList">
-                    <div class="changelog-empty">No hay modificaciones registradas</div>
+            <div class="import-panel">
+                <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
+                <div class="btn-row">
+                    <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar</button>
+                    <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
                 </div>
             </div>
-            
-            <div id="panel-import" class="panel-content">
-                <div class="import-info">
-                    <strong>📌 Instrucciones:</strong><br>
-                    1. Copia los datos TSV desde tu archivo Excel<br>
-                    2. Pégalos aquí abajo<br>
-                    3. Haz clic en "✅ Importar y Guardar"
-                </div>
-                <div class="import-panel">
-                    <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar</button>
-                        <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
-                    </div>
-                </div>
-                <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
-            </div>
-            
-            <div id="panel-password" class="panel-content">
-                <div class="password-section">
-                    <h4>🔑 Cambiar mi contraseña</h4>
-                    <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Introduce tu nueva contraseña</p>
-                    <input type="password" id="newPassword1" placeholder="Nueva contraseña..." style="max-width:250px;">
-                    <input type="password" id="newPassword2" placeholder="Repetir contraseña..." style="max-width:250px;">
-                    <button class="btn btn-save" onclick="changePassword()" style="margin-top:10px;">💾 Guardar contraseña</button>
-                </div>
-            </div>
-            
-            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                <button class="btn btn-warning" onclick="logoutManager()">🚪 Cerrar Sesión</button>
-                <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
-            </div>
+            <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
+        </div>
+        
+        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
+            <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
         </div>
     </div>
 </div>
@@ -560,13 +619,13 @@
 // CONFIGURACIÓN
 // =====================================================
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
-const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
+const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5uZq.q5rLEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
-// Roles que pueden ser managers
+// Roles que pueden ser managers (pueden editar)
 const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];
 
-// Contraseña por defecto para nuevos managers
+// Contraseña por defecto para todos los usuarios
 const DEFAULT_PASSWORD = '1234';
 
 const MIN_SRME_PER_SHIFT = 2;
@@ -645,12 +704,12 @@ const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 let allData = { 
     empleados: [], 
     festivos: festivos2026,
-    managerPasswords: {},
+    userPasswords: {},  // Contraseñas de TODOS los usuarios
     changelog: []
 };
 let selectedEmployee = null;
-let currentManager = null;
-let isManager = false;
+let currentUser = null;      // Usuario logueado actualmente
+let isManager = false;       // Si el usuario actual es manager
 let editingDay = null;
 let isGeneralView = true;
 let pendingShiftChange = null;
@@ -683,10 +742,6 @@ function normalizarEmpleados(empleados) {
     }));
 }
 
-function getManagersList() {
-    return allData.empleados.filter(emp => isManagerRole(emp.role)).sort((a,b) => a.name.localeCompare(b.name));
-}
-
 // =====================================================
 // JSONBIN
 // =====================================================
@@ -698,10 +753,10 @@ async function saveToCloud() {
                 crew: emp.crew || '', login: emp.login || '', name: emp.name || '',
                 role: emp.role || '', turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
             })),
-            managerPasswords: allData.managerPasswords,
+            userPasswords: allData.userPasswords,
             changelog: allData.changelog.slice(-100),
             lastModified: new Date().toISOString(),
-            version: '3.0'
+            version: '4.0'
         };
         
         const response = await fetch(JSONBIN_URL, {
@@ -710,7 +765,7 @@ async function saveToCloud() {
             body: JSON.stringify(dataToSave)
         });
         if (!response.ok) throw new Error('Error');
-        setDataStatus('online', '☁️ Sincronizado: ' + new Date().toLocaleTimeString());
+                setDataStatus('online', '☁️ Sincronizado: ' + new Date().toLocaleTimeString());
         return true;
     } catch (error) {
         setDataStatus('offline', '❌ Error al guardar');
@@ -729,7 +784,7 @@ async function loadFromCloud() {
         if (data.record) {
             const result = {
                 empleados: data.record.empleados ? normalizarEmpleados(data.record.empleados) : [],
-                managerPasswords: data.record.managerPasswords || {},
+                userPasswords: data.record.userPasswords || data.record.managerPasswords || {},
                 changelog: data.record.changelog || [],
                 festivos: festivos2026
             };
@@ -737,7 +792,7 @@ async function loadFromCloud() {
             return result;
         }
         setDataStatus('online', '☁️ Sin datos');
-        return { empleados: [], managerPasswords: {}, changelog: [], festivos: festivos2026 };
+        return { empleados: [], userPasswords: {}, changelog: [], festivos: festivos2026 };
     } catch (error) {
         setDataStatus('offline', '❌ Error conexión');
         return null;
@@ -746,8 +801,198 @@ async function loadFromCloud() {
 
 function setDataStatus(type, message) {
     const el = document.getElementById('dataStatus');
-    el.textContent = message;
-    el.className = 'data-status ' + type;
+    if (el) {
+        el.textContent = message;
+        el.className = 'data-status ' + type;
+    }
+}
+
+// =====================================================
+// SISTEMA DE LOGIN
+// =====================================================
+async function initializeLogin() {
+    document.getElementById('loginLoading').classList.remove('hidden');
+    document.getElementById('loginForm').classList.add('hidden');
+    
+    const data = await loadFromCloud();
+    
+    if (data === null) {
+        document.getElementById('loginLoading').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('loginStatus').textContent = '❌ Error de conexión. Intenta de nuevo.';
+        document.getElementById('loginStatus').className = 'login-status error';
+        document.getElementById('loginStatus').classList.remove('hidden');
+        return;
+    }
+    
+    allData = data;
+    
+    // Poblar el select de usuarios
+    const select = document.getElementById('loginUserSelect');
+    select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
+    
+    if (allData.empleados.length === 0) {
+        document.getElementById('loginLoading').classList.add('hidden');
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('loginStatus').textContent = '⚠️ No hay empleados. Contacta al administrador.';
+        document.getElementById('loginStatus').className = 'login-status error';
+        document.getElementById('loginStatus').classList.remove('hidden');
+        return;
+    }
+    
+    // Ordenar empleados por nombre
+    const sortedEmployees = [...allData.empleados].sort((a, b) => a.name.localeCompare(b.name));
+    
+    sortedEmployees.forEach(emp => {
+        const isM = isManagerRole(emp.role);
+        const managerIcon = isM ? ' 👑' : '';
+        select.innerHTML += `<option value="${emp.login}">${emp.name}${managerIcon}</option>`;
+    });
+    
+    document.getElementById('loginLoading').classList.add('hidden');
+    document.getElementById('loginForm').classList.remove('hidden');
+}
+
+function attemptLogin() {
+    const login = document.getElementById('loginUserSelect').value;
+    const password = document.getElementById('loginPassword').value;
+    const statusEl = document.getElementById('loginStatus');
+    
+    if (!login) {
+        statusEl.textContent = '❌ Selecciona tu nombre';
+        statusEl.className = 'login-status error';
+        statusEl.classList.remove('hidden');
+        return;
+    }
+    
+    if (!password) {
+        statusEl.textContent = '❌ Introduce tu contraseña';
+        statusEl.className = 'login-status error';
+        statusEl.classList.remove('hidden');
+        return;
+    }
+    
+    const user = allData.empleados.find(e => e.login === login);
+    if (!user) {
+        statusEl.textContent = '❌ Usuario no encontrado';
+        statusEl.className = 'login-status error';
+        statusEl.classList.remove('hidden');
+        return;
+    }
+    
+    // Verificar contraseña (usar la guardada o la por defecto)
+    const storedPassword = allData.userPasswords[login] || DEFAULT_PASSWORD;
+    
+    if (password === storedPassword) {
+        // Login exitoso
+        currentUser = {
+            login: user.login,
+            name: user.name,
+            role: user.role,
+            crew: user.crew
+        };
+        isManager = isManagerRole(user.role);
+        
+        statusEl.textContent = '✅ Acceso correcto. Cargando...';
+        statusEl.className = 'login-status success';
+        statusEl.classList.remove('hidden');
+        
+        setTimeout(() => {
+            showMainApp();
+        }, 500);
+    } else {
+        statusEl.textContent = '❌ Contraseña incorrecta';
+        statusEl.className = 'login-status error';
+        statusEl.classList.remove('hidden');
+    }
+}
+
+function showMainApp() {
+    // Ocultar login, mostrar app
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+    
+    // Actualizar info del usuario en la barra superior
+    document.getElementById('loggedUserName').textContent = currentUser.name;
+    document.getElementById('loggedUserRole').textContent = currentUser.role || 'Sin rol';
+    document.getElementById('loggedUserCrew').textContent = 'Crew: ' + (currentUser.crew || 'N/A');
+    
+    // Mostrar badge de manager si aplica
+    if (isManager) {
+        document.getElementById('managerBadge').classList.remove('hidden');
+        document.getElementById('btnManagerPanel').classList.remove('hidden');
+        document.getElementById('btnManagerPanel').classList.add('manager');
+    }
+    
+    // Inicializar la aplicación
+    initializeFilters();
+    showGeneralView();
+    
+    showNotification('👋 Bienvenido ' + currentUser.name.split(' ')[0]);
+}
+
+function logout() {
+    currentUser = null;
+    isManager = false;
+    selectedEmployee = null;
+    
+    // Resetear UI
+    document.getElementById('mainApp').classList.add('hidden');
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('loginUserSelect').value = '';
+    document.getElementById('loginStatus').classList.add('hidden');
+    document.getElementById('managerBadge').classList.add('hidden');
+    document.getElementById('btnManagerPanel').classList.add('hidden');
+    
+    showNotification('👋 Sesión cerrada');
+}
+
+// =====================================================
+// MODAL CONFIGURACIÓN DE USUARIO
+// =====================================================
+function openUserSettingsModal() {
+    if (!currentUser) return;
+    
+    document.getElementById('settingsUserName').textContent = currentUser.name;
+    document.getElementById('settingsUserLogin').textContent = currentUser.login;
+    document.getElementById('settingsUserCrew').textContent = currentUser.crew || 'N/A';
+    document.getElementById('settingsUserRole').textContent = currentUser.role || 'Sin rol';
+    
+    document.getElementById('userNewPassword1').value = '';
+    document.getElementById('userNewPassword2').value = '';
+    
+    document.getElementById('userSettingsModal').classList.add('active');
+}
+
+function closeUserSettingsModal() {
+    document.getElementById('userSettingsModal').classList.remove('active');
+}
+
+async function changeUserPassword() {
+    if (!currentUser) return;
+    
+    const pass1 = document.getElementById('userNewPassword1').value;
+    const pass2 = document.getElementById('userNewPassword2').value;
+    
+    if (!pass1 || pass1.length < 4) {
+        showNotification('❌ Mínimo 4 caracteres', true);
+        return;
+    }
+    
+    if (pass1 !== pass2) {
+        showNotification('❌ Las contraseñas no coinciden', true);
+        return;
+    }
+    
+    allData.userPasswords[currentUser.login] = pass1;
+    
+    showNotification('⏳ Guardando...');
+    if (await saveToCloud()) {
+        document.getElementById('userNewPassword1').value = '';
+        document.getElementById('userNewPassword2').value = '';
+        showNotification('✅ Contraseña actualizada');
+    }
 }
 
 // =====================================================
@@ -756,9 +1001,9 @@ function setDataStatus(type, message) {
 function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift, comment = '') {
     const entry = {
         timestamp: new Date().toISOString(),
-        managerLogin: currentManager.login,
-        managerName: currentManager.name,
-        managerRole: currentManager.role,
+        managerLogin: currentUser.login,
+        managerName: currentUser.name,
+        managerRole: currentUser.role,
         employeeLogin: employeeLogin,
         employeeName: employeeName,
         dayOfYear: doy,
@@ -843,36 +1088,6 @@ function parseRawData(rawData) {
 // =====================================================
 // INICIALIZACIÓN
 // =====================================================
-async function initializeData() {
-    document.getElementById('calendarGrid').innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Cargando datos de la nube...</p></div>';
-    const data = await loadFromCloud();
-    
-    if (data === null) {
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>❌</span>Error de conexión<br><br><button class="btn btn-reload" onclick="initializeData()">🔄 Reintentar</button></div>';
-        return;
-    }
-    
-    allData = data;
-    
-    if (allData.empleados.length === 0) {
-        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos<br><br>Haz clic en <strong>🔐 Manager</strong><br>y pega los datos TSV</div>';
-        return;
-    }
-    
-    initializeFilters();
-    showGeneralView();
-}
-
-async function reloadFromCloud() {
-    showNotification('🔄 Recargando...');
-    await initializeData();
-    if (selectedEmployee) {
-        selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
-        if (selectedEmployee) { generateCalendar(); generateStats(); }
-    }
-    showNotification('✅ Datos actualizados');
-}
-
 function initializeFilters() {
     if (!allData.empleados.length) return;
     const crews = [...new Set(allData.empleados.map(e => e.crew))].sort();
@@ -881,6 +1096,23 @@ function initializeFilters() {
     crews.forEach(c => crewSelect.innerHTML += `<option value="${c}">${c}</option>`);
     filterEmployees();
     document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados`;
+}
+
+async function reloadFromCloud() {
+    showNotification('🔄 Recargando...');
+    const data = await loadFromCloud();
+    if (data) {
+        allData = data;
+        initializeFilters();
+        if (selectedEmployee) {
+            selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
+            if (selectedEmployee) { generateCalendar(); generateStats(); }
+            else { showGeneralView(); }
+        } else {
+            showGeneralView();
+        }
+        showNotification('✅ Datos actualizados');
+    }
 }
 
 function filterEmployees() {
@@ -893,7 +1125,10 @@ function filterEmployees() {
     const empSelect = document.getElementById('filterEmployee');
     empSelect.innerHTML = '<option value="">-- Vista General --</option>';
     filtered.sort((a,b) => a.name.localeCompare(b.name));
-    filtered.forEach(e => empSelect.innerHTML += `<option value="${e.login}">${e.name} (${e.login})</option>`);
+    filtered.forEach(e => {
+        const managerIcon = isManagerRole(e.role) ? ' 👑' : '';
+        empSelect.innerHTML += `<option value="${e.login}">${e.name}${managerIcon}</option>`;
+    });
 }
 
 function selectEmployee() {
@@ -1311,7 +1546,7 @@ function openEditModal(month, day) {
     const lastChangeInfo = document.getElementById('lastChangeInfo');
     const lastChangeDetail = document.getElementById('lastChangeDetail');
     
-    if (lastChange && isManager) {
+    if (lastChange) {
         const changeDate = new Date(lastChange.timestamp);
         const dateStr = changeDate.toLocaleDateString('es-ES') + ' ' + changeDate.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
         const commentHtml = lastChange.comment ? `<div class="last-change-comment">${lastChange.comment}</div>` : '';
@@ -1345,6 +1580,7 @@ function openEditModal(month, day) {
         currentShiftTime.innerHTML = '<small>Sin turno asignado</small>';
     }
     
+    // Solo managers pueden editar
     document.getElementById('managerEditSection').style.display = isManager ? 'block' : 'none';
     document.getElementById('noManagerMessage').style.display = isManager ? 'none' : 'block';
     document.getElementById('editModal').classList.add('active');
@@ -1383,7 +1619,7 @@ function closeModal() {
 }
 
 async function setShift(newShift) {
-    if (!editingDay || !isManager || !selectedEmployee || !currentManager) return;
+    if (!editingDay || !isManager || !selectedEmployee || !currentUser) return;
     
     const idx = allData.empleados.findIndex(e => e.login === selectedEmployee.login);
     if (idx === -1) { showNotification('❌ Error', true); return; }
@@ -1395,9 +1631,6 @@ async function setShift(newShift) {
     const oldShift = allData.empleados[idx].turnos[editingDay.doy] || '';
     
     pendingShiftChange = { newShift, oldShift, employeeIdx: idx };
-    
-    const shiftInfoOld = getShiftInfo(oldShift);
-    const shiftInfoNew = getShiftInfo(newShift);
     
     document.getElementById('commentPreview').innerHTML = `
         <div class="preview-employee">${selectedEmployee.name}</div>
@@ -1415,7 +1648,7 @@ async function setShift(newShift) {
 }
 
 async function confirmShiftChange(skipComment = false) {
-    if (!pendingShiftChange || !editingDay || !currentManager) return;
+    if (!pendingShiftChange || !editingDay || !currentUser) return;
     
     const comment = skipComment ? '' : document.getElementById('changeComment').value.trim();
     const { newShift, oldShift, employeeIdx } = pendingShiftChange;
@@ -1438,7 +1671,7 @@ async function confirmShiftChange(skipComment = false) {
     if (await saveToCloud()) {
         generateCalendar();
         generateStats();
-        showNotification(`✅ Guardado por ${currentManager.name}`);
+        showNotification(`✅ Guardado por ${currentUser.name}`);
     }
     
     pendingShiftChange = null;
@@ -1452,127 +1685,24 @@ function cancelShiftChange() {
 }
 
 // =====================================================
-// MANAGER
+// PANEL MANAGER
 // =====================================================
-function populateManagerSelect() {
-    const select = document.getElementById('managerSelect');
-    const managers = getManagersList();
-    const noManagersMsg = document.getElementById('noManagersMessage');
-    
-    select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
-    
-    if (managers.length === 0) {
-        noManagersMsg.style.display = 'block';
-        select.style.display = 'none';
-    } else {
-        noManagersMsg.style.display = 'none';
-        select.style.display = 'block';
-        managers.forEach(m => {
-            select.innerHTML += `<option value="${m.login}">${m.name} (${m.role})</option>`;
-        });
-    }
-}
-
 function openManagerModal() {
-    if (isManager && currentManager) {
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('managerPanel').style.display = 'block';
-        document.getElementById('currentManagerName').textContent = currentManager.name;
-        document.getElementById('currentManagerLogin').textContent = currentManager.login;
-        document.getElementById('currentManagerRole').textContent = currentManager.role;
-        renderChangelog();
-    } else {
-        document.getElementById('loginSection').style.display = 'block';
-        document.getElementById('managerPanel').style.display = 'none';
-        document.getElementById('managerSelect').value = '';
-        document.getElementById('managerPassword').value = '';
-        document.getElementById('managerStatus').style.display = 'none';
-        populateManagerSelect();
+    if (!isManager || !currentUser) {
+        showNotification('❌ Solo managers', true);
+        return;
     }
+    
+    document.getElementById('currentManagerName').textContent = currentUser.name;
+    document.getElementById('currentManagerLogin').textContent = currentUser.login;
+    document.getElementById('currentManagerRole').textContent = currentUser.role;
+    renderChangelog();
+    
     document.getElementById('managerModal').classList.add('active');
 }
 
 function closeManagerModal() { 
     document.getElementById('managerModal').classList.remove('active'); 
-}
-
-function checkManagerPassword() {
-    const login = document.getElementById('managerSelect').value;
-    const password = document.getElementById('managerPassword').value;
-    
-    if (!login) {
-        document.getElementById('managerStatus').textContent = '❌ Selecciona tu nombre';
-        document.getElementById('managerStatus').className = 'manager-status error';
-        document.getElementById('managerStatus').style.display = 'block';
-        return;
-    }
-    
-    const manager = allData.empleados.find(e => e.login === login);
-    if (!manager) {
-        document.getElementById('managerStatus').textContent = '❌ Usuario no encontrado';
-        document.getElementById('managerStatus').className = 'manager-status error';
-        document.getElementById('managerStatus').style.display = 'block';
-        return;
-    }
-    
-    const storedPassword = allData.managerPasswords[login] || DEFAULT_PASSWORD;
-    
-    if (password === storedPassword) {
-        isManager = true;
-        currentManager = { 
-            login: manager.login, 
-            name: manager.name, 
-            role: manager.role 
-        };
-        document.getElementById('btnManager').classList.add('active');
-        document.getElementById('btnManager').innerHTML = '✅ ' + manager.name.split(' ')[0];
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('managerPanel').style.display = 'block';
-        document.getElementById('currentManagerName').textContent = manager.name;
-        document.getElementById('currentManagerLogin').textContent = manager.login;
-        document.getElementById('currentManagerRole').textContent = manager.role;
-        renderChangelog();
-        showNotification('🔓 Bienvenido ' + manager.name.split(' ')[0]);
-    } else {
-        document.getElementById('managerStatus').textContent = '❌ Contraseña incorrecta';
-        document.getElementById('managerStatus').className = 'manager-status error';
-        document.getElementById('managerStatus').style.display = 'block';
-    }
-}
-
-function logoutManager() {
-    isManager = false;
-    currentManager = null;
-    document.getElementById('btnManager').classList.remove('active');
-    document.getElementById('btnManager').innerHTML = '🔐 Manager';
-    closeManagerModal();
-    showNotification('🔒 Sesión cerrada');
-}
-
-async function changePassword() {
-    if (!isManager || !currentManager) return;
-    
-    const pass1 = document.getElementById('newPassword1').value;
-    const pass2 = document.getElementById('newPassword2').value;
-    
-    if (!pass1 || pass1.length < 4) {
-        showNotification('❌ Mínimo 4 caracteres', true);
-        return;
-    }
-    
-    if (pass1 !== pass2) {
-        showNotification('❌ Las contraseñas no coinciden', true);
-        return;
-    }
-    
-    allData.managerPasswords[currentManager.login] = pass1;
-    
-    showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        document.getElementById('newPassword1').value = '';
-        document.getElementById('newPassword2').value = '';
-        showNotification('✅ Contraseña actualizada');
-    }
 }
 
 function switchPanel(panelName, btn) {
@@ -1607,6 +1737,11 @@ function previewBulkImport() {
 }
 
 async function processBulkImport() {
+    if (!isManager) {
+        showNotification('❌ Solo managers pueden importar', true);
+        return;
+    }
+    
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
     const nuevos = parseRawData(data);
@@ -1626,8 +1761,7 @@ async function processBulkImport() {
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
         
-        const managers = getManagersList();
-        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados (${managers.length} managers)`);
+        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
     }
 }
 
@@ -1638,7 +1772,7 @@ function exportData() {
         empleados: exp, 
         changelog: allData.changelog,
         exportedAt: new Date().toISOString(),
-        exportedBy: currentManager ? currentManager.name : 'Anónimo'
+        exportedBy: currentUser ? currentUser.name : 'Anónimo'
     }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -1669,7 +1803,7 @@ function showNotification(msg, isError = false) {
 // =====================================================
 // INICIAR
 // =====================================================
-initializeData();
+initializeLogin();
 </script>
 </body>
 </html>
