@@ -346,6 +346,13 @@
         .new-ot-alert .ot-item .ot-date { font-weight: 700; color: #333; }
         .new-ot-alert .ot-item .ot-name { font-size: 0.85rem; color: #666; }
         
+        .repair-section { margin-top: 20px; padding-top: 15px; border-top: 2px dashed #ddd; }
+        .repair-section h4 { color: #e74c3c; margin-bottom: 10px; }
+        .repair-section p { font-size: 0.8rem; color: #666; margin-bottom: 10px; }
+        
+        .trim-warning-box { background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 15px; margin: 15px 0; text-align: left; }
+        .trim-warning-box p { margin-bottom: 10px; }
+        
         .hidden { display: none !important; }
         
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } .ot-assignment-grid { grid-template-columns: 1fr; } }
@@ -480,6 +487,7 @@
         <div class="stats-grid" id="statsGrid"></div>
     </div>
 </div>
+
 <!-- MODALES -->
 <div class="modal-overlay" id="editModal">
     <div class="modal">
@@ -632,6 +640,14 @@
             <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar</div>
             <div class="import-panel"><textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea><div class="btn-row"><button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button><button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button></div></div>
             <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
+            
+            <!-- Sección de reparación de datos -->
+            <div class="repair-section">
+                <h4>🔧 Herramientas de Reparación</h4>
+                <p>Si los datos actuales tienen días extra (ej: 366 en vez de 365), usa esta opción para corregirlos:</p>
+                <button class="btn btn-danger" onclick="fixExistingData()">🔧 Corregir días extra en BD</button>
+                <button class="btn btn-warning" onclick="analyzeCurrentData()" style="margin-left:10px;">🔍 Analizar datos</button>
+            </div>
         </div>
         <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeManagerModal()">Cerrar</button></div>
     </div>
@@ -650,6 +666,51 @@
     </div>
 </div>
 
+<!-- MODAL PARA DÍAS EXTRA EN IMPORTACIÓN -->
+<div class="modal-overlay" id="trimModal">
+    <div class="modal">
+        <h3>⚠️ Días Extra Detectados</h3>
+        <div class="trim-warning-box">
+            <p>
+                <strong>Se detectaron <span id="trimExtraDaysCount" style="color:#e74c3c; font-size:1.2em;">0</span> día(s) extra</strong> en los datos importados.
+            </p>
+            <p>
+                El año <strong id="trimYear">2026</strong> tiene <strong id="trimExpectedDays">365</strong> días.
+            </p>
+            <p style="font-size:0.85rem; color:#666;">
+                Probablemente se incluyó el 1 de enero de <span id="trimNextYear">2027</span> por error.
+            </p>
+        </div>
+        
+        <p style="margin-bottom:15px; font-weight:600;">¿Qué días quieres descartar?</p>
+        
+        <div style="display:flex; flex-direction:column; gap:10px;">
+            <button class="btn btn-save" onclick="importWithTrim('end')" style="padding:15px;">
+                <span style="font-size:1.1em;">✅ Descartar del FINAL</span><br>
+                <small style="opacity:0.8;">Recomendado - Elimina el 1 de enero del año siguiente</small>
+            </button>
+            
+            <button class="btn btn-warning" onclick="importWithTrim('start')" style="padding:15px;">
+                <span style="font-size:1.1em;">⚡ Descartar del INICIO</span><br>
+                <small style="opacity:0.8;">Si los datos extra están al principio</small>
+            </button>
+            
+            <button class="modal-close" onclick="closeTrimModal()" style="margin-top:10px;">
+                ❌ Cancelar importación
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE ANÁLISIS DE DATOS -->
+<div class="modal-overlay" id="analyzeModal">
+    <div class="modal modal-large">
+        <h3>🔍 Análisis de Datos</h3>
+        <div id="analyzeResults" style="text-align:left; max-height:400px; overflow-y:auto;"></div>
+        <button class="modal-close" onclick="closeAnalyzeModal()" style="margin-top:15px;">Cerrar</button>
+    </div>
+</div>
+
 <div class="notification" id="notification"></div>
 
 <script>
@@ -665,6 +726,27 @@ const DEFAULT_PASSWORD = '1234';
 const MIN_SRME_PER_SHIFT = 2;
 const MIN_RMET_PER_SHIFT = 3;
 const RMET_ROLES = ['RMET', 'APP4', 'RMEO', 'APP3', 'APP5', 'APP6-OK', 'APP6'];
+
+// =====================================================
+// FUNCIONES PARA AÑOS BISIESTOS Y VALIDACIÓN
+// =====================================================
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+}
+
+function getDaysInYear(year) {
+    return isLeapYear(year) ? 366 : 365;
+}
+
+const CALENDAR_YEAR = 2026; // Año del calendario
+const DAYS_IN_YEAR = getDaysInYear(CALENDAR_YEAR); // 365 para 2026
+
+// Días por mes (se ajusta para años bisiestos)
+function getDaysInMonthForYear(year) {
+    const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (isLeapYear(year)) days[1] = 29;
+    return days;
+}
 
 const SHIFT_SCHEDULES = {
     'wm': { hours: '06:00 - 15:10', desc: 'Mañana Larga', type: 'morning' },
@@ -702,7 +784,7 @@ const festivos2026 = [
 ];
 
 const monthNames = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
-const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+const daysInMonth = getDaysInMonthForYear(CALENDAR_YEAR);
 const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 
 // =====================================================
@@ -719,6 +801,7 @@ let pendingShiftChange = null;
 let currentOtDay = null;
 let changedDays = [];
 let newOtDays = [];
+let pendingImportData = null;
 
 // =====================================================
 // FUNCIONES UTILIDAD
@@ -745,26 +828,39 @@ function isManagerRole(role) {
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
         const arr = turnosData.map(t => (t || '').toString().trim());
-        while (arr.length < 365) arr.push('');
-        return arr.slice(0, 365);
+        while (arr.length < DAYS_IN_YEAR) arr.push('');
+        return arr.slice(0, DAYS_IN_YEAR);
     }
-    if (!turnosData || typeof turnosData !== 'string') return new Array(365).fill('');
+    if (!turnosData || typeof turnosData !== 'string') return new Array(DAYS_IN_YEAR).fill('');
     const arr = turnosData.split(',').map(t => t.trim());
-    while (arr.length < 365) arr.push('');
-    return arr.slice(0, 365);
+    while (arr.length < DAYS_IN_YEAR) arr.push('');
+    return arr.slice(0, DAYS_IN_YEAR);
 }
 
 function turnosArrayToString(turnosArray) {
-    if (!turnosArray) return new Array(365).fill('').join(',');
+    if (!turnosArray) return new Array(DAYS_IN_YEAR).fill('').join(',');
     if (!Array.isArray(turnosArray)) return turnosArray.toString();
     return turnosArray.join(',');
 }
 
 function normalizarEmpleados(empleados) {
-    return empleados.map(emp => ({
-        crew: emp.crew || '', login: emp.login || '', name: emp.name || '',
-        role: emp.role || '', turnos: turnosStringToArray(emp.turnos)
-    }));
+    return empleados.map(emp => {
+        let turnos = turnosStringToArray(emp.turnos);
+        // Asegurar exactamente DAYS_IN_YEAR días
+        if (turnos.length > DAYS_IN_YEAR) {
+            turnos = turnos.slice(0, DAYS_IN_YEAR);
+        }
+        while (turnos.length < DAYS_IN_YEAR) {
+            turnos.push('');
+        }
+        return {
+            crew: emp.crew || '', 
+            login: emp.login || '', 
+            name: emp.name || '',
+            role: emp.role || '', 
+            turnos: turnos
+        };
+    });
 }
 
 function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
@@ -905,7 +1001,9 @@ async function saveToCloud() {
             changelog: allData.changelog.slice(-100),
             otDays: allData.otDays || [],
             lastModified: new Date().toISOString(),
-            version: '6.0'
+            version: '6.1',
+            calendarYear: CALENDAR_YEAR,
+            daysInYear: DAYS_IN_YEAR
         };
         const response = await fetch(JSONBIN_URL, {
             method: 'PUT',
@@ -1080,7 +1178,7 @@ function initializeFilters() {
     crewSelect.innerHTML = '<option value="">Todos</option>';
     crews.forEach(c => crewSelect.innerHTML += `<option value="${c}">${c}</option>`);
     filterEmployees();
-    document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados`;
+    document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados | Año ${CALENDAR_YEAR} (${DAYS_IN_YEAR} días)`;
 }
 
 function filterEmployees() {
@@ -1468,7 +1566,7 @@ function generateStats() {
     if (!selectedEmployee) return;
     let stats = {wm:0, m8:0, wt:0, t8:0, n8:0, n:0, central:0, vacaciones:0, ap:0, ot:0};
     
-    for (let doy = 0; doy < 365; doy++) {
+    for (let doy = 0; doy < DAYS_IN_YEAR; doy++) {
         const otDay = getOtDay(doy);
         if (otDay && otDay.assignments && ['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh] && otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) {
             stats.ot++; continue;
@@ -1851,7 +1949,7 @@ async function createOtDay() {
     if (!name) { showNotification('❌ Introduce un nombre', true); return; }
     
     const date = new Date(dateInput);
-    if (date.getFullYear() !== 2026) { showNotification('❌ Solo fechas de 2026', true); return; }
+    if (date.getFullYear() !== CALENDAR_YEAR) { showNotification(`❌ Solo fechas de ${CALENDAR_YEAR}`, true); return; }
     
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -2113,42 +2211,111 @@ async function changeUserPassword() {
 }
 
 // =====================================================
-// IMPORTACIÓN / EXPORTACIÓN
+// IMPORTACIÓN / EXPORTACIÓN CON VALIDACIÓN DE DÍAS
 // =====================================================
-function parseRawData(rawData) {
+function parseRawData(rawData, trimOption = null) {
     const lines = rawData.trim().split('\n');
     const empleados = [];
+    const expectedDays = DAYS_IN_YEAR;
+    let detectedExtraDays = false;
+    let extraDaysCount = 0;
+    let maxDaysFound = 0;
+    
     lines.forEach(line => {
         const parts = line.split('\t');
         if (parts.length < 10) return;
         const crew = parts[0].trim(), login = parts[1].trim(), name = parts[2].trim(), role = parts[4].trim();
         if (!login || login === '0' || !name) return;
+        
         let turnoStart = 12;
         for (let i = 5; i < Math.min(parts.length, 15); i++) {
             if (/^\d+\.\d+$/.test(parts[i].trim())) { turnoStart = i + 1; break; }
         }
-        const turnos = [];
-        for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) turnos.push((parts[i] || '').trim().toLowerCase());
-        while (turnos.length < 365) turnos.push('');
-        empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
+        
+        // Recoger todos los turnos disponibles
+        const turnosRaw = [];
+        for (let i = turnoStart; i < parts.length; i++) {
+            const turno = (parts[i] || '').trim().toLowerCase();
+            turnosRaw.push(turno);
+        }
+        
+        // Detectar si hay días extra
+        if (turnosRaw.length > expectedDays) {
+            detectedExtraDays = true;
+            extraDaysCount = Math.max(extraDaysCount, turnosRaw.length - expectedDays);
+        }
+        maxDaysFound = Math.max(maxDaysFound, turnosRaw.length);
+        
+        // Ajustar turnos según la opción seleccionada
+        let turnos;
+        if (turnosRaw.length > expectedDays) {
+            if (trimOption === 'start') {
+                // Descartar desde el principio (datos extra al inicio)
+                turnos = turnosRaw.slice(turnosRaw.length - expectedDays);
+            } else if (trimOption === 'end') {
+                // Descartar desde el final (datos extra al final - caso más común)
+                turnos = turnosRaw.slice(0, expectedDays);
+            } else {
+                // Sin opción definida, guardar tal cual para detectar
+                turnos = turnosRaw.slice(0, expectedDays); // Por defecto, tomar los primeros
+            }
+        } else {
+            turnos = turnosRaw;
+        }
+        
+        // Rellenar si faltan días
+        while (turnos.length < expectedDays) turnos.push('');
+        
+        // Asegurar exactamente los días necesarios
+        turnos = turnos.slice(0, expectedDays);
+        
+        empleados.push({ crew, login, name, role, turnos, originalLength: turnosRaw.length });
     });
-    return empleados;
+    
+    return { 
+        empleados, 
+        detectedExtraDays, 
+        extraDaysCount, 
+        expectedDays,
+        maxDaysFound
+    };
 }
 
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
-    const empleados = parseRawData(data);
-    const preview = document.getElementById('importPreview');
-    if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
     
-    const managers = empleados.filter(e => isManagerRole(e.role));
-    let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p><ul>`;
-    empleados.slice(0, 10).forEach(e => {
+    const result = parseRawData(data);
+    const preview = document.getElementById('importPreview');
+    
+    if (result.empleados.length === 0) { 
+        preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; 
+        return; 
+    }
+    
+    const managers = result.empleados.filter(e => isManagerRole(e.role));
+    let html = `<p style="color:green;">✅ ${result.empleados.length} empleados (${managers.length} managers)</p>`;
+    
+    // Advertencia si hay días extra
+    if (result.detectedExtraDays) {
+        html += `<div style="background:#fff3cd; border:2px solid #ffc107; border-radius:8px; padding:10px; margin:10px 0;">
+            <strong>⚠️ ¡ATENCIÓN!</strong><br>
+            Se detectaron <strong>${result.extraDaysCount} día(s) extra</strong> en los datos.<br>
+            El año ${CALENDAR_YEAR} tiene <strong>${result.expectedDays} días</strong>.<br>
+            Máximo encontrado: <strong>${result.maxDaysFound} días</strong><br>
+            <small>Probablemente se incluyó el 1 de enero de ${CALENDAR_YEAR + 1}</small>
+        </div>`;
+    }
+    
+    html += '<ul>';
+    result.empleados.slice(0, 10).forEach(e => {
         const isM = isManagerRole(e.role) ? ' 👑' : '';
-        html += `<li><strong>${e.name}</strong> (${e.role})${isM}</li>`;
+        const daysInfo = e.originalLength !== result.expectedDays ? 
+            ` <span style="color:${e.originalLength > result.expectedDays ? 'orange' : 'red'};">(${e.originalLength} días)</span>` : 
+            ` <span style="color:green;">(${e.originalLength} días ✓)</span>`;
+        html += `<li><strong>${e.name}</strong> (${e.role})${isM}${daysInfo}</li>`;
     });
-    if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
+    if (result.empleados.length > 10) html += `<li>... y ${result.empleados.length - 10} más</li>`;
     preview.innerHTML = html + '</ul>';
 }
 
@@ -2157,14 +2324,40 @@ async function processBulkImport() {
     
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
-    const nuevos = parseRawData(data);
-    if (nuevos.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
+    // Primera pasada para detectar días extra
+    const checkResult = parseRawData(data);
+    
+    if (checkResult.empleados.length === 0) { 
+        showNotification('❌ No se pudieron importar', true); 
+        return; 
+    }
+    
+    // Si hay días extra, preguntar al usuario
+    if (checkResult.detectedExtraDays) {
+        openTrimModal(checkResult.extraDaysCount, checkResult.maxDaysFound, data);
+        return;
+    }
+    
+    // Si no hay días extra, importar directamente
+    await executeImport(checkResult.empleados);
+}
+
+async function executeImport(empleados) {
     let actualizados = 0, agregados = 0;
-    nuevos.forEach(nuevo => {
+    
+    empleados.forEach(nuevo => {
+        // Eliminar la propiedad auxiliar
+        delete nuevo.originalLength;
+        
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) { allData.empleados[idx] = nuevo; actualizados++; }
-        else { allData.empleados.push(nuevo); agregados++; }
+        if (idx >= 0) { 
+            allData.empleados[idx] = nuevo; 
+            actualizados++; 
+        } else { 
+            allData.empleados.push(nuevo); 
+            agregados++; 
+        }
     });
     
     showNotification('⏳ Guardando...');
@@ -2173,10 +2366,196 @@ async function processBulkImport() {
         showMyCalendar();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
+        closeTrimModal();
         showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
     }
 }
 
+function openTrimModal(extraDays, maxFound, rawData) {
+    // Guardar datos para usar después
+    pendingImportData = rawData;
+    
+    document.getElementById('trimExtraDaysCount').textContent = extraDays;
+    document.getElementById('trimExpectedDays').textContent = DAYS_IN_YEAR;
+    document.getElementById('trimYear').textContent = CALENDAR_YEAR;
+    document.getElementById('trimNextYear').textContent = CALENDAR_YEAR + 1;
+    
+    document.getElementById('trimModal').classList.add('active');
+}
+
+function closeTrimModal() {
+    document.getElementById('trimModal').classList.remove('active');
+    pendingImportData = null;
+}
+
+async function importWithTrim(option) {
+    if (!pendingImportData) {
+        showNotification('❌ Error: no hay datos pendientes', true);
+        closeTrimModal();
+        return;
+    }
+    
+    const result = parseRawData(pendingImportData, option);
+    
+    if (result.empleados.length === 0) {
+        showNotification('❌ Error al procesar', true);
+        closeTrimModal();
+        return;
+    }
+    
+    await executeImport(result.empleados);
+}
+
+// =====================================================
+// HERRAMIENTAS DE REPARACIÓN DE DATOS
+// =====================================================
+function analyzeCurrentData() {
+    if (!isManager) { showNotification('❌ Solo managers', true); return; }
+    
+    let results = {
+        total: allData.empleados.length,
+        correct: 0,
+        withExtra: 0,
+        withLess: 0,
+        details: []
+    };
+    
+    allData.empleados.forEach(emp => {
+        const turnos = Array.isArray(emp.turnos) ? emp.turnos : turnosStringToArray(emp.turnos);
+        const count = turnos.length;
+        
+        if (count === DAYS_IN_YEAR) {
+            results.correct++;
+        } else if (count > DAYS_IN_YEAR) {
+            results.withExtra++;
+            results.details.push({ name: emp.name, login: emp.login, days: count, diff: count - DAYS_IN_YEAR });
+        } else {
+            results.withLess++;
+            results.details.push({ name: emp.name, login: emp.login, days: count, diff: count - DAYS_IN_YEAR });
+        }
+    });
+    
+    let html = `
+        <div style="background:#e8f5e9; padding:15px; border-radius:8px; margin-bottom:15px;">
+            <h4>📊 Resumen del Análisis</h4>
+            <p>Año del calendario: <strong>${CALENDAR_YEAR}</strong></p>
+            <p>Días esperados: <strong>${DAYS_IN_YEAR}</strong></p>
+            <p>¿Es año bisiesto?: <strong>${isLeapYear(CALENDAR_YEAR) ? 'Sí' : 'No'}</strong></p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:15px;">
+            <div style="background:#c8e6c9; padding:10px; border-radius:8px; text-align:center;">
+                <div style="font-size:1.5rem; font-weight:bold; color:#2e7d32;">${results.correct}</div>
+                <div style="font-size:0.8rem;">✅ Correctos</div>
+            </div>
+            <div style="background:${results.withExtra > 0 ? '#ffcdd2' : '#e0e0e0'}; padding:10px; border-radius:8px; text-align:center;">
+                <div style="font-size:1.5rem; font-weight:bold; color:${results.withExtra > 0 ? '#c62828' : '#666'};">${results.withExtra}</div>
+                <div style="font-size:0.8rem;">⚠️ Con días extra</div>
+            </div>
+            <div style="background:${results.withLess > 0 ? '#fff3cd' : '#e0e0e0'}; padding:10px; border-radius:8px; text-align:center;">
+                <div style="font-size:1.5rem; font-weight:bold; color:${results.withLess > 0 ? '#856404' : '#666'};">${results.withLess}</div>
+                <div style="font-size:0.8rem;">📉 Con días de menos</div>
+            </div>
+        </div>
+    `;
+    
+    if (results.details.length > 0) {
+        html += `<h4 style="margin-bottom:10px;">📋 Empleados con problemas:</h4>`;
+        html += `<div style="max-height:200px; overflow-y:auto;">`;
+        results.details.forEach(d => {
+            const color = d.diff > 0 ? '#c62828' : '#856404';
+            const icon = d.diff > 0 ? '⬆️' : '⬇️';
+            html += `<div style="padding:8px; margin-bottom:5px; background:#f5f5f5; border-radius:5px; border-left:3px solid ${color};">
+                <strong>${d.name}</strong> (${d.login})<br>
+                <span style="color:${color};">${icon} ${d.days} días (${d.diff > 0 ? '+' : ''}${d.diff})</span>
+            </div>`;
+        });
+        html += `</div>`;
+        
+        if (results.withExtra > 0) {
+            html += `<div style="margin-top:15px; padding:10px; background:#ffebee; border-radius:8px;">
+                <strong>💡 Recomendación:</strong> Usa el botón "Corregir días extra en BD" para eliminar los días sobrantes del final de cada empleado.
+            </div>`;
+        }
+    } else {
+        html += `<div style="text-align:center; padding:20px; color:#2e7d32;">
+            <span style="font-size:2rem;">✅</span><br>
+            <strong>¡Todos los datos están correctos!</strong>
+        </div>`;
+    }
+    
+    document.getElementById('analyzeResults').innerHTML = html;
+    document.getElementById('analyzeModal').classList.add('active');
+}
+
+function closeAnalyzeModal() {
+    document.getElementById('analyzeModal').classList.remove('active');
+}
+
+async function fixExistingData() {
+    if (!isManager) { showNotification('❌ Solo managers', true); return; }
+    
+    // Verificar cuántos empleados tienen días extra
+    let employeesWithExtra = 0;
+    let employeesWithLess = 0;
+    
+    allData.empleados.forEach(emp => {
+        const turnos = Array.isArray(emp.turnos) ? emp.turnos : turnosStringToArray(emp.turnos);
+        if (turnos.length > DAYS_IN_YEAR) employeesWithExtra++;
+        if (turnos.length < DAYS_IN_YEAR) employeesWithLess++;
+    });
+    
+    if (employeesWithExtra === 0 && employeesWithLess === 0) {
+        showNotification('✅ No hay datos que corregir', false);
+        return;
+    }
+    
+    let message = `Análisis de datos:\n`;
+    message += `- ${employeesWithExtra} empleados con días extra\n`;
+    message += `- ${employeesWithLess} empleados con días de menos\n\n`;
+    message += `¿Deseas corregir todos los datos?\n`;
+    message += `(Se ajustarán a ${DAYS_IN_YEAR} días para el año ${CALENDAR_YEAR})`;
+    
+    if (!confirm(message)) {
+        return;
+    }
+    
+    // Corregir todos los empleados
+    let fixed = 0;
+    allData.empleados = allData.empleados.map(emp => {
+        let turnos = Array.isArray(emp.turnos) ? emp.turnos : turnosStringToArray(emp.turnos);
+        const originalLength = turnos.length;
+        
+        // Si tiene más días, recortar del final
+        if (turnos.length > DAYS_IN_YEAR) {
+            turnos = turnos.slice(0, DAYS_IN_YEAR);
+            fixed++;
+        }
+        
+        // Si tiene menos días, rellenar con vacío
+        while (turnos.length < DAYS_IN_YEAR) {
+            turnos.push('');
+            if (originalLength < DAYS_IN_YEAR) fixed++;
+        }
+        
+        return { ...emp, turnos };
+    });
+    
+    showNotification('⏳ Guardando correcciones...');
+    if (await saveToCloud()) {
+        if (isMyCalendarView) showMyCalendar();
+        else if (isGeneralView) showGeneralView();
+        else if (selectedEmployee) {
+            selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
+            generateCalendar();
+            generateStats();
+        }
+        showNotification(`✅ Corregidos ${fixed} empleados`);
+    }
+}
+
+// =====================================================
+// EXPORTACIÓN
+// =====================================================
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
     const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
@@ -2184,12 +2563,14 @@ function exportData() {
         empleados: exp, 
         changelog: allData.changelog,
         otDays: allData.otDays,
+        calendarYear: CALENDAR_YEAR,
+        daysInYear: DAYS_IN_YEAR,
         exportedAt: new Date().toISOString(),
         exportedBy: currentUser ? currentUser.name : 'Anónimo'
     }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
+    a.download = `turnos_backup_${CALENDAR_YEAR}_${new Date().toISOString().slice(0,10)}.json`;
     a.click();
     showNotification('📤 Exportado');
 }
@@ -2208,8 +2589,8 @@ function setView(cols, btn) {
 // =====================================================
 // INICIAR
 // =====================================================
+console.log(`📅 Calendario ${CALENDAR_YEAR} - ${DAYS_IN_YEAR} días (Bisiesto: ${isLeapYear(CALENDAR_YEAR) ? 'Sí' : 'No'})`);
 initializeLogin();
 </script>
 </body>
 </html>
-
