@@ -623,8 +623,7 @@
     <div class="modal modal-large">
         <h3>👑 Panel Manager</h3>
         <div class="manager-info"><h4>👤 <span id="currentManagerName"></span></h4><p>Login: <strong id="currentManagerLogin"></strong></p><span class="manager-role-badge" id="currentManagerRole"></span></div>
-        <div class="panel-nav">
-            <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
+                    <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
             <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
         </div>
         <div id="panel-changelog" class="panel-content active"><h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4><div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div></div>
@@ -660,7 +659,7 @@ const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
 const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];    
-const DEFAULT_PASSWORD = '1234';
+const DEFAULT_PASSW[REDACTED:PASSWORD]'1234';
 const MIN_SRME_PER_SHIFT = 2;
 const MIN_RMET_PER_SHIFT = 3;
 const RMET_ROLES = ['RMET', 'APP4', 'RMEO', 'APP3', 'APP5', 'APP6-OK', 'APP6'];
@@ -742,7 +741,7 @@ function isManagerRole(role) {
 }
 
 // =====================================================
-// FUNCIONES DE DATOS - CORREGIDAS (como el programa que funciona)
+// FUNCIONES DE DATOS - CORREGIDAS
 // =====================================================
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
@@ -750,7 +749,9 @@ function turnosStringToArray(turnosData) {
         while (arr.length < 365) arr.push('');
         return arr.slice(0, 365);
     }
-    if (!turnosData || typeof turnosData !== 'string') return new Array(365).fill('');
+    if (!turnosData || typeof turnosData !== 'string') {
+        return new Array(365).fill('');
+    }
     const arr = turnosData.split(',').map(t => t.trim());
     while (arr.length < 365) arr.push('');
     return arr.slice(0, 365);
@@ -764,10 +765,10 @@ function turnosArrayToString(turnosArray) {
 
 function normalizarEmpleados(empleados) {
     return empleados.map(emp => ({
-        crew: emp.crew || '', 
-        login: emp.login || '', 
+        crew: emp.crew || '',
+        login: emp.login || '',
         name: emp.name || '',
-        role: emp.role || '', 
+        role: emp.role || '',
         turnos: turnosStringToArray(emp.turnos)
     }));
 }
@@ -896,59 +897,129 @@ function checkHideAlertsContainer() {
 }
 
 // =====================================================
-// JSONBIN
+// JSONBIN - GUARDAR (CORREGIDO)
 // =====================================================
 async function saveToCloud() {
     try {
         setDataStatus('loading', '⏳ Guardando...');
+        
+        const empleadosParaGuardar = allData.empleados.map(emp => ({
+            crew: emp.crew || '',
+            login: emp.login || '',
+            name: emp.name || '',
+            role: emp.role || '',
+            turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
+        }));
+        
         const dataToSave = {
-            empleados: allData.empleados.map(emp => ({
-                crew: emp.crew || '', login: emp.login || '', name: emp.name || '',
-                role: emp.role || '', turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
-            })),
-            userPasswords: allData.userPasswords,
-            changelog: allData.changelog.slice(-100),
+            empleados: empleadosParaGuardar,
+            userPasswords: allData.userPasswords || {},
+            changelog: (allData.changelog || []).slice(-100),
             otDays: allData.otDays || [],
             lastModified: new Date().toISOString(),
             version: '6.0'
         };
+        
         const response = await fetch(JSONBIN_URL, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY
+            },
             body: JSON.stringify(dataToSave)
         });
-        if (!response.ok) throw new Error('Error');
+        
+        if (!response.ok) throw new Error('Error al guardar');
         setDataStatus('online', '☁️ Sincronizado: ' + new Date().toLocaleTimeString());
         return true;
     } catch (error) {
+        console.error('Error guardando:', error);
         setDataStatus('offline', '❌ Error al guardar');
         showNotification('❌ Error al guardar', true);
         return false;
     }
 }
 
+// =====================================================
+// JSONBIN - CARGAR (CORREGIDO)
+// =====================================================
 async function loadFromCloud() {
     try {
         setDataStatus('loading', '⏳ Cargando...');
-        const response = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
-        if (!response.ok) throw new Error('Error');
+        const response = await fetch(JSONBIN_URL + '/latest', {
+            headers: { 'X-Master-Key': JSONBIN_API_KEY }
+        });
+        
+        if (!response.ok) throw new Error('Error al cargar');
         const data = await response.json();
+        
         if (data.record) {
+            const empleados = data.record.empleados ? normalizarEmpleados(data.record.empleados) : [];
+            
             const result = {
-                empleados: data.record.empleados ? normalizarEmpleados(data.record.empleados) : [],
+                empleados: empleados,
                 userPasswords: data.record.userPasswords || {},
                 changelog: data.record.changelog || [],
                 otDays: data.record.otDays || [],
                 festivos: festivos2026
             };
+            
             setDataStatus('online', '☁️ ' + result.empleados.length + ' empleados');
             return result;
         }
+        
+        setDataStatus('online', '☁️ Sin datos');
         return { empleados: [], userPasswords: {}, changelog: [], otDays: [], festivos: festivos2026 };
     } catch (error) {
+        console.error('Error cargando:', error);
         setDataStatus('offline', '❌ Error conexión');
         return null;
     }
+}
+
+// =====================================================
+// PARSEO TSV (CORREGIDO)
+// =====================================================
+function parseRawData(rawData) {
+    const lines = rawData.trim().split('\n');
+    const empleados = [];
+    
+    lines.forEach(line => {
+        const parts = line.split('\t');
+        if (parts.length < 10) return;
+        
+        const crew = parts[0].trim();
+        const login = parts[1].trim();
+        const name = parts[2].trim();
+        const role = parts[4].trim();
+        
+        if (!login || login === '0' || !name) return;
+        
+        let turnoStart = 12;
+        for (let i = 5; i < Math.min(parts.length, 15); i++) {
+            if (/^\d+\.\d+$/.test(parts[i].trim())) {
+                turnoStart = i + 1;
+                break;
+            }
+        }
+        
+        const turnos = [];
+        for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
+            turnos.push((parts[i] || '').trim().toLowerCase());
+        }
+        
+        while (turnos.length < 365) turnos.push('');
+        
+        empleados.push({
+            crew,
+            login,
+            name,
+            role,
+            turnos: turnos.slice(0, 365)
+        });
+    });
+    
+    return empleados;
 }
 
 // =====================================================
@@ -2118,63 +2189,72 @@ async function changeUserPassword() {
 }
 
 // =====================================================
-// IMPORTACIÓN / EXPORTACIÓN - CORREGIDAS (como el programa que funciona)
+// IMPORTACIÓN / EXPORTACIÓN - CORREGIDAS
 // =====================================================
-function parseRawData(rawData) {
-    const lines = rawData.trim().split('\n');
-    const empleados = [];
-    lines.forEach(line => {
-        const parts = line.split('\t');
-        if (parts.length < 10) return;
-        const crew = parts[0].trim(), login = parts[1].trim(), name = parts[2].trim(), role = parts[4].trim();
-        if (!login || login === '0' || !name) return;
-        let turnoStart = 12;
-        for (let i = 5; i < Math.min(parts.length, 15); i++) {
-            if (/^\d+\.\d+$/.test(parts[i].trim())) { turnoStart = i + 1; break; }
-        }
-        const turnos = [];
-        for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
-            turnos.push((parts[i] || '').trim().toLowerCase());
-        }
-        while (turnos.length < 365) turnos.push('');
-        empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
-    });
-    return empleados;
-}
-
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
-    if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
+    if (!data.trim()) {
+        showNotification('⚠️ No hay datos', true);
+        return;
+    }
+    
     const empleados = parseRawData(data);
     const preview = document.getElementById('importPreview');
-    if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
+    
+    if (empleados.length === 0) {
+        preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados válidos</p>';
+        return;
+    }
     
     const managers = empleados.filter(e => isManagerRole(e.role));
-    let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p><ul>`;
+    let html = `<p style="color:green;">✅ ${empleados.length} empleados detectados (${managers.length} managers)</p><ul>`;
+    
     empleados.slice(0, 10).forEach(e => {
+        const turnosCount = e.turnos.filter(t => t).length;
         const isM = isManagerRole(e.role) ? ' 👑' : '';
-        html += `<li><strong>${e.name}</strong> (${e.role})${isM}</li>`;
+        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos</li>`;
     });
-    if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
+    
+    if (empleados.length > 10) {
+        html += `<li>... y ${empleados.length - 10} más</li>`;
+    }
+    
     preview.innerHTML = html + '</ul>';
 }
 
 async function processBulkImport() {
-    if (!isManager) { showNotification('❌ Solo managers pueden importar', true); return; }
+    if (!isManager) {
+        showNotification('❌ Solo managers pueden importar', true);
+        return;
+    }
     
     const data = document.getElementById('bulkImportData').value;
-    if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
-    const nuevos = parseRawData(data);
-    if (nuevos.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
+    if (!data.trim()) {
+        showNotification('⚠️ No hay datos', true);
+        return;
+    }
+    
+    const nuevosEmpleados = parseRawData(data);
+    if (nuevosEmpleados.length === 0) {
+        showNotification('❌ No se pudieron importar empleados', true);
+        return;
+    }
     
     let actualizados = 0, agregados = 0;
-    nuevos.forEach(nuevo => {
+    
+    nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) { allData.empleados[idx] = nuevo; actualizados++; }
-        else { allData.empleados.push(nuevo); agregados++; }
+        if (idx >= 0) {
+            allData.empleados[idx] = nuevo;
+            actualizados++;
+        } else {
+            allData.empleados.push(nuevo);
+            agregados++;
+        }
     });
     
-    showNotification('⏳ Guardando...');
+    showNotification('⏳ Guardando en la nube...');
+    
     if (await saveToCloud()) {
         initializeFilters();
         showMyCalendar();
@@ -2185,20 +2265,32 @@ async function processBulkImport() {
 }
 
 function exportData() {
-    if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
-    const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
-    const blob = new Blob([JSON.stringify({ 
-        empleados: exp, 
-        changelog: allData.changelog,
-        otDays: allData.otDays,
+    if (!allData.empleados.length) {
+        showNotification('⚠️ No hay datos para exportar', true);
+        return;
+    }
+    
+    const empleadosExport = allData.empleados.map(emp => ({
+        ...emp,
+        turnos: turnosArrayToString(emp.turnos)
+    }));
+    
+    const exportObj = {
+        empleados: empleadosExport,
+        changelog: allData.changelog || [],
+        otDays: allData.otDays || [],
         exportedAt: new Date().toISOString(),
-        exportedBy: currentUser ? currentUser.name : 'Anónimo'
-    }, null, 2)], { type: 'application/json' });
+        exportedBy: currentUser ? currentUser.name : 'Anónimo',
+        version: '6.0'
+    };
+    
+    const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
     a.click();
-    showNotification('📤 Exportado');
+    
+    showNotification('📤 Datos exportados correctamente');
 }
 
 // =====================================================
@@ -2219,7 +2311,3 @@ initializeLogin();
 </script>
 </body>
 </html>
-
-
-
-
