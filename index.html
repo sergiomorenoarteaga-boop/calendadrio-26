@@ -291,45 +291,6 @@
         .summary-item.total-item { background: #e8f5e9; }
         .summary-item.total-item .summary-total { color: #2e7d32; }
         
-        .ot-info-box { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left; }
-        .ot-info-box h4 { margin-bottom: 8px; }
-        .ot-info-box p { font-size: 0.85rem; opacity: 0.9; margin-bottom: 5px; }
-        .ot-status-badge { display: inline-block; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; }
-        .ot-status-badge.open { background: #27ae60; }
-        .ot-status-badge.assigned { background: #f39c12; }
-        .ot-status-badge.closed { background: #95a5a6; }
-        
-        .preference-selector { background: #f8f9fa; padding: 15px; border-radius: 12px; margin: 15px 0; }
-        .preference-selector h4 { margin-bottom: 10px; color: #333; font-size: 0.9rem; }
-        .preference-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; background: white; border-radius: 8px; border: 2px solid #eee; }
-        .preference-row .pref-number { width: 30px; height: 30px; border-radius: 50%; background: #9b59b6; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-        .preference-row select { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem; }
-        
-        .ot-requests-list { max-height: 300px; overflow-y: auto; margin: 15px 0; }
-        .ot-request-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; margin-bottom: 8px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #9b59b6; }
-        .ot-request-item .request-info { flex: 1; }
-        .ot-request-item .request-name { font-weight: 700; color: #333; }
-        .ot-request-item .request-prefs { font-size: 0.8rem; color: #666; margin-top: 3px; }
-        .ot-request-item .request-prefs .pref-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; margin-right: 5px; font-size: 0.7rem; font-weight: 600; }
-        .ot-request-item .request-prefs .pref-tag.morning { background: var(--verde); color: #1a5c1a; }
-        .ot-request-item .request-prefs .pref-tag.afternoon { background: var(--naranja); color: #5a4000; }
-        .ot-request-item .request-prefs .pref-tag.night { background: var(--azul); color: white; }
-        .ot-request-item .request-time { font-size: 0.7rem; color: #999; }
-        .ot-request-item .request-actions { display: flex; gap: 5px; }
-        .ot-request-item .assign-btn { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.7rem; font-weight: 600; }
-        .ot-request-item .assign-btn.morning { background: var(--verde); color: #1a5c1a; }
-        .ot-request-item .assign-btn.afternoon { background: var(--naranja); color: #5a4000; }
-        .ot-request-item .assign-btn.night { background: var(--azul); color: white; }
-        
-        .ot-assignment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0; }
-        .ot-assignment-column { background: #f8f9fa; border-radius: 12px; padding: 12px; }
-        .ot-assignment-column .column-header { text-align: center; padding: 8px; border-radius: 8px; margin-bottom: 10px; font-weight: 700; font-size: 0.85rem; }
-        .ot-assignment-column .column-header.morning { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
-        .ot-assignment-column .column-header.afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
-        .ot-assignment-column .column-header.night { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
-        .ot-assigned-item { display: flex; align-items: center; justify-content: space-between; padding: 8px; margin-bottom: 5px; background: white; border-radius: 6px; font-size: 0.8rem; }
-        .ot-assigned-item .remove-btn { background: #e74c3c; color: white; border: none; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; }
-        
         .alerts-container { max-width: 1400px; margin: 0 auto 12px auto; }
         .changes-alert-box { background: linear-gradient(135deg, #fff3cd, #ffeeba); border: 2px solid #ffc107; border-radius: 12px; padding: 15px; margin-bottom: 12px; text-align: left; }
         .changes-alert-box h4 { color: #856404; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -347,7 +308,7 @@
         
         .hidden { display: none !important; }
         
-        @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } .ot-assignment-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } }
         @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .user-info-bar { flex-direction: column; text-align: center; } }
         @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
@@ -548,68 +509,6 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="otFileModal">
-    <div class="modal modal-large">
-        <h3 id="otFileModalTitle">🔧 Día OT FILE</h3>
-        <div class="ot-badge">OT FILE</div>
-        <div class="ot-info-box"><h4 id="otFileName">Día OT</h4><p id="otFileDesc"></p><p><strong>Creado por:</strong> <span id="otFileCreator"></span></p><span class="ot-status-badge" id="otFileStatus">Abierto</span></div>
-        <div id="otSignupSection">
-            <div class="preference-selector">
-                <h4>📝 Indica tus preferencias de turno</h4>
-                <div id="preferencesList">
-                    <div class="preference-row"><span class="pref-number">1</span><select id="pref1"><option value="">-- Selecciona --</option><option value="morning">☀️ Mañana</option><option value="afternoon">🌅 Tarde</option><option value="night">🌙 Noche</option></select></div>
-                    <div class="preference-row"><span class="pref-number">2</span><select id="pref2"><option value="">-- Opcional --</option><option value="morning">☀️ Mañana</option><option value="afternoon">🌅 Tarde</option><option value="night">🌙 Noche</option></select></div>
-                    <div class="preference-row"><span class="pref-number">3</span><select id="pref3"><option value="">-- Opcional --</option><option value="morning">☀️ Mañana</option><option value="afternoon">🌅 Tarde</option><option value="night">🌙 Noche</option></select></div>
-                </div>
-                <textarea id="otSignupComment" placeholder="Comentario opcional..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-top:10px; height:60px;"></textarea>
-                <div style="margin-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                    <button class="btn btn-save" onclick="submitOtSignup()">✅ Apuntarme</button>
-                    <button class="btn btn-danger" id="btnCancelSignup" onclick="cancelOtSignup()" style="display:none;">❌ Cancelar</button>
-                </div>
-            </div>
-            <div id="currentUserSignup" style="display:none; background:#e8f5e9; padding:15px; border-radius:12px; margin:15px 0;"><h4 style="color:#2e7d32;">✅ Ya estás apuntado</h4><p id="currentUserPrefs" style="font-size:0.9rem; color:#333;"></p></div>
-        </div>
-        <div class="modal-section-title">👥 Personas apuntadas (<span id="otSignupCount">0</span>)</div>
-        <div class="ot-requests-list" id="otRequestsList"><div class="no-employees">Nadie se ha apuntado todavía</div></div>
-        <div id="otAssignmentsSection" style="display:none;"><div class="modal-section-title">📋 Asignación Final</div><div class="ot-assignment-grid" id="otAssignmentGrid"></div></div>
-        <button class="modal-close" onclick="closeOtFileModal()" style="margin-top:15px;">Cerrar</button>
-    </div>
-</div>
-
-<div class="modal-overlay" id="otManagerModal">
-    <div class="modal modal-large">
-        <h3>🔧 Gestionar Días OT FILE</h3>
-        <div class="panel-nav">
-            <button class="panel-nav-btn active" onclick="switchOtPanel('create', this)">➕ Crear OT</button>
-            <button class="panel-nav-btn" onclick="switchOtPanel('list', this)">📋 Ver Todos</button>
-            <button class="panel-nav-btn" onclick="switchOtPanel('assign', this)">👥 Asignar</button>
-        </div>
-        <div id="ot-panel-create" class="panel-content active">
-            <div class="import-info"><strong>📌 Crear nuevo día OT FILE</strong><br>Al crear un OT, todos los usuarios verán una notificación al entrar.</div>
-            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Fecha:</label><input type="date" id="otNewDate" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:250px;"></div>
-            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📝 Nombre:</label><input type="text" id="otNewName" placeholder="Ej: Reparación Línea A..." style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%;"></div>
-            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">💬 Notas:</label><textarea id="otNewNotes" placeholder="Información adicional..." style="width:100%; padding:10px; border:2px solid #ddd; border-radius:8px; height:80px;"></textarea></div>
-            <button class="btn btn-save" onclick="createOtDay()">✅ Crear Día OT FILE</button>
-        </div>
-        <div id="ot-panel-list" class="panel-content"><div id="otDaysList" class="changelog-list"><div class="changelog-empty">No hay días OT FILE creados</div></div></div>
-        <div id="ot-panel-assign" class="panel-content">
-            <div style="margin-bottom:15px;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Selecciona día OT:</label><select id="otSelectDay" onchange="loadOtDayForAssignment()" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:350px;"><option value="">-- Selecciona --</option></select></div>
-            <div id="otAssignmentPanel" style="display:none;">
-                <div class="ot-info-box"><h4 id="assignOtName"></h4><p><strong>Apuntados:</strong> <span id="assignOtCount"></span></p></div>
-                <div class="modal-section-title">👥 Solicitudes</div><div class="ot-requests-list" id="otAssignRequestsList"></div>
-                <div class="modal-section-title">📋 Asignación</div>
-                <div class="ot-assignment-grid">
-                    <div class="ot-assignment-column"><div class="column-header morning">☀️ MAÑANA</div><div id="assignListMorning" class="employee-list"></div></div>
-                    <div class="ot-assignment-column"><div class="column-header afternoon">🌅 TARDE</div><div id="assignListAfternoon" class="employee-list"></div></div>
-                    <div class="ot-assignment-column"><div class="column-header night">🌙 NOCHE</div><div id="assignListNight" class="employee-list"></div></div>
-                </div>
-                <div style="margin-top:15px;"><button class="btn btn-save" onclick="saveOtAssignments()">💾 Guardar Asignaciones</button></div>
-            </div>
-        </div>
-        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeOtManagerModal()">Cerrar</button></div>
-    </div>
-</div>
-
 <div class="modal-overlay" id="userSettingsModal">
     <div class="modal">
         <h3>⚙️ Mi Cuenta</h3>
@@ -629,7 +528,7 @@
         </div>
         <div id="panel-changelog" class="panel-content active"><h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4><div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div></div>
         <div id="panel-import" class="panel-content">
-            <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar</div>
+            <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar<br><br>⚠️ <strong>Las contraseñas de usuarios existentes se mantienen</strong></div>
             <div class="import-panel"><textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea><div class="btn-row"><button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button><button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button></div></div>
             <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
         </div>
@@ -650,6 +549,84 @@
     </div>
 </div>
 
+<div class="modal-overlay" id="otManagerModal">
+    <div class="modal modal-large">
+        <h3>🔧 Gestionar Días OT FILE</h3>
+        <div class="panel-nav">
+            <button class="panel-nav-btn active" onclick="switchOtPanel('create', this)">➕ Crear OT</button>
+            <button class="panel-nav-btn" onclick="switchOtPanel('list', this)">📋 Ver Todos</button>
+                    </div>
+        <div id="ot-panel-create" class="panel-content active">
+            <div class="import-info"><strong>📌 Crear nuevo día OT FILE</strong><br>Al crear un OT, todos los usuarios verán una notificación al entrar.</div>
+            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Fecha:</label><input type="date" id="otNewDate" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:250px;"></div>
+            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📝 Nombre:</label><input type="text" id="otNewName" placeholder="Ej: Reparación Línea A..." style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%;"></div>
+            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">💬 Notas:</label><textarea id="otNewNotes" placeholder="Información adicional..." style="width:100%; padding:10px; border:2px solid #ddd; border-radius:8px; height:80px;"></textarea></div>
+            <button class="btn btn-save" onclick="createOtDay()">✅ Crear Día OT FILE</button>
+        </div>
+        <div id="ot-panel-list" class="panel-content"><div id="otDaysList" class="changelog-list"><div class="changelog-empty">No hay días OT FILE creados</div></div></div>
+        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeOtManagerModal()">Cerrar</button></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="otFileModal">
+    <div class="modal modal-large">
+        <h3 id="otFileModalTitle">🔧 Día OT FILE</h3>
+        <div class="ot-badge">OT FILE</div>
+        <div style="background:linear-gradient(135deg, #9b59b6, #8e44ad); color:white; padding:15px; border-radius:12px; margin-bottom:15px; text-align:left;">
+            <h4 id="otFileName">Día OT</h4>
+            <p id="otFileDesc" style="font-size:0.85rem; opacity:0.9;"></p>
+            <p style="font-size:0.85rem; opacity:0.9;"><strong>Creado por:</strong> <span id="otFileCreator"></span></p>
+            <span class="ot-status-badge" id="otFileStatus" style="display:inline-block; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:600; background:rgba(255,255,255,0.2); margin-top:8px;">Abierto</span>
+        </div>
+        <div id="otSignupSection">
+            <div style="background:#f8f9fa; padding:15px; border-radius:12px; margin:15px 0;">
+                <h4 style="margin-bottom:10px; color:#333; font-size:0.9rem;">📝 Indica tus preferencias de turno</h4>
+                <div id="preferencesList">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px; background:white; border-radius:8px; border:2px solid #eee;">
+                        <span style="width:30px; height:30px; border-radius:50%; background:#9b59b6; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">1</span>
+                        <select id="pref1" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; font-size:0.9rem;">
+                            <option value="">-- Selecciona --</option>
+                            <option value="morning">☀️ Mañana</option>
+                            <option value="afternoon">🌅 Tarde</option>
+                            <option value="night">🌙 Noche</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px; background:white; border-radius:8px; border:2px solid #eee;">
+                        <span style="width:30px; height:30px; border-radius:50%; background:#9b59b6; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">2</span>
+                        <select id="pref2" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; font-size:0.9rem;">
+                            <option value="">-- Opcional --</option>
+                            <option value="morning">☀️ Mañana</option>
+                            <option value="afternoon">🌅 Tarde</option>
+                            <option value="night">🌙 Noche</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px; background:white; border-radius:8px; border:2px solid #eee;">
+                        <span style="width:30px; height:30px; border-radius:50%; background:#9b59b6; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">3</span>
+                        <select id="pref3" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; font-size:0.9rem;">
+                            <option value="">-- Opcional --</option>
+                            <option value="morning">☀️ Mañana</option>
+                            <option value="afternoon">🌅 Tarde</option>
+                            <option value="night">🌙 Noche</option>
+                        </select>
+                    </div>
+                </div>
+                <textarea id="otSignupComment" placeholder="Comentario opcional..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-top:10px; height:60px;"></textarea>
+                <div style="margin-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                    <button class="btn btn-save" onclick="submitOtSignup()">✅ Apuntarme</button>
+                    <button class="btn btn-danger" id="btnCancelSignup" onclick="cancelOtSignup()" style="display:none;">❌ Cancelar inscripción</button>
+                </div>
+            </div>
+            <div id="currentUserSignup" style="display:none; background:#e8f5e9; padding:15px; border-radius:12px; margin:15px 0;">
+                <h4 style="color:#2e7d32;">✅ Ya estás apuntado</h4>
+                <p id="currentUserPrefs" style="font-size:0.9rem; color:#333;"></p>
+            </div>
+        </div>
+        <div class="modal-section-title">👥 Personas apuntadas (<span id="otSignupCount">0</span>)</div>
+        <div id="otRequestsList" class="changelog-list" style="max-height:200px;"><div class="no-employees">Nadie se ha apuntado todavía</div></div>
+        <button class="modal-close" onclick="closeOtFileModal()" style="margin-top:15px;">Cerrar</button>
+    </div>
+</div>
+
 <div class="notification" id="notification"></div>
 
 <script>
@@ -660,7 +637,7 @@ const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
 const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];    
-const DEFAULT_PASSWORD = '1234';
+const DEFAULT_PASSWORD [REDACTED:PASSWORD]234';
 const MIN_SRME_PER_SHIFT = 2;
 const MIN_RMET_PER_SHIFT = 3;
 const RMET_ROLES = ['RMET', 'APP4', 'RMEO', 'APP3', 'APP5', 'APP6-OK', 'APP6'];
@@ -742,7 +719,7 @@ function isManagerRole(role) {
 }
 
 // =====================================================
-// FUNCIONES DE DATOS - DEL PROGRAMA QUE FUNCIONA
+// FUNCIONES DE DATOS (DEL PROGRAMA QUE FUNCIONA)
 // =====================================================
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
@@ -804,7 +781,7 @@ function showNotification(msg, isError = false) {
 }
 
 // =====================================================
-// LOCAL STORAGE - ÚLTIMA VISITA
+// LOCAL STORAGE
 // =====================================================
 function getLastLoginTime(login) {
     try { const stored = localStorage.getItem('lastLogin_' + login); return stored ? new Date(stored) : null; }
@@ -829,7 +806,7 @@ function addSeenOtDays(login, otDoys) {
 }
 
 // =====================================================
-// DETECTAR CAMBIOS Y NUEVOS OT
+// DETECTAR CAMBIOS Y ALERTAS
 // =====================================================
 function detectChangesForUser(login, lastLoginTime) {
     if (!lastLoginTime || !allData.changelog) return [];
@@ -898,7 +875,7 @@ function checkHideAlertsContainer() {
 }
 
 // =====================================================
-// JSONBIN - GUARDAR (DEL PROGRAMA QUE FUNCIONA)
+// JSONBIN - GUARDAR (PRESERVA CONTRASEÑAS)
 // =====================================================
 async function saveToCloud() {
     try {
@@ -939,7 +916,7 @@ async function saveToCloud() {
 }
 
 // =====================================================
-// JSONBIN - CARGAR (DEL PROGRAMA QUE FUNCIONA)
+// JSONBIN - CARGAR
 // =====================================================
 async function loadFromCloud() {
     try {
@@ -972,7 +949,7 @@ async function loadFromCloud() {
 }
 
 // =====================================================
-// PARSEO TSV (DEL PROGRAMA QUE FUNCIONA)
+// PARSEO TSV (IDÉNTICO AL QUE FUNCIONA)
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
@@ -1269,12 +1246,7 @@ function generateGeneralMonth(month) {
                 if (isOt) {
                     classes.push('ot-file-day');
                     onclick = `openOtFileModal(${month}, ${day})`;
-                    const otDay = getOtDay(getDayOfYear(month, day));
-                    if (otDay) {
-                        extraContent = `<span class="shift-code">OT</span>`;
-                        if (currentUser && otDay.signups && otDay.signups.some(s => s.login === currentUser.login)) classes.push('user-signed');
-                        if (currentUser && otDay.assignments && ['morning', 'afternoon', 'night'].some(shift => otDay.assignments[shift] && otDay.assignments[shift].some(a => a.login === currentUser.login))) classes.push('user-assigned');
-                    }
+                    extraContent = `<span class="shift-code">OT</span>`;
                 } else if (alarmClass) {
                     classes.push(alarmClass);
                 } else {
@@ -1295,7 +1267,7 @@ function generateGeneralMonth(month) {
 }
 
 // =====================================================
-// ANÁLISIS DE PERSONAL
+// ANÁLISIS DE PERSONAL Y ALARMAS
 // =====================================================
 function analyzeStaffingForDay(month, day) {
     const doy = getDayOfYear(month, day);
@@ -1475,11 +1447,6 @@ function generateMonth(month) {
                     classes.push('ot-file-day');
                     onclick = `openOtFileModal(${month}, ${day})`;
                     extraContent = `<span class="shift-code">OT</span>`;
-                    const otDay = getOtDay(doy);
-                    if (otDay && selectedEmployee) {
-                        if (otDay.signups && otDay.signups.some(s => s.login === selectedEmployee.login)) classes.push('user-signed');
-                        if (otDay.assignments && ['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh] && otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) classes.push('user-assigned');
-                    }
                 } else {
                     classes.push(getShiftClass(shift));
                     let hoursDisplay = '';
@@ -1532,10 +1499,6 @@ function generateStats() {
     let stats = {wm:0, m8:0, wt:0, t8:0, n8:0, n:0, central:0, vacaciones:0, ap:0, ot:0};
     
     for (let doy = 0; doy < 365; doy++) {
-        const otDay = getOtDay(doy);
-        if (otDay && otDay.assignments && ['morning', 'afternoon', 'night'].some(sh => otDay.assignments[sh] && otDay.assignments[sh].some(a => a.login === selectedEmployee.login))) {
-            stats.ot++; continue;
-        }
         const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
         if (shift === 'wm') stats.wm++;
         else if (shift === 'm8' || shift === 'm' || shift === 'm-co') stats.m8++;
@@ -1547,7 +1510,7 @@ function generateStats() {
         else if (shift === 'v' || shift === 'v25' || shift === 'v26') stats.vacaciones++;
         else if (shift.startsWith('ap')) stats.ap++;
     }
-    const total = stats.wm + stats.m8 + stats.wt + stats.t8 + stats.n8 + stats.n + stats.central + stats.ot;
+    const total = stats.wm + stats.m8 + stats.wt + stats.t8 + stats.n8 + stats.n + stats.central;
     
     document.getElementById('statsGrid').innerHTML = `
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.wm}</div><div class="stat-label">WM</div></div>
@@ -1557,7 +1520,6 @@ function generateStats() {
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.n8}</div><div class="stat-label">N8</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.n}</div><div class="stat-label">N</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#888">${stats.central}</div><div class="stat-label">CENTRAL</div></div>
-        <div class="stat-card"><div class="stat-number" style="color:#9b59b6">${stats.ot}</div><div class="stat-label">OT</div></div>
         <div class="stat-card"><div class="stat-number" style="color:red">${stats.vacaciones}</div><div class="stat-label">VAC</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--verde-fuerte)">${stats.ap}</div><div class="stat-label">AP</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#2ecc71">${total}</div><div class="stat-label">TOTAL</div></div>
@@ -1723,8 +1685,9 @@ function renderChangelog() {
         return `<div class="changelog-item"><div class="change-header"><span class="change-manager">👤 ${c.managerName}</span><span class="change-date">${dateStr}</span></div><div class="change-detail"><strong>${c.employeeName}</strong> - ${c.dateStr}<br><span class="change-shift shift-old">${c.oldShift.toUpperCase()}</span> → <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span></div>${commentHtml}</div>`;
     }).join('');
 }
+
 // =====================================================
-// OT FILE - FUNCIONES BÁSICAS
+// OT FILE
 // =====================================================
 function openOtFileModal(month, day) {
     const doy = getDayOfYear(month, day);
@@ -1740,11 +1703,7 @@ function openOtFileModal(month, day) {
     document.getElementById('otFileName').textContent = otDay.name;
     document.getElementById('otFileDesc').textContent = otDay.notes || 'Sin descripción';
     document.getElementById('otFileCreator').textContent = otDay.createdByName;
-    
-    const statusBadge = document.getElementById('otFileStatus');
-    if (otDay.status === 'open') { statusBadge.textContent = '🟢 Abierto'; statusBadge.className = 'ot-status-badge open'; }
-    else if (otDay.status === 'assigned') { statusBadge.textContent = '🟡 Asignado'; statusBadge.className = 'ot-status-badge assigned'; }
-    else { statusBadge.textContent = '⚫ Cerrado'; statusBadge.className = 'ot-status-badge closed'; }
+    document.getElementById('otFileStatus').textContent = otDay.status === 'open' ? '🟢 Abierto' : '⚫ Cerrado';
     
     const userSignup = otDay.signups ? otDay.signups.find(s => s.login === currentUser.login) : null;
     
@@ -1757,7 +1716,6 @@ function openOtFileModal(month, day) {
         
         const prefNames = { morning: '☀️ Mañana', afternoon: '🌅 Tarde', night: '🌙 Noche' };
         let prefsText = userSignup.preferences.map((p, i) => `${i+1}º: ${prefNames[p] || '-'}`).join(', ');
-        if (userSignup.comment) prefsText += `<br>💬 ${userSignup.comment}`;
         document.getElementById('currentUserPrefs').innerHTML = prefsText;
     } else {
         document.getElementById('currentUserSignup').style.display = 'none';
@@ -1773,7 +1731,6 @@ function openOtFileModal(month, day) {
     
     document.getElementById('otSignupSection').style.display = otDay.status === 'closed' ? 'none' : 'block';
     renderOtSignupsList(otDay);
-    renderOtAssignments(otDay);
     document.getElementById('otFileModal').classList.add('active');
 }
 
@@ -1822,13 +1779,6 @@ async function cancelOtSignup() {
     if (allData.otDays[otIdx].signups) {
         allData.otDays[otIdx].signups = allData.otDays[otIdx].signups.filter(s => s.login !== currentUser.login);
     }
-    if (allData.otDays[otIdx].assignments) {
-        ['morning', 'afternoon', 'night'].forEach(shift => {
-            if (allData.otDays[otIdx].assignments[shift]) {
-                allData.otDays[otIdx].assignments[shift] = allData.otDays[otIdx].assignments[shift].filter(a => a.login !== currentUser.login);
-            }
-        });
-    }
     
     showNotification('⏳ Guardando...');
     if (await saveToCloud()) {
@@ -1849,36 +1799,17 @@ function renderOtSignupsList(otDay) {
     const prefClass = { morning: 'morning', afternoon: 'afternoon', night: 'night' };
     
     container.innerHTML = signups.map(signup => {
-        const prefs = signup.preferences.map((p, i) => `<span class="pref-tag ${prefClass[p]}">${i+1}º ${prefNames[p]}</span>`).join('');
+        const prefs = signup.preferences.map((p, i) => `<span style="display:inline-block; padding:2px 8px; border-radius:10px; margin-right:5px; font-size:0.7rem; font-weight:600; background:var(--${p === 'morning' ? 'verde' : p === 'afternoon' ? 'naranja' : 'azul'}); color:${p === 'night' ? 'white' : p === 'morning' ? '#1a5c1a' : '#5a4000'};">${i+1}º ${prefNames[p]}</span>`).join('');
         const time = new Date(signup.timestamp).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-        let assignedTo = null;
-        if (otDay.assignments) {
-            ['morning', 'afternoon', 'night'].forEach(shift => { 
-                if (otDay.assignments[shift] && otDay.assignments[shift].some(a => a.login === signup.login)) assignedTo = shift; 
-            });
-        }
-        const assignedBadge = assignedTo ? `<span class="pref-tag ${prefClass[assignedTo]}" style="margin-left:10px;">✅ ${prefNames[assignedTo]}</span>` : '';
-        return `<div class="ot-request-item"><div class="request-info"><div class="request-name">${signup.name} <small>(${signup.crew})</small>${assignedBadge}</div><div class="request-prefs">${prefs}</div>${signup.comment ? `<div style="font-size:0.75rem; color:#666;">💬 ${signup.comment}</div>` : ''}<div class="request-time">📅 ${time}</div></div></div>`;
+        return `<div style="display:flex; align-items:center; justify-content:space-between; padding:12px; margin-bottom:8px; background:#f8f9fa; border-radius:8px; border-left:4px solid #9b59b6;">
+            <div style="flex:1;">
+                <div style="font-weight:700; color:#333;">${signup.name} <small style="color:#888;">(${signup.crew})</small></div>
+                <div style="margin-top:5px;">${prefs}</div>
+                ${signup.comment ? `<div style="font-size:0.75rem; color:#666; margin-top:5px;">💬 ${signup.comment}</div>` : ''}
+                <div style="font-size:0.7rem; color:#999; margin-top:5px;">📅 ${time}</div>
+            </div>
+        </div>`;
     }).join('');
-}
-
-function renderOtAssignments(otDay) {
-    const section = document.getElementById('otAssignmentsSection');
-    const grid = document.getElementById('otAssignmentGrid');
-    
-    if (!otDay.assignments) { section.style.display = 'none'; return; }
-    
-    const hasAssignments = ['morning', 'afternoon', 'night'].some(s => otDay.assignments[s] && otDay.assignments[s].length > 0);
-    if (!hasAssignments) { section.style.display = 'none'; return; }
-    
-    section.style.display = 'block';
-    
-    const renderColumn = (shift, title, colorClass) => {
-        const employees = otDay.assignments[shift] || [];
-        return `<div class="ot-assignment-column"><div class="column-header ${colorClass}">${title}</div>${employees.length === 0 ? '<div class="no-employees">Sin asignaciones</div>' : employees.map(e => `<div class="ot-assigned-item"><span>${e.name}</span></div>`).join('')}</div>`;
-    };
-    
-    grid.innerHTML = `${renderColumn('morning', '☀️ MAÑANA', 'morning')}${renderColumn('afternoon', '🌅 TARDE', 'afternoon')}${renderColumn('night', '🌙 NOCHE', 'night')}`;
 }
 
 // =====================================================
@@ -1887,7 +1818,6 @@ function renderOtAssignments(otDay) {
 function openOtManagerModal() {
     if (!isManager) { showNotification('❌ Solo managers', true); return; }
     renderOtDaysList();
-    populateOtDaySelect();
     document.getElementById('otManagerModal').classList.add('active');
 }
 
@@ -1899,7 +1829,6 @@ function switchOtPanel(panelName, btn) {
     btn.classList.add('active');
     document.getElementById('ot-panel-' + panelName).classList.add('active');
     if (panelName === 'list') renderOtDaysList();
-    if (panelName === 'assign') populateOtDaySelect();
 }
 
 async function createOtDay() {
@@ -1927,8 +1856,7 @@ async function createOtDay() {
         createdByName: currentUser.name,
         createdAt: new Date().toISOString(),
         status: 'open',
-        signups: [],
-        assignments: { morning: [], afternoon: [], night: [] }
+        signups: []
     };
     
     if (!allData.otDays) allData.otDays = [];
@@ -1970,146 +1898,21 @@ function renderOtDaysList() {
     
     const sorted = [...allData.otDays].sort((a, b) => a.doy - b.doy);
     container.innerHTML = sorted.map(ot => {
-        const statusText = ot.status === 'open' ? '🟢 Abierto' : ot.status === 'assigned' ? '🟡 Asignado' : '⚫ Cerrado';
+        const statusText = ot.status === 'open' ? '🟢 Abierto' : '⚫ Cerrado';
         const signupCount = ot.signups ? ot.signups.length : 0;
         const date = `${ot.day} de ${monthNames[ot.month - 1]}`;
-        return `<div class="changelog-item" style="border-left-color: #9b59b6;"><div class="change-header"><span class="change-manager">🔧 ${ot.name}</span><span class="change-date">${date}</span></div><div class="change-detail">${statusText} · ${signupCount} apuntados</div><div style="margin-top:8px; display:flex; gap:5px;"><button class="btn btn-small btn-ot" onclick="openOtFileModal(${ot.month}, ${ot.day}); closeOtManagerModal();">👁️ Ver</button><button class="btn btn-small btn-danger" onclick="deleteOtDay(${ot.doy})">🗑️ Eliminar</button></div></div>`;
+        return `<div class="changelog-item" style="border-left-color: #9b59b6;">
+            <div class="change-header">
+                <span class="change-manager">🔧 ${ot.name}</span>
+                <span class="change-date">${date}</span>
+            </div>
+            <div class="change-detail">${statusText} · ${signupCount} apuntados</div>
+            <div style="margin-top:8px; display:flex; gap:5px;">
+                <button class="btn btn-small btn-ot" onclick="openOtFileModal(${ot.month}, ${ot.day}); closeOtManagerModal();">👁️ Ver</button>
+                <button class="btn btn-small btn-danger" onclick="deleteOtDay(${ot.doy})">🗑️ Eliminar</button>
+            </div>
+        </div>`;
     }).join('');
-}
-
-function populateOtDaySelect() {
-    const select = document.getElementById('otSelectDay');
-    select.innerHTML = '<option value="">-- Selecciona --</option>';
-    if (!allData.otDays || allData.otDays.length === 0) return;
-    
-    const sorted = [...allData.otDays].sort((a, b) => a.doy - b.doy);
-    sorted.forEach(ot => {
-        const signupCount = ot.signups ? ot.signups.length : 0;
-        const date = `${ot.day}/${ot.month}`;
-        select.innerHTML += `<option value="${ot.doy}">${date} - ${ot.name} (${signupCount} apuntados)</option>`;
-    });
-}
-
-function loadOtDayForAssignment() {
-    const doy = parseInt(document.getElementById('otSelectDay').value);
-    const panel = document.getElementById('otAssignmentPanel');
-    
-    if (!doy) { panel.style.display = 'none'; return; }
-    
-    const otDay = getOtDay(doy);
-    if (!otDay) { panel.style.display = 'none'; return; }
-    
-    currentOtDay = otDay;
-    panel.style.display = 'block';
-    
-    document.getElementById('assignOtName').textContent = otDay.name;
-    document.getElementById('assignOtCount').textContent = otDay.signups ? otDay.signups.length : 0;
-    
-    renderAssignmentRequestsList(otDay);
-    renderAssignmentColumns(otDay);
-}
-
-function renderAssignmentRequestsList(otDay) {
-    const container = document.getElementById('otAssignRequestsList');
-    const signups = otDay.signups || [];
-    
-    const unassigned = signups.filter(signup => {
-        if (!otDay.assignments) return true;
-        return !['morning', 'afternoon', 'night'].some(shift => 
-            otDay.assignments[shift] && otDay.assignments[shift].some(a => a.login === signup.login)
-        );
-    });
-    
-    if (unassigned.length === 0) { container.innerHTML = '<div class="no-employees">Todos están asignados</div>'; return; }
-    
-    const prefNames = { morning: 'M', afternoon: 'T', night: 'N' };
-    const prefClass = { morning: 'morning', afternoon: 'afternoon', night: 'night' };
-    
-    container.innerHTML = unassigned.map(signup => {
-        const prefs = signup.preferences.map((p, i) => `<span class="pref-tag ${prefClass[p]}">${i+1}º${prefNames[p]}</span>`).join('');
-        const buttons = signup.preferences.map(p => `<button class="assign-btn ${prefClass[p]}" onclick="assignToShift('${signup.login}', '${p}')">→ ${prefNames[p]}</button>`).join('');
-        return `<div class="ot-request-item"><div class="request-info"><div class="request-name">${signup.name}</div><div class="request-prefs">${prefs}</div></div><div class="request-actions">${buttons}</div></div>`;
-    }).join('');
-}
-
-function renderAssignmentColumns(otDay) {
-    ['morning', 'afternoon', 'night'].forEach(shift => {
-        const container = document.getElementById('assignList' + shift.charAt(0).toUpperCase() + shift.slice(1));
-        const assigned = (otDay.assignments && otDay.assignments[shift]) ? otDay.assignments[shift] : [];
-        
-        if (assigned.length === 0) container.innerHTML = '<div class="no-employees" style="padding:10px;">Vacío</div>';
-        else container.innerHTML = assigned.map(emp => `<div class="ot-assigned-item"><span>${emp.name}</span><button class="remove-btn" onclick="removeFromShift('${emp.login}', '${shift}')">×</button></div>`).join('');
-    });
-}
-
-function assignToShift(login, shift) {
-    if (!currentOtDay) return;
-    
-    const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
-    if (otIdx === -1) return;
-    
-    const signups = allData.otDays[otIdx].signups || [];
-    const signup = signups.find(s => s.login === login);
-    if (!signup) return;
-    
-    if (!allData.otDays[otIdx].assignments) {
-        allData.otDays[otIdx].assignments = { morning: [], afternoon: [], night: [] };
-    }
-    
-    ['morning', 'afternoon', 'night'].forEach(s => {
-        if (allData.otDays[otIdx].assignments[s]) {
-            allData.otDays[otIdx].assignments[s] = allData.otDays[otIdx].assignments[s].filter(a => a.login !== login);
-        }
-    });
-    
-    if (!allData.otDays[otIdx].assignments[shift]) {
-        allData.otDays[otIdx].assignments[shift] = [];
-    }
-    
-    allData.otDays[otIdx].assignments[shift].push({ 
-        login: signup.login, 
-        name: signup.name, 
-        role: signup.role, 
-        crew: signup.crew 
-    });
-    
-    currentOtDay = allData.otDays[otIdx];
-    renderAssignmentRequestsList(currentOtDay);
-    renderAssignmentColumns(currentOtDay);
-}
-
-function removeFromShift(login, shift) {
-    if (!currentOtDay) return;
-    
-    const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
-    if (otIdx === -1) return;
-    
-    if (allData.otDays[otIdx].assignments && allData.otDays[otIdx].assignments[shift]) {
-        allData.otDays[otIdx].assignments[shift] = allData.otDays[otIdx].assignments[shift].filter(a => a.login !== login);
-    }
-    
-    currentOtDay = allData.otDays[otIdx];
-    renderAssignmentRequestsList(currentOtDay);
-    renderAssignmentColumns(currentOtDay);
-}
-
-async function saveOtAssignments() {
-    if (!currentOtDay) return;
-    
-    const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
-    if (otIdx === -1) return;
-    
-    const hasAssignments = allData.otDays[otIdx].assignments && 
-        ['morning', 'afternoon', 'night'].some(s => 
-            allData.otDays[otIdx].assignments[s] && allData.otDays[otIdx].assignments[s].length > 0
-        );
-    
-    if (hasAssignments) allData.otDays[otIdx].status = 'assigned';
-    
-    showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        showNotification('✅ Asignaciones guardadas');
-    }
 }
 
 // =====================================================
@@ -2175,7 +1978,7 @@ async function changeUserPassword() {
 }
 
 // =====================================================
-// IMPORTACIÓN / EXPORTACIÓN (DEL PROGRAMA QUE FUNCIONA)
+// IMPORTACIÓN - PRESERVA CONTRASEÑAS
 // =====================================================
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
@@ -2188,7 +1991,8 @@ function previewBulkImport() {
     let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p><ul>`;
     empleados.slice(0, 10).forEach(e => {
         const isM = isManagerRole(e.role) ? ' 👑' : '';
-        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${e.turnos.filter(t => t).length} turnos</li>`;
+        const turnosCount = e.turnos.filter(t => t).length;
+        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos</li>`;
     });
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
     preview.innerHTML = html + '</ul>';
@@ -2202,12 +2006,23 @@ async function processBulkImport() {
     const nuevos = parseRawData(data);
     if (nuevos.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
+    // ⚠️ IMPORTANTE: Guardamos las contraseñas ANTES de modificar empleados
+    const passwordsBackup = { ...allData.userPasswords };
+    
     let actualizados = 0, agregados = 0;
     nuevos.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) { allData.empleados[idx] = nuevo; actualizados++; }
-        else { allData.empleados.push(nuevo); agregados++; }
+        if (idx >= 0) { 
+            allData.empleados[idx] = nuevo; 
+            actualizados++; 
+        } else { 
+            allData.empleados.push(nuevo); 
+            agregados++; 
+        }
     });
+    
+    // ⚠️ Restauramos las contraseñas que teníamos
+    allData.userPasswords = passwordsBackup;
     
     showNotification('⏳ Guardando...');
     if (await saveToCloud()) {
@@ -2215,10 +2030,13 @@ async function processBulkImport() {
         showMyCalendar();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
-        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
+        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados (contraseñas preservadas)`);
     }
 }
 
+// =====================================================
+// EXPORTACIÓN
+// =====================================================
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
     const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
