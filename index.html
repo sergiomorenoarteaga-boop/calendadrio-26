@@ -14,7 +14,6 @@
             --gris: rgb(200, 200, 200);
             --rojo: rgb(220, 53, 69);
             --rojo-vacaciones: rgb(255, 0, 0);
-            --morado: rgb(155, 89, 182);
         }
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 100vh; padding: 10px; }
         .header { text-align: center; padding: 15px; color: #fff; }
@@ -26,7 +25,7 @@
         .filter-group select, .filter-group input { padding: 8px 12px; border: none; border-radius: 8px; font-size: 0.9rem; min-width: 180px; }
         .employee-info { background: rgba(255,255,255,0.95); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: none; }
         .employee-info.active { display: block; }
-        .general-view-info { background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; color: white; text-align: center; display: none; }
+        .general-view-info { background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; color: white; text-align: center; }
         .general-view-info h2 { font-size: 1.2rem; margin-bottom: 5px; }
         .general-view-info p { font-size: 0.85rem; opacity: 0.9; }
         .employee-badge { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-right: 5px; }
@@ -38,6 +37,8 @@
         .legend-hours { opacity: 0.7; font-size: 0.55rem; }
         .controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
         .btn { padding: 8px 14px; border: none; border-radius: 18px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.3s ease; color: white; }
+        .btn-manager { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+        .btn-manager.active { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-save { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-export { background: linear-gradient(145deg, #3498db, #2980b9); }
         .btn-reload { background: linear-gradient(145deg, #f39c12, #e67e22); }
@@ -46,25 +47,21 @@
         .btn-general.active { background: linear-gradient(145deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(102, 126, 234, 0.5); }
         .btn-logout { background: linear-gradient(145deg, #e74c3c, #c0392b); }
         .btn-user { background: linear-gradient(145deg, #3498db, #2980b9); }
-        .btn-ot { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
         .btn-my-calendar { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-my-calendar.active { background: linear-gradient(145deg, #1e8449, #27ae60); box-shadow: 0 0 15px rgba(39, 174, 96, 0.5); }
         .btn:hover { transform: translateY(-2px); }
         .btn-view { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); padding: 6px 12px; }
         .btn-view.active { background: linear-gradient(145deg, #667eea, #764ba2); border-color: transparent; }
-        .btn-danger { background: linear-gradient(145deg, #e74c3c, #c0392b); }
-        .btn-warning { background: linear-gradient(145deg, #f39c12, #e67e22); }
-        .btn-small { padding: 5px 10px; font-size: 0.7rem; }
         .calendar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 1400px; margin: 0 auto; }
         .calendar-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
         .calendar-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
         .month-card { background: rgba(255,255,255,0.98); border-radius: 12px; padding: 8px; box-shadow: 0 6px 25px rgba(0,0,0,0.2); }
         .month-header { text-align: center; padding: 8px; margin: -8px -8px 8px -8px; background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px 12px 0 0; color: white; }
-        .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; table-layout: fixed; }
+        .calendar-table { width: 100%; border-collapse: separate; border-spacing: 2px; }
         .calendar-table th { padding: 4px 2px; text-align: center; font-weight: 700; color: #555; font-size: 0.6rem; }
         .calendar-table th:last-child { color: #e74c3c; }
         .calendar-table th:nth-child(6) { color: #3498db; }
-        .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; overflow: hidden; }
+        .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; }
         .calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
         .day-num { font-weight: 700; display: block; font-size: 0.75rem; line-height: 1.1; }
         .shift-code { font-size: 0.55rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase; }
@@ -88,13 +85,6 @@
         .shift-tr { background: linear-gradient(135deg, #ff9800, #f57c00) !important; color: white !important; border-left: 3px solid #e65100; }
         .shift-bm, .shift-bp { background: #e0e0e0 !important; color: #666 !important; border-left: 3px solid #9e9e9e; }
         
-        .ot-file-day { background: linear-gradient(135deg, #9b59b6, #8e44ad) !important; color: white !important; border: 2px solid #6c3483 !important; animation: pulse-ot 2s ease-in-out infinite; }
-        .ot-file-day .day-num { color: white !important; }
-        .ot-file-day .shift-code { color: #f5b7b1 !important; font-size: 0.5rem !important; }
-        .ot-file-day.user-signed { background: linear-gradient(135deg, #27ae60, #2ecc71) !important; border-color: #1e8449 !important; }
-        .ot-file-day.user-assigned { background: linear-gradient(135deg, #f39c12, #e67e22) !important; border-color: #d68910 !important; }
-        @keyframes pulse-ot { 0%, 100% { box-shadow: 0 0 5px rgba(155, 89, 182, 0.5); } 50% { box-shadow: 0 0 15px rgba(155, 89, 182, 0.8); } }
-        
         .empty { background: transparent; }
         .libre { background: #f8f8f8; color: #ddd; }
         .festivo { border: 2px solid var(--rojo) !important; }
@@ -107,23 +97,6 @@
         .weekend-sat { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
         .weekend-sun { background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
         
-        .day-changed { animation: highlight-change 3s ease-out; position: relative; }
-        .day-changed::after { content: '⚠'; position: absolute; top: 0; left: 1px; font-size: 0.5rem; }
-        @keyframes highlight-change { 0%, 50% { box-shadow: 0 0 15px 3px rgba(231, 76, 60, 0.8); } 100% { box-shadow: none; } }
-        
-        .alarm-morning { background: linear-gradient(135deg, var(--verde), #7cb342) !important; }
-        .alarm-afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000) !important; }
-        .alarm-night { background: linear-gradient(135deg, var(--azul), #1a237e) !important; }
-        .alarm-morning-afternoon { animation: blink-morning-afternoon 1.2s ease-in-out infinite; }
-        .alarm-morning-night { animation: blink-morning-night 1.2s ease-in-out infinite; }
-        .alarm-afternoon-night { animation: blink-afternoon-night 1.2s ease-in-out infinite; }
-        .alarm-all { animation: blink-all 1.8s ease-in-out infinite; }
-        
-        @keyframes blink-morning-afternoon { 0%, 49% { background: linear-gradient(135deg, var(--verde), #7cb342); } 50%, 100% { background: linear-gradient(135deg, var(--naranja), #ffa000); } }
-        @keyframes blink-morning-night { 0%, 49% { background: linear-gradient(135deg, var(--verde), #7cb342); } 50%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); } }
-        @keyframes blink-afternoon-night { 0%, 49% { background: linear-gradient(135deg, var(--naranja), #ffa000); } 50%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); } }
-        @keyframes blink-all { 0%, 32% { background: linear-gradient(135deg, var(--verde), #7cb342); } 33%, 65% { background: linear-gradient(135deg, var(--naranja), #ffa000); } 66%, 100% { background: linear-gradient(135deg, var(--azul), #1a237e); } }
-        
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal { background: white; padding: 20px; border-radius: 16px; max-width: 500px; width: 90%; text-align: center; max-height: 85vh; overflow-y: auto; }
@@ -131,7 +104,6 @@
         .modal-xlarge { max-width: 95%; width: 1200px; }
         .modal h3 { margin-bottom: 8px; color: #333; }
         .festivo-badge { display: inline-block; background: var(--rojo); color: white; padding: 6px 12px; border-radius: 15px; margin-bottom: 10px; font-weight: 600; font-size: 0.8rem; }
-        .ot-badge { display: inline-block; background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; padding: 6px 12px; border-radius: 15px; margin-bottom: 10px; font-weight: 600; font-size: 0.8rem; }
         .modal-section-title { font-size: 0.75rem; color: #888; margin: 12px 0 8px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
         .modal-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
         .modal-buttons-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
@@ -139,6 +111,7 @@
         .modal-btn:hover { transform: scale(1.05); }
         .modal-btn .btn-code { font-size: 1rem; }
         .modal-btn .btn-hours { font-size: 0.65rem; opacity: 0.8; }
+        .modal-btn .btn-desc { font-size: 0.6rem; opacity: 0.7; }
         .modal-btn.btn-wm { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
         .modal-btn.btn-m8 { background: linear-gradient(135deg, #81c784, var(--verde)); color: #1a5c1a; }
         .modal-btn.btn-m-co { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #2e7d32; border: 2px dashed #66bb6a; }
@@ -160,17 +133,82 @@
         .current-shift-display .shift-info { display: flex; align-items: center; justify-content: center; gap: 10px; }
         .current-shift-display .shift-badge-large { padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 1.2rem; }
         .current-shift-display .shift-time { font-size: 1rem; color: #333; }
+        .manager-login { margin: 12px 0; }
+        .manager-login input { padding: 10px 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; max-width: 200px; text-align: center; }
+        .manager-status { margin-top: 8px; padding: 8px; border-radius: 8px; font-weight: 600; }
+        .manager-status.error { background: #f8d7da; color: #721c24; }
+        .import-panel { text-align: left; margin-top: 15px; }
+        .import-panel textarea { width: 100%; height: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-family: monospace; font-size: 0.75rem; resize: vertical; }
+        .import-panel .btn-row { display: flex; gap: 10px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
+        .import-info { background: #e7f3ff; border: 1px solid #b3d7ff; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 0.8rem; color: #004085; text-align: left; }
+        .stats-container { max-width: 1400px; margin: 20px auto; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 12px; }
+        .stats-title { color: #fff; text-align: center; margin-bottom: 12px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
+        .stat-card { background: rgba(255,255,255,0.95); padding: 10px 6px; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 1.4rem; font-weight: 800; }
+        .stat-label { color: #666; font-size: 0.55rem; }
+        .notification { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 12px 20px; background: #27ae60; color: white; border-radius: 8px; font-weight: 600; transition: transform 0.3s ease; z-index: 2000; }
+        .notification.show { transform: translateX(-50%) translateY(0); }
+        .notification.error { background: #e74c3c; }
+        .select-message { text-align: center; padding: 50px 20px; color: #fff; font-size: 1.1rem; }
+        .select-message span { font-size: 3rem; display: block; margin-bottom: 15px; }
+        .employee-count { text-align: center; color: #a0a0a0; font-size: 0.75rem; margin-top: 5px; }
+        .data-status { text-align: center; padding: 5px; font-size: 0.7rem; }
+        .data-status.online { color: #7bed9f; }
+        .data-status.offline { color: #ff6b6b; }
+        .data-status.loading { color: #ffeaa7; }
+        .tab-buttons { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
+        .tab-btn { padding: 8px 16px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+        .tab-btn.active { background: #667eea; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .loading { text-align: center; padding: 50px; color: #fff; }
+        .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #fff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .day-overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0; }
+        .shift-column { background: #f8f9fa; border-radius: 12px; padding: 12px; min-height: 200px; }
+        .shift-column-header { text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: 700; font-size: 0.9rem; }
+        .shift-column-header .header-hours { font-size: 0.7rem; font-weight: 400; opacity: 0.8; display: block; margin-top: 3px; }
+        .shift-column-header.morning { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
+        .shift-column-header.afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
+        .shift-column-header.night { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
+        .shift-column-header.central { background: linear-gradient(135deg, #e0e0e0, #bdbdbd); color: #444; }
+        .employee-list { max-height: 300px; overflow-y: auto; }
+        .employee-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; margin-bottom: 6px; background: white; border-radius: 8px; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s; }
+        .employee-item:hover { transform: translateX(5px); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
+        .employee-item .name { font-weight: 600; color: #333; }
+        .employee-item .crew { font-size: 0.65rem; color: #888; background: #eee; padding: 2px 6px; border-radius: 10px; }
+        .employee-item .shift-badge { font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; }
+        .employee-item .shift-badge .badge-hours { font-size: 0.5rem; font-weight: 400; }
+        .shift-badge.morning { background: var(--verde); color: #1a5c1a; }
+        .shift-badge.afternoon { background: var(--naranja); color: #5a4000; }
+        .shift-badge.night { background: var(--azul); color: white; }
+        .shift-badge.central { background: var(--gris); color: #444; }
+        .column-count { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 5px; }
+        .column-count.morning { color: #1a5c1a; }
+        .column-count.afternoon { color: #5a4000; }
+        .column-count.night { color: var(--azul); }
+        .column-count.central { color: #666; }
+        .central-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ddd; }
+        .central-section .shift-column { max-width: 400px; margin: 0 auto; }
+        .no-employees { text-align: center; color: #999; font-style: italic; padding: 20px; font-size: 0.85rem; }
+        .day-summary { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; flex-wrap: wrap; }
+        .summary-item { display: flex; align-items: center; gap: 8px; padding: 8px 15px; background: #f0f0f0; border-radius: 20px; }
+        .summary-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .summary-item span { font-weight: 700; font-size: 1.1rem; }
         
-        .login-container { max-width: 400px; margin: 50px auto; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        /* === ESTILOS NUEVOS PARA LOGIN === */
+        .login-screen { min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .login-container { max-width: 400px; width: 90%; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
         .login-container h2 { color: #333; margin-bottom: 10px; }
         .login-container p { color: #666; margin-bottom: 20px; font-size: 0.9rem; }
         .login-container .login-icon { font-size: 4rem; margin-bottom: 15px; }
         .login-container input, .login-container select { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin-bottom: 10px; }
         .login-container input:focus, .login-container select:focus { border-color: #667eea; outline: none; }
         .login-container .btn { width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px; }
-        .login-status { padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: 600; }
-        .login-status.error { background: #f8d7da; color: #721c24; }
-        .login-status.success { background: #d4edda; color: #155724; }
+        .login-status { padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: 600; display: none; }
+        .login-status.error { background: #f8d7da; color: #721c24; display: block; }
+        .login-status.success { background: #d4edda; color: #155724; display: block; }
         .login-results-count { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
         
         .user-info-bar { background: linear-gradient(145deg, #667eea, #764ba2); padding: 10px 20px; border-radius: 12px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
@@ -181,142 +219,21 @@
         .user-info-bar .user-badge.manager-badge { background: #e74c3c; }
         .user-info-bar .user-actions { display: flex; gap: 8px; flex-wrap: wrap; }
         
-        .manager-info { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
-        .manager-info h4 { margin-bottom: 5px; }
-        .manager-info p { font-size: 0.85rem; opacity: 0.9; }
-        .manager-info .manager-role-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 10px; font-size: 0.75rem; margin-top: 5px; }
-        
-        .panel-nav { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
-        .panel-nav-btn { padding: 10px 16px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; }
-        .panel-nav-btn:hover { background: #ddd; }
-        .panel-nav-btn.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-        .panel-content { display: none; }
-        .panel-content.active { display: block; }
-        
-        .changelog-list { max-height: 350px; overflow-y: auto; text-align: left; }
-        .changelog-item { padding: 12px; margin-bottom: 8px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; }
-        .changelog-item .change-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; gap: 5px; }
-        .changelog-item .change-manager { font-weight: 700; color: #667eea; }
-        .changelog-item .change-date { font-size: 0.75rem; color: #888; }
-        .changelog-item .change-detail { font-size: 0.85rem; color: #333; }
-        .changelog-item .change-shift { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
-        .changelog-item .shift-old { background: #ffebee; color: #c62828; text-decoration: line-through; }
-        .changelog-item .shift-new { background: #e8f5e9; color: #2e7d32; }
-        .changelog-item .change-comment { margin-top: 8px; padding: 8px 10px; background: #fff8e1; border-left: 3px solid #ffc107; border-radius: 0 6px 6px 0; font-size: 0.8rem; color: #5d4037; font-style: italic; }
-        .changelog-item .change-comment::before { content: '💬 '; }
-        .changelog-empty { text-align: center; color: #999; padding: 30px; font-style: italic; }
-        
-        .last-change-info { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 0.8rem; text-align: left; }
-        .last-change-info .change-title { font-weight: 700; color: #856404; margin-bottom: 5px; }
-        .last-change-comment { margin-top: 8px; padding: 8px 10px; background: #e3f2fd; border-left: 3px solid #2196f3; border-radius: 0 6px 6px 0; font-size: 0.85rem; color: #1565c0; }
-        .last-change-comment::before { content: '💬 Comentario: '; font-weight: 600; }
-        
-        .comment-preview { background: #f0f4f8; border-radius: 10px; padding: 12px; margin-bottom: 15px; text-align: left; }
-        .comment-preview .preview-employee { font-weight: 700; color: #333; }
-        .comment-preview .preview-date { font-size: 0.85rem; color: #666; }
-        .comment-preview .preview-shift { margin-top: 8px; }
-        .comment-preview .shift-old { background: #ffebee; color: #c62828; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-decoration: line-through; }
-        .comment-preview .shift-new { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
-        
         .password-section { background: #f8f9fa; padding: 15px; border-radius: 12px; margin-top: 15px; }
         .password-section h4 { margin-bottom: 10px; color: #333; }
-        .password-section input { margin: 5px auto; display: block; }
-        
-        .import-panel { text-align: left; margin-top: 15px; }
-        .import-panel textarea { width: 100%; height: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-family: monospace; font-size: 0.75rem; resize: vertical; }
-        .import-panel .btn-row { display: flex; gap: 10px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
-        .import-info { background: #e7f3ff; border: 1px solid #b3d7ff; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 0.8rem; color: #004085; text-align: left; }
-        
-        .stats-container { max-width: 1400px; margin: 20px auto; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 12px; }
-        .stats-title { color: #fff; text-align: center; margin-bottom: 12px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
-        .stat-card { background: rgba(255,255,255,0.95); padding: 10px 6px; border-radius: 8px; text-align: center; }
-        .stat-number { font-size: 1.4rem; font-weight: 800; }
-        .stat-label { color: #666; font-size: 0.55rem; }
-        
-        .notification { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 12px 20px; background: #27ae60; color: white; border-radius: 8px; font-weight: 600; transition: transform 0.3s ease; z-index: 2000; }
-        .notification.show { transform: translateX(-50%) translateY(0); }
-        .notification.error { background: #e74c3c; }
-        
-        .data-status { text-align: center; padding: 5px; font-size: 0.7rem; }
-        .data-status.online { color: #7bed9f; }
-        .data-status.offline { color: #ff6b6b; }
-        .data-status.loading { color: #ffeaa7; }
-        .loading { text-align: center; padding: 50px; color: #fff; }
-        .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #fff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .day-overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0; }
-        .shift-column { background: #f8f9fa; border-radius: 12px; padding: 12px; min-height: 200px; }
-        .shift-column.column-alarm { background: #fff5f5 !important; border: 2px solid #e74c3c; }
-        .shift-column-header { text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: 700; font-size: 0.9rem; }
-        .shift-column-header.morning { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
-        .shift-column-header.afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
-        .shift-column-header.night { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
-        .shift-column-header.central { background: linear-gradient(135deg, #e0e0e0, #bdbdbd); color: #444; }
-        .employee-list { max-height: 300px; overflow-y: auto; }
-        .employee-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; margin-bottom: 6px; background: white; border-radius: 8px; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s; }
-        .employee-item:hover { transform: translateX(5px); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
-        .employee-item .name { font-weight: 600; color: #333; }
-        .employee-item .crew { font-size: 0.6rem; color: #888; background: #eee; padding: 2px 6px; border-radius: 10px; margin-left: 5px; }
-        .employee-item .role-badge { font-size: 0.55rem; padding: 2px 5px; border-radius: 8px; margin-left: 4px; }
-        .employee-item .role-badge.srme { background: #c8e6c9; color: #2e7d32; font-weight: 600; }
-        .employee-item .role-badge.rmet { background: #bbdefb; color: #1565c0; font-weight: 600; }
-        .employee-item .shift-badge { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
-        .shift-badge.morning { background: var(--verde); color: #1a5c1a; }
-        .shift-badge.afternoon { background: var(--naranja); color: #5a4000; }
-        .shift-badge.night { background: var(--azul); color: white; }
-        .shift-badge.central { background: var(--gris); color: #444; }
-        .column-count { text-align: center; font-size: 1.8rem; font-weight: 800; margin-bottom: 3px; }
-        .column-count.morning { color: #2e7d32; }
-        .column-count.afternoon { color: #e65100; }
-        .column-count.night { color: var(--azul); }
-        .column-count.central { color: #666; }
-        .role-breakdown { text-align: center; font-size: 0.75rem; color: #555; margin-bottom: 10px; padding: 6px 10px; background: #fff; border-radius: 8px; border: 1px solid #eee; }
-        .role-breakdown .srme-count { color: #2e7d32; font-weight: 700; }
-        .role-breakdown .rmet-count { color: #1565c0; font-weight: 700; }
-        .role-breakdown .warning { color: #e74c3c !important; }
-        .central-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ddd; }
-        .central-section .shift-column { max-width: 400px; margin: 0 auto; }
-        .no-employees { text-align: center; color: #999; font-style: italic; padding: 20px; font-size: 0.85rem; }
-        .day-summary { display: flex; justify-content: center; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }
-        .summary-item { display: flex; flex-direction: column; align-items: center; padding: 12px 16px; background: #f5f5f5; border-radius: 12px; min-width: 110px; }
-        .summary-item.has-alarm { background: #ffebee; border: 2px solid #e74c3c; }
-        .summary-item .summary-icon { font-size: 1.2rem; margin-bottom: 3px; }
-        .summary-item .summary-total { font-weight: 800; font-size: 1.5rem; line-height: 1; }
-        .summary-item .summary-label { font-size: 0.7rem; color: #666; margin-top: 2px; }
-        .summary-item .summary-breakdown { font-size: 0.65rem; color: #888; margin-top: 4px; }
-        .summary-item .summary-breakdown .srme { color: #2e7d32; font-weight: 600; }
-        .summary-item .summary-breakdown .rmet { color: #1565c0; font-weight: 600; }
-        .summary-item.total-item { background: #e8f5e9; }
-        .summary-item.total-item .summary-total { color: #2e7d32; }
-        
-        .alerts-container { max-width: 1400px; margin: 0 auto 12px auto; }
-        .changes-alert-box { background: linear-gradient(135deg, #fff3cd, #ffeeba); border: 2px solid #ffc107; border-radius: 12px; padding: 15px; margin-bottom: 12px; text-align: left; }
-        .changes-alert-box h4 { color: #856404; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .changes-alert-box .changes-list { max-height: 200px; overflow-y: auto; }
-        .changes-alert-box .change-item { background: white; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #ffc107; }
-        .changes-alert-box .change-item .change-date-label { font-weight: 700; color: #333; }
-        .changes-alert-box .change-item .change-shifts { font-size: 0.85rem; margin-top: 5px; }
-        
-        .new-ot-alert { background: linear-gradient(135deg, #e8daef, #d2b4de); border: 2px solid #9b59b6; border-radius: 12px; padding: 15px; margin-bottom: 12px; }
-        .new-ot-alert h4 { color: #6c3483; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .new-ot-alert .ot-item { background: white; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #9b59b6; cursor: pointer; transition: all 0.2s; }
-        .new-ot-alert .ot-item:hover { transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .new-ot-alert .ot-item .ot-date { font-weight: 700; color: #333; }
-        .new-ot-alert .ot-item .ot-name { font-size: 0.85rem; color: #666; }
+        .password-section input { margin: 5px auto; display: block; max-width: 250px; }
         
         .hidden { display: none !important; }
         
         @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } }
         @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .user-info-bar { flex-direction: column; text-align: center; } }
-        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .login-screen { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
 <body>
 
-<!-- PANTALLA DE LOGIN -->
-<div id="loginScreen">
+<!-- ========== PANTALLA DE LOGIN (NUEVA) ========== -->
+<div id="loginScreen" class="login-screen">
     <div class="login-container">
         <div class="login-icon">🔐</div>
         <h2>Calendario de Turnos 2026</h2>
@@ -330,15 +247,16 @@
             <div id="loginResultsCount" class="login-results-count"></div>
             <select id="loginUserSelect"><option value="">-- Selecciona tu nombre --</option></select>
             <input type="password" id="loginPassword" placeholder="Contraseña..." onkeypress="if(event.key==='Enter')attemptLogin()">
-            <div id="loginStatus" class="login-status hidden"></div>
+            <div id="loginStatus" class="login-status"></div>
             <button class="btn btn-save" onclick="attemptLogin()">🚀 Entrar</button>
         </div>
         <p style="margin-top: 20px; font-size: 0.75rem; color: #999;">Contraseña por defecto: <strong>1234</strong></p>
     </div>
 </div>
 
-<!-- APLICACIÓN PRINCIPAL -->
+<!-- ========== APLICACIÓN PRINCIPAL ========== -->
 <div id="mainApp" class="hidden">
+
     <div class="header">
         <h1>📅 Calendario de Turnos 2026</h1>
         <p style="color:#a0a0a0; font-size:0.85rem;">Dos Hermanas, Sevilla</p>
@@ -346,6 +264,7 @@
         <div class="data-status" id="dataStatus">Conectando...</div>
     </div>
 
+    <!-- Barra de usuario (NUEVA) -->
     <div class="user-info-bar" id="userInfoBar">
         <div class="user-details">
             <span class="user-name" id="loggedUserName">Usuario</span>
@@ -355,36 +274,21 @@
         </div>
         <div class="user-actions">
             <button class="btn btn-user" onclick="openUserSettingsModal()">⚙️ Mi Cuenta</button>
-            <button class="btn btn-ot hidden" id="btnOtManager" onclick="openOtManagerModal()">🔧 Gestionar OT</button>
             <button class="btn btn-logout" onclick="logout()">🚪 Salir</button>
         </div>
     </div>
 
-    <!-- Alertas -->
-    <div id="alertsContainer" class="alerts-container hidden">
-        <div id="changesAlertBox" class="changes-alert-box hidden">
-            <h4>⚠️ Cambios en tu calendario desde tu última visita</h4>
-            <div class="changes-list" id="changesAlertList"></div>
-            <button class="btn btn-small btn-warning" onclick="dismissChangesAlert()" style="margin-top:10px;">✓ Entendido</button>
-        </div>
-        <div id="newOtAlertBox" class="new-ot-alert hidden">
-            <h4>🔧 Nuevos días OT FILE disponibles</h4>
-            <div id="newOtAlertList"></div>
-            <button class="btn btn-small btn-ot" onclick="dismissOtAlert()" style="margin-top:10px;">✓ Entendido</button>
-        </div>
-    </div>
-
-    <div class="filters-panel" id="filtersPanel">
+    <div class="filters-panel">
         <div class="filters-row">
-            <div class="filter-group hidden" id="filterCrewGroup">
+            <div class="filter-group">
                 <label>👥 Crew:</label>
                 <select id="filterCrew" onchange="filterEmployees()"><option value="">Todos</option></select>
             </div>
-            <div class="filter-group hidden" id="filterEmployeeGroup">
+            <div class="filter-group">
                 <label>👤 Persona:</label>
                 <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Vista General --</option></select>
             </div>
-            <div class="filter-group hidden" id="filterSearchGroup">
+            <div class="filter-group">
                 <label>🔍 Buscar:</label>
                 <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
             </div>
@@ -394,7 +298,6 @@
     <div class="general-view-info" id="generalViewInfo">
         <h2>📊 Vista General del Equipo</h2>
         <p>Pulsa en cualquier día para ver quién trabaja en cada turno</p>
-        <p style="font-size:0.75rem; margin-top:5px; opacity:0.8;">Los días <span style="background:#9b59b6; padding:2px 8px; border-radius:4px;">morados</span> son días OT FILE</p>
     </div>
 
     <div class="employee-info" id="employeeInfo">
@@ -407,21 +310,24 @@
     <div class="legend">
         <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--verde), #7cb342)">WM</div><span><b>WM</b> <span class="legend-hours">Mañana Larga</span></span></div>
         <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #81c784, var(--verde))">M8</div><span><b>M8</b> <span class="legend-hours">Mañana 8h</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #c8e6c9, #a5d6a7); border:1px dashed #66bb6a">M-CO</div><span><b>M-CO</b> <span class="legend-hours">Mañana Reducida</span></span></div>
         <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--naranja), #ffa000)">WT</div><span><b>WT</b> <span class="legend-hours">Tarde Larga</span></span></div>
         <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #ffca28, var(--naranja))">T8</div><span><b>T8</b> <span class="legend-hours">Tarde 8h</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #fff3cd, #ffe082); border:1px dashed #ffb300">T-CO</div><span><b>T-CO</b> <span class="legend-hours">Tarde Reducida</span></span></div>
         <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, var(--azul), #1a237e)">N8</div><span><b>N8</b> <span class="legend-hours">Noche 8h</span></span></div>
         <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #303f9f, var(--azul))">N</div><span><b>N</b> <span class="legend-hours">Noche</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #5c6bc0, #3949ab)">NN</div><span><b>NN</b> <span class="legend-hours">Noche Corta</span></span></div>
+        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #7986cb, #5c6bc0); border:1px dashed #3949ab">N-CO</div><span><b>N-CO</b> <span class="legend-hours">Noche Reducida</span></span></div>
         <div class="legend-item"><div class="legend-color" style="background:var(--gris)">C</div><span><b>C</b> Central</span></div>
         <div class="legend-item"><div class="legend-color" style="background:var(--rojo-vacaciones)">V</div><span><b>V</b> Vacaciones</span></div>
         <div class="legend-item"><div class="legend-color" style="background:var(--verde-fuerte)">AP</div><span><b>AP</b> Asuntos P.</span></div>
-        <div class="legend-item"><div class="legend-color" style="background:linear-gradient(135deg, #9b59b6, #8e44ad)">OT</div><span><b>OT</b> Día OT FILE</span></div>
         <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
     </div>
 
     <div class="controls">
-        <button class="btn btn-my-calendar active" id="btnMyCalendar" onclick="showMyCalendar()">📅 Mi Calendario</button>
-        <button class="btn btn-general" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
-        <button class="btn btn-user hidden" id="btnManagerPanel" onclick="openManagerModal()">👑 Panel Manager</button>
+        <button class="btn btn-my-calendar" id="btnMyCalendar" onclick="showMyCalendar()">📅 Mi Calendario</button>
+        <button class="btn btn-general active" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
+        <button class="btn btn-manager" id="btnManager" onclick="openManagerModal()">🔐 Manager</button>
         <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
         <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
         <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
@@ -432,7 +338,7 @@
     </div>
 
     <div class="calendar-grid" id="calendarGrid">
-        <div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>
+        <div class="loading"><div class="loading-spinner"></div><p>Cargando datos de la nube...</p></div>
     </div>
 
     <div class="stats-container" id="statsContainer" style="display:none;">
@@ -441,15 +347,11 @@
     </div>
 </div>
 
-<!-- MODALES -->
+<!-- Modal editar día -->
 <div class="modal-overlay" id="editModal">
     <div class="modal">
         <h3 id="modalTitle">Día</h3>
         <div id="festivoBadge" class="festivo-badge" style="display:none;"></div>
-        <div id="lastChangeInfo" class="last-change-info" style="display:none;">
-            <div class="change-title">📝 Última modificación:</div>
-            <div id="lastChangeDetail"></div>
-        </div>
         <div class="current-shift-display" id="currentShiftDisplay">
             <div class="shift-label">Turno actual:</div>
             <div class="shift-info">
@@ -489,141 +391,114 @@
                 <button class="modal-btn btn-libre" onclick="setShift('')" style="grid-column: span 2;"><span class="btn-code">LIBRE</span></button>
             </div>
         </div>
-        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">🔒 Solo los <strong>Managers</strong> pueden editar turnos</div>
+        <div id="noManagerMessage" style="color:#666; padding:10px; font-size:0.85rem;">🔒 Activa <strong>Modo Manager</strong> para editar</div>
         <button class="modal-close" onclick="closeModal()">Cerrar</button>
     </div>
 </div>
 
+<!-- Modal Vista general del día -->
 <div class="modal-overlay" id="dayOverviewModal">
     <div class="modal modal-xlarge">
         <h3 id="dayOverviewTitle">📅 Día</h3>
         <div id="dayOverviewFestivo" class="festivo-badge" style="display:none;"></div>
         <div class="day-summary" id="daySummary"></div>
         <div class="day-overview-grid">
-            <div class="shift-column" id="columnMorning"><div class="shift-column-header morning">☀️ MAÑANA</div><div class="column-count morning" id="countMorning">0</div><div class="role-breakdown" id="roleBreakdownMorning"></div><div class="employee-list" id="listMorning"></div></div>
-            <div class="shift-column" id="columnAfternoon"><div class="shift-column-header afternoon">🌅 TARDE</div><div class="column-count afternoon" id="countAfternoon">0</div><div class="role-breakdown" id="roleBreakdownAfternoon"></div><div class="employee-list" id="listAfternoon"></div></div>
-            <div class="shift-column" id="columnNight"><div class="shift-column-header night">🌙 NOCHE</div><div class="column-count night" id="countNight">0</div><div class="role-breakdown" id="roleBreakdownNight"></div><div class="employee-list" id="listNight"></div></div>
+            <div class="shift-column">
+                <div class="shift-column-header morning">☀️ MAÑANA<span class="header-hours">WM / M8 / M-CO</span></div>
+                <div class="column-count morning" id="countMorning">0</div>
+                <div class="employee-list" id="listMorning"></div>
+            </div>
+            <div class="shift-column">
+                <div class="shift-column-header afternoon">🌅 TARDE<span class="header-hours">WT / T8 / T-CO</span></div>
+                <div class="column-count afternoon" id="countAfternoon">0</div>
+                <div class="employee-list" id="listAfternoon"></div>
+            </div>
+            <div class="shift-column">
+                <div class="shift-column-header night">🌙 NOCHE<span class="header-hours">N8 / N / NN / N-CO</span></div>
+                <div class="column-count night" id="countNight">0</div>
+                <div class="employee-list" id="listNight"></div>
+            </div>
         </div>
-        <div class="central-section"><div class="shift-column" id="columnCentral"><div class="shift-column-header central">🏢 CENTRAL</div><div class="column-count central" id="countCentral">0</div><div class="role-breakdown" id="roleBreakdownCentral"></div><div class="employee-list" id="listCentral"></div></div></div>
+        <div class="central-section">
+            <div class="shift-column">
+                <div class="shift-column-header central">🏢 CENTRAL<span class="header-hours">09:00 - 18:00</span></div>
+                <div class="column-count central" id="countCentral">0</div>
+                <div class="employee-list" id="listCentral"></div>
+            </div>
+        </div>
         <button class="modal-close" onclick="closeDayOverviewModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
 
+<!-- Modal Manager -->
+<div class="modal-overlay" id="managerModal">
+    <div class="modal modal-large">
+        <h3>🔐 Panel Manager</h3>
+        <div id="loginSection">
+            <div class="manager-login">
+                <input type="password" id="managerPassword" placeholder="Clave manager..." onkeypress="if(event.key==='Enter')checkManagerPassword()">
+            </div>
+            <div id="managerStatus" class="manager-status" style="display:none;"></div>
+            <div style="margin-top:15px; display:flex; gap:8px; justify-content:center;">
+                <button class="btn btn-save" onclick="checkManagerPassword()">✅ Acceder</button>
+                <button class="modal-close" onclick="closeManagerModal()">Cancelar</button>
+            </div>
+        </div>
+        <div id="managerPanel" style="display:none;">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('import', this)">📋 Importar Datos</button>
+                <button class="tab-btn" onclick="switchTab('reset', this)">🔄 Resetear</button>
+            </div>
+            <div id="tab-import" class="tab-content active">
+                <div class="import-info">
+                    <strong>📌 Instrucciones:</strong><br>
+                    1. Copia los datos TSV desde tu archivo Excel<br>
+                    2. Pégalos aquí abajo<br>
+                    3. Haz clic en "✅ Importar y Guardar en Nube"<br><br>
+                    ⚠️ <strong>Las contraseñas de usuarios existentes se mantienen</strong>
+                </div>
+                <div class="import-panel">
+                    <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
+                    <div class="btn-row">
+                        <button class="btn btn-save" onclick="processBulkImport()">✅ Importar y Guardar en Nube</button>
+                        <button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button>
+                    </div>
+                </div>
+                <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
+            </div>
+            <div id="tab-reset" class="tab-content">
+                <div style="padding:20px;">
+                    <p style="color:#666; margin-bottom:15px;">⚠️ Esto borrará todos los datos de la nube.</p>
+                    <button class="btn" style="background:#e74c3c;" onclick="resetAllData()">🗑️ Borrar Todo</button>
+                </div>
+            </div>
+            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
+                <button class="btn btn-manager" onclick="logoutManager()">🚪 Cerrar Sesión Manager</button>
+                <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Mi Cuenta (NUEVO) -->
 <div class="modal-overlay" id="userSettingsModal">
     <div class="modal">
         <h3>⚙️ Mi Cuenta</h3>
-        <div class="manager-info"><h4>👤 <span id="settingsUserName"></span></h4><p>Login: <strong id="settingsUserLogin"></strong></p><p>Crew: <strong id="settingsUserCrew"></strong></p><span class="manager-role-badge" id="settingsUserRole"></span></div>
-        <div class="password-section"><h4>🔑 Cambiar contraseña</h4><input type="password" id="userNewPassword1" placeholder="Nueva contraseña..." style="max-width:250px;"><input type="password" id="userNewPassword2" placeholder="Repetir contraseña..." style="max-width:250px;"><button class="btn btn-save" onclick="changeUserPassword()" style="margin-top:10px;">💾 Guardar</button></div>
-        <div style="margin-top:20px;"><button class="modal-close" onclick="closeUserSettingsModal()">Cerrar</button></div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="managerModal">
-    <div class="modal modal-large">
-        <h3>👑 Panel Manager</h3>
-        <div class="manager-info"><h4>👤 <span id="currentManagerName"></span></h4><p>Login: <strong id="currentManagerLogin"></strong></p><span class="manager-role-badge" id="currentManagerRole"></span></div>
-        <div class="panel-nav">
-            <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
-            <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
+        <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
+            <h4>👤 <span id="settingsUserName"></span></h4>
+            <p style="font-size: 0.85rem; opacity: 0.9;">Login: <strong id="settingsUserLogin"></strong></p>
+            <p style="font-size: 0.85rem; opacity: 0.9;">Crew: <strong id="settingsUserCrew"></strong></p>
+            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 10px; font-size: 0.75rem; margin-top: 5px;" id="settingsUserRole"></span>
         </div>
-        <div id="panel-changelog" class="panel-content active"><h4 style="margin-bottom:10px;">📋 Últimas modificaciones</h4><div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div></div>
-        <div id="panel-import" class="panel-content">
-            <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar<br><br>⚠️ <strong>Las contraseñas de usuarios existentes se mantienen</strong></div>
-            <div class="import-panel"><textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea><div class="btn-row"><button class="btn btn-save" onclick="processBulkImport()">✅ Importar</button><button class="btn btn-export" onclick="previewBulkImport()">👁️ Vista Previa</button></div></div>
-            <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
+        <div class="password-section">
+            <h4>🔑 Cambiar contraseña</h4>
+            <input type="password" id="userNewPassword1" placeholder="Nueva contraseña...">
+            <input type="password" id="userNewPassword2" placeholder="Repetir contraseña...">
+            <button class="btn btn-save" onclick="changeUserPassword()" style="margin-top:10px;">💾 Guardar</button>
         </div>
-        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeManagerModal()">Cerrar</button></div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="commentModal">
-    <div class="modal">
-        <h3>📝 Añadir Comentario</h3>
-        <div class="comment-preview" id="commentPreview"></div>
-        <textarea id="changeComment" placeholder="Comentario opcional..." style="width:100%; height:100px; padding:12px; border:2px solid #ddd; border-radius:8px; margin-bottom:15px;"></textarea>
-        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-            <button class="btn btn-save" onclick="confirmShiftChange()">✅ Guardar</button>
-            <button class="btn btn-warning" onclick="confirmShiftChange(true)">⚡ Sin comentario</button>
-            <button class="modal-close" onclick="cancelShiftChange()">❌ Cancelar</button>
+        <div style="margin-top:20px;">
+            <button class="modal-close" onclick="closeUserSettingsModal()">Cerrar</button>
         </div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="otManagerModal">
-    <div class="modal modal-large">
-        <h3>🔧 Gestionar Días OT FILE</h3>
-        <div class="panel-nav">
-            <button class="panel-nav-btn active" onclick="switchOtPanel('create', this)">➕ Crear OT</button>
-            <button class="panel-nav-btn" onclick="switchOtPanel('list', this)">📋 Ver Todos</button>
-                    </div>
-        <div id="ot-panel-create" class="panel-content active">
-            <div class="import-info"><strong>📌 Crear nuevo día OT FILE</strong><br>Al crear un OT, todos los usuarios verán una notificación al entrar.</div>
-            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Fecha:</label><input type="date" id="otNewDate" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:250px;"></div>
-            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">📝 Nombre:</label><input type="text" id="otNewName" placeholder="Ej: Reparación Línea A..." style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%;"></div>
-            <div style="margin:15px 0;"><label style="display:block; margin-bottom:5px; font-weight:600;">💬 Notas:</label><textarea id="otNewNotes" placeholder="Información adicional..." style="width:100%; padding:10px; border:2px solid #ddd; border-radius:8px; height:80px;"></textarea></div>
-            <button class="btn btn-save" onclick="createOtDay()">✅ Crear Día OT FILE</button>
-        </div>
-        <div id="ot-panel-list" class="panel-content"><div id="otDaysList" class="changelog-list"><div class="changelog-empty">No hay días OT FILE creados</div></div></div>
-        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeOtManagerModal()">Cerrar</button></div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="otFileModal">
-    <div class="modal modal-large">
-        <h3 id="otFileModalTitle">🔧 Día OT FILE</h3>
-        <div class="ot-badge">OT FILE</div>
-        <div style="background:linear-gradient(135deg, #9b59b6, #8e44ad); color:white; padding:15px; border-radius:12px; margin-bottom:15px; text-align:left;">
-            <h4 id="otFileName">Día OT</h4>
-            <p id="otFileDesc" style="font-size:0.85rem; opacity:0.9;"></p>
-            <p style="font-size:0.85rem; opacity:0.9;"><strong>Creado por:</strong> <span id="otFileCreator"></span></p>
-            <span class="ot-status-badge" id="otFileStatus" style="display:inline-block; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:600; background:rgba(255,255,255,0.2); margin-top:8px;">Abierto</span>
-        </div>
-        <div id="otSignupSection">
-            <div style="background:#f8f9fa; padding:15px; border-radius:12px; margin:15px 0;">
-                <h4 style="margin-bottom:10px; color:#333; font-size:0.9rem;">📝 Indica tus preferencias de turno</h4>
-                <div id="preferencesList">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px; background:white; border-radius:8px; border:2px solid #eee;">
-                        <span style="width:30px; height:30px; border-radius:50%; background:#9b59b6; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">1</span>
-                        <select id="pref1" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; font-size:0.9rem;">
-                            <option value="">-- Selecciona --</option>
-                            <option value="morning">☀️ Mañana</option>
-                            <option value="afternoon">🌅 Tarde</option>
-                            <option value="night">🌙 Noche</option>
-                        </select>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px; background:white; border-radius:8px; border:2px solid #eee;">
-                        <span style="width:30px; height:30px; border-radius:50%; background:#9b59b6; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">2</span>
-                        <select id="pref2" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; font-size:0.9rem;">
-                            <option value="">-- Opcional --</option>
-                            <option value="morning">☀️ Mañana</option>
-                            <option value="afternoon">🌅 Tarde</option>
-                            <option value="night">🌙 Noche</option>
-                        </select>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px; background:white; border-radius:8px; border:2px solid #eee;">
-                        <span style="width:30px; height:30px; border-radius:50%; background:#9b59b6; color:white; display:flex; align-items:center; justify-content:center; font-weight:700;">3</span>
-                        <select id="pref3" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px; font-size:0.9rem;">
-                            <option value="">-- Opcional --</option>
-                            <option value="morning">☀️ Mañana</option>
-                            <option value="afternoon">🌅 Tarde</option>
-                            <option value="night">🌙 Noche</option>
-                        </select>
-                    </div>
-                </div>
-                <textarea id="otSignupComment" placeholder="Comentario opcional..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-top:10px; height:60px;"></textarea>
-                <div style="margin-top:15px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                    <button class="btn btn-save" onclick="submitOtSignup()">✅ Apuntarme</button>
-                    <button class="btn btn-danger" id="btnCancelSignup" onclick="cancelOtSignup()" style="display:none;">❌ Cancelar inscripción</button>
-                </div>
-            </div>
-            <div id="currentUserSignup" style="display:none; background:#e8f5e9; padding:15px; border-radius:12px; margin:15px 0;">
-                <h4 style="color:#2e7d32;">✅ Ya estás apuntado</h4>
-                <p id="currentUserPrefs" style="font-size:0.9rem; color:#333;"></p>
-            </div>
-        </div>
-        <div class="modal-section-title">👥 Personas apuntadas (<span id="otSignupCount">0</span>)</div>
-        <div id="otRequestsList" class="changelog-list" style="max-height:200px;"><div class="no-employees">Nadie se ha apuntado todavía</div></div>
-        <button class="modal-close" onclick="closeOtFileModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
 
@@ -631,16 +506,15 @@
 
 <script>
 // =====================================================
-// CONFIGURACIÓN
+// CONFIGURACIÓN (ORIGINAL + NUEVAS)
 // =====================================================
+const MANAGER_PASSWORD = 'manager';
+const DEFAULT_PAS[REDACTED:PASSWORD]D = '1234';
+const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];
+
 const JSONBIN_BIN_ID = '693ed2a043b1c97be9edc0a2';
 const JSONBIN_API_KEY = '$2a$10$dTBuSlF/Shyoqcoyhbid5OWMYIAkeEYHS4HiiXpgarzEJJQaj5A.O';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
-const MANAGER_ROLES = ['RMEAN', 'RMEAM', 'IRMEAM', 'RMEM', 'GEM'];    
-const DEFAULT_PASSWORD [REDACTED:PASSWORD]234';
-const MIN_SRME_PER_SHIFT = 2;
-const MIN_RMET_PER_SHIFT = 3;
-const RMET_ROLES = ['RMET', 'APP4', 'RMEO', 'APP3', 'APP5', 'APP6-OK', 'APP6'];
 
 const SHIFT_SCHEDULES = {
     'wm': { hours: '06:00 - 15:10', desc: 'Mañana Larga', type: 'morning' },
@@ -667,12 +541,18 @@ const SHIFT_SCHEDULES = {
     'bp': { hours: '-', desc: 'Baja Paternidad', type: 'leave' }
 };
 
+function getShiftInfo(shift) {
+    if (!shift) return { hours: '-', desc: 'Libre', type: 'free' };
+    const s = shift.toLowerCase();
+    return SHIFT_SCHEDULES[s] || { hours: '-', desc: shift.toUpperCase(), type: 'unknown' };
+}
+
 const festivos2026 = [
     {month:1,day:1,name:"Año Nuevo"},{month:1,day:6,name:"Reyes"},
     {month:2,day:28,name:"Día de Andalucía"},{month:4,day:2,name:"Jueves Santo"},
     {month:4,day:3,name:"Viernes Santo"},{month:5,day:1,name:"Día del Trabajo"},
     {month:5,day:7,name:"Feria Dos Hermanas"},{month:8,day:15,name:"Asunción"},
-    {month:10,day:12,name:"Fiesta Nacional"},{month:10,day:19,name:"Fiesta Local"},
+    {month:10,day:12,name:"Fiesta Nacional"},{month:10,day:19,name:"Fiesta Local Dos Hermanas"},
     {month:11,day:2,name:"Todos los Santos"},{month:12,day:7,name:"Constitución"},
     {month:12,day:8,name:"Inmaculada"},{month:12,day:25,name:"Navidad"}
 ];
@@ -682,44 +562,20 @@ const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 const startDays = [3, 6, 6, 2, 4, 0, 2, 5, 1, 3, 6, 1];
 
 // =====================================================
-// VARIABLES GLOBALES
+// VARIABLES GLOBALES (ORIGINAL + NUEVAS)
 // =====================================================
-let allData = { empleados: [], festivos: festivos2026, userPasswords: {}, changelog: [], otDays: [] };
+let allData = { empleados: [], festivos: festivos2026, userPasswords: {} };
 let selectedEmployee = null;
-let currentUser = null;
 let isManager = false;
 let editingDay = null;
-let isGeneralView = false;
-let isMyCalendarView = true;
-let pendingShiftChange = null;
-let currentOtDay = null;
-let changedDays = [];
-let newOtDays = [];
+let isGeneralView = true;
+
+// NUEVAS variables para login
+let currentUser = null;
+let isLoggedIn = false;
 
 // =====================================================
-// FUNCIONES UTILIDAD
-// =====================================================
-function getShiftInfo(shift) {
-    if (!shift) return { hours: '-', desc: 'Libre', type: 'free' };
-    return SHIFT_SCHEDULES[shift.toLowerCase()] || { hours: '-', desc: shift.toUpperCase(), type: 'unknown' };
-}
-
-function classifyRole(role) {
-    if (!role) return 'otros';
-    const r = role.toUpperCase().trim();
-    if (r.includes('SRME') || r.includes('SR ME') || r.includes('SR-ME')) return 'srme';
-    for (const rmet of RMET_ROLES) { if (r.includes(rmet) || r === rmet) return 'rmet'; }
-    return 'otros';
-}
-
-function isManagerRole(role) {
-    if (!role) return false;
-    const r = role.toUpperCase().trim();
-    return MANAGER_ROLES.some(mr => r.includes(mr) || r === mr);
-}
-
-// =====================================================
-// FUNCIONES DE DATOS (DEL PROGRAMA QUE FUNCIONA)
+// FUNCIONES DE CONVERSIÓN (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
@@ -751,131 +607,8 @@ function normalizarEmpleados(empleados) {
     }));
 }
 
-function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
-function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m && f.day === d); return f ? f.name : ''; }
-function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
-function isReducido(shift) { return shift && shift.toLowerCase().includes('-co'); }
-function getOtDay(doy) { return allData.otDays ? allData.otDays.find(ot => ot.doy === doy) : null; }
-function isOtFileDay(month, day) { return allData.otDays && allData.otDays.some(ot => ot.doy === getDayOfYear(month, day)); }
-
-function getDayString(doy) {
-    let remaining = doy;
-    for (let m = 0; m < 12; m++) {
-        if (remaining < daysInMonth[m]) return `${remaining + 1} de ${monthNames[m]}`;
-        remaining -= daysInMonth[m];
-    }
-    return 'Día ' + (doy + 1);
-}
-
-function setDataStatus(type, message) {
-    const el = document.getElementById('dataStatus');
-    if (el) { el.textContent = message; el.className = 'data-status ' + type; }
-}
-
-function showNotification(msg, isError = false) {
-    const n = document.getElementById('notification');
-    n.textContent = msg;
-    n.className = 'notification' + (isError ? ' error' : '');
-    n.classList.add('show');
-    setTimeout(() => n.classList.remove('show'), 2500);
-}
-
 // =====================================================
-// LOCAL STORAGE
-// =====================================================
-function getLastLoginTime(login) {
-    try { const stored = localStorage.getItem('lastLogin_' + login); return stored ? new Date(stored) : null; }
-    catch (e) { return null; }
-}
-
-function setLastLoginTime(login) {
-    try { localStorage.setItem('lastLogin_' + login, new Date().toISOString()); } catch (e) { }
-}
-
-function getSeenOtDays(login) {
-    try { const stored = localStorage.getItem('seenOtDays_' + login); return stored ? JSON.parse(stored) : []; }
-    catch (e) { return []; }
-}
-
-function addSeenOtDays(login, otDoys) {
-    try {
-        const current = getSeenOtDays(login);
-        const updated = [...new Set([...current, ...otDoys])];
-        localStorage.setItem('seenOtDays_' + login, JSON.stringify(updated));
-    } catch (e) { }
-}
-
-// =====================================================
-// DETECTAR CAMBIOS Y ALERTAS
-// =====================================================
-function detectChangesForUser(login, lastLoginTime) {
-    if (!lastLoginTime || !allData.changelog) return [];
-    return allData.changelog.filter(c => {
-        if (c.employeeLogin !== login) return false;
-        const changeTime = new Date(c.timestamp);
-        return changeTime > lastLoginTime;
-    });
-}
-
-function detectNewOtDays(login) {
-    if (!allData.otDays || allData.otDays.length === 0) return [];
-    const seenOts = getSeenOtDays(login);
-    return allData.otDays.filter(ot => !seenOts.includes(ot.doy));
-}
-
-function showAlertsIfNeeded() {
-    if (!currentUser) return;
-    
-    const lastLogin = getLastLoginTime(currentUser.login);
-    changedDays = detectChangesForUser(currentUser.login, lastLogin);
-    newOtDays = detectNewOtDays(currentUser.login);
-    
-    const alertsContainer = document.getElementById('alertsContainer');
-    const changesBox = document.getElementById('changesAlertBox');
-    const otBox = document.getElementById('newOtAlertBox');
-    let hasAlerts = false;
-    
-    if (changedDays.length > 0) {
-        hasAlerts = true;
-        changesBox.classList.remove('hidden');
-        document.getElementById('changesAlertList').innerHTML = changedDays.map(c => {
-            const commentHtml = c.comment ? `<div style="font-size:0.75rem; color:#666; margin-top:3px;">💬 ${c.comment}</div>` : '';
-            return `<div class="change-item"><div class="change-date-label">📅 ${c.dateStr}</div><div class="change-shifts"><span style="color:#c62828; text-decoration:line-through;">${(c.oldShift || 'LIBRE').toUpperCase()}</span> → <span style="color:#2e7d32; font-weight:bold;">${(c.newShift || 'LIBRE').toUpperCase()}</span><span style="font-size:0.75rem; color:#888;"> por ${c.managerName}</span></div>${commentHtml}</div>`;
-        }).join('');
-    } else { changesBox.classList.add('hidden'); }
-    
-    if (newOtDays.length > 0) {
-        hasAlerts = true;
-        otBox.classList.remove('hidden');
-        document.getElementById('newOtAlertList').innerHTML = newOtDays.map(ot => 
-            `<div class="ot-item" onclick="openOtFileModal(${ot.month}, ${ot.day})"><div class="ot-date">📅 ${ot.day} de ${monthNames[ot.month - 1]}</div><div class="ot-name">${ot.name}</div></div>`
-        ).join('');
-    } else { otBox.classList.add('hidden'); }
-    
-    alertsContainer.classList.toggle('hidden', !hasAlerts);
-}
-
-function dismissChangesAlert() {
-    document.getElementById('changesAlertBox').classList.add('hidden');
-    checkHideAlertsContainer();
-}
-
-function dismissOtAlert() {
-    if (currentUser && newOtDays.length > 0) {
-        addSeenOtDays(currentUser.login, newOtDays.map(ot => ot.doy));
-    }
-    document.getElementById('newOtAlertBox').classList.add('hidden');
-    checkHideAlertsContainer();
-}
-
-function checkHideAlertsContainer() {
-    const changesHidden = document.getElementById('changesAlertBox').classList.contains('hidden');
-    const otHidden = document.getElementById('newOtAlertBox').classList.contains('hidden');
-    if (changesHidden && otHidden) document.getElementById('alertsContainer').classList.add('hidden');
-}
-
-// =====================================================
-// JSONBIN - GUARDAR (PRESERVA CONTRASEÑAS)
+// JSONBIN - GUARDAR (MODIFICADO para incluir contraseñas)
 // =====================================================
 async function saveToCloud() {
     try {
@@ -897,8 +630,6 @@ async function saveToCloud() {
             body: JSON.stringify({
                 empleados: empleadosParaGuardar,
                 userPasswords: allData.userPasswords || {},
-                changelog: (allData.changelog || []).slice(-100),
-                otDays: allData.otDays || [],
                 lastModified: new Date().toISOString(),
                 version: '2.0'
             })
@@ -916,7 +647,7 @@ async function saveToCloud() {
 }
 
 // =====================================================
-// JSONBIN - CARGAR
+// JSONBIN - CARGAR (MODIFICADO para incluir contraseñas)
 // =====================================================
 async function loadFromCloud() {
     try {
@@ -934,13 +665,11 @@ async function loadFromCloud() {
             return {
                 empleados: empleados,
                 userPasswords: data.record.userPasswords || {},
-                changelog: data.record.changelog || [],
-                otDays: data.record.otDays || [],
                 festivos: festivos2026
             };
         }
         setDataStatus('online', '☁️ Sin datos');
-        return { empleados: [], userPasswords: {}, changelog: [], otDays: [], festivos: festivos2026 };
+        return { empleados: [], userPasswords: {}, festivos: festivos2026 };
     } catch (error) {
         console.error('Error cargando:', error);
         setDataStatus('offline', '❌ Error conexión');
@@ -948,8 +677,16 @@ async function loadFromCloud() {
     }
 }
 
+function setDataStatus(type, message) {
+    const el = document.getElementById('dataStatus');
+    if (el) {
+        el.textContent = message;
+        el.className = 'data-status ' + type;
+    }
+}
+
 // =====================================================
-// PARSEO TSV (IDÉNTICO AL QUE FUNCIONA)
+// PARSEO TSV (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
@@ -987,17 +724,28 @@ function parseRawData(rawData) {
 }
 
 // =====================================================
-// LOGIN
+// FUNCIONES DE LOGIN (NUEVAS)
 // =====================================================
+function isManagerRole(role) {
+    if (!role) return false;
+    const r = role.toUpperCase().trim();
+    return MANAGER_ROLES.some(mr => r.includes(mr) || r === mr);
+}
+
 function filterLoginUsers() {
     const searchTerm = document.getElementById('loginSearchInput').value.toLowerCase().trim();
     const select = document.getElementById('loginUserSelect');
     const countDiv = document.getElementById('loginResultsCount');
     
     select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
-    if (!allData.empleados || allData.empleados.length === 0) { countDiv.textContent = ''; return; }
+    if (!allData.empleados || allData.empleados.length === 0) { 
+        countDiv.textContent = ''; 
+        return; 
+    }
     
-    let filtered = searchTerm ? allData.empleados.filter(emp => emp.name.toLowerCase().includes(searchTerm) || emp.login.toLowerCase().includes(searchTerm)) : [...allData.empleados];
+    let filtered = searchTerm 
+        ? allData.empleados.filter(emp => emp.name.toLowerCase().includes(searchTerm) || emp.login.toLowerCase().includes(searchTerm)) 
+        : [...allData.empleados];
     filtered.sort((a, b) => a.name.localeCompare(b.name));
     
     filtered.forEach(emp => {
@@ -1019,18 +767,18 @@ async function initializeLogin() {
     document.getElementById('loginForm').classList.remove('hidden');
     
     if (data === null) {
-        document.getElementById('loginStatus').textContent = '❌ Error de conexión. Intenta de nuevo.';
-        document.getElementById('loginStatus').className = 'login-status error';
-        document.getElementById('loginStatus').classList.remove('hidden');
+        const status = document.getElementById('loginStatus');
+        status.textContent = '❌ Error de conexión. Recarga la página.';
+        status.className = 'login-status error';
         return;
     }
     
     allData = data;
     
     if (allData.empleados.length === 0) {
-        document.getElementById('loginStatus').textContent = '⚠️ No hay empleados. Contacta al administrador.';
-        document.getElementById('loginStatus').className = 'login-status error';
-        document.getElementById('loginStatus').classList.remove('hidden');
+        const status = document.getElementById('loginStatus');
+        status.textContent = '⚠️ No hay empleados. Contacta al administrador.';
+        status.className = 'login-status error';
         return;
     }
     
@@ -1042,25 +790,35 @@ function attemptLogin() {
     const password = document.getElementById('loginPassword').value;
     const statusEl = document.getElementById('loginStatus');
     
-    if (!login) { statusEl.textContent = '❌ Selecciona tu nombre'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
-    if (!password) { statusEl.textContent = '❌ Introduce tu contraseña'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
+    if (!login) { 
+        statusEl.textContent = '❌ Selecciona tu nombre'; 
+        statusEl.className = 'login-status error'; 
+        return; 
+    }
+    if (!password) { 
+        statusEl.textContent = '❌ Introduce tu contraseña'; 
+        statusEl.className = 'login-status error'; 
+        return; 
+    }
     
     const user = allData.empleados.find(e => e.login === login);
-    if (!user) { statusEl.textContent = '❌ Usuario no encontrado'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
+    if (!user) { 
+        statusEl.textContent = '❌ Usuario no encontrado'; 
+        statusEl.className = 'login-status error'; 
+        return; 
+    }
     
     const storedPassword = allData.userPasswords[login] || DEFAULT_PASSWORD;
     
     if (password === storedPassword) {
         currentUser = { login: user.login, name: user.name, role: user.role, crew: user.crew };
-        isManager = isManagerRole(user.role);
+        isLoggedIn = true;
         statusEl.textContent = '✅ Acceso correcto. Cargando...';
         statusEl.className = 'login-status success';
-        statusEl.classList.remove('hidden');
         setTimeout(() => showMainApp(), 500);
     } else {
         statusEl.textContent = '❌ Contraseña incorrecta';
         statusEl.className = 'login-status error';
-        statusEl.classList.remove('hidden');
     }
 }
 
@@ -1068,51 +826,146 @@ function showMainApp() {
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('mainApp').classList.remove('hidden');
     
+    // Mostrar info del usuario
     document.getElementById('loggedUserName').textContent = currentUser.name;
     document.getElementById('loggedUserRole').textContent = currentUser.role || 'Sin rol';
     document.getElementById('loggedUserCrew').textContent = 'Crew: ' + (currentUser.crew || 'N/A');
     
-    if (isManager) {
+    if (isManagerRole(currentUser.role)) {
         document.getElementById('managerBadge').classList.remove('hidden');
-        document.getElementById('btnManagerPanel').classList.remove('hidden');
-        document.getElementById('btnOtManager').classList.remove('hidden');
-        document.getElementById('filterCrewGroup').classList.remove('hidden');
-        document.getElementById('filterEmployeeGroup').classList.remove('hidden');
-        document.getElementById('filterSearchGroup').classList.remove('hidden');
     }
     
     initializeFilters();
-    showAlertsIfNeeded();
-    showMyCalendar();
-    setLastLoginTime(currentUser.login);
+    showGeneralView();
     showNotification('👋 Bienvenido ' + currentUser.name.split(' ')[0]);
 }
 
 function logout() {
-    currentUser = null; isManager = false; selectedEmployee = null;
-    isGeneralView = false; isMyCalendarView = true; changedDays = []; newOtDays = [];
+    currentUser = null;
+    isLoggedIn = false;
+    isManager = false;
+    selectedEmployee = null;
     
     document.getElementById('mainApp').classList.add('hidden');
     document.getElementById('loginScreen').classList.remove('hidden');
     document.getElementById('loginPassword').value = '';
     document.getElementById('loginSearchInput').value = '';
     document.getElementById('loginUserSelect').value = '';
-    document.getElementById('loginStatus').classList.add('hidden');
+    document.getElementById('loginStatus').className = 'login-status';
+    document.getElementById('loginStatus').textContent = '';
     document.getElementById('managerBadge').classList.add('hidden');
-    document.getElementById('btnManagerPanel').classList.add('hidden');
-    document.getElementById('btnOtManager').classList.add('hidden');
-    document.getElementById('alertsContainer').classList.add('hidden');
-    document.getElementById('filterCrewGroup').classList.add('hidden');
-    document.getElementById('filterEmployeeGroup').classList.add('hidden');
-    document.getElementById('filterSearchGroup').classList.add('hidden');
+    document.getElementById('btnManager').classList.remove('active');
+    document.getElementById('btnManager').innerHTML = '🔐 Manager';
     
     filterLoginUsers();
     showNotification('👋 Sesión cerrada');
 }
 
 // =====================================================
-// FILTROS Y NAVEGACIÓN
+// MI CUENTA (NUEVO)
 // =====================================================
+function openUserSettingsModal() {
+    if (!currentUser) return;
+    
+    document.getElementById('settingsUserName').textContent = currentUser.name;
+    document.getElementById('settingsUserLogin').textContent = currentUser.login;
+    document.getElementById('settingsUserCrew').textContent = currentUser.crew || 'N/A';
+    document.getElementById('settingsUserRole').textContent = currentUser.role || 'Sin rol';
+    
+    document.getElementById('userNewPassword1').value = '';
+    document.getElementById('userNewPassword2').value = '';
+    
+    document.getElementById('userSettingsModal').classList.add('active');
+}
+
+function closeUserSettingsModal() { 
+    document.getElementById('userSettingsModal').classList.remove('active'); 
+}
+
+async function changeUserPassword() {
+    if (!currentUser) return;
+    
+    const pass1 = document.getElementById('userNewPassword1').value;
+    const pass2 = document.getElementById('userNewPassword2').value;
+    
+    if (!pass1 || pass1.length < 4) { 
+        showNotification('❌ Mínimo 4 caracteres', true); 
+        return; 
+    }
+    if (pass1 !== pass2) { 
+        showNotification('❌ Las contraseñas no coinciden', true); 
+        return; 
+    }
+    
+    if (!allData.userPasswords) allData.userPasswords = {};
+    allData.userPasswords[currentUser.login] = pass1;
+    
+    showNotification('⏳ Guardando...');
+    if (await saveToCloud()) {
+        document.getElementById('userNewPassword1').value = '';
+        document.getElementById('userNewPassword2').value = '';
+        showNotification('✅ Contraseña actualizada');
+    }
+}
+
+// =====================================================
+// MI CALENDARIO (NUEVO)
+// =====================================================
+function showMyCalendar() {
+    if (!currentUser) return;
+    
+    selectedEmployee = allData.empleados.find(e => e.login === currentUser.login);
+    if (!selectedEmployee) { 
+        showNotification('❌ No se encontró tu perfil', true); 
+        return; 
+    }
+    
+    isGeneralView = false;
+    document.getElementById('filterEmployee').value = currentUser.login;
+    document.getElementById('btnMyCalendar').classList.add('active');
+    document.getElementById('btnGeneral').classList.remove('active');
+    document.getElementById('generalViewInfo').style.display = 'none';
+    
+    document.getElementById('employeeName').textContent = selectedEmployee.name + ' (Tú)';
+    document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
+    document.getElementById('employeeRole').textContent = selectedEmployee.role;
+    document.getElementById('employeeLogin').textContent = selectedEmployee.login;
+    document.getElementById('employeeInfo').classList.add('active');
+    
+    generateCalendar();
+    generateStats();
+    document.getElementById('statsContainer').style.display = 'block';
+}
+
+// =====================================================
+// INICIALIZACIÓN (ORIGINAL - MODIFICADO)
+// =====================================================
+async function initializeData() {
+    // Esta función ya no se usa directamente, se usa initializeLogin
+}
+
+async function reloadFromCloud() {
+    showNotification('🔄 Recargando...');
+    const data = await loadFromCloud();
+    if (data) {
+        // Preservar contraseñas existentes
+        const oldPasswords = allData.userPasswords || {};
+        allData = data;
+        allData.userPasswords = { ...oldPasswords, ...data.userPasswords };
+        
+        initializeFilters();
+        if (selectedEmployee) {
+            const login = selectedEmployee.login;
+            selectedEmployee = allData.empleados.find(e => e.login === login);
+            if (selectedEmployee) {
+                generateCalendar();
+                generateStats();
+            }
+        }
+        showNotification('✅ Datos actualizados');
+    }
+}
+
 function initializeFilters() {
     if (!allData.empleados.length) return;
     const crews = [...new Set(allData.empleados.map(e => e.crew))].sort();
@@ -1129,87 +982,40 @@ function filterEmployees() {
     const searchFilter = document.getElementById('searchInput').value.toLowerCase();
     let filtered = allData.empleados;
     if (crewFilter) filtered = filtered.filter(e => e.crew === crewFilter);
-    if (searchFilter) filtered = filtered.filter(e => e.name.toLowerCase().includes(searchFilter) || e.login.toLowerCase().includes(searchFilter));
+        if (searchFilter) filtered = filtered.filter(e => e.name.toLowerCase().includes(searchFilter) || e.login.toLowerCase().includes(searchFilter));
     const empSelect = document.getElementById('filterEmployee');
     empSelect.innerHTML = '<option value="">-- Vista General --</option>';
     filtered.sort((a,b) => a.name.localeCompare(b.name));
-    filtered.forEach(e => {
-        const managerIcon = isManagerRole(e.role) ? ' 👑' : '';
-        empSelect.innerHTML += `<option value="${e.login}">${e.name}${managerIcon}</option>`;
-    });
+    filtered.forEach(e => empSelect.innerHTML += `<option value="${e.login}">${e.name} (${e.login})</option>`);
 }
 
 function selectEmployee() {
-    if (!isManager) return;
     const login = document.getElementById('filterEmployee').value;
     if (!login) { showGeneralView(); return; }
     
     selectedEmployee = allData.empleados.find(e => e.login === login);
     if (!selectedEmployee) return;
     
-    isGeneralView = false; isMyCalendarView = false;
+    isGeneralView = false;
     document.getElementById('btnGeneral').classList.remove('active');
     document.getElementById('btnMyCalendar').classList.remove('active');
     document.getElementById('generalViewInfo').style.display = 'none';
-    
     document.getElementById('employeeName').textContent = selectedEmployee.name;
     document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
     document.getElementById('employeeRole').textContent = selectedEmployee.role;
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
-    
-    generateCalendar(); generateStats();
-    document.getElementById('statsContainer').style.display = 'block';
-}
-
-async function reloadFromCloud() {
-    showNotification('🔄 Recargando...');
-    const data = await loadFromCloud();
-    if (data) {
-        allData = data;
-        initializeFilters();
-        showAlertsIfNeeded();
-        if (isMyCalendarView) showMyCalendar();
-        else if (isGeneralView) showGeneralView();
-        else if (selectedEmployee) {
-            selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
-            if (selectedEmployee) { generateCalendar(); generateStats(); }
-            else showMyCalendar();
-        }
-        showNotification('✅ Datos actualizados');
-    }
-}
-
-// =====================================================
-// MI CALENDARIO
-// =====================================================
-function showMyCalendar() {
-    if (!currentUser) return;
-    
-    isMyCalendarView = true; isGeneralView = false;
-    selectedEmployee = allData.empleados.find(e => e.login === currentUser.login);
-    if (!selectedEmployee) { showNotification('❌ No se encontró tu perfil', true); return; }
-    
-    document.getElementById('filterEmployee').value = '';
-    document.getElementById('btnMyCalendar').classList.add('active');
-    document.getElementById('btnGeneral').classList.remove('active');
-    document.getElementById('generalViewInfo').style.display = 'none';
-    
-    document.getElementById('employeeName').textContent = selectedEmployee.name + ' (Tú)';
-    document.getElementById('employeeCrew').textContent = selectedEmployee.crew;
-    document.getElementById('employeeRole').textContent = selectedEmployee.role;
-    document.getElementById('employeeLogin').textContent = selectedEmployee.login;
-    document.getElementById('employeeInfo').classList.add('active');
-    
-    generateCalendar(); generateStats();
+    generateCalendar();
+    generateStats();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
 // =====================================================
-// VISTA GENERAL
+// VISTA GENERAL (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function showGeneralView() {
-    isGeneralView = true; isMyCalendarView = false; selectedEmployee = null;
+    isGeneralView = true;
+    selectedEmployee = null;
     document.getElementById('filterEmployee').value = '';
     document.getElementById('btnGeneral').classList.add('active');
     document.getElementById('btnMyCalendar').classList.remove('active');
@@ -1220,7 +1026,10 @@ function showGeneralView() {
 }
 
 function generateGeneralCalendar() {
-    if (!allData.empleados.length) { document.getElementById('calendarGrid').innerHTML = '<div class="loading">No hay datos</div>'; return; }
+    if (!allData.empleados.length) {
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
+        return;
+    }
     let html = '';
     for (let m = 1; m <= 12; m++) html += generateGeneralMonth(m);
     document.getElementById('calendarGrid').innerHTML = html;
@@ -1237,26 +1046,11 @@ function generateGeneralMonth(month) {
                 html += '<td class="empty"></td>';
             } else {
                 const fest = isFestivo(month, day);
-                const isOt = isOtFileDay(month, day);
-                const alarmClass = getAlarmClass(month, day);
-                let classes = [];
-                let onclick = `openDayOverviewModal(${month}, ${day})`;
-                let extraContent = '';
-                
-                if (isOt) {
-                    classes.push('ot-file-day');
-                    onclick = `openOtFileModal(${month}, ${day})`;
-                    extraContent = `<span class="shift-code">OT</span>`;
-                } else if (alarmClass) {
-                    classes.push(alarmClass);
-                } else {
-                    classes.push('general-day');
-                    if (d === 5) classes.push('weekend-sat');
-                    if (d === 6) classes.push('weekend-sun');
-                }
+                let classes = ['general-day'];
                 if (fest) classes.push('festivo');
-                
-                html += `<td class="${classes.join(' ')}" onclick="${onclick}"><span class="day-num">${day}</span>${extraContent}</td>`;
+                if (d === 5) classes.push('weekend-sat');
+                if (d === 6) classes.push('weekend-sun');
+                html += `<td class="${classes.join(' ')}" onclick="openDayOverviewModal(${month}, ${day})"><span class="day-num">${day}</span></td>`;
                 day++;
             }
         }
@@ -1267,144 +1061,65 @@ function generateGeneralMonth(month) {
 }
 
 // =====================================================
-// ANÁLISIS DE PERSONAL Y ALARMAS
-// =====================================================
-function analyzeStaffingForDay(month, day) {
-    const doy = getDayOfYear(month, day);
-    const staffing = {
-        morning: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] },
-        afternoon: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] },
-        night: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] },
-        central: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] }
-    };
-    const alarms = { morning: { lowSrme: false, lowRmet: false }, afternoon: { lowSrme: false, lowRmet: false }, night: { lowSrme: false, lowRmet: false } };
-    
-    allData.empleados.forEach(emp => {
-        const shift = (emp.turnos[doy] || '').toLowerCase();
-        if (!shift) return;
-        const roleType = classifyRole(emp.role);
-        const shiftInfo = getShiftInfo(shift);
-        const empData = { name: emp.name, crew: emp.crew, login: emp.login, role: emp.role, roleType, shift: shift.toUpperCase(), hours: shiftInfo.hours };
-        
-        let shiftType = null;
-        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) shiftType = 'morning';
-        else if (['wt', 't8', 't', 't-co'].includes(shift)) shiftType = 'afternoon';
-        else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) shiftType = 'night';
-        else if (['c', 'cw'].includes(shift)) shiftType = 'central';
-        
-        if (shiftType) {
-            staffing[shiftType].total++;
-            staffing[shiftType].employees.push(empData);
-            if (roleType === 'srme') staffing[shiftType].srme++;
-            else if (roleType === 'rmet') staffing[shiftType].rmet++;
-            else staffing[shiftType].otros++;
-        }
-    });
-    
-    ['morning', 'afternoon', 'night'].forEach(st => {
-        if (staffing[st].total > 0) {
-            alarms[st].lowSrme = staffing[st].srme < MIN_SRME_PER_SHIFT;
-            alarms[st].lowRmet = staffing[st].rmet < MIN_RMET_PER_SHIFT;
-        }
-    });
-    
-    return { staffing, alarms };
-}
-
-function getAlarmClass(month, day) {
-    if (isFestivo(month, day) || isOtFileDay(month, day)) return '';
-    const { alarms, staffing } = analyzeStaffingForDay(month, day);
-    const m = (alarms.morning.lowSrme || alarms.morning.lowRmet) && staffing.morning.total > 0;
-    const a = (alarms.afternoon.lowSrme || alarms.afternoon.lowRmet) && staffing.afternoon.total > 0;
-    const n = (alarms.night.lowSrme || alarms.night.lowRmet) && staffing.night.total > 0;
-    
-    if (m && a && n) return 'alarm-all';
-    if (m && a) return 'alarm-morning-afternoon';
-    if (m && n) return 'alarm-morning-night';
-    if (a && n) return 'alarm-afternoon-night';
-    if (m) return 'alarm-morning';
-    if (a) return 'alarm-afternoon';
-    if (n) return 'alarm-night';
-    return '';
-}
-
-// =====================================================
-// MODAL VISTA DÍA
+// MODAL VISTA GENERAL DEL DÍA (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function openDayOverviewModal(month, day) {
-    if (isOtFileDay(month, day)) { openOtFileModal(month, day); return; }
+    const doy = getDayOfYear(month, day);
+    const morning = [], afternoon = [], night = [], central = [];
     
-    const { staffing, alarms } = analyzeStaffingForDay(month, day);
-    const fest = isFestivo(month, day);
+    allData.empleados.forEach(emp => {
+        const turnoRaw = emp.turnos[doy] || '';
+        const shift = turnoRaw.toLowerCase();
+        const shiftInfo = getShiftInfo(shift);
+        const empData = { name: emp.name, crew: emp.crew, login: emp.login, shift: shift.toUpperCase(), hours: shiftInfo.hours };
+        
+        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) morning.push(empData);
+        else if (['wt', 't8', 't', 't-co'].includes(shift)) afternoon.push(empData);
+        else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) night.push(empData);
+        else if (['c', 'cw'].includes(shift)) central.push(empData);
+    });
     
-    ['morning', 'afternoon', 'night', 'central'].forEach(s => staffing[s].employees.sort((a, b) => a.name.localeCompare(b.name)));
+    [morning, afternoon, night, central].forEach(arr => arr.sort((a,b) => a.name.localeCompare(b.name)));
     
     const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const date = new Date(2026, month - 1, day);
     document.getElementById('dayOverviewTitle').textContent = `📅 ${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
     
+    const fest = isFestivo(month, day);
     const festivoBadge = document.getElementById('dayOverviewFestivo');
     festivoBadge.style.display = fest ? 'inline-block' : 'none';
     if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
-    document.getElementById('daySummary').innerHTML = generateDaySummary(staffing, alarms, fest);
+    document.getElementById('daySummary').innerHTML = `
+        <div class="summary-item"><div class="summary-dot" style="background:var(--verde)"></div><span>${morning.length}</span> Mañana</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--naranja)"></div><span>${afternoon.length}</span> Tarde</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--azul)"></div><span>${night.length}</span> Noche</div>
+        <div class="summary-item"><div class="summary-dot" style="background:var(--gris)"></div><span>${central.length}</span> Central</div>
+        <div class="summary-item" style="background:#e8f5e9;"><span style="color:#27ae60;">${morning.length + afternoon.length + night.length + central.length}</span> Total</div>
+    `;
     
-    ['Morning', 'Afternoon', 'Night', 'Central'].forEach(shiftName => {
-        const key = shiftName.toLowerCase();
-        const data = staffing[key];
-        const alarm = alarms[key];
-        
-        document.getElementById('count' + shiftName).textContent = data.total;
-        document.getElementById('roleBreakdown' + shiftName).innerHTML = generateRoleBreakdown(data, alarm, key !== 'central' && !fest);
-        document.getElementById('list' + shiftName).innerHTML = renderEmployeeList(data.employees, key);
-        
-        const column = document.getElementById('column' + shiftName);
-        if (key !== 'central' && !fest && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet)) column.classList.add('column-alarm');
-        else column.classList.remove('column-alarm');
-    });
-    
+    document.getElementById('countMorning').textContent = morning.length;
+    document.getElementById('countAfternoon').textContent = afternoon.length;
+    document.getElementById('countNight').textContent = night.length;
+    document.getElementById('countCentral').textContent = central.length;
+    document.getElementById('listMorning').innerHTML = renderEmployeeList(morning, 'morning');
+    document.getElementById('listAfternoon').innerHTML = renderEmployeeList(afternoon, 'afternoon');
+    document.getElementById('listNight').innerHTML = renderEmployeeList(night, 'night');
+    document.getElementById('listCentral').innerHTML = renderEmployeeList(central, 'central');
     document.getElementById('dayOverviewModal').classList.add('active');
-}
-
-function generateDaySummary(staffing, alarms, isFestivo) {
-    const shifts = [{ key: 'morning', name: 'Mañana', icon: '☀️' }, { key: 'afternoon', name: 'Tarde', icon: '🌅' }, { key: 'night', name: 'Noche', icon: '🌙' }, { key: 'central', name: 'Central', icon: '🏢' }];
-    let html = '';
-    let totalAll = 0;
-    
-    shifts.forEach(shift => {
-        const data = staffing[shift.key];
-        const alarm = alarms[shift.key];
-        const hasAlarm = shift.key !== 'central' && !isFestivo && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet);
-        totalAll += data.total;
-        html += `<div class="summary-item ${hasAlarm ? 'has-alarm' : ''}"><span class="summary-icon">${shift.icon}</span><span class="summary-total">${data.total}</span><span class="summary-label">${shift.name}</span><span class="summary-breakdown"><span class="srme">${data.srme} SRME</span> · <span class="rmet">${data.rmet} RMET</span></span></div>`;
-    });
-    
-    html += `<div class="summary-item total-item"><span class="summary-icon">📊</span><span class="summary-total">${totalAll}</span><span class="summary-label">Total</span></div>`;
-    return html;
-}
-
-function generateRoleBreakdown(data, alarm, checkAlarms) {
-    if (data.total === 0) return '<span style="color:#999;">Sin personal</span>';
-    const srmeWarn = checkAlarms && alarm?.lowSrme;
-    const rmetWarn = checkAlarms && alarm?.lowRmet;
-    let html = `<span class="srme-count ${srmeWarn ? 'warning' : ''}">${data.srme} SRME${srmeWarn ? ' ⚠️' : ''}</span>`;
-    html += ` · <span class="rmet-count ${rmetWarn ? 'warning' : ''}">${data.rmet} RMET${rmetWarn ? ' ⚠️' : ''}</span>`;
-    if (data.otros > 0) html += ` · <span>${data.otros} otros</span>`;
-    return html;
 }
 
 function renderEmployeeList(employees, type) {
     if (employees.length === 0) return '<div class="no-employees">Sin personal asignado</div>';
-    return employees.map(emp => {
-        const roleClass = emp.roleType === 'srme' ? 'srme' : emp.roleType === 'rmet' ? 'rmet' : '';
-        const onclick = isManager ? `onclick="selectEmployeeFromModal('${emp.login}')"` : '';
-        const cursor = isManager ? 'cursor:pointer;' : 'cursor:default;';
-        return `<div class="employee-item" ${onclick} style="${cursor}"><div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span><span class="role-badge ${roleClass}">${emp.role || 'N/A'}</span></div><span class="shift-badge ${type}">${emp.shift}</span></div>`;
-    }).join('');
+    return employees.map(emp => `
+        <div class="employee-item" onclick="selectEmployeeFromModal('${emp.login}')">
+            <div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span></div>
+            <span class="shift-badge ${type}">${emp.shift}<span class="badge-hours">${emp.hours}</span></span>
+        </div>
+    `).join('');
 }
 
 function selectEmployeeFromModal(login) {
-    if (!isManager) return;
     closeDayOverviewModal();
     document.getElementById('filterEmployee').value = login;
     selectEmployee();
@@ -1413,64 +1128,8 @@ function selectEmployeeFromModal(login) {
 function closeDayOverviewModal() { document.getElementById('dayOverviewModal').classList.remove('active'); }
 
 // =====================================================
-// CALENDARIO INDIVIDUAL
+// TURNOS - UTILIDADES (ORIGINAL - SIN CAMBIOS)
 // =====================================================
-function generateCalendar() {
-    if (!selectedEmployee) return;
-    let html = '';
-    for (let m = 1; m <= 12; m++) html += generateMonth(m);
-    document.getElementById('calendarGrid').innerHTML = html;
-}
-
-function generateMonth(month) {
-    let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr></thead><tbody>`;
-    let day = 1;
-    const weeks = Math.ceil((daysInMonth[month-1] + startDays[month-1]) / 7);
-    for (let w = 0; w < weeks; w++) {
-        html += '<tr>';
-        for (let d = 0; d < 7; d++) {
-            if ((w === 0 && d < startDays[month-1]) || day > daysInMonth[month-1]) {
-                html += '<td class="empty"></td>';
-            } else {
-                const doy = getDayOfYear(month, day);
-                const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
-                const shiftInfo = getShiftInfo(shift);
-                const fest = isFestivo(month, day);
-                const isOt = isOtFileDay(month, day);
-                const wasChanged = changedDays.some(c => c.dayOfYear === doy);
-                
-                let classes = [];
-                let onclick = `openEditModal(${month}, ${day})`;
-                let extraContent = '';
-                
-                if (isOt) {
-                    classes.push('ot-file-day');
-                    onclick = `openOtFileModal(${month}, ${day})`;
-                    extraContent = `<span class="shift-code">OT</span>`;
-                } else {
-                    classes.push(getShiftClass(shift));
-                    let hoursDisplay = '';
-                    if (shift && shiftInfo.hours !== '-') {
-                        const hoursParts = shiftInfo.hours.split(' - ');
-                        if (hoursParts.length === 2) hoursDisplay = `<span class="shift-hours">${hoursParts[0].substring(0,5)}</span>`;
-                    }
-                    extraContent = `<span class="shift-code">${shift ? shift.toUpperCase() : ''}</span>${hoursDisplay}`;
-                }
-                
-                if (fest) classes.push('festivo');
-                if (isReducido(shift)) classes.push('reducido');
-                if (wasChanged && isMyCalendarView) classes.push('day-changed');
-                
-                html += `<td class="${classes.join(' ')}" onclick="${onclick}"><span class="day-num">${day}</span>${extraContent}</td>`;
-                day++;
-            }
-        }
-        html += '</tr>';
-    }
-    html += '</tbody></table></div>';
-    return html;
-}
-
 function getShiftClass(shift) {
     if (!shift) return 'libre';
     const s = shift.toLowerCase();
@@ -1494,31 +1153,94 @@ function getShiftClass(shift) {
     return 'libre';
 }
 
+function isReducido(shift) {
+    if (!shift) return false;
+    const s = shift.toLowerCase();
+    return s.includes('-co');
+}
+
+function isFestivo(m, d) { return festivos2026.some(f => f.month === m && f.day === d); }
+function getFestivoName(m, d) { const f = festivos2026.find(f => f.month === m && f.day === d); return f ? f.name : ''; }
+function getDayOfYear(m, d) { let doy = 0; for (let i = 0; i < m - 1; i++) doy += daysInMonth[i]; return doy + d - 1; }
+
+// =====================================================
+// CALENDARIO INDIVIDUAL (ORIGINAL - SIN CAMBIOS)
+// =====================================================
+function generateMonth(month) {
+    let html = `<div class="month-card"><div class="month-header"><h2>${monthNames[month-1]}</h2></div><table class="calendar-table"><thead><tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr></thead><tbody>`;
+    let day = 1;
+    const weeks = Math.ceil((daysInMonth[month-1] + startDays[month-1]) / 7);
+    for (let w = 0; w < weeks; w++) {
+        html += '<tr>';
+        for (let d = 0; d < 7; d++) {
+            if ((w === 0 && d < startDays[month-1]) || day > daysInMonth[month-1]) {
+                html += '<td class="empty"></td>';
+            } else {
+                const doy = getDayOfYear(month, day);
+                const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
+                const shiftInfo = getShiftInfo(shift);
+                const fest = isFestivo(month, day);
+                let classes = [getShiftClass(shift)];
+                if (fest) classes.push('festivo');
+                if (isReducido(shift)) classes.push('reducido');
+                
+                let hoursDisplay = '';
+                if (shift && shiftInfo.hours !== '-') {
+                    const hoursParts = shiftInfo.hours.split(' - ');
+                    if (hoursParts.length === 2) {
+                        hoursDisplay = `<span class="shift-hours">${hoursParts[0].substring(0,5)}</span>`;
+                    }
+                }
+                
+                html += `<td class="${classes.join(' ')}" onclick="openEditModal(${month}, ${day})" title="${shift ? shift.toUpperCase() + ': ' + shiftInfo.hours : 'Libre'}"><span class="day-num">${day}</span><span class="shift-code">${shift ? shift.toUpperCase() : ''}</span>${hoursDisplay}</td>`;
+                day++;
+            }
+        }
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    return html;
+}
+
+function generateCalendar() {
+    if (!selectedEmployee) return;
+    let html = '';
+    for (let m = 1; m <= 12; m++) html += generateMonth(m);
+    document.getElementById('calendarGrid').innerHTML = html;
+}
+
 function generateStats() {
     if (!selectedEmployee) return;
-    let stats = {wm:0, m8:0, wt:0, t8:0, n8:0, n:0, central:0, vacaciones:0, ap:0, ot:0};
-    
+    let stats = {wm:0, m8:0, mco:0, wt:0, t8:0, tco:0, n8:0, n:0, nn:0, nco:0, central:0, vacaciones:0, ap:0};
     for (let doy = 0; doy < 365; doy++) {
         const shift = (selectedEmployee.turnos[doy] || '').toLowerCase();
         if (shift === 'wm') stats.wm++;
-        else if (shift === 'm8' || shift === 'm' || shift === 'm-co') stats.m8++;
+        else if (shift === 'm8' || shift === 'm') stats.m8++;
+        else if (shift === 'm-co') stats.mco++;
         else if (shift === 'wt') stats.wt++;
-        else if (shift === 't8' || shift === 't' || shift === 't-co') stats.t8++;
+        else if (shift === 't8' || shift === 't') stats.t8++;
+        else if (shift === 't-co') stats.tco++;
         else if (shift === 'n8') stats.n8++;
-        else if (shift === 'n' || shift === 'wn' || shift === 'nn' || shift === 'n-co') stats.n++;
+        else if (shift === 'n' || shift === 'wn') stats.n++;
+        else if (shift === 'nn') stats.nn++;
+        else if (shift === 'n-co') stats.nco++;
         else if (shift === 'c' || shift === 'cw') stats.central++;
         else if (shift === 'v' || shift === 'v25' || shift === 'v26') stats.vacaciones++;
         else if (shift.startsWith('ap')) stats.ap++;
     }
-    const total = stats.wm + stats.m8 + stats.wt + stats.t8 + stats.n8 + stats.n + stats.central;
+    const total = stats.wm + stats.m8 + stats.mco + stats.wt + stats.t8 + stats.tco + stats.n8 + stats.n + stats.nn + stats.nco + stats.central;
     
     document.getElementById('statsGrid').innerHTML = `
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.wm}</div><div class="stat-label">WM</div></div>
         <div class="stat-card"><div class="stat-number" style="color:rgb(100,160,50)">${stats.m8}</div><div class="stat-label">M8</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:rgb(150,200,150)">${stats.mco}</div><div class="stat-label">M-CO</div></div>
         <div class="stat-card"><div class="stat-number" style="color:rgb(200,150,0)">${stats.wt}</div><div class="stat-label">WT</div></div>
         <div class="stat-card"><div class="stat-number" style="color:rgb(200,150,0)">${stats.t8}</div><div class="stat-label">T8</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:rgb(230,200,100)">${stats.tco}</div><div class="stat-label">T-CO</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.n8}</div><div class="stat-label">N8</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--azul)">${stats.n}</div><div class="stat-label">N</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:#5c6bc0">${stats.nn}</div><div class="stat-label">NN</div></div>
+        <div class="stat-card"><div class="stat-number" style="color:#7986cb">${stats.nco}</div><div class="stat-label">N-CO</div></div>
         <div class="stat-card"><div class="stat-number" style="color:#888">${stats.central}</div><div class="stat-label">CENTRAL</div></div>
         <div class="stat-card"><div class="stat-number" style="color:red">${stats.vacaciones}</div><div class="stat-label">VAC</div></div>
         <div class="stat-card"><div class="stat-number" style="color:var(--verde-fuerte)">${stats.ap}</div><div class="stat-label">AP</div></div>
@@ -1527,12 +1249,10 @@ function generateStats() {
 }
 
 // =====================================================
-// EDICIÓN DE TURNOS
+// EDICIÓN DE TURNOS (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function openEditModal(month, day) {
     if (!selectedEmployee) return;
-    if (isOtFileDay(month, day)) { openOtFileModal(month, day); return; }
-    
     editingDay = { month, day, doy: getDayOfYear(month, day) };
     
     const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -1540,21 +1260,13 @@ function openEditModal(month, day) {
     document.getElementById('modalTitle').textContent = `${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
     
     const fest = isFestivo(month, day);
-    document.getElementById('festivoBadge').style.display = fest ? 'inline-block' : 'none';
-    if (fest) document.getElementById('festivoBadge').textContent = '🎉 ' + getFestivoName(month, day);
-    
-    const lastChange = getLastChangeForDay(selectedEmployee.login, editingDay.doy);
-    const lastChangeInfo = document.getElementById('lastChangeInfo');
-    if (lastChange) {
-        const changeDate = new Date(lastChange.timestamp);
-        const dateStr = changeDate.toLocaleDateString('es-ES') + ' ' + changeDate.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
-        const commentHtml = lastChange.comment ? `<div class="last-change-comment">${lastChange.comment}</div>` : '';
-        document.getElementById('lastChangeDetail').innerHTML = `<strong>${lastChange.managerName}</strong> - ${dateStr}<br>Cambió de <span style="color:#c62828; text-decoration:line-through;">${lastChange.oldShift.toUpperCase()}</span> a <span style="color:#2e7d32; font-weight:bold;">${lastChange.newShift.toUpperCase()}</span>${commentHtml}`;
-        lastChangeInfo.style.display = 'block';
-    } else { lastChangeInfo.style.display = 'none'; }
+    const festivoBadge = document.getElementById('festivoBadge');
+    festivoBadge.style.display = fest ? 'inline-block' : 'none';
+    if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
     const shift = (selectedEmployee.turnos[editingDay.doy] || '').toLowerCase();
     const shiftInfo = getShiftInfo(shift);
+    
     const currentShiftBadge = document.getElementById('currentShiftBadge');
     const currentShiftTime = document.getElementById('currentShiftTime');
     
@@ -1577,16 +1289,16 @@ function openEditModal(month, day) {
 
 function getShiftColor(shift) {
     const s = shift.toLowerCase();
-    if (['wm', 'm8', 'm'].includes(s)) return 'linear-gradient(135deg, var(--verde), #7cb342)';
+    if (s === 'wm' || s === 'm8' || s === 'm') return 'linear-gradient(135deg, var(--verde), #7cb342)';
     if (s === 'm-co') return 'linear-gradient(135deg, #c8e6c9, #a5d6a7)';
-    if (['wt', 't8', 't'].includes(s)) return 'linear-gradient(135deg, var(--naranja), #ffa000)';
+    if (s === 'wt' || s === 't8' || s === 't') return 'linear-gradient(135deg, var(--naranja), #ffa000)';
     if (s === 't-co') return 'linear-gradient(135deg, #fff3cd, #ffe082)';
     if (s === 'n8') return 'linear-gradient(135deg, var(--azul), #1a237e)';
-    if (['n', 'wn'].includes(s)) return 'linear-gradient(135deg, #303f9f, var(--azul))';
+    if (s === 'n' || s === 'wn') return 'linear-gradient(135deg, #303f9f, var(--azul))';
     if (s === 'nn') return 'linear-gradient(135deg, #5c6bc0, #3949ab)';
     if (s === 'n-co') return 'linear-gradient(135deg, #7986cb, #5c6bc0)';
-    if (['c', 'cw'].includes(s)) return 'linear-gradient(135deg, #e0e0e0, #bdbdbd)';
-    if (['v', 'v25', 'v26'].includes(s)) return 'linear-gradient(135deg, #ef5350, #e53935)';
+    if (s === 'c' || s === 'cw') return 'linear-gradient(135deg, #e0e0e0, #bdbdbd)';
+    if (s === 'v' || s === 'v25' || s === 'v26') return 'linear-gradient(135deg, #ef5350, #e53935)';
     if (s.startsWith('ap')) return 'linear-gradient(135deg, var(--verde-fuerte), #00c853)';
     if (s === 'tr') return 'linear-gradient(135deg, #ff9800, #f57c00)';
     return '#f5f5f5';
@@ -1594,391 +1306,104 @@ function getShiftColor(shift) {
 
 function getShiftTextColor(shift) {
     const s = shift.toLowerCase();
-    if (['wm', 'm8', 'm', 'm-co'].includes(s)) return '#1a5c1a';
-    if (['wt', 't8', 't', 't-co'].includes(s)) return '#5a4000';
-    if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(s)) return 'white';
-    if (['c', 'cw'].includes(s)) return '#444';
-    if (['v', 'v25', 'v26'].includes(s) || s.startsWith('ap') || s === 'tr') return 'white';
+    if (s === 'wm' || s === 'm8' || s === 'm') return '#1a5c1a';
+    if (s === 'm-co') return '#2e7d32';
+    if (s === 'wt' || s === 't8' || s === 't') return '#5a4000';
+    if (s === 't-co') return '#5a4000';
+    if (s === 'n8' || s === 'n' || s === 'nn' || s === 'wn' || s === 'n-co') return 'white';
+    if (s === 'c' || s === 'cw') return '#444';
+    if (s === 'v' || s === 'v25' || s === 'v26') return 'white';
+    if (s.startsWith('ap')) return 'white';
+    if (s === 'tr') return 'white';
     return '#999';
 }
 
-function closeModal() { document.getElementById('editModal').classList.remove('active'); editingDay = null; }
-
-async function setShift(newShift) {
-    if (!editingDay || !isManager || !selectedEmployee || !currentUser) return;
-    
-    const idx = allData.empleados.findIndex(e => e.login === selectedEmployee.login);
-    if (idx === -1) { showNotification('❌ Error', true); return; }
-    
-    if (!Array.isArray(allData.empleados[idx].turnos)) allData.empleados[idx].turnos = turnosStringToArray(allData.empleados[idx].turnos);
-    
-    const oldShift = allData.empleados[idx].turnos[editingDay.doy] || '';
-    pendingShiftChange = { newShift, oldShift, employeeIdx: idx };
-    
-    document.getElementById('commentPreview').innerHTML = `<div class="preview-employee">${selectedEmployee.name}</div><div class="preview-date">${document.getElementById('modalTitle').textContent}</div><div class="preview-shift"><span class="shift-old">${oldShift ? oldShift.toUpperCase() : 'LIBRE'}</span> → <span class="shift-new">${newShift ? newShift.toUpperCase() : 'LIBRE'}</span></div>`;
-    
-    document.getElementById('changeComment').value = '';
-    document.getElementById('editModal').classList.remove('active');
-    document.getElementById('commentModal').classList.add('active');
+function closeModal() { 
+    document.getElementById('editModal').classList.remove('active'); 
+    editingDay = null; 
 }
 
-async function confirmShiftChange(skipComment = false) {
-    if (!pendingShiftChange || !editingDay || !currentUser) return;
+async function setShift(shift) {
+    if (!editingDay || !isManager || !selectedEmployee) return;
     
-    const comment = skipComment ? '' : document.getElementById('changeComment').value.trim();
-    const { newShift, oldShift, employeeIdx } = pendingShiftChange;
+    const empleadoIndex = allData.empleados.findIndex(e => e.login === selectedEmployee.login);
     
-    addChangelogEntry(selectedEmployee.login, selectedEmployee.name, editingDay.doy, oldShift, newShift, comment);
-    
-    allData.empleados[employeeIdx].turnos[editingDay.doy] = newShift;
-    selectedEmployee = allData.empleados[employeeIdx];
-    
-    document.getElementById('commentModal').classList.remove('active');
-    showNotification('⏳ Guardando...');
-    
-    if (await saveToCloud()) { generateCalendar(); generateStats(); showNotification(`✅ Guardado`); }
-    
-    pendingShiftChange = null; editingDay = null;
-}
-
-function cancelShiftChange() {
-    pendingShiftChange = null;
-    document.getElementById('commentModal').classList.remove('active');
-    document.getElementById('editModal').classList.add('active');
-}
-
-// =====================================================
-// CHANGELOG
-// =====================================================
-function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift, comment = '') {
-    const entry = {
-        timestamp: new Date().toISOString(),
-        managerLogin: currentUser.login,
-        managerName: currentUser.name,
-        managerRole: currentUser.role,
-        employeeLogin, employeeName,
-        dayOfYear: doy,
-        dateStr: getDayString(doy),
-        oldShift: oldShift || 'LIBRE',
-        newShift: newShift || 'LIBRE',
-        comment: comment || ''
-    };
-    allData.changelog.unshift(entry);
-    if (allData.changelog.length > 100) allData.changelog.pop();
-}
-
-function getLastChangeForDay(employeeLogin, doy) {
-    return allData.changelog ? allData.changelog.find(c => c.employeeLogin === employeeLogin && c.dayOfYear === doy) : null;
-}
-
-function renderChangelog() {
-    const container = document.getElementById('changelogList');
-    if (!allData.changelog || allData.changelog.length === 0) {
-        container.innerHTML = '<div class="changelog-empty">No hay modificaciones registradas</div>';
+    if (empleadoIndex === -1) {
+        showNotification('❌ Error: empleado no encontrado', true);
         return;
     }
     
-    container.innerHTML = allData.changelog.slice(0, 50).map(c => {
-        const date = new Date(c.timestamp);
-        const dateStr = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
-        const commentHtml = c.comment ? `<div class="change-comment">${c.comment}</div>` : '';
-        return `<div class="changelog-item"><div class="change-header"><span class="change-manager">👤 ${c.managerName}</span><span class="change-date">${dateStr}</span></div><div class="change-detail"><strong>${c.employeeName}</strong> - ${c.dateStr}<br><span class="change-shift shift-old">${c.oldShift.toUpperCase()}</span> → <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span></div>${commentHtml}</div>`;
-    }).join('');
-}
-
-// =====================================================
-// OT FILE
-// =====================================================
-function openOtFileModal(month, day) {
-    const doy = getDayOfYear(month, day);
-    const otDay = getOtDay(doy);
-    if (!otDay) { showNotification('❌ No es un día OT FILE', true); return; }
-    
-    currentOtDay = otDay;
-    
-    const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const date = new Date(2026, month - 1, day);
-    
-    document.getElementById('otFileModalTitle').textContent = `🔧 ${dayOfWeek[date.getDay()]} ${day} de ${monthNames[month-1]} 2026`;
-    document.getElementById('otFileName').textContent = otDay.name;
-    document.getElementById('otFileDesc').textContent = otDay.notes || 'Sin descripción';
-    document.getElementById('otFileCreator').textContent = otDay.createdByName;
-    document.getElementById('otFileStatus').textContent = otDay.status === 'open' ? '🟢 Abierto' : '⚫ Cerrado';
-    
-    const userSignup = otDay.signups ? otDay.signups.find(s => s.login === currentUser.login) : null;
-    
-    if (userSignup) {
-        document.getElementById('currentUserSignup').style.display = 'block';
-        document.getElementById('preferencesList').style.display = 'none';
-        document.getElementById('otSignupComment').style.display = 'none';
-        document.querySelector('#otSignupSection .btn-save').style.display = 'none';
-        document.getElementById('btnCancelSignup').style.display = 'inline-block';
-        
-        const prefNames = { morning: '☀️ Mañana', afternoon: '🌅 Tarde', night: '🌙 Noche' };
-        let prefsText = userSignup.preferences.map((p, i) => `${i+1}º: ${prefNames[p] || '-'}`).join(', ');
-        document.getElementById('currentUserPrefs').innerHTML = prefsText;
-    } else {
-        document.getElementById('currentUserSignup').style.display = 'none';
-        document.getElementById('preferencesList').style.display = 'block';
-        document.getElementById('otSignupComment').style.display = 'block';
-        document.querySelector('#otSignupSection .btn-save').style.display = 'inline-block';
-        document.getElementById('btnCancelSignup').style.display = 'none';
-        document.getElementById('pref1').value = '';
-        document.getElementById('pref2').value = '';
-        document.getElementById('pref3').value = '';
-        document.getElementById('otSignupComment').value = '';
+    if (!Array.isArray(allData.empleados[empleadoIndex].turnos)) {
+        allData.empleados[empleadoIndex].turnos = turnosStringToArray(allData.empleados[empleadoIndex].turnos);
     }
     
-    document.getElementById('otSignupSection').style.display = otDay.status === 'closed' ? 'none' : 'block';
-    renderOtSignupsList(otDay);
-    document.getElementById('otFileModal').classList.add('active');
-}
-
-function closeOtFileModal() { document.getElementById('otFileModal').classList.remove('active'); currentOtDay = null; }
-
-async function submitOtSignup() {
-    if (!currentOtDay || !currentUser) return;
-    
-    const pref1 = document.getElementById('pref1').value;
-    if (!pref1) { showNotification('❌ Selecciona al menos tu 1ª preferencia', true); return; }
-    
-    const pref2 = document.getElementById('pref2').value;
-    const pref3 = document.getElementById('pref3').value;
-    const comment = document.getElementById('otSignupComment').value.trim();
-    
-    const preferences = [pref1];
-    if (pref2 && pref2 !== pref1) preferences.push(pref2);
-    if (pref3 && pref3 !== pref1 && pref3 !== pref2) preferences.push(pref3);
-    
-    const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
-    if (otIdx === -1) { showNotification('❌ Error', true); return; }
-    
-    if (!allData.otDays[otIdx].signups) allData.otDays[otIdx].signups = [];
-    
-    const existingIdx = allData.otDays[otIdx].signups.findIndex(s => s.login === currentUser.login);
-    const signupData = { login: currentUser.login, name: currentUser.name, role: currentUser.role, crew: currentUser.crew, preferences, comment, timestamp: new Date().toISOString() };
-    
-    if (existingIdx >= 0) allData.otDays[otIdx].signups[existingIdx] = signupData;
-    else allData.otDays[otIdx].signups.push(signupData);
+    allData.empleados[empleadoIndex].turnos[editingDay.doy] = shift;
+    selectedEmployee = allData.empleados[empleadoIndex];
     
     showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        currentOtDay = allData.otDays[otIdx];
-        openOtFileModal(currentOtDay.month, currentOtDay.day);
-        showNotification('✅ Inscripción guardada');
+    const saved = await saveToCloud();
+    
+    if (saved) {
+        generateCalendar();
+        generateStats();
+        closeModal();
+        showNotification('✅ Turno guardado');
     }
-}
-
-async function cancelOtSignup() {
-    if (!currentOtDay || !currentUser) return;
-    if (!confirm('¿Cancelar tu inscripción?')) return;
-    
-    const otIdx = allData.otDays.findIndex(ot => ot.doy === currentOtDay.doy);
-    if (otIdx === -1) return;
-    
-    if (allData.otDays[otIdx].signups) {
-        allData.otDays[otIdx].signups = allData.otDays[otIdx].signups.filter(s => s.login !== currentUser.login);
-    }
-    
-    showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        currentOtDay = allData.otDays[otIdx];
-        openOtFileModal(currentOtDay.month, currentOtDay.day);
-        showNotification('✅ Inscripción cancelada');
-    }
-}
-
-function renderOtSignupsList(otDay) {
-    const container = document.getElementById('otRequestsList');
-    const signups = otDay.signups || [];
-    document.getElementById('otSignupCount').textContent = signups.length;
-    
-    if (signups.length === 0) { container.innerHTML = '<div class="no-employees">Nadie se ha apuntado todavía</div>'; return; }
-    
-    const prefNames = { morning: 'Mañana', afternoon: 'Tarde', night: 'Noche' };
-    const prefClass = { morning: 'morning', afternoon: 'afternoon', night: 'night' };
-    
-    container.innerHTML = signups.map(signup => {
-        const prefs = signup.preferences.map((p, i) => `<span style="display:inline-block; padding:2px 8px; border-radius:10px; margin-right:5px; font-size:0.7rem; font-weight:600; background:var(--${p === 'morning' ? 'verde' : p === 'afternoon' ? 'naranja' : 'azul'}); color:${p === 'night' ? 'white' : p === 'morning' ? '#1a5c1a' : '#5a4000'};">${i+1}º ${prefNames[p]}</span>`).join('');
-        const time = new Date(signup.timestamp).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-        return `<div style="display:flex; align-items:center; justify-content:space-between; padding:12px; margin-bottom:8px; background:#f8f9fa; border-radius:8px; border-left:4px solid #9b59b6;">
-            <div style="flex:1;">
-                <div style="font-weight:700; color:#333;">${signup.name} <small style="color:#888;">(${signup.crew})</small></div>
-                <div style="margin-top:5px;">${prefs}</div>
-                ${signup.comment ? `<div style="font-size:0.75rem; color:#666; margin-top:5px;">💬 ${signup.comment}</div>` : ''}
-                <div style="font-size:0.7rem; color:#999; margin-top:5px;">📅 ${time}</div>
-            </div>
-        </div>`;
-    }).join('');
 }
 
 // =====================================================
-// OT FILE - MANAGER
-// =====================================================
-function openOtManagerModal() {
-    if (!isManager) { showNotification('❌ Solo managers', true); return; }
-    renderOtDaysList();
-    document.getElementById('otManagerModal').classList.add('active');
-}
-
-function closeOtManagerModal() { document.getElementById('otManagerModal').classList.remove('active'); }
-
-function switchOtPanel(panelName, btn) {
-    document.querySelectorAll('#otManagerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#otManagerModal .panel-content').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('ot-panel-' + panelName).classList.add('active');
-    if (panelName === 'list') renderOtDaysList();
-}
-
-async function createOtDay() {
-    if (!isManager) { showNotification('❌ Solo managers', true); return; }
-    
-    const dateInput = document.getElementById('otNewDate').value;
-    const name = document.getElementById('otNewName').value.trim();
-    const notes = document.getElementById('otNewNotes').value.trim();
-    
-    if (!dateInput) { showNotification('❌ Selecciona una fecha', true); return; }
-    if (!name) { showNotification('❌ Introduce un nombre', true); return; }
-    
-    const date = new Date(dateInput);
-    if (date.getFullYear() !== 2026) { showNotification('❌ Solo fechas de 2026', true); return; }
-    
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const doy = getDayOfYear(month, day);
-    
-    if (getOtDay(doy)) { showNotification('⚠️ Ya existe un día OT en esa fecha', true); return; }
-    
-    const newOtDay = {
-        doy, month, day, name, notes,
-        createdBy: currentUser.login,
-        createdByName: currentUser.name,
-        createdAt: new Date().toISOString(),
-        status: 'open',
-        signups: []
-    };
-    
-    if (!allData.otDays) allData.otDays = [];
-    allData.otDays.push(newOtDay);
-    
-    showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        document.getElementById('otNewDate').value = '';
-        document.getElementById('otNewName').value = '';
-        document.getElementById('otNewNotes').value = '';
-        if (isGeneralView) generateGeneralCalendar();
-        else if (selectedEmployee) generateCalendar();
-        renderOtDaysList();
-        showNotification('✅ Día OT FILE creado');
-    }
-}
-
-async function deleteOtDay(doy) {
-    if (!isManager) return;
-    if (!confirm('¿Eliminar este día OT FILE?')) return;
-    
-    allData.otDays = allData.otDays.filter(ot => ot.doy !== doy);
-    
-    showNotification('⏳ Eliminando...');
-    if (await saveToCloud()) {
-        if (isGeneralView) generateGeneralCalendar();
-        else if (selectedEmployee) generateCalendar();
-        renderOtDaysList();
-        showNotification('✅ Día OT eliminado');
-    }
-}
-
-function renderOtDaysList() {
-    const container = document.getElementById('otDaysList');
-    if (!allData.otDays || allData.otDays.length === 0) {
-        container.innerHTML = '<div class="changelog-empty">No hay días OT FILE creados</div>';
-        return;
-    }
-    
-    const sorted = [...allData.otDays].sort((a, b) => a.doy - b.doy);
-    container.innerHTML = sorted.map(ot => {
-        const statusText = ot.status === 'open' ? '🟢 Abierto' : '⚫ Cerrado';
-        const signupCount = ot.signups ? ot.signups.length : 0;
-        const date = `${ot.day} de ${monthNames[ot.month - 1]}`;
-        return `<div class="changelog-item" style="border-left-color: #9b59b6;">
-            <div class="change-header">
-                <span class="change-manager">🔧 ${ot.name}</span>
-                <span class="change-date">${date}</span>
-            </div>
-            <div class="change-detail">${statusText} · ${signupCount} apuntados</div>
-            <div style="margin-top:8px; display:flex; gap:5px;">
-                <button class="btn btn-small btn-ot" onclick="openOtFileModal(${ot.month}, ${ot.day}); closeOtManagerModal();">👁️ Ver</button>
-                <button class="btn btn-small btn-danger" onclick="deleteOtDay(${ot.doy})">🗑️ Eliminar</button>
-            </div>
-        </div>`;
-    }).join('');
-}
-
-// =====================================================
-// PANEL MANAGER
+// MANAGER (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function openManagerModal() {
-    if (!isManager || !currentUser) { showNotification('❌ Solo managers', true); return; }
-    
-    document.getElementById('currentManagerName').textContent = currentUser.name;
-    document.getElementById('currentManagerLogin').textContent = currentUser.login;
-    document.getElementById('currentManagerRole').textContent = currentUser.role;
-    renderChangelog();
-    
+    if (isManager) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('managerPanel').style.display = 'block';
+    } else {
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('managerPanel').style.display = 'none';
+        document.getElementById('managerPassword').value = '';
+        document.getElementById('managerStatus').style.display = 'none';
+    }
     document.getElementById('managerModal').classList.add('active');
+    if (!isManager) document.getElementById('managerPassword').focus();
 }
 
-function closeManagerModal() { document.getElementById('managerModal').classList.remove('active'); }
-
-function switchPanel(panelName, btn) {
-    document.querySelectorAll('#managerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-' + panelName).classList.add('active');
-    if (panelName === 'changelog') renderChangelog();
+function closeManagerModal() { 
+    document.getElementById('managerModal').classList.remove('active'); 
 }
 
-// =====================================================
-// CONFIGURACIÓN USUARIO
-// =====================================================
-function openUserSettingsModal() {
-    if (!currentUser) return;
-    
-    document.getElementById('settingsUserName').textContent = currentUser.name;
-    document.getElementById('settingsUserLogin').textContent = currentUser.login;
-    document.getElementById('settingsUserCrew').textContent = currentUser.crew || 'N/A';
-    document.getElementById('settingsUserRole').textContent = currentUser.role || 'Sin rol';
-    
-    document.getElementById('userNewPassword1').value = '';
-    document.getElementById('userNewPassword2').value = '';
-    
-    document.getElementById('userSettingsModal').classList.add('active');
-}
-
-function closeUserSettingsModal() { document.getElementById('userSettingsModal').classList.remove('active'); }
-
-async function changeUserPassword() {
-    if (!currentUser) return;
-    
-    const pass1 = document.getElementById('userNewPassword1').value;
-    const pass2 = document.getElementById('userNewPassword2').value;
-    
-    if (!pass1 || pass1.length < 4) { showNotification('❌ Mínimo 4 caracteres', true); return; }
-    if (pass1 !== pass2) { showNotification('❌ Las contraseñas no coinciden', true); return; }
-    
-    allData.userPasswords[currentUser.login] = pass1;
-    
-    showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        document.getElementById('userNewPassword1').value = '';
-        document.getElementById('userNewPassword2').value = '';
-        showNotification('✅ Contraseña actualizada');
+function checkManagerPassword() {
+    if (document.getElementById('managerPassword').value === MANAGER_PASSWORD) {
+        isManager = true;
+        document.getElementById('btnManager').classList.add('active');
+        document.getElementById('btnManager').innerHTML = '✅ Manager';
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('managerPanel').style.display = 'block';
+        showNotification('🔓 Modo Manager activado');
+    } else {
+        document.getElementById('managerStatus').textContent = '❌ Clave incorrecta';
+        document.getElementById('managerStatus').className = 'manager-status error';
+        document.getElementById('managerStatus').style.display = 'block';
     }
 }
 
+function logoutManager() {
+    isManager = false;
+    document.getElementById('btnManager').classList.remove('active');
+    document.getElementById('btnManager').innerHTML = '🔐 Manager';
+    closeManagerModal();
+    showNotification('🔒 Sesión manager cerrada');
+}
+
+function switchTab(tabName, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+}
+
 // =====================================================
-// IMPORTACIÓN - PRESERVA CONTRASEÑAS
+// IMPORTACIÓN / EXPORTACIÓN (MODIFICADO - preserva contraseñas)
 // =====================================================
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
@@ -1986,67 +1411,60 @@ function previewBulkImport() {
     const empleados = parseRawData(data);
     const preview = document.getElementById('importPreview');
     if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
-    
-    const managers = empleados.filter(e => isManagerRole(e.role));
-    let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p><ul>`;
-    empleados.slice(0, 10).forEach(e => {
-        const isM = isManagerRole(e.role) ? ' 👑' : '';
-        const turnosCount = e.turnos.filter(t => t).length;
-        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos</li>`;
-    });
+    let html = `<p style="color:green;">✅ ${empleados.length} empleados:</p><ul>`;
+    empleados.slice(0, 10).forEach(e => html += `<li><strong>${e.name}</strong> - ${e.turnos.filter(t => t).length} turnos</li>`);
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
     preview.innerHTML = html + '</ul>';
 }
 
 async function processBulkImport() {
-    if (!isManager) { showNotification('❌ Solo managers pueden importar', true); return; }
-    
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
-    const nuevos = parseRawData(data);
-    if (nuevos.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
+    const nuevosEmpleados = parseRawData(data);
+    if (nuevosEmpleados.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
-    // ⚠️ IMPORTANTE: Guardamos las contraseñas ANTES de modificar empleados
-    const passwordsBackup = { ...allData.userPasswords };
+    // ⚠️ IMPORTANTE: Guardar contraseñas ANTES de modificar
+    const passwordsBackup = allData.userPasswords ? { ...allData.userPasswords } : {};
     
     let actualizados = 0, agregados = 0;
-    nuevos.forEach(nuevo => {
+    nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
-        if (idx >= 0) { 
-            allData.empleados[idx] = nuevo; 
-            actualizados++; 
-        } else { 
-            allData.empleados.push(nuevo); 
-            agregados++; 
-        }
+        if (idx >= 0) { allData.empleados[idx] = nuevo; actualizados++; }
+        else { allData.empleados.push(nuevo); agregados++; }
     });
     
-    // ⚠️ Restauramos las contraseñas que teníamos
+    // ⚠️ IMPORTANTE: Restaurar contraseñas después de importar
     allData.userPasswords = passwordsBackup;
     
     showNotification('⏳ Guardando...');
     if (await saveToCloud()) {
         initializeFilters();
-        showMyCalendar();
+        showGeneralView();
         document.getElementById('bulkImportData').value = '';
         document.getElementById('importPreview').innerHTML = '';
-        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados (contraseñas preservadas)`);
+        showNotification(`✅ ${agregados} nuevos, ${actualizados} actualizados`);
     }
 }
 
-// =====================================================
-// EXPORTACIÓN
-// =====================================================
+async function resetAllData() {
+    if (!confirm('¿Borrar todos los datos?')) return;
+    allData = { empleados: [], festivos: festivos2026, userPasswords: {} };
+    showNotification('⏳ Borrando...');
+    if (await saveToCloud()) {
+        document.getElementById('filterCrew').innerHTML = '<option value="">Todos</option>';
+        document.getElementById('filterEmployee').innerHTML = '<option value="">-- Vista General --</option>';
+        document.getElementById('employeeCount').textContent = '';
+        document.getElementById('employeeInfo').classList.remove('active');
+        document.getElementById('statsContainer').style.display = 'none';
+        document.getElementById('calendarGrid').innerHTML = '<div class="select-message"><span>📋</span>No hay datos</div>';
+        showNotification('🗑️ Datos borrados');
+    }
+}
+
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
-    const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
-    const blob = new Blob([JSON.stringify({ 
-        empleados: exp, 
-        changelog: allData.changelog,
-        otDays: allData.otDays,
-        exportedAt: new Date().toISOString(),
-        exportedBy: currentUser ? currentUser.name : 'Anónimo'
-    }, null, 2)], { type: 'application/json' });
+    const empleadosExport = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
+    const blob = new Blob([JSON.stringify({ empleados: empleadosExport, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
@@ -2055,7 +1473,7 @@ function exportData() {
 }
 
 // =====================================================
-// UI
+// UI UTILIDADES (ORIGINAL - SIN CAMBIOS)
 // =====================================================
 function setView(cols, btn) {
     const grid = document.getElementById('calendarGrid');
@@ -2065,8 +1483,16 @@ function setView(cols, btn) {
     btn.classList.add('active');
 }
 
+function showNotification(msg, isError = false) {
+    const n = document.getElementById('notification');
+    n.textContent = msg;
+    n.className = 'notification' + (isError ? ' error' : '');
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 2500);
+}
+
 // =====================================================
-// INICIAR
+// INICIAR APLICACIÓN
 // =====================================================
 initializeLogin();
 </script>
