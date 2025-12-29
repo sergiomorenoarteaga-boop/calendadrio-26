@@ -535,7 +535,8 @@
 
 <div class="modal-overlay" id="dayOverviewModal">
     <div class="modal modal-xlarge">
-        <h3 id="dayOverviewTitle">📅 Día</h3>        <div id="dayOverviewFestivo" class="festivo-badge" style="display:none;"></div>
+        <h3 id="dayOverviewTitle">📅 Día</h3>
+        <div id="dayOverviewFestivo" class="festivo-badge" style="display:none;"></div>
         <div class="day-summary" id="daySummary"></div>
         <div class="day-overview-grid">
             <div class="shift-column" id="columnMorning"><div class="shift-column-header morning">☀️ MAÑANA</div><div class="column-count morning" id="countMorning">0</div><div class="role-breakdown" id="roleBreakdownMorning"></div><div class="employee-list" id="listMorning"></div></div>
@@ -1722,7 +1723,7 @@ function renderChangelog() {
         return `<div class="changelog-item"><div class="change-header"><span class="change-manager">👤 ${c.managerName}</span><span class="change-date">${dateStr}</span></div><div class="change-detail"><strong>${c.employeeName}</strong> - ${c.dateStr}<br><span class="change-shift shift-old">${c.oldShift.toUpperCase()}</span> → <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span></div>${commentHtml}</div>`;
     }).join('');
 }
-    // =====================================================
+// =====================================================
 // OT FILE - FUNCIONES BÁSICAS
 // =====================================================
 function openOtFileModal(month, day) {
