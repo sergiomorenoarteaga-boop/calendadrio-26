@@ -254,6 +254,7 @@
         .shift-column-header.afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
         .shift-column-header.night { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
         .shift-column-header.central { background: linear-gradient(135deg, #e0e0e0, #bdbdbd); color: #444; }
+        .shift-column-header.absent { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
         .employee-list { max-height: 300px; overflow-y: auto; }
         .employee-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; margin-bottom: 6px; background: white; border-radius: 8px; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s; }
         .employee-item:hover { transform: translateX(5px); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
@@ -272,16 +273,16 @@
         .column-count.afternoon { color: #e65100; }
         .column-count.night { color: var(--azul); }
         .column-count.central { color: #666; }
+        .column-count.absent { color: #e74c3c; }
         .role-breakdown { text-align: center; font-size: 0.75rem; color: #555; margin-bottom: 10px; padding: 6px 10px; background: #fff; border-radius: 8px; border: 1px solid #eee; }
         .role-breakdown .srme-count { color: #2e7d32; font-weight: 700; }
         .role-breakdown .rmet-count { color: #1565c0; font-weight: 700; }
         .role-breakdown .warning { color: #e74c3c !important; }
-        .central-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ddd; }
-        .central-section .shift-column { max-width: 400px; margin: 0 auto; }
         .no-employees { text-align: center; color: #999; font-style: italic; padding: 20px; font-size: 0.85rem; }
         .day-summary { display: flex; justify-content: center; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }
         .summary-item { display: flex; flex-direction: column; align-items: center; padding: 12px 16px; background: #f5f5f5; border-radius: 12px; min-width: 110px; }
         .summary-item.has-alarm { background: #ffebee; border: 2px solid #e74c3c; }
+        .summary-item.absent-item { background: #ffebee; }
         .summary-item .summary-icon { font-size: 1.2rem; margin-bottom: 3px; }
         .summary-item .summary-total { font-weight: 800; font-size: 1.5rem; line-height: 1; }
         .summary-item .summary-label { font-size: 0.7rem; color: #666; margin-top: 2px; }
@@ -290,6 +291,97 @@
         .summary-item .summary-breakdown .rmet { color: #1565c0; font-weight: 600; }
         .summary-item.total-item { background: #e8f5e9; }
         .summary-item.total-item .summary-total { color: #2e7d32; }
+        
+        /* Estilos para roles detallados y ausencias */
+        .bottom-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #ddd;
+        }
+        
+        .employee-item .role-detail {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        
+        .employee-item .role-detail.role-srme {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .employee-item .role-detail.role-rmet {
+            background: #bbdefb;
+            color: #1565c0;
+        }
+        
+        .employee-item .role-detail.role-app {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .employee-item .role-detail.role-manager {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .employee-item .role-detail.role-other {
+            background: #f5f5f5;
+            color: #616161;
+        }
+        
+        .employee-item .absence-type {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .employee-item .absence-type.vac {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+        
+        .employee-item .absence-type.ap {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .employee-item .absence-type.tr {
+            background: #ffe0b2;
+            color: #e65100;
+        }
+        
+        .employee-item .absence-type.baja {
+            background: #e0e0e0;
+            color: #424242;
+        }
+        
+        .role-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        
+        .role-summary .role-chip {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .role-summary .role-chip.srme { background: #c8e6c9; color: #2e7d32; }
+        .role-summary .role-chip.rmet { background: #bbdefb; color: #1565c0; }
+        .role-summary .role-chip.app { background: #fff3e0; color: #e65100; }
+        .role-summary .role-chip.manager { background: #f3e5f5; color: #7b1fa2; }
+        .role-summary .role-chip.warning { border: 2px solid #e74c3c; }
         
         .ot-info-box { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left; }
         .ot-info-box h4 { margin-bottom: 8px; }
@@ -347,8 +439,21 @@
         
         .hidden { display: none !important; }
         
-        @media (max-width: 1000px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } .day-overview-grid { grid-template-columns: 1fr; } .ot-assignment-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } .filters-row { flex-direction: column; } .filter-group select, .filter-group input { min-width: 100%; } .modal-buttons { grid-template-columns: 1fr; } .modal-buttons-3col { grid-template-columns: 1fr; } .user-info-bar { flex-direction: column; text-align: center; } }
+        @media (max-width: 1000px) { 
+            .calendar-grid { grid-template-columns: repeat(2, 1fr); } 
+            .day-overview-grid { grid-template-columns: 1fr; } 
+            .ot-assignment-grid { grid-template-columns: 1fr; } 
+            .bottom-sections { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) { 
+            .calendar-grid { grid-template-columns: 1fr; } 
+            .filters-row { flex-direction: column; } 
+            .filter-group select, .filter-group input { min-width: 100%; } 
+            .modal-buttons { grid-template-columns: 1fr; } 
+            .modal-buttons-3col { grid-template-columns: 1fr; } 
+            .user-info-bar { flex-direction: column; text-align: center; } 
+            .bottom-sections { grid-template-columns: 1fr; }
+        }
         @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
@@ -543,7 +648,10 @@
             <div class="shift-column" id="columnAfternoon"><div class="shift-column-header afternoon">🌅 TARDE</div><div class="column-count afternoon" id="countAfternoon">0</div><div class="role-breakdown" id="roleBreakdownAfternoon"></div><div class="employee-list" id="listAfternoon"></div></div>
             <div class="shift-column" id="columnNight"><div class="shift-column-header night">🌙 NOCHE</div><div class="column-count night" id="countNight">0</div><div class="role-breakdown" id="roleBreakdownNight"></div><div class="employee-list" id="listNight"></div></div>
         </div>
-        <div class="central-section"><div class="shift-column" id="columnCentral"><div class="shift-column-header central">🏢 CENTRAL</div><div class="column-count central" id="countCentral">0</div><div class="role-breakdown" id="roleBreakdownCentral"></div><div class="employee-list" id="listCentral"></div></div></div>
+        <div class="bottom-sections">
+            <div class="shift-column" id="columnCentral"><div class="shift-column-header central">🏢 CENTRAL</div><div class="column-count central" id="countCentral">0</div><div class="role-breakdown" id="roleBreakdownCentral"></div><div class="employee-list" id="listCentral"></div></div>
+            <div class="shift-column" id="columnAbsent"><div class="shift-column-header absent">🏠 AUSENCIAS</div><div class="column-count absent" id="countAbsent">0</div><div class="role-breakdown" id="roleBreakdownAbsent"></div><div class="employee-list" id="listAbsent"></div></div>
+        </div>
         <button class="modal-close" onclick="closeDayOverviewModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
@@ -592,7 +700,7 @@
             <button class="btn btn-save" onclick="createOtDay()">✅ Crear Día OT FILE</button>
         </div>
         <div id="ot-panel-list" class="panel-content"><div id="otDaysList" class="changelog-list"><div class="changelog-empty">No hay días OT FILE creados</div></div></div>
-        <div id="ot-panel-assign" class="panel-content">
+                <div id="ot-panel-assign" class="panel-content">
             <div style="margin-bottom:15px;"><label style="display:block; margin-bottom:5px; font-weight:600;">📅 Selecciona día OT:</label><select id="otSelectDay" onchange="loadOtDayForAssignment()" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:350px;"><option value="">-- Selecciona --</option></select></div>
             <div id="otAssignmentPanel" style="display:none;">
                 <div class="ot-info-box"><h4 id="assignOtName"></h4><p><strong>Apuntados:</strong> <span id="assignOtCount"></span></p></div>
@@ -741,8 +849,18 @@ function isManagerRole(role) {
     return MANAGER_ROLES.some(mr => r.includes(mr) || r === mr);
 }
 
+function getAbsenceLabel(shift) {
+    const s = shift.toLowerCase();
+    if (['v', 'v25', 'v26'].includes(s)) return 'Vacaciones';
+    if (s.startsWith('ap')) return 'Asuntos Propios';
+    if (s === 'tr') return 'Formación';
+    if (s === 'bm') return 'Baja Médica';
+    if (s === 'bp') return 'Baja Paternidad';
+    return 'Ausencia';
+}
+
 // =====================================================
-// FUNCIONES DE DATOS - DEL PROGRAMA QUE FUNCIONA
+// FUNCIONES DE DATOS
 // =====================================================
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
@@ -898,7 +1016,7 @@ function checkHideAlertsContainer() {
 }
 
 // =====================================================
-// JSONBIN - GUARDAR (DEL PROGRAMA QUE FUNCIONA)
+// JSONBIN - GUARDAR Y CARGAR
 // =====================================================
 async function saveToCloud() {
     try {
@@ -938,9 +1056,6 @@ async function saveToCloud() {
     }
 }
 
-// =====================================================
-// JSONBIN - CARGAR (DEL PROGRAMA QUE FUNCIONA)
-// =====================================================
 async function loadFromCloud() {
     try {
         setDataStatus('loading', '⏳ Cargando...');
@@ -972,7 +1087,7 @@ async function loadFromCloud() {
 }
 
 // =====================================================
-// PARSEO TSV (DEL PROGRAMA QUE FUNCIONA)
+// PARSEO TSV
 // =====================================================
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
@@ -1295,44 +1410,90 @@ function generateGeneralMonth(month) {
 }
 
 // =====================================================
-// ANÁLISIS DE PERSONAL
+// ANÁLISIS DE PERSONAL - VERSIÓN MEJORADA
 // =====================================================
 function analyzeStaffingForDay(month, day) {
     const doy = getDayOfYear(month, day);
     const staffing = {
-        morning: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] },
-        afternoon: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] },
-        night: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] },
-        central: { total: 0, srme: 0, rmet: 0, otros: 0, employees: [] }
+        morning: { total: 0, employees: [], roleCount: {} },
+        afternoon: { total: 0, employees: [], roleCount: {} },
+        night: { total: 0, employees: [], roleCount: {} },
+        central: { total: 0, employees: [], roleCount: {} },
+        absent: { total: 0, employees: [], byType: { vac: [], ap: [], tr: [], baja: [] } }
     };
-    const alarms = { morning: { lowSrme: false, lowRmet: false }, afternoon: { lowSrme: false, lowRmet: false }, night: { lowSrme: false, lowRmet: false } };
+    const alarms = { 
+        morning: { lowSrme: false, lowRmet: false }, 
+        afternoon: { lowSrme: false, lowRmet: false }, 
+        night: { lowSrme: false, lowRmet: false } 
+    };
     
     allData.empleados.forEach(emp => {
         const shift = (emp.turnos[doy] || '').toLowerCase();
         if (!shift) return;
-        const roleType = classifyRole(emp.role);
+        
         const shiftInfo = getShiftInfo(shift);
-        const empData = { name: emp.name, crew: emp.crew, login: emp.login, role: emp.role, roleType, shift: shift.toUpperCase(), hours: shiftInfo.hours };
+        const roleType = classifyRole(emp.role);
+        const roleDisplay = emp.role || 'Sin rol';
+        
+        const empData = { 
+            name: emp.name, 
+            crew: emp.crew, 
+            login: emp.login, 
+            role: roleDisplay,
+            roleType,
+            shift: shift.toUpperCase(), 
+            hours: shiftInfo.hours 
+        };
         
         let shiftType = null;
-        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) shiftType = 'morning';
-        else if (['wt', 't8', 't', 't-co'].includes(shift)) shiftType = 'afternoon';
-        else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) shiftType = 'night';
-        else if (['c', 'cw'].includes(shift)) shiftType = 'central';
+        let absenceType = null;
+        
+        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) {
+            shiftType = 'morning';
+        } else if (['wt', 't8', 't', 't-co'].includes(shift)) {
+            shiftType = 'afternoon';
+        } else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) {
+            shiftType = 'night';
+        } else if (['c', 'cw'].includes(shift)) {
+            shiftType = 'central';
+        } else if (['v', 'v25', 'v26'].includes(shift)) {
+            absenceType = 'vac';
+        } else if (shift.startsWith('ap')) {
+            absenceType = 'ap';
+        } else if (shift === 'tr') {
+            absenceType = 'tr';
+        } else if (['bm', 'bp'].includes(shift)) {
+            absenceType = 'baja';
+        }
         
         if (shiftType) {
             staffing[shiftType].total++;
             staffing[shiftType].employees.push(empData);
-            if (roleType === 'srme') staffing[shiftType].srme++;
-            else if (roleType === 'rmet') staffing[shiftType].rmet++;
-            else staffing[shiftType].otros++;
+            
+            if (!staffing[shiftType].roleCount[roleDisplay]) {
+                staffing[shiftType].roleCount[roleDisplay] = { count: 0, type: roleType };
+            }
+            staffing[shiftType].roleCount[roleDisplay].count++;
+        } else if (absenceType) {
+            staffing.absent.total++;
+            empData.absenceType = absenceType;
+            empData.absenceLabel = getAbsenceLabel(shift);
+            staffing.absent.employees.push(empData);
+            staffing.absent.byType[absenceType].push(empData);
         }
     });
     
     ['morning', 'afternoon', 'night'].forEach(st => {
         if (staffing[st].total > 0) {
-            alarms[st].lowSrme = staffing[st].srme < MIN_SRME_PER_SHIFT;
-            alarms[st].lowRmet = staffing[st].rmet < MIN_RMET_PER_SHIFT;
+            let srmeCount = 0, rmetCount = 0;
+            Object.entries(staffing[st].roleCount).forEach(([role, data]) => {
+                if (data.type === 'srme') srmeCount += data.count;
+                else if (data.type === 'rmet') rmetCount += data.count;
+            });
+            alarms[st].lowSrme = srmeCount < MIN_SRME_PER_SHIFT;
+            alarms[st].lowRmet = rmetCount < MIN_RMET_PER_SHIFT;
+            staffing[st].srmeCount = srmeCount;
+            staffing[st].rmetCount = rmetCount;
         }
     });
     
@@ -1357,7 +1518,7 @@ function getAlarmClass(month, day) {
 }
 
 // =====================================================
-// MODAL VISTA DÍA
+// MODAL VISTA DÍA - VERSIÓN MEJORADA
 // =====================================================
 function openDayOverviewModal(month, day) {
     if (isOtFileDay(month, day)) { openOtFileModal(month, day); return; }
@@ -1365,7 +1526,9 @@ function openDayOverviewModal(month, day) {
     const { staffing, alarms } = analyzeStaffingForDay(month, day);
     const fest = isFestivo(month, day);
     
-    ['morning', 'afternoon', 'night', 'central'].forEach(s => staffing[s].employees.sort((a, b) => a.name.localeCompare(b.name)));
+    ['morning', 'afternoon', 'night', 'central', 'absent'].forEach(s => 
+        staffing[s].employees.sort((a, b) => a.name.localeCompare(b.name))
+    );
     
     const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const date = new Date(2026, month - 1, day);
@@ -1375,59 +1538,193 @@ function openDayOverviewModal(month, day) {
     festivoBadge.style.display = fest ? 'inline-block' : 'none';
     if (fest) festivoBadge.textContent = '🎉 ' + getFestivoName(month, day);
     
-    document.getElementById('daySummary').innerHTML = generateDaySummary(staffing, alarms, fest);
+    document.getElementById('daySummary').innerHTML = generateDaySummaryImproved(staffing, alarms, fest);
     
-    ['Morning', 'Afternoon', 'Night', 'Central'].forEach(shiftName => {
+    ['Morning', 'Afternoon', 'Night'].forEach(shiftName => {
         const key = shiftName.toLowerCase();
         const data = staffing[key];
         const alarm = alarms[key];
         
         document.getElementById('count' + shiftName).textContent = data.total;
-        document.getElementById('roleBreakdown' + shiftName).innerHTML = generateRoleBreakdown(data, alarm, key !== 'central' && !fest);
-        document.getElementById('list' + shiftName).innerHTML = renderEmployeeList(data.employees, key);
+        document.getElementById('roleBreakdown' + shiftName).innerHTML = generateDetailedRoleBreakdown(data, alarm, !fest);
+        document.getElementById('list' + shiftName).innerHTML = renderEmployeeListDetailed(data.employees, key);
         
         const column = document.getElementById('column' + shiftName);
-        if (key !== 'central' && !fest && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet)) column.classList.add('column-alarm');
-        else column.classList.remove('column-alarm');
+        if (!fest && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet)) {
+            column.classList.add('column-alarm');
+        } else {
+            column.classList.remove('column-alarm');
+        }
     });
+    
+    document.getElementById('countCentral').textContent = staffing.central.total;
+    document.getElementById('roleBreakdownCentral').innerHTML = generateDetailedRoleBreakdown(staffing.central, null, false);
+    document.getElementById('listCentral').innerHTML = renderEmployeeListDetailed(staffing.central.employees, 'central');
+    
+    document.getElementById('countAbsent').textContent = staffing.absent.total;
+    document.getElementById('roleBreakdownAbsent').innerHTML = generateAbsenceBreakdown(staffing.absent);
+    document.getElementById('listAbsent').innerHTML = renderAbsentList(staffing.absent.employees);
     
     document.getElementById('dayOverviewModal').classList.add('active');
 }
 
-function generateDaySummary(staffing, alarms, isFestivo) {
-    const shifts = [{ key: 'morning', name: 'Mañana', icon: '☀️' }, { key: 'afternoon', name: 'Tarde', icon: '🌅' }, { key: 'night', name: 'Noche', icon: '🌙' }, { key: 'central', name: 'Central', icon: '🏢' }];
+function generateDaySummaryImproved(staffing, alarms, isFestivo) {
+    const shifts = [
+        { key: 'morning', name: 'Mañana', icon: '☀️' }, 
+        { key: 'afternoon', name: 'Tarde', icon: '🌅' }, 
+        { key: 'night', name: 'Noche', icon: '🌙' }, 
+        { key: 'central', name: 'Central', icon: '🏢' },
+        { key: 'absent', name: 'Ausentes', icon: '🏠' }
+    ];
     let html = '';
-    let totalAll = 0;
+    let totalOperativos = 0;
     
     shifts.forEach(shift => {
         const data = staffing[shift.key];
         const alarm = alarms[shift.key];
-        const hasAlarm = shift.key !== 'central' && !isFestivo && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet);
-        totalAll += data.total;
-        html += `<div class="summary-item ${hasAlarm ? 'has-alarm' : ''}"><span class="summary-icon">${shift.icon}</span><span class="summary-total">${data.total}</span><span class="summary-label">${shift.name}</span><span class="summary-breakdown"><span class="srme">${data.srme} SRME</span> · <span class="rmet">${data.rmet} RMET</span></span></div>`;
+        const isOperativo = ['morning', 'afternoon', 'night'].includes(shift.key);
+        const hasAlarm = isOperativo && !isFestivo && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet);
+        
+        if (isOperativo) totalOperativos += data.total;
+        
+        let breakdownHtml = '';
+        if (isOperativo && data.total > 0) {
+            breakdownHtml = `<span class="summary-breakdown"><span class="srme">${data.srmeCount || 0} SRME</span> · <span class="rmet">${data.rmetCount || 0} RMET</span></span>`;
+        } else if (shift.key === 'absent' && data.total > 0) {
+            const byType = data.byType;
+            let parts = [];
+            if (byType.vac.length) parts.push(`${byType.vac.length} Vac`);
+            if (byType.ap.length) parts.push(`${byType.ap.length} AP`);
+            if (byType.tr.length) parts.push(`${byType.tr.length} Form`);
+            if (byType.baja.length) parts.push(`${byType.baja.length} Baja`);
+            breakdownHtml = `<span class="summary-breakdown">${parts.join(' · ')}</span>`;
+        }
+        
+        html += `<div class="summary-item ${hasAlarm ? 'has-alarm' : ''} ${shift.key === 'absent' ? 'absent-item' : ''}">
+            <span class="summary-icon">${shift.icon}</span>
+            <span class="summary-total">${data.total}</span>
+            <span class="summary-label">${shift.name}</span>
+            ${breakdownHtml}
+        </div>`;
     });
     
-    html += `<div class="summary-item total-item"><span class="summary-icon">📊</span><span class="summary-total">${totalAll}</span><span class="summary-label">Total</span></div>`;
+    html += `<div class="summary-item total-item">
+        <span class="summary-icon">📊</span>
+        <span class="summary-total">${totalOperativos}</span>
+        <span class="summary-label">Operativos</span>
+    </div>`;
+    
     return html;
 }
 
-function generateRoleBreakdown(data, alarm, checkAlarms) {
+function generateDetailedRoleBreakdown(data, alarm, checkAlarms) {
     if (data.total === 0) return '<span style="color:#999;">Sin personal</span>';
-    const srmeWarn = checkAlarms && alarm?.lowSrme;
-    const rmetWarn = checkAlarms && alarm?.lowRmet;
-    let html = `<span class="srme-count ${srmeWarn ? 'warning' : ''}">${data.srme} SRME${srmeWarn ? ' ⚠️' : ''}</span>`;
-    html += ` · <span class="rmet-count ${rmetWarn ? 'warning' : ''}">${data.rmet} RMET${rmetWarn ? ' ⚠️' : ''}</span>`;
-    if (data.otros > 0) html += ` · <span>${data.otros} otros</span>`;
+    
+    const roles = Object.entries(data.roleCount).sort((a, b) => b[1].count - a[1].count);
+    
+    let html = '<div class="role-summary">';
+    roles.forEach(([role, info]) => {
+        let chipClass = '';
+        if (info.type === 'srme') chipClass = 'srme';
+        else if (info.type === 'rmet') chipClass = 'rmet';
+        else if (role.toLowerCase().includes('app')) chipClass = 'app';
+        else if (isManagerRole(role)) chipClass = 'manager';
+        
+        let warningClass = '';
+        if (checkAlarms && alarm) {
+            if (info.type === 'srme' && alarm.lowSrme) warningClass = ' warning';
+            if (info.type === 'rmet' && alarm.lowRmet) warningClass = ' warning';
+        }
+        
+        html += `<span class="role-chip ${chipClass}${warningClass}">${info.count}x ${role}</span>`;
+    });
+    html += '</div>';
+    
+    if (checkAlarms && alarm && data.total > 0) {
+        const srmeWarn = alarm.lowSrme;
+        const rmetWarn = alarm.lowRmet;
+        if (srmeWarn || rmetWarn) {
+            html += `<div style="font-size:0.65rem; color:#e74c3c; margin-top:4px;">`;
+            if (srmeWarn) html += `⚠️ Faltan SRME (${data.srmeCount || 0}/${MIN_SRME_PER_SHIFT}) `;
+            if (rmetWarn) html += `⚠️ Faltan RMET (${data.rmetCount || 0}/${MIN_RMET_PER_SHIFT})`;
+            html += `</div>`;
+        }
+    }
+    
     return html;
 }
 
-function renderEmployeeList(employees, type) {
+function generateAbsenceBreakdown(absentData) {
+    if (absentData.total === 0) return '<span style="color:#999;">Sin ausencias</span>';
+    
+    const byType = absentData.byType;
+    let html = '<div class="role-summary">';
+    
+    if (byType.vac.length) html += `<span class="role-chip" style="background:#ffcdd2;color:#c62828;">${byType.vac.length} Vacaciones</span>`;
+    if (byType.ap.length) html += `<span class="role-chip" style="background:#c8e6c9;color:#2e7d32;">${byType.ap.length} A. Propios</span>`;
+    if (byType.tr.length) html += `<span class="role-chip" style="background:#ffe0b2;color:#e65100;">${byType.tr.length} Formación</span>`;
+    if (byType.baja.length) html += `<span class="role-chip" style="background:#e0e0e0;color:#424242;">${byType.baja.length} Baja</span>`;
+    
+    html += '</div>';
+    return html;
+}
+
+function renderEmployeeListDetailed(employees, type) {
     if (employees.length === 0) return '<div class="no-employees">Sin personal asignado</div>';
+    
     return employees.map(emp => {
-        const roleClass = emp.roleType === 'srme' ? 'srme' : emp.roleType === 'rmet' ? 'rmet' : '';
+        let roleClass = 'role-other';
+        const role = (emp.role || '').toUpperCase();
+        if (emp.roleType === 'srme' || role.includes('SRME')) roleClass = 'role-srme';
+        else if (emp.roleType === 'rmet' || RMET_ROLES.some(r => role.includes(r))) roleClass = 'role-rmet';
+        else if (role.includes('APP')) roleClass = 'role-app';
+        else if (isManagerRole(emp.role)) roleClass = 'role-manager';
+        
         const onclick = isManager ? `onclick="selectEmployeeFromModal('${emp.login}')"` : '';
         const cursor = isManager ? 'cursor:pointer;' : 'cursor:default;';
-        return `<div class="employee-item" ${onclick} style="${cursor}"><div><span class="name">${emp.name}</span><span class="crew">${emp.crew}</span><span class="role-badge ${roleClass}">${emp.role || 'N/A'}</span></div><span class="shift-badge ${type}">${emp.shift}</span></div>`;
+        
+        return `<div class="employee-item" ${onclick} style="${cursor}">
+            <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:3px;">
+                    <span class="name">${emp.name}</span>
+                    <span class="crew">${emp.crew}</span>
+                </div>
+                <span class="role-detail ${roleClass}">${emp.role || 'Sin rol'}</span>
+            </div>
+            <span class="shift-badge ${type}">${emp.shift}</span>
+        </div>`;
+    }).join('');
+}
+
+function renderAbsentList(employees) {
+    if (employees.length === 0) return '<div class="no-employees">Sin ausencias registradas</div>';
+    
+    return employees.map(emp => {
+        let absenceClass = '';
+        if (emp.absenceType === 'vac') absenceClass = 'vac';
+        else if (emp.absenceType === 'ap') absenceClass = 'ap';
+        else if (emp.absenceType === 'tr') absenceClass = 'tr';
+        else if (emp.absenceType === 'baja') absenceClass = 'baja';
+        
+        let roleClass = 'role-other';
+        if (emp.roleType === 'srme') roleClass = 'role-srme';
+        else if (emp.roleType === 'rmet') roleClass = 'role-rmet';
+        else if ((emp.role || '').toUpperCase().includes('APP')) roleClass = 'role-app';
+        else if (isManagerRole(emp.role)) roleClass = 'role-manager';
+        
+        const onclick = isManager ? `onclick="selectEmployeeFromModal('${emp.login}')"` : '';
+        const cursor = isManager ? 'cursor:pointer;' : 'cursor:default;';
+        
+        return `<div class="employee-item" ${onclick} style="${cursor}">
+            <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:3px;">
+                    <span class="name">${emp.name}</span>
+                    <span class="crew">${emp.crew}</span>
+                </div>
+                <span class="role-detail ${roleClass}">${emp.role || 'Sin rol'}</span>
+            </div>
+            <span class="absence-type ${absenceClass}">${emp.absenceLabel}</span>
+        </div>`;
     }).join('');
 }
 
@@ -1713,7 +2010,7 @@ function renderChangelog() {
     const container = document.getElementById('changelogList');
     if (!allData.changelog || allData.changelog.length === 0) {
         container.innerHTML = '<div class="changelog-empty">No hay modificaciones registradas</div>';
-        return;
+                return;
     }
     
     container.innerHTML = allData.changelog.slice(0, 50).map(c => {
@@ -1723,8 +2020,9 @@ function renderChangelog() {
         return `<div class="changelog-item"><div class="change-header"><span class="change-manager">👤 ${c.managerName}</span><span class="change-date">${dateStr}</span></div><div class="change-detail"><strong>${c.employeeName}</strong> - ${c.dateStr}<br><span class="change-shift shift-old">${c.oldShift.toUpperCase()}</span> → <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span></div>${commentHtml}</div>`;
     }).join('');
 }
+
 // =====================================================
-// OT FILE - FUNCIONES BÁSICAS
+// OT FILE - FUNCIONES
 // =====================================================
 function openOtFileModal(month, day) {
     const doy = getDayOfYear(month, day);
@@ -2175,7 +2473,7 @@ async function changeUserPassword() {
 }
 
 // =====================================================
-// IMPORTACIÓN / EXPORTACIÓN (DEL PROGRAMA QUE FUNCIONA)
+// IMPORTACIÓN / EXPORTACIÓN
 // =====================================================
 function previewBulkImport() {
     const data = document.getElementById('bulkImportData').value;
