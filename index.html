@@ -47,6 +47,7 @@
         .btn-logout { background: linear-gradient(145deg, #e74c3c, #c0392b); }
         .btn-user { background: linear-gradient(145deg, #3498db, #2980b9); }
         .btn-ot { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
+        .btn-vacaciones { background: linear-gradient(145deg, #00b894, #00cec9); }
         .btn-my-calendar { background: linear-gradient(145deg, #27ae60, #2ecc71); }
         .btn-my-calendar.active { background: linear-gradient(145deg, #1e8449, #27ae60); box-shadow: 0 0 15px rgba(39, 174, 96, 0.5); }
         .btn:hover { transform: translateY(-2px); }
@@ -393,6 +394,141 @@
         .new-ot-alert .ot-item .ot-date { font-weight: 700; color: #333; }
         .new-ot-alert .ot-item .ot-name { font-size: 0.85rem; color: #666; }
         
+        /* ===== ESTILOS VACACIONES Y AP ===== */
+        .vacaciones-section {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px auto;
+            max-width: 1400px;
+        }
+        .vacaciones-section h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .vacaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .vac-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .vac-card:hover { transform: translateY(-2px); }
+        .vac-card .vac-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .vac-card .vac-label {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+        .vac-card.vac-anterior { border-left: 4px solid #9c27b0; }
+        .vac-card.vac-anterior .vac-value { color: #9c27b0; }
+        .vac-card.vac-actual { border-left: 4px solid #2196f3; }
+        .vac-card.vac-actual .vac-value { color: #2196f3; }
+        .vac-card.vac-ap { border-left: 4px solid #ff9800; }
+        .vac-card.vac-ap .vac-value { color: #ff9800; }
+        .vac-card.vac-total {
+            border-left: 4px solid #4caf50;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        }
+        .vac-card.vac-total .vac-value { color: #2e7d32; }
+        .vac-card.editable { cursor: pointer; position: relative; }
+        .vac-card.editable::after {
+            content: '✏️';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.6rem;
+            opacity: 0.5;
+        }
+        .vac-card.editable:hover::after { opacity: 1; }
+        .vac-subsection { margin-bottom: 15px; }
+        .vac-subsection-title {
+            font-size: 0.75rem;
+            color: #555;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .vac-edit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+        }
+        .vac-edit-group {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .vac-edit-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .vac-edit-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .vac-edit-group input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .vac-edit-group.anterior { border-left: 4px solid #9c27b0; }
+        .vac-edit-group.actual { border-left: 4px solid #2196f3; }
+        .vac-edit-group.ap { border-left: 4px solid #ff9800; }
+        .vac-general-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .vac-general-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 0.7rem;
+        }
+        .vac-general-table td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .vac-general-table tr:hover { background: #f5f5f5; }
+        .vac-general-table .emp-name { text-align: left; font-weight: 600; }
+        .vac-general-table .warning { color: #e74c3c; font-weight: 700; }
+        .vac-general-container { max-height: 400px; overflow-y: auto; }
+        
+        @media (max-width: 600px) {
+            .vac-edit-grid { grid-template-columns: 1fr; }
+            .vacaciones-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        /* ===== FIN ESTILOS VACACIONES ===== */
+        
         .hidden { display: none !important; }
         
         @media (max-width: 1000px) { 
@@ -410,7 +546,7 @@
             .user-info-bar { flex-direction: column; text-align: center; } 
             .bottom-sections { grid-template-columns: 1fr; }
         }
-        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container, .vacaciones-section { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
     </style>
 </head>
 <body>
@@ -521,11 +657,12 @@
         <button class="btn btn-my-calendar active" id="btnMyCalendar" onclick="showMyCalendar()">📅 Mi Calendario</button>
         <button class="btn btn-general" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
         <button class="btn btn-user hidden" id="btnManagerPanel" onclick="openManagerModal()">👑 Panel Manager</button>
+        <button class="btn btn-vacaciones hidden" id="btnVacacionesGeneral" onclick="openVacacionesGeneralModal()">🏖️ Vacaciones</button>
         <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
         <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
         <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
         <span style="width:10px"></span>
-        <button class="btn btn-view" onclick="setView(4, this)">4</button>
+                <button class="btn btn-view" onclick="setView(4, this)">4</button>
         <button class="btn btn-view active" onclick="setView(3, this)">3</button>
         <button class="btn btn-view" onclick="setView(2, this)">2</button>
     </div>
@@ -534,11 +671,15 @@
         <div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>
     </div>
 
+    <!-- Sección de Vacaciones (se insertará dinámicamente antes de stats) -->
+    <div id="vacacionesSectionContainer"></div>
+
     <div class="stats-container" id="statsContainer" style="display:none;">
         <h3 class="stats-title">📊 Resumen</h3>
         <div class="stats-grid" id="statsGrid"></div>
     </div>
 </div>
+
 <!-- MODALES -->
 <div class="modal-overlay" id="editModal">
     <div class="modal">
@@ -701,8 +842,8 @@
             <h4 style="margin-bottom:10px;">🔑 Gestión de Contraseñas</h4>
             <div class="import-info">
                 <strong>📌 Información:</strong><br>
-                • La contraseña por defecto es: <st[REDACTED:PASSWORD]>1234</strong><br>
-                • Al resetear, la contraseña volverá a: <st[REDACTED:PASSWORD]>1234</strong><br>
+                • La contraseña por defecto es:[REDACTED:PASSWORD]rong>1234</strong><br>
+                • Al resetear, la contraseña volverá a:[REDACTED:PASSWORD]rong>1234</strong><br>
                 • Los usuarios pueden cambiar su contraseña en "Mi Cuenta"
             </div>
             <div style="margin:15px 0;">
@@ -763,6 +904,84 @@
             <button class="btn btn-save" onclick="confirmCustomPassword()">✅ Guardar</button>
             <button class="modal-close" onclick="closeCustomPasswordModal()">Cancelar</button>
         </div>
+    </div>
+</div>
+
+<!-- Modal Editar Vacaciones -->
+<div class="modal-overlay" id="editVacacionesModal">
+    <div class="modal modal-large">
+        <h3>🏖️ Editar Vacaciones y AP</h3>
+        <div class="manager-info" style="background: linear-gradient(135deg, #4caf50, #2e7d32);">
+            <h4>👤 <span id="vacEditEmployeeName"></span></h4>
+            <p>Login: <strong id="vacEditEmployeeLogin"></strong></p>
+        </div>
+        
+        <div class="vac-edit-grid">
+            <div class="vac-edit-group anterior">
+                <label>📅 Vac. Pendientes Año Anterior</label>
+                <input type="number" id="vacEditPendientesAnt" step="0.5" min="0">
+            </div>
+            <div class="vac-edit-group anterior">
+                <label>📅 Vac. Restantes Año Anterior</label>
+                <input type="number" id="vacEditRestantesAnt" step="0.5" min="0">
+            </div>
+            <div class="vac-edit-group anterior">
+                <label>📅 Vac. Consumidas del Año Anterior</label>
+                <input type="number" id="vacEditConsumidasAnt" step="0.5" min="0">
+            </div>
+            <div class="vac-edit-group actual">
+                <label>🗓️ Vac. Asignadas 2026</label>
+                <input type="number" id="vacEditAsignadas2026" step="0.5" min="0">
+            </div>
+            <div class="vac-edit-group actual">
+                <label>🗓️ Vac. Restantes 2026</label>
+                <input type="number" id="vacEditRestantes2026" step="0.5" min="0">
+            </div>
+            <div class="vac-edit-group actual">
+                <label>🗓️ Vac. Consumidas 2026</label>
+                <input type="number" id="vacEditConsumidas2026" step="0.5" min="0">
+            </div>
+            <div class="vac-edit-group ap" style="grid-column: span 2;">
+                <label>📋 Asuntos Propios Consumidos</label>
+                <input type="number" id="vacEditApConsumidos" step="0.5" min="0">
+            </div>
+        </div>
+        
+        <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
+            <button class="btn btn-save" onclick="saveVacacionesEdit()">💾 Guardar</button>
+            <button class="modal-close" onclick="closeVacacionesModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Vista General Vacaciones -->
+<div class="modal-overlay" id="vacacionesGeneralModal">
+    <div class="modal modal-xlarge">
+        <h3>🏖️ Resumen General de Vacaciones y AP</h3>
+        <div style="margin-bottom:15px;">
+            <input type="text" id="vacGeneralSearch" placeholder="🔍 Buscar empleado..." oninput="filterVacacionesGeneral()" style="padding:10px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;">
+        </div>
+        <div class="vac-general-container">
+            <table class="vac-general-table" id="vacGeneralTable">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Crew</th>
+                        <th style="background:#9c27b0;">Pend. Ant.</th>
+                        <th style="background:#9c27b0;">Rest. Ant.</th>
+                        <th style="background:#9c27b0;">Cons. Ant.</th>
+                        <th style="background:#2196f3;">Asig. 2026</th>
+                        <th style="background:#2196f3;">Rest. 2026</th>
+                        <th style="background:#2196f3;">Cons. 2026</th>
+                        <th style="background:#ff9800;">AP</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="vacGeneralBody">
+                </tbody>
+            </table>
+        </div>
+        <button class="modal-close" onclick="closeVacacionesGeneralModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
 
@@ -835,6 +1054,7 @@ let currentOtDay = null;
 let changedDays = [];
 let newOtDays = [];
 let selectedPasswordUser = null;
+let editingVacacionesEmployee = null;
 
 // =====================================================
 // FUNCIONES UTILIDAD
@@ -897,7 +1117,14 @@ function normalizarEmpleados(empleados) {
         login: emp.login || '',
         name: emp.name || '',
         role: emp.role || '',
-        turnos: turnosStringToArray(emp.turnos)
+        turnos: turnosStringToArray(emp.turnos),
+        vacPendientesAnt: parseFloat(emp.vacPendientesAnt) || 0,
+        vacRestantesAnt: parseFloat(emp.vacRestantesAnt) || 0,
+        vacConsumidasAnt: parseFloat(emp.vacConsumidasAnt) || 0,
+        vacAsignadas2026: parseFloat(emp.vacAsignadas2026) || 0,
+        vacRestantes2026: parseFloat(emp.vacRestantes2026) || 0,
+        vacConsumidas2026: parseFloat(emp.vacConsumidas2026) || 0,
+        apConsumidos: parseFloat(emp.apConsumidos) || 0
     }));
 }
 
@@ -1036,7 +1263,14 @@ async function saveToCloud() {
             login: emp.login || '',
             name: emp.name || '',
             role: emp.role || '',
-            turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || '')
+            turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || ''),
+            vacPendientesAnt: emp.vacPendientesAnt || 0,
+            vacRestantesAnt: emp.vacRestantesAnt || 0,
+            vacConsumidasAnt: emp.vacConsumidasAnt || 0,
+            vacAsignadas2026: emp.vacAsignadas2026 || 0,
+            vacRestantes2026: emp.vacRestantes2026 || 0,
+            vacConsumidas2026: emp.vacConsumidas2026 || 0,
+            apConsumidos: emp.apConsumidos || 0
         }));
         
         const response = await fetch(JSONBIN_URL, {
@@ -1051,7 +1285,7 @@ async function saveToCloud() {
                 changelog: (allData.changelog || []).slice(-500),
                 otDays: allData.otDays || [],
                 lastModified: new Date().toISOString(),
-                version: '2.0'
+                version: '2.1'
             })
         });
         
@@ -1097,38 +1331,71 @@ async function loadFromCloud() {
 }
 
 // =====================================================
-// PARSEO TSV
+// PARSEO TSV - ACTUALIZADO CON VACACIONES
 // =====================================================
+
 function parseRawData(rawData) {
     const lines = rawData.trim().split('\n');
     const empleados = [];
     
     lines.forEach(line => {
         const parts = line.split('\t');
-        if (parts.length < 10) return;
+        if (parts.length < 15) return;
         
+        // Columnas fijas
         const crew = parts[0].trim();
         const login = parts[1].trim();
         const name = parts[2].trim();
-        const role = parts[4].trim();
         
         if (!login || login === '0' || !name) return;
         
-        let turnoStart = 12;
-        for (let i = 5; i < Math.min(parts.length, 15); i++) {
-            if (/^\d+\.\d+$/.test(parts[i].trim())) {
-                turnoStart = i + 1;
-                break;
-            }
+        // ROLE: está en índice 3 o 4 (si hay columna vacía)
+        let role = '';
+        let dataStartIndex = 3;
+        
+        if (parts[3].trim() !== '' && isNaN(parseFloat(parts[3].replace(',', '.')))) {
+            // ROLE en índice 3
+            role = parts[3].trim();
+            dataStartIndex = 4;
+        } else if (parts[4] && parts[4].trim() !== '' && isNaN(parseFloat(parts[4].replace(',', '.')))) {
+            // ROLE en índice 4 (hay columna vacía en 3)
+            role = parts[4].trim();
+            dataStartIndex = 5;
         }
         
+        // Leer los 7 valores numéricos de vacaciones
+        const vacPendientesAnt = parseFloat(String(parts[dataStartIndex] || '0').replace(',', '.')) || 0;
+        const vacRestantesAnt = parseFloat(String(parts[dataStartIndex + 1] || '0').replace(',', '.')) || 0;
+        const vacConsumidasAnt = parseFloat(String(parts[dataStartIndex + 2] || '0').replace(',', '.')) || 0;
+        const vacAsignadas2026 = parseFloat(String(parts[dataStartIndex + 3] || '0').replace(',', '.')) || 0;
+        const vacRestantes2026 = parseFloat(String(parts[dataStartIndex + 4] || '0').replace(',', '.')) || 0;
+        const vacConsumidas2026 = parseFloat(String(parts[dataStartIndex + 5] || '0').replace(',', '.')) || 0;
+        const apConsumidos = parseFloat(String(parts[dataStartIndex + 6] || '0').replace(',', '.')) || 0;
+        
+        // Los turnos empiezan después de los 7 números
+        const turnoStartIndex = dataStartIndex + 7;
+        
+        // Leer los 365 turnos
         const turnos = [];
-        for (let i = turnoStart; i < parts.length && turnos.length < 365; i++) {
+        for (let i = turnoStartIndex; i < parts.length && turnos.length < 365; i++) {
             turnos.push((parts[i] || '').trim().toLowerCase());
         }
         while (turnos.length < 365) turnos.push('');
         
-        empleados.push({ crew, login, name, role, turnos: turnos.slice(0, 365) });
+        empleados.push({ 
+            crew, 
+            login, 
+            name, 
+            role, 
+            turnos: turnos.slice(0, 365),
+            vacPendientesAnt,
+            vacRestantesAnt,
+            vacConsumidasAnt,
+            vacAsignadas2026,
+            vacRestantes2026,
+            vacConsumidas2026,
+            apConsumidos
+        });
     });
     
     return empleados;
@@ -1223,6 +1490,7 @@ function showMainApp() {
         document.getElementById('managerBadge').classList.remove('hidden');
         document.getElementById('btnManagerPanel').classList.remove('hidden');
         document.getElementById('btnOtManager').classList.remove('hidden');
+        document.getElementById('btnVacacionesGeneral').classList.remove('hidden');
         document.getElementById('filterCrewGroup').classList.remove('hidden');
         document.getElementById('filterEmployeeGroup').classList.remove('hidden');
         document.getElementById('filterSearchGroup').classList.remove('hidden');
@@ -1248,10 +1516,15 @@ function logout() {
     document.getElementById('managerBadge').classList.add('hidden');
     document.getElementById('btnManagerPanel').classList.add('hidden');
     document.getElementById('btnOtManager').classList.add('hidden');
+    document.getElementById('btnVacacionesGeneral').classList.add('hidden');
     document.getElementById('alertsContainer').classList.add('hidden');
     document.getElementById('filterCrewGroup').classList.add('hidden');
     document.getElementById('filterEmployeeGroup').classList.add('hidden');
     document.getElementById('filterSearchGroup').classList.add('hidden');
+    
+    // Limpiar sección vacaciones
+    const vacSection = document.getElementById('vacacionesSection');
+    if (vacSection) vacSection.remove();
     
     filterLoginUsers();
     showNotification('👋 Sesión cerrada');
@@ -1305,7 +1578,9 @@ function selectEmployee() {
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
     
-    generateCalendar(); generateStats();
+    generateCalendar(); 
+    generateStats();
+    updateVacacionesDisplay();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
@@ -1320,7 +1595,7 @@ async function reloadFromCloud() {
         else if (isGeneralView) showGeneralView();
         else if (selectedEmployee) {
             selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
-            if (selectedEmployee) { generateCalendar(); generateStats(); }
+            if (selectedEmployee) { generateCalendar(); generateStats(); updateVacacionesDisplay(); }
             else showMyCalendar();
         }
         showNotification('✅ Datos actualizados');
@@ -1348,7 +1623,9 @@ function showMyCalendar() {
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
     
-    generateCalendar(); generateStats();
+    generateCalendar(); 
+    generateStats();
+    updateVacacionesDisplay();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
@@ -1363,6 +1640,11 @@ function showGeneralView() {
     document.getElementById('generalViewInfo').style.display = 'block';
     document.getElementById('employeeInfo').classList.remove('active');
     document.getElementById('statsContainer').style.display = 'none';
+    
+    // Ocultar sección de vacaciones
+    const vacSection = document.getElementById('vacacionesSection');
+    if (vacSection) vacSection.remove();
+    
     generateGeneralCalendar();
 }
 
@@ -1869,6 +2151,232 @@ function generateStats() {
         <div class="stat-card"><div class="stat-number" style="color:#2ecc71">${total}</div><div class="stat-label">TOTAL</div></div>
     `;
 }
+
+// =====================================================
+// GESTIÓN DE VACACIONES Y ASUNTOS PROPIOS
+// =====================================================
+function formatVacNumber(num) {
+    if (num === null || num === undefined || isNaN(num)) return '0';
+    const n = parseFloat(num);
+    return n % 1 === 0 ? n.toString() : n.toFixed(1);
+}
+
+function renderVacacionesSection(employee, isEditable = false) {
+    if (!employee) return '';
+    
+    const vac = {
+        pendientesAnt: parseFloat(employee.vacPendientesAnt) || 0,
+        restantesAnt: parseFloat(employee.vacRestantesAnt) || 0,
+        consumidasAnt: parseFloat(employee.vacConsumidasAnt) || 0,
+        asignadas2026: parseFloat(employee.vacAsignadas2026) || 0,
+        restantes2026: parseFloat(employee.vacRestantes2026) || 0,
+        consumidas2026: parseFloat(employee.vacConsumidas2026) || 0,
+        apConsumidos: parseFloat(employee.apConsumidos) || 0
+    };
+    
+    const totalRestantes = vac.restantesAnt + vac.restantes2026;
+    const totalConsumidas = vac.consumidasAnt + vac.consumidas2026;
+    
+    const editableClass = isEditable ? 'editable' : '';
+    const onclick = isEditable ? `onclick="openVacacionesEditModal('${employee.login}')"` : '';
+    
+    return `
+    <div class="vacaciones-section" id="vacacionesSection">
+        <h3>🏖️ Vacaciones y Asuntos Propios 
+            ${isEditable ? '<span style="font-size:0.7rem; opacity:0.7;">(clic para editar)</span>' : ''}
+        </h3>
+        
+        <div class="vac-subsection">
+            <div class="vac-subsection-title">📅 Año Anterior (2025)</div>
+            <div class="vacaciones-grid">
+                <div class="vac-card vac-anterior ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.pendientesAnt)}</div>
+                    <div class="vac-label">Pendientes<br>Año Anterior</div>
+                </div>
+                <div class="vac-card vac-anterior ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.restantesAnt)}</div>
+                    <div class="vac-label">Restantes<br>Año Anterior</div>
+                </div>
+                <div class="vac-card vac-anterior ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.consumidasAnt)}</div>
+                    <div class="vac-label">Consumidas<br>del Año Anterior</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="vac-subsection">
+            <div class="vac-subsection-title">🗓️ Año Actual (2026)</div>
+            <div class="vacaciones-grid">
+                <div class="vac-card vac-actual ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.asignadas2026)}</div>
+                    <div class="vac-label">Asignadas<br>2026</div>
+                </div>
+                <div class="vac-card vac-actual ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.restantes2026)}</div>
+                    <div class="vac-label">Restantes<br>2026</div>
+                </div>
+                <div class="vac-card vac-actual ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.consumidas2026)}</div>
+                    <div class="vac-label">Consumidas<br>2026</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="vac-subsection">
+            <div class="vac-subsection-title">📊 Resumen Total</div>
+            <div class="vacaciones-grid">
+                <div class="vac-card vac-total">
+                    <div class="vac-value">${formatVacNumber(totalRestantes)}</div>
+                    <div class="vac-label">Total<br>Restantes</div>
+                </div>
+                <div class="vac-card vac-total">
+                    <div class="vac-value">${formatVacNumber(totalConsumidas)}</div>
+                    <div class="vac-label">Total<br>Consumidas</div>
+                </div>
+                <div class="vac-card vac-ap ${editableClass}" ${onclick}>
+                    <div class="vac-value">${formatVacNumber(vac.apConsumidos)}</div>
+                    <div class="vac-label">Asuntos Propios<br>Consumidos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+function updateVacacionesDisplay() {
+    if (!selectedEmployee) return;
+    
+    const existingSection = document.getElementById('vacacionesSection');
+    if (existingSection) {
+        existingSection.remove();
+    }
+    
+    const canEdit = isManager;
+    const vacHtml = renderVacacionesSection(selectedEmployee, canEdit);
+    
+    const statsContainer = document.getElementById('statsContainer');
+    if (statsContainer) {
+        statsContainer.insertAdjacentHTML('beforebegin', vacHtml);
+    }
+}
+
+function openVacacionesEditModal(login) {
+    if (!isManager) return;
+    
+    const employee = allData.empleados.find(e => e.login === login);
+    if (!employee) return;
+    
+    editingVacacionesEmployee = employee;
+    
+    document.getElementById('vacEditEmployeeName').textContent = employee.name;
+    document.getElementById('vacEditEmployeeLogin').textContent = employee.login;
+    
+    document.getElementById('vacEditPendientesAnt').value = employee.vacPendientesAnt || 0;
+    document.getElementById('vacEditRestantesAnt').value = employee.vacRestantesAnt || 0;
+    document.getElementById('vacEditConsumidasAnt').value = employee.vacConsumidasAnt || 0;
+    document.getElementById('vacEditAsignadas2026').value = employee.vacAsignadas2026 || 0;
+    document.getElementById('vacEditRestantes2026').value = employee.vacRestantes2026 || 0;
+    document.getElementById('vacEditConsumidas2026').value = employee.vacConsumidas2026 || 0;
+    document.getElementById('vacEditApConsumidos').value = employee.apConsumidos || 0;
+    
+    document.getElementById('editVacacionesModal').classList.add('active');
+}
+
+function closeVacacionesModal() {
+    document.getElementById('editVacacionesModal').classList.remove('active');
+    editingVacacionesEmployee = null;
+}
+
+async function saveVacacionesEdit() {
+    if (!editingVacacionesEmployee || !isManager) return;
+    
+    const idx = allData.empleados.findIndex(e => e.login === editingVacacionesEmployee.login);
+    if (idx === -1) return;
+    
+    const newValues = {
+        vacPendientesAnt: parseFloat(document.getElementById('vacEditPendientesAnt').value) || 0,
+        vacRestantesAnt: parseFloat(document.getElementById('vacEditRestantesAnt').value) || 0,
+        vacConsumidasAnt: parseFloat(document.getElementById('vacEditConsumidasAnt').value) || 0,
+        vacAsignadas2026: parseFloat(document.getElementById('vacEditAsignadas2026').value) || 0,
+        vacRestantes2026: parseFloat(document.getElementById('vacEditRestantes2026').value) || 0,
+        vacConsumidas2026: parseFloat(document.getElementById('vacEditConsumidas2026').value) || 0,
+        apConsumidos: parseFloat(document.getElementById('vacEditApConsumidos').value) || 0
+    };
+    
+    Object.assign(allData.empleados[idx], newValues);
+    
+    if (selectedEmployee && selectedEmployee.login === editingVacacionesEmployee.login) {
+        selectedEmployee = allData.empleados[idx];
+    }
+    
+    closeVacacionesModal();
+    showNotification('⏳ Guardando...');
+    
+    if (await saveToCloud()) {
+        updateVacacionesDisplay();
+        showNotification('✅ Vacaciones actualizadas');
+    }
+}
+
+function openVacacionesGeneralModal() {
+    if (!isManager) return;
+    
+    document.getElementById('vacGeneralSearch').value = '';
+    renderVacacionesGeneralTable();
+    document.getElementById('vacacionesGeneralModal').classList.add('active');
+}
+
+function closeVacacionesGeneralModal() {
+    document.getElementById('vacacionesGeneralModal').classList.remove('active');
+}
+
+function filterVacacionesGeneral() {
+    renderVacacionesGeneralTable();
+}
+
+function renderVacacionesGeneralTable() {
+    const searchTerm = document.getElementById('vacGeneralSearch').value.toLowerCase().trim();
+    const tbody = document.getElementById('vacGeneralBody');
+    
+    let empleados = [...allData.empleados];
+    
+    if (searchTerm) {
+        empleados = empleados.filter(e => 
+            e.name.toLowerCase().includes(searchTerm) || 
+            e.login.toLowerCase().includes(searchTerm) ||
+            e.crew.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    empleados.sort((a, b) => a.name.localeCompare(b.name));
+    
+    if (empleados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:#999; padding:20px;">No se encontraron empleados</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = empleados.map(emp => {
+        const restantesAnt = parseFloat(emp.vacRestantesAnt) || 0;
+        const restantes2026 = parseFloat(emp.vacRestantes2026) || 0;
+        const totalRestantes = restantesAnt + restantes2026;
+        
+        const warningClass = totalRestantes <= 2 ? 'warning' : '';
+        
+        return `<tr>
+            <td class="emp-name">${emp.name}</td>
+            <td>${emp.crew}</td>
+            <td>${formatVacNumber(emp.vacPendientesAnt)}</td>
+            <td>${formatVacNumber(emp.vacRestantesAnt)}</td>
+            <td>${formatVacNumber(emp.vacConsumidasAnt)}</td>
+            <td>${formatVacNumber(emp.vacAsignadas2026)}</td>
+            <td class="${warningClass}">${formatVacNumber(emp.vacRestantes2026)}</td>
+            <td>${formatVacNumber(emp.vacConsumidas2026)}</td>
+            <td>${formatVacNumber(emp.apConsumidos)}</td>
+            <td><button class="btn btn-small btn-save" onclick="openVacacionesEditModal('${emp.login}'); closeVacacionesGeneralModal();">✏️</button></td>
+        </tr>`;
+    }).join('');
+}
+
 // =====================================================
 // EDICIÓN DE TURNOS
 // =====================================================
@@ -2460,6 +2968,7 @@ async function saveOtAssignments() {
         showNotification('✅ Asignaciones guardadas');
     }
 }
+
 // =====================================================
 // PANEL MANAGER
 // =====================================================
@@ -2697,7 +3206,7 @@ async function changeUserPassword() {
 }
 
 // =====================================================
-// COMPARATIVA DE IMPORTACIÓN - FUNCIÓN NUEVA
+// IMPORTACIÓN CON VACACIONES
 // =====================================================
 function detectAndLogImportChanges(nuevosEmpleados) {
     const cambiosDetectados = {
@@ -2901,6 +3410,29 @@ async function processBulkImportWithChanges() {
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
         if (idx >= 0) { 
+            // Mantener las vacaciones existentes si no vienen en la importación
+            if (!nuevo.vacPendientesAnt && allData.empleados[idx].vacPendientesAnt) {
+                nuevo.vacPendientesAnt = allData.empleados[idx].vacPendientesAnt;
+            }
+            if (!nuevo.vacRestantesAnt && allData.empleados[idx].vacRestantesAnt) {
+                nuevo.vacRestantesAnt = allData.empleados[idx].vacRestantesAnt;
+            }
+            if (!nuevo.vacConsumidasAnt && allData.empleados[idx].vacConsumidasAnt) {
+                nuevo.vacConsumidasAnt = allData.empleados[idx].vacConsumidasAnt;
+            }
+            if (!nuevo.vacAsignadas2026 && allData.empleados[idx].vacAsignadas2026) {
+                nuevo.vacAsignadas2026 = allData.empleados[idx].vacAsignadas2026;
+            }
+            if (!nuevo.vacRestantes2026 && allData.empleados[idx].vacRestantes2026) {
+                nuevo.vacRestantes2026 = allData.empleados[idx].vacRestantes2026;
+            }
+            if (!nuevo.vacConsumidas2026 && allData.empleados[idx].vacConsumidas2026) {
+                nuevo.vacConsumidas2026 = allData.empleados[idx].vacConsumidas2026;
+            }
+            if (!nuevo.apConsumidos && allData.empleados[idx].apConsumidos) {
+                nuevo.apConsumidos = allData.empleados[idx].apConsumidos;
+            }
+            
             allData.empleados[idx] = nuevo; 
             actualizados++; 
         } else { 
@@ -3000,11 +3532,18 @@ function previewBulkImportWithChanges() {
         html += `<p style="color:#3498db;">👤 ${cambiosTemp.empleadosNuevos.length} empleados nuevos</p>`;
     }
     
+    // Mostrar info de vacaciones
+    const conVacaciones = empleados.filter(e => e.vacAsignadas2026 > 0 || e.vacPendientesAnt > 0);
+    if (conVacaciones.length > 0) {
+        html += `<p style="color:#00b894;">🏖️ ${conVacaciones.length} empleados con datos de vacaciones</p>`;
+    }
+    
     html += '<ul>';
     empleados.slice(0, 10).forEach(e => {
         const isM = isManagerRole(e.role) ? ' 👑' : '';
         const turnosCount = e.turnos.filter(t => t).length;
-        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos</li>`;
+        const vacInfo = e.vacAsignadas2026 > 0 ? ` | Vac: ${e.vacAsignadas2026}` : '';
+        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos${vacInfo}</li>`;
     });
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
     html += '</ul>';
@@ -3059,7 +3598,10 @@ function detectImportChangesPreview(nuevosEmpleados) {
 // =====================================================
 function exportData() {
     if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
-    const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
+    const exp = allData.empleados.map(emp => ({ 
+        ...emp, 
+        turnos: turnosArrayToString(emp.turnos) 
+    }));
     const blob = new Blob([JSON.stringify({ 
         empleados: exp, 
         changelog: allData.changelog,
@@ -3092,4 +3634,3 @@ initializeLogin();
 </script>
 </body>
 </html>
-
