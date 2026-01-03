@@ -396,129 +396,37 @@
         .new-ot-alert .ot-item .ot-name { font-size: 0.85rem; color: #666; }
         
         /* ===== ESTILOS VACACIONES Y AP ===== */
-        .vacaciones-section {
-            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px auto;
-            max-width: 1400px;
-        }
-        .vacaciones-section h3 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .vacaciones-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-        }
-        .vac-card {
-            background: white;
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
+        .vacaciones-section { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: 12px; padding: 15px; margin: 15px auto; max-width: 1400px; }
+        .vacaciones-section h3 { color: #2e7d32; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .vacaciones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+        .vac-card { background: white; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
         .vac-card:hover { transform: translateY(-2px); }
-        .vac-card .vac-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            line-height: 1;
-        }
-        .vac-card .vac-label {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 5px;
-            line-height: 1.2;
-        }
+        .vac-card .vac-value { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+        .vac-card .vac-label { font-size: 0.7rem; color: #666; margin-top: 5px; line-height: 1.2; }
         .vac-card.vac-anterior { border-left: 4px solid #9c27b0; }
         .vac-card.vac-anterior .vac-value { color: #9c27b0; }
         .vac-card.vac-actual { border-left: 4px solid #2196f3; }
         .vac-card.vac-actual .vac-value { color: #2196f3; }
         .vac-card.vac-ap { border-left: 4px solid #ff9800; }
         .vac-card.vac-ap .vac-value { color: #ff9800; }
-        .vac-card.vac-total {
-            border-left: 4px solid #4caf50;
-            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-        }
+        .vac-card.vac-total { border-left: 4px solid #4caf50; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
         .vac-card.vac-total .vac-value { color: #2e7d32; }
         .vac-card.editable { cursor: pointer; position: relative; }
-        .vac-card.editable::after {
-            content: '✏️';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 0.6rem;
-            opacity: 0.5;
-        }
+        .vac-card.editable::after { content: '✏️'; position: absolute; top: 5px; right: 5px; font-size: 0.6rem; opacity: 0.5; }
         .vac-card.editable:hover::after { opacity: 1; }
         .vac-subsection { margin-bottom: 15px; }
-        .vac-subsection-title {
-            font-size: 0.75rem;
-            color: #555;
-            margin-bottom: 8px;
-            padding-bottom: 5px;
-            border-bottom: 1px dashed #ccc;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .vac-edit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            text-align: left;
-        }
-        .vac-edit-group {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-        }
-        .vac-edit-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: #555;
-            margin-bottom: 5px;
-        }
-        .vac-edit-group input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            text-align: center;
-        }
-        .vac-edit-group input:focus {
-            border-color: #667eea;
-            outline: none;
-        }
+        .vac-subsection-title { font-size: 0.75rem; color: #555; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px dashed #ccc; display: flex; align-items: center; gap: 5px; }
+        .vac-edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
+        .vac-edit-group { background: #f8f9fa; padding: 12px; border-radius: 8px; }
+        .vac-edit-group label { display: block; font-size: 0.8rem; color: #555; margin-bottom: 5px; }
+        .vac-edit-group input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; text-align: center; }
+        .vac-edit-group input:focus { border-color: #667eea; outline: none; }
         .vac-edit-group.anterior { border-left: 4px solid #9c27b0; }
         .vac-edit-group.actual { border-left: 4px solid #2196f3; }
         .vac-edit-group.ap { border-left: 4px solid #ff9800; }
-        .vac-general-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8rem;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .vac-general-table th {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 10px 8px;
-            text-align: center;
-            font-size: 0.7rem;
-        }
-        .vac-general-table td {
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
+        .vac-general-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; background: white; border-radius: 8px; overflow: hidden; }
+        .vac-general-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 8px; text-align: center; font-size: 0.7rem; }
+        .vac-general-table td { padding: 8px; text-align: center; border-bottom: 1px solid #eee; }
         .vac-general-table tr:hover { background: #f5f5f5; }
         .vac-general-table .emp-name { text-align: left; font-weight: 600; }
         .vac-general-table .warning { color: #e74c3c; font-weight: 700; }
@@ -528,402 +436,91 @@
             .vac-edit-grid { grid-template-columns: 1fr; }
             .vacaciones-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        /* ===== FIN ESTILOS VACACIONES ===== */
 
         /* ===== SISTEMA DE SOLICITUDES ===== */
-        .solicitud-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px dashed #ddd;
-        }
-
-        .solicitud-section h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .solicitud-tipo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .solicitud-tipo-btn {
-            padding: 12px 8px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .solicitud-tipo-btn:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-
-        .solicitud-tipo-btn.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .solicitud-tipo-btn .tipo-icon {
-            font-size: 1.2rem;
-        }
-
-        .solicitud-manager-select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .solicitud-comment-input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            height: 80px;
-            resize: vertical;
-            margin-bottom: 10px;
-        }
-
-        .staffing-warning {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba);
-            border: 2px solid #ffc107;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .staffing-warning h5 {
-            color: #856404;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .staffing-warning .warning-item {
-            font-size: 0.8rem;
-            color: #856404;
-            margin: 4px 0;
-            padding-left: 20px;
-        }
-
-        .staffing-info-compact {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 15px;
-        }
-
-        .staffing-info-compact h5 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
-        }
-
-        .staffing-mini-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .staffing-mini-item {
-            text-align: center;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-        }
-
-        .staffing-mini-item.morning {
-            background: linear-gradient(135deg, var(--verde), #7cb342);
-            color: #1a5c1a;
-        }
-
-        .staffing-mini-item.afternoon {
-            background: linear-gradient(135deg, var(--naranja), #ffa000);
-            color: #5a4000;
-        }
-
-        .staffing-mini-item.night {
-            background: linear-gradient(135deg, var(--azul), #1a237e);
-            color: white;
-        }
-
-        .staffing-mini-item .mini-count {
-            font-size: 1.3rem;
-            font-weight: 800;
-            display: block;
-        }
-
-        .staffing-mini-item .mini-detail {
-            font-size: 0.6rem;
-            opacity: 0.9;
-        }
-
-        /* Notificaciones de solicitudes */
-        .solicitudes-alert {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            border: 2px solid #2196f3;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-        }
-
-        .solicitudes-alert h4 {
-            color: #1565c0;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .solicitud-item {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 4px solid #2196f3;
-            text-align: left;
-        }
-
-        .solicitud-item.pendiente {
-            border-left-color: #ff9800;
-        }
-
-        .solicitud-item.aprobada {
-            border-left-color: #4caf50;
-        }
-
-        .solicitud-item.rechazada {
-            border-left-color: #f44336;
-        }
-
-        .solicitud-item .solicitud-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-
-        .solicitud-item .solicitud-from {
-            font-weight: 700;
-            color: #333;
-        }
-
-        .solicitud-item .solicitud-date {
-            font-size: 0.75rem;
-            color: #888;
-        }
-
-        .solicitud-item .solicitud-tipo-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .solicitud-item .solicitud-tipo-badge.vac {
-            background: #ffcdd2;
-            color: #c62828;
-        }
-
-        .solicitud-item .solicitud-tipo-badge.ap {
-            background: #c8e6c9;
-            color: #2e7d32;
-        }
-
-        .solicitud-item .solicitud-tipo-badge.cambio {
-            background: #e1bee7;
-            color: #7b1fa2;
-        }
-
-        .solicitud-item .solicitud-tipo-badge.otro {
-            background: #b3e5fc;
-            color: #0277bd;
-        }
-
-        .solicitud-item .solicitud-dia {
-            font-size: 0.85rem;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .solicitud-item .solicitud-comment-text {
-            font-size: 0.8rem;
-            color: #666;
-            background: #f5f5f5;
-            padding: 8px;
-            border-radius: 6px;
-            margin: 8px 0;
-            font-style: italic;
-        }
-
-        .solicitud-item .solicitud-comment-text::before {
-            content: '💬 ';
-        }
-
-        .solicitud-item .solicitud-respuesta {
-            font-size: 0.8rem;
-            padding: 8px;
-            border-radius: 6px;
-            margin-top: 8px;
-        }
-
-        .solicitud-item .solicitud-respuesta.aprobada {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .solicitud-item .solicitud-respuesta.rechazada {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .solicitud-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .solicitud-status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .solicitud-status-badge.pendiente {
-            background: #fff3e0;
-            color: #e65100;
-        }
-
-        .solicitud-status-badge.aprobada {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .solicitud-status-badge.rechazada {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .respuesta-textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            height: 60px;
-            resize: vertical;
-            margin: 10px 0;
-        }
-
-        .ver-turno-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        .ver-turno-btn:hover {
-            transform: translateY(-1px);
-        }
-
-        /* Panel de solicitudes del manager */
-        .solicitudes-panel-tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .solicitudes-panel-tab {
-            padding: 8px 15px;
-            border: none;
-            background: #eee;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-        }
-
-        .solicitudes-panel-tab:hover {
-            background: #ddd;
-        }
-
-        .solicitudes-panel-tab.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .solicitudes-panel-tab .tab-count {
-            display: inline-block;
-            background: rgba(255,255,255,0.3);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 5px;
-        }
-
-        .solicitudes-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .no-solicitudes {
-            text-align: center;
-            color: #999;
-            padding: 30px;
-            font-style: italic;
-        }
-
-        .badge-solicitudes {
-            background: #e74c3c;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 5px;
-        }
-
-        @media (max-width: 600px) {
-            .solicitud-tipo-grid {
-                grid-template-columns: 1fr;
-            }
-            .staffing-mini-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        /* ===== FIN SISTEMA DE SOLICITUDES ===== */
+        .solicitud-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ddd; }
+        .solicitud-section h4 { color: #667eea; margin-bottom: 10px; font-size: 0.9rem; }
+        .solicitud-tipo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 15px; }
+        .solicitud-tipo-btn { padding: 12px 8px; border: 2px solid #ddd; border-radius: 10px; background: white; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .solicitud-tipo-btn:hover { border-color: #667eea; background: #f0f4ff; }
+        .solicitud-tipo-btn.selected { border-color: #667eea; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .solicitud-tipo-btn .tipo-icon { font-size: 1.2rem; }
+        .solicitud-manager-select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; margin-bottom: 10px; }
+        .solicitud-comment-input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; height: 80px; resize: vertical; margin-bottom: 10px; }
+        .staffing-warning { background: linear-gradient(135deg, #fff3cd, #ffeeba); border: 2px solid #ffc107; border-radius: 10px; padding: 12px; margin-bottom: 15px; text-align: left; }
+        .staffing-warning h5 { color: #856404; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        .staffing-warning .warning-item { font-size: 0.8rem; color: #856404; margin: 4px 0; padding-left: 20px; }
+        .staffing-info-compact { background: #f8f9fa; border-radius: 10px; padding: 12px; margin-bottom: 15px; }
+        .staffing-info-compact h5 { color: #333; margin-bottom: 10px; font-size: 0.85rem; }
+        .staffing-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .staffing-mini-item { text-align: center; padding: 8px; border-radius: 8px; font-size: 0.75rem; }
+        .staffing-mini-item.morning { background: linear-gradient(135deg, var(--verde), #7cb342); color: #1a5c1a; }
+        .staffing-mini-item.afternoon { background: linear-gradient(135deg, var(--naranja), #ffa000); color: #5a4000; }
+        .staffing-mini-item.night { background: linear-gradient(135deg, var(--azul), #1a237e); color: white; }
+        .staffing-mini-item .mini-count { font-size: 1.3rem; font-weight: 800; display: block; }
+        .staffing-mini-item .mini-detail { font-size: 0.6rem; opacity: 0.9; }
+        .solicitudes-alert { background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 2px solid #2196f3; border-radius: 12px; padding: 15px; margin-bottom: 12px; }
+        .solicitudes-alert h4 { color: #1565c0; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .solicitud-item { background: white; padding: 12px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #2196f3; text-align: left; }
+        .solicitud-item.pendiente { border-left-color: #ff9800; }
+        .solicitud-item.aprobada { border-left-color: #4caf50; }
+        .solicitud-item.rechazada { border-left-color: #f44336; }
+        .solicitud-item .solicitud-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; gap: 5px; }
+        .solicitud-item .solicitud-from { font-weight: 700; color: #333; }
+        .solicitud-item .solicitud-date { font-size: 0.75rem; color: #888; }
+        .solicitud-item .solicitud-tipo-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
+        .solicitud-item .solicitud-tipo-badge.vac { background: #ffcdd2; color: #c62828; }
+        .solicitud-item .solicitud-tipo-badge.ap { background: #c8e6c9; color: #2e7d32; }
+        .solicitud-item .solicitud-tipo-badge.cambio { background: #e1bee7; color: #7b1fa2; }
+        .solicitud-item .solicitud-tipo-badge.otro { background: #b3e5fc; color: #0277bd; }
+        .solicitud-item .solicitud-dia { font-size: 0.85rem; color: #333; margin-bottom: 5px; }
+        .solicitud-item .solicitud-comment-text { font-size: 0.8rem; color: #666; background: #f5f5f5; padding: 8px; border-radius: 6px; margin: 8px 0; font-style: italic; }
+        .solicitud-item .solicitud-comment-text::before { content: '💬 '; }
+        .solicitud-item .solicitud-respuesta { font-size: 0.8rem; padding: 8px; border-radius: 6px; margin-top: 8px; }
+        .solicitud-item .solicitud-respuesta.aprobada { background: #e8f5e9; color: #2e7d32; }
+        .solicitud-item .solicitud-respuesta.rechazada { background: #ffebee; color: #c62828; }
+        .solicitud-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+        .solicitud-status-badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
+        .solicitud-status-badge.pendiente { background: #fff3e0; color: #e65100; }
+        .solicitud-status-badge.aprobada { background: #e8f5e9; color: #2e7d32; }
+        .solicitud-status-badge.rechazada { background: #ffebee; color: #c62828; }
+        .respuesta-textarea { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 0.85rem; height: 60px; resize: vertical; margin: 10px 0; }
+        .ver-turno-btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
+        .ver-turno-btn:hover { transform: translateY(-1px); }
+        .solicitudes-panel-tabs { display: flex; gap: 5px; margin-bottom: 15px; flex-wrap: wrap; }
+        .solicitudes-panel-tab { padding: 8px 15px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; }
+        .solicitudes-panel-tab:hover { background: #ddd; }
+        .solicitudes-panel-tab.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .solicitudes-panel-tab .tab-count { display: inline-block; background: rgba(255,255,255,0.3); padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 5px; }
+        .solicitudes-list { max-height: 400px; overflow-y: auto; }
+        .no-solicitudes { text-align: center; color: #999; padding: 30px; font-style: italic; }
+        .badge-solicitudes { background: #e74c3c; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 5px; }
         
+        /* ===== HERRAMIENTAS GRID ===== */
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .tool-card { background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center; transition: transform 0.2s; }
+        .tool-card:hover { transform: translateY(-3px); }
+        .tool-card .tool-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .tool-card h5 { margin-bottom: 8px; color: #333; }
+        .tool-card p { font-size: 0.8rem; color: #666; margin-bottom: 15px; line-height: 1.4; }
+        .tool-card .btn { width: 100%; }
+        
+        /* ===== ESTADÍSTICAS GENERALES ===== */
+        .general-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
+        .general-stat-card { background: white; padding: 15px; border-radius: 8px; text-align: center; }
+        .general-stat-card .stat-value { font-size: 1.8rem; font-weight: 800; }
+        .general-stat-card .stat-name { font-size: 0.7rem; color: #666; margin-top: 3px; }
+        
+        @media (max-width: 600px) {
+            .solicitud-tipo-grid { grid-template-columns: 1fr; }
+            .staffing-mini-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+        }
+
         .hidden { display: none !important; }
+        
+        /* Clase para elementos solo visibles en impresión */
+        .print-only { display: none; }
         
         @media (max-width: 1000px) { 
             .calendar-grid { grid-template-columns: repeat(2, 1fr); } 
@@ -940,7 +537,344 @@
             .user-info-bar { flex-direction: column; text-align: center; } 
             .bottom-sections { grid-template-columns: 1fr; }
         }
-        @media print { body { background: white !important; } .header, .filters-panel, .legend, .controls, .stats-container, .modal-overlay, .notification, .data-status, .user-info-bar, .alerts-container, .vacaciones-section { display: none !important; } .employee-info { display: block !important; } .calendar-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        
+        /* ===== ESTILOS DE IMPRESIÓN MEJORADOS ===== */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            @page {
+                size: A4 portrait;
+                margin: 8mm;
+            }
+            
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 9pt !important;
+            }
+            
+            /* Ocultar elementos no necesarios */
+            .header, 
+            .filters-panel, 
+            .controls, 
+            .stats-container, 
+            .modal-overlay, 
+            .notification, 
+            .data-status, 
+            .user-info-bar, 
+            .alerts-container, 
+            .vacaciones-section,
+            .general-view-info,
+            .legend,
+            #loginScreen {
+                display: none !important;
+            }
+            
+            /* Mostrar info del empleado */
+            .employee-info {
+                display: block !important;
+                background: white !important;
+                border: 2px solid #333 !important;
+                border-radius: 8px !important;
+                padding: 10px !important;
+                margin-bottom: 10px !important;
+                page-break-after: avoid !important;
+            }
+            
+            .employee-info h2 {
+                font-size: 14pt !important;
+                margin-bottom: 5px !important;
+            }
+            
+            .employee-badge {
+                background: #eee !important;
+                color: #333 !important;
+                border: 1px solid #999 !important;
+                padding: 2px 8px !important;
+                font-size: 9pt !important;
+            }
+            
+            /* Mostrar elementos solo de impresión */
+            .print-only {
+                display: block !important;
+            }
+            
+            /* Grid del calendario */
+            .calendar-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 6px !important;
+                max-width: 100% !important;
+            }
+            
+            /* Tarjetas de mes */
+            .month-card {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                border-radius: 6px !important;
+                padding: 4px !important;
+                page-break-inside: avoid !important;
+                box-shadow: none !important;
+            }
+            
+            .month-header {
+                background: linear-gradient(135deg, #667eea, #764ba2) !important;
+                -webkit-print-color-adjust: exact !important;
+                padding: 4px !important;
+                margin: -4px -4px 4px -4px !important;
+                border-radius: 6px 6px 0 0 !important;
+            }
+            
+            .month-header h2 {
+                font-size: 9pt !important;
+                color: white !important;
+            }
+            
+            /* Tabla del calendario */
+            .calendar-table {
+                border-collapse: separate !important;
+                border-spacing: 1px !important;
+            }
+            
+            .calendar-table th {
+                font-size: 5pt !important;
+                padding: 2px 1px !important;
+                background: #f0f0f0 !important;
+            }
+            
+            .calendar-table td {
+                height: 24px !important;
+                font-size: 5pt !important;
+                padding: 1px !important;
+                border: 1px solid #ddd !important;
+                border-radius: 2px !important;
+            }
+            
+            .day-num {
+                font-size: 6pt !important;
+                font-weight: 700 !important;
+            }
+            
+            .shift-code {
+                font-size: 4pt !important;
+                font-weight: 700 !important;
+            }
+            
+            .shift-hours {
+                display: none !important;
+            }
+            
+                       /* Colores de turnos para impresión */
+            .shift-wm {
+                background: rgb(146, 208, 80) !important;
+                color: #1a5c1a !important;
+                border-left: 2px solid #2e7d32 !important;
+            }
+            
+            .shift-m8 {
+                background: rgb(180, 220, 140) !important;
+                color: #1a5c1a !important;
+                border-left: 2px solid #43a047 !important;
+            }
+            
+            .shift-m {
+                background: rgb(146, 208, 80) !important;
+                color: #1a5c1a !important;
+                border-left: 2px solid #66bb6a !important;
+            }
+            
+            .shift-m-co {
+                background: rgb(200, 230, 200) !important;
+                color: #2e7d32 !important;
+                border-left: 2px dashed #66bb6a !important;
+            }
+            
+            .shift-wt {
+                background: rgb(255, 192, 0) !important;
+                color: #5a4000 !important;
+                border-left: 2px solid #ef6c00 !important;
+            }
+            
+            .shift-t8 {
+                background: rgb(255, 210, 80) !important;
+                color: #5a4000 !important;
+                border-left: 2px solid #f57c00 !important;
+            }
+            
+            .shift-t {
+                background: rgb(255, 192, 0) !important;
+                color: #5a4000 !important;
+                border-left: 2px solid #ffb300 !important;
+            }
+            
+            .shift-t-co {
+                background: rgb(255, 240, 180) !important;
+                color: #5a4000 !important;
+                border-left: 2px dashed #ffb300 !important;
+            }
+            
+            .shift-n8 {
+                background: rgb(0, 32, 96) !important;
+                color: white !important;
+                border-left: 2px solid #4a148c !important;
+            }
+            
+            .shift-n {
+                background: rgb(48, 63, 159) !important;
+                color: white !important;
+                border-left: 2px solid #283593 !important;
+            }
+            
+            .shift-nn {
+                background: rgb(92, 107, 192) !important;
+                color: white !important;
+                border-left: 2px solid #1a237e !important;
+            }
+            
+            .shift-n-co {
+                background: rgb(121, 134, 203) !important;
+                color: white !important;
+                border-left: 2px dashed #3949ab !important;
+            }
+            
+            .shift-c, .shift-cw {
+                background: rgb(200, 200, 200) !important;
+                color: #444 !important;
+                border-left: 2px solid #757575 !important;
+            }
+            
+            .shift-v, .shift-v25, .shift-v26 {
+                background: rgb(239, 83, 80) !important;
+                color: white !important;
+                border-left: 2px solid #b71c1c !important;
+            }
+            
+            .shift-ap {
+                background: rgb(0, 176, 80) !important;
+                color: white !important;
+                border-left: 2px solid #1b5e20 !important;
+            }
+            
+            .shift-tr {
+                background: rgb(255, 152, 0) !important;
+                color: white !important;
+                border-left: 2px solid #e65100 !important;
+            }
+            
+            .shift-bm, .shift-bp {
+                background: rgb(224, 224, 224) !important;
+                color: #666 !important;
+                border-left: 2px solid #9e9e9e !important;
+            }
+            
+            .ot-file-day {
+                background: rgb(155, 89, 182) !important;
+                color: white !important;
+                border: 2px solid #6c3483 !important;
+            }
+            
+            .libre {
+                background: #f8f8f8 !important;
+                color: #ccc !important;
+            }
+            
+            .empty {
+                background: transparent !important;
+                border: none !important;
+            }
+            
+            /* Festivos */
+            .festivo {
+                border: 2px solid rgb(220, 53, 69) !important;
+            }
+            
+            .festivo::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 1px !important;
+                right: 1px !important;
+                width: 4px !important;
+                height: 4px !important;
+                background: rgb(220, 53, 69) !important;
+                border-radius: 50% !important;
+            }
+            
+            /* Pie de página con leyenda detallada */
+            .print-footer {
+                display: block !important;
+                page-break-before: avoid !important;
+                margin-top: 8px !important;
+                padding: 8px !important;
+                border: 1px solid #ccc !important;
+                border-radius: 6px !important;
+                background: #fafafa !important;
+            }
+            
+            .print-footer h4 {
+                font-size: 8pt !important;
+                margin-bottom: 6px !important;
+                color: #333 !important;
+            }
+            
+            .print-legend-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 3px !important;
+                font-size: 6pt !important;
+            }
+            
+            .print-legend-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 3px !important;
+                padding: 2px 4px !important;
+                background: white !important;
+                border: 1px solid #ddd !important;
+                border-radius: 3px !important;
+            }
+            
+            .print-legend-color {
+                width: 12px !important;
+                height: 12px !important;
+                border-radius: 2px !important;
+                flex-shrink: 0 !important;
+            }
+            
+            .print-legend-text {
+                line-height: 1.1 !important;
+            }
+            
+            .print-legend-code {
+                font-weight: 700 !important;
+            }
+            
+            .print-legend-desc {
+                font-size: 5pt !important;
+                color: #666 !important;
+            }
+            
+            /* Quitar animaciones */
+            .day-changed::after,
+            .alarm-morning,
+            .alarm-afternoon,
+            .alarm-night,
+            .alarm-morning-afternoon,
+            .alarm-morning-night,
+            .alarm-afternoon-night,
+            .alarm-all {
+                animation: none !important;
+            }
+            
+            /* Ocultar elementos no imprimibles */
+            .hidden-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -985,9 +919,8 @@
         </div>
         <div class="user-actions">
             <button class="btn btn-user" onclick="openMisSolicitudesModal()">📋 Mis Solicitudes</button>
-                        <button class="btn btn-user" onclick="openUserSettingsModal()">⚙️ Mi Cuenta</button>
+            <button class="btn btn-user" onclick="openUserSettingsModal()">⚙️ Mi Cuenta</button>
             <button class="btn btn-solicitudes hidden" id="btnVerSolicitudes" onclick="openVerSolicitudesModal()">📬 Solicitudes <span id="badgeSolicitudesPendientes"></span></button>
-            <button class="btn btn-ot hidden" id="btnOtManager" onclick="openOtManagerModal()">🔧 Gestionar OT</button>
             <button class="btn btn-logout" onclick="logout()">🚪 Salir</button>
         </div>
     </div>
@@ -1003,13 +936,11 @@
             <div id="newOtAlertList"></div>
             <button class="btn btn-small btn-ot" onclick="dismissOtAlert()" style="margin-top:10px;">✓ Entendido</button>
         </div>
-        <!-- Alertas de Solicitudes para Managers -->
         <div id="solicitudesAlertBox" class="solicitudes-alert hidden">
             <h4>📬 Tienes solicitudes pendientes</h4>
             <div id="solicitudesAlertList"></div>
             <button class="btn btn-small btn-user" onclick="openVerSolicitudesModal(); dismissSolicitudesAlert();" style="margin-top:10px;">Ver todas</button>
         </div>
-        <!-- Alertas de Respuestas para Empleados -->
         <div id="misSolicitudesAlertBox" class="solicitudes-alert hidden" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-color: #4caf50;">
             <h4 style="color:#2e7d32;">📨 Tienes respuestas a tus solicitudes</h4>
             <div id="misSolicitudesAlertList"></div>
@@ -1061,14 +992,12 @@
         <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
     </div>
 
+    <!-- CONTROLES - Solo Manager tiene acceso a Panel Manager -->
     <div class="controls">
         <button class="btn btn-my-calendar active" id="btnMyCalendar" onclick="showMyCalendar()">📅 Mi Calendario</button>
         <button class="btn btn-general" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
         <button class="btn btn-user hidden" id="btnManagerPanel" onclick="openManagerModal()">👑 Panel Manager</button>
-        <button class="btn btn-vacaciones hidden" id="btnVacacionesGeneral" onclick="openVacacionesGeneralModal()">🏖️ Vacaciones</button>
         <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
-        <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
-        <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
         <span style="width:10px"></span>
         <button class="btn btn-view" onclick="setView(4, this)">4</button>
         <button class="btn btn-view active" onclick="setView(3, this)">3</button>
@@ -1079,12 +1008,105 @@
         <div class="loading"><div class="loading-spinner"></div><p>Cargando datos...</p></div>
     </div>
 
-    <!-- Sección de Vacaciones (se insertará dinámicamente antes de stats) -->
     <div id="vacacionesSectionContainer"></div>
 
     <div class="stats-container" id="statsContainer" style="display:none;">
         <h3 class="stats-title">📊 Resumen</h3>
         <div class="stats-grid" id="statsGrid"></div>
+    </div>
+    
+    <!-- Pie de página para impresión con leyenda -->
+    <div class="print-only print-footer" id="printFooter">
+        <h4>📋 LEYENDA DE TURNOS</h4>
+        <div class="print-legend-grid">
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(146,208,80);border:1px solid #2e7d32;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">WM</span>
+                    <span class="print-legend-desc">Mañana Larga 06:00-15:10</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(180,220,140);border:1px solid #43a047;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">M8</span>
+                    <span class="print-legend-desc">Mañana 8h 06:00-14:10</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(255,192,0);border:1px solid #ef6c00;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">WT</span>
+                    <span class="print-legend-desc">Tarde Larga 14:00-23:10</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(255,210,80);border:1px solid #f57c00;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">T8</span>
+                    <span class="print-legend-desc">Tarde 8h 14:00-22:10</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(0,32,96);border:1px solid #4a148c;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">N8</span>
+                    <span class="print-legend-desc">Noche 8h 22:00-06:10</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(48,63,159);border:1px solid #283593;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">N</span>
+                    <span class="print-legend-desc">Noche 22:00-06:30</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(200,200,200);border:1px solid #757575;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">C</span>
+                    <span class="print-legend-desc">Central 09:00-18:00</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(239,83,80);border:1px solid #b71c1c;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">V</span>
+                    <span class="print-legend-desc">Vacaciones</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(0,176,80);border:1px solid #1b5e20;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">AP</span>
+                    <span class="print-legend-desc">Asuntos Propios</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(255,152,0);border:1px solid #e65100;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">TR</span>
+                    <span class="print-legend-desc">Formación</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:rgb(155,89,182);border:1px solid #6c3483;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">OT</span>
+                    <span class="print-legend-desc">Día OT FILE</span>
+                </div>
+            </div>
+            <div class="print-legend-item">
+                <div class="print-legend-color" style="background:white;border:2px solid rgb(220,53,69);border-radius:50%;width:10px;height:10px;"></div>
+                <div class="print-legend-text">
+                    <span class="print-legend-code">●</span>
+                    <span class="print-legend-desc">Día Festivo</span>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:6px;font-size:6pt;color:#666;text-align:center;">
+            Calendario de Turnos 2026 - Dos Hermanas, Sevilla | Generado el <span id="printDate"></span>
+        </div>
     </div>
 </div>
 
@@ -1178,21 +1200,15 @@
             <strong id="solicitarDiaFecha"></strong>
             <div id="solicitarDiaTurnoActual" style="margin-top:5px; font-size:0.85rem; color:#666;"></div>
         </div>
-        
-        <!-- Avisos de personal -->
         <div id="solicitarStaffingWarning" class="staffing-warning" style="display:none;">
             <h5>⚠️ Aviso de Personal</h5>
             <div id="staffingWarningContent"></div>
         </div>
-        
-        <!-- Info del turno -->
         <div id="solicitarStaffingInfo" class="staffing-info-compact">
             <h5>👥 Personal en turno ese día</h5>
             <div class="staffing-mini-grid" id="staffingMiniGrid"></div>
             <button class="ver-turno-btn" onclick="verDetallesTurno()">👁️ Ver detalles completos</button>
         </div>
-        
-        <!-- Tipo de solicitud -->
         <div class="solicitud-section">
             <h4>¿Qué deseas solicitar?</h4>
             <div class="solicitud-tipo-grid">
@@ -1214,21 +1230,16 @@
                 </button>
             </div>
         </div>
-        
-        <!-- Seleccionar manager -->
         <div class="solicitud-section">
             <h4>Enviar solicitud a:</h4>
             <select id="solicitarManagerSelect" class="solicitud-manager-select">
                 <option value="">-- Selecciona un manager --</option>
             </select>
         </div>
-        
-        <!-- Comentario -->
         <div class="solicitud-section">
             <h4>Comentario (opcional):</h4>
             <textarea id="solicitarComentario" class="solicitud-comment-input" placeholder="Escribe aquí el motivo o detalles de tu solicitud..."></textarea>
         </div>
-        
         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:15px;">
             <button class="btn btn-save" onclick="enviarSolicitud()">📤 Enviar Solicitud</button>
             <button class="modal-close" onclick="closeSolicitarModal()">Cancelar</button>
@@ -1240,26 +1251,20 @@
 <div class="modal-overlay" id="responderSolicitudModal">
     <div class="modal modal-large">
         <h3>📨 Responder Solicitud</h3>
-        
         <div id="responderSolicitudInfo" class="solicitud-item" style="border-left-width:4px;"></div>
-        
-        <!-- Info del turno para el manager -->
         <div id="responderStaffingInfo" class="staffing-info-compact" style="margin-top:15px;">
             <h5>👥 Personal en turno ese día</h5>
             <div class="staffing-mini-grid" id="responderStaffingMiniGrid"></div>
             <button class="ver-turno-btn" onclick="verDetallesTurnoRespuesta()">👁️ Ver detalles completos</button>
         </div>
-        
         <div id="responderStaffingWarning" class="staffing-warning" style="display:none; margin-top:15px;">
             <h5>⚠️ Aviso</h5>
             <div id="responderWarningContent"></div>
         </div>
-        
         <div style="margin-top:15px;">
             <h4 style="margin-bottom:10px;">Tu respuesta:</h4>
             <textarea id="respuestaComentario" class="respuesta-textarea" placeholder="Comentario de respuesta (opcional)..."></textarea>
         </div>
-        
         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:15px;">
             <button class="btn btn-save" onclick="responderSolicitud('aprobada')">✅ Aprobar</button>
             <button class="btn btn-danger" onclick="responderSolicitud('rechazada')">❌ Rechazar</button>
@@ -1272,7 +1277,6 @@
 <div class="modal-overlay" id="verSolicitudesModal">
     <div class="modal modal-large">
         <h3>📬 Gestionar Solicitudes</h3>
-        
         <div class="solicitudes-panel-tabs">
             <button class="solicitudes-panel-tab active" onclick="switchSolicitudesTab('pendientes', this)">
                 ⏳ Pendientes <span class="tab-count" id="countPendientes">0</span>
@@ -1287,11 +1291,9 @@
                 📋 Todas
             </button>
         </div>
-        
         <div class="solicitudes-list" id="solicitudesManagerList">
             <div class="no-solicitudes">No hay solicitudes</div>
         </div>
-        
         <button class="modal-close" onclick="closeVerSolicitudesModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
@@ -1300,7 +1302,6 @@
 <div class="modal-overlay" id="misSolicitudesModal">
     <div class="modal modal-large">
         <h3>📋 Mis Solicitudes</h3>
-        
         <div class="solicitudes-panel-tabs">
             <button class="solicitudes-panel-tab active" onclick="switchMisSolicitudesTab('pendientes', this)">
                 ⏳ Pendientes <span class="tab-count" id="countMisPendientes">0</span>
@@ -1312,11 +1313,9 @@
                 📋 Todas
             </button>
         </div>
-        
         <div class="solicitudes-list" id="misSolicitudesList">
             <div class="no-solicitudes">No tienes solicitudes</div>
         </div>
-        
         <button class="modal-close" onclick="closeMisSolicitudesModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
@@ -1395,16 +1394,24 @@
     </div>
 </div>
 
-<!-- Modal Panel Manager -->
+<!-- Modal Panel Manager MEJORADO -->
 <div class="modal-overlay" id="managerModal">
     <div class="modal modal-large">
         <h3>👑 Panel Manager</h3>
-        <div class="manager-info"><h4>👤 <span id="currentManagerName"></span></h4><p>Login: <strong id="currentManagerLogin"></strong></p><span class="manager-role-badge" id="currentManagerRole"></span></div>
+        <div class="manager-info">
+            <h4>👤 <span id="currentManagerName"></span></h4>
+            <p>Login: <strong id="currentManagerLogin"></strong></p>
+            <span class="manager-role-badge" id="currentManagerRole"></span>
+        </div>
         <div class="panel-nav">
             <button class="panel-nav-btn active" onclick="switchPanel('changelog', this)">📋 Historial</button>
             <button class="panel-nav-btn" onclick="switchPanel('passwords', this)">🔑 Contraseñas</button>
             <button class="panel-nav-btn" onclick="switchPanel('import', this)">📥 Importar</button>
+            <button class="panel-nav-btn" onclick="switchPanel('vacaciones', this)">🏖️ Vacaciones</button>
+            <button class="panel-nav-btn" onclick="switchPanel('herramientas', this)">🛠️ Herramientas</button>
         </div>
+        
+        <!-- Panel Historial -->
         <div id="panel-changelog" class="panel-content active">
             <h4 style="margin-bottom:10px;">📋 Últimas modificaciones de turnos</h4>
             <div style="margin-bottom:10px;">
@@ -1412,12 +1419,14 @@
             </div>
             <div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div>
         </div>
+        
+        <!-- Panel Contraseñas -->
         <div id="panel-passwords" class="panel-content">
             <h4 style="margin-bottom:10px;">🔑 Gestión de Contraseñas</h4>
             <div class="import-info">
                 <strong>📌 Información:</strong><br>
-                • La contraseña por defecto es[REDACTED:PASSWORD]trong>1234</strong><br>
-                • Al resetear, la contraseña volverá a[REDACTED:PASSWORD]trong>1234</strong><br>
+                • La contraseña por defecto es: <[REDACTED:PASSWORD]ng>1234</strong><br>
+                • Al resetear, la contraseña volverá a: <strong>1234</strong><br>
                 • Los usuarios pueden cambiar su contraseña en "Mi Cuenta"
             </div>
             <div style="margin:15px 0;">
@@ -1444,12 +1453,102 @@
             <div class="modal-section-title" style="margin-top:20px;">📊 Resumen de Contraseñas</div>
             <div id="passwordSummary" style="background:#f8f9fa; padding:15px; border-radius:12px;"></div>
         </div>
+        
+        <!-- Panel Importar -->
         <div id="panel-import" class="panel-content">
-            <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar<br><br>⚠️ <strong>Las contraseñas NO se borrarán</strong> al importar.<br>📊 <strong>Se registrarán todos los cambios</strong> en el historial.</div>
-            <div class="import-panel"><textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea><div class="btn-row"><button class="btn btn-save" onclick="processBulkImportWithChanges()">✅ Importar</button><button class="btn btn-export" onclick="previewBulkImportWithChanges()">👁️ Vista Previa</button></div></div>
+            <div class="import-info">
+                <strong>📌 Instrucciones:</strong><br>
+                1. Copia los datos TSV desde Excel<br>
+                2. Pégalos aquí<br>
+                3. Clic en Importar<br><br>
+                ⚠️ <strong>Las contraseñas NO se borrarán</strong> al importar.<br>
+                📊 <strong>Se registrarán todos los cambios</strong> en el historial.
+            </div>
+            <div class="import-panel">
+                <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
+                <div class="btn-row">
+                    <button class="btn btn-save" onclick="processBulkImportWithChanges()">✅ Importar</button>
+                    <button class="btn btn-export" onclick="previewBulkImportWithChanges()">👁️ Vista Previa</button>
+                </div>
+            </div>
             <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
         </div>
-        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeManagerModal()">Cerrar</button></div>
+        
+        <!-- Panel Vacaciones -->
+        <div id="panel-vacaciones" class="panel-content">
+            <h4 style="margin-bottom:15px;">🏖️ Gestión de Vacaciones y Asuntos Propios</h4>
+            <div class="import-info">
+                <strong>📌 Información:</strong><br>
+                Aquí puedes ver y editar las vacaciones de todos los empleados.<br>
+                Haz clic en ✏️ para editar los datos de cada empleado.
+            </div>
+            <div style="margin:15px 0;">
+                <input type="text" id="vacPanelSearch" placeholder="🔍 Buscar empleado..." oninput="filterVacacionesPanel()" style="padding:10px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;">
+            </div>
+            <div class="vac-general-container" style="max-height:350px;">
+                <table class="vac-general-table" id="vacPanelTable">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Crew</th>
+                            <th style="background:#9c27b0;">Pend.</th>
+                            <th style="background:#9c27b0;">Rest.</th>
+                            <th style="background:#2196f3;">Asig.</th>
+                            <th style="background:#2196f3;">Rest.</th>
+                            <th style="background:#ff9800;">AP</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vacPanelBody"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Panel Herramientas -->
+        <div id="panel-herramientas" class="panel-content">
+            <h4 style="margin-bottom:15px;">🛠️ Herramientas</h4>
+            
+            <div class="tools-grid">
+                <!-- Imprimir -->
+                <div class="tool-card">
+                    <div class="tool-icon">🖨️</div>
+                    <h5>Imprimir Calendario</h5>
+                    <p>Imprime el calendario con colores y leyenda explicativa.</p>
+                    <button class="btn btn-print" onclick="printCalendar()">🖨️ Imprimir</button>
+                </div>
+                
+                <!-- Exportar JSON -->
+                <div class="tool-card">
+                    <div class="tool-icon">📤</div>
+                    <h5>Exportar JSON</h5>
+                    <p>Copia de seguridad de todos los datos.</p>
+                    <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
+                </div>
+                
+                <!-- Exportar Excel -->
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h5>Exportar a Excel</h5>
+                    <p>Exporta los turnos en formato TSV.</p>
+                    <button class="btn btn-save" onclick="exportToTSV()">📊 Exportar TSV</button>
+                </div>
+                
+                <!-- Gestionar OT -->
+                <div class="tool-card">
+                    <div class="tool-icon">🔧</div>
+                    <h5>Días OT FILE</h5>
+                    <p>Crear y gestionar días de OT FILE.</p>
+                    <button class="btn btn-ot" onclick="closeManagerModal(); openOtManagerModal();">🔧 Gestionar OT</button>
+                </div>
+            </div>
+            
+            <div class="modal-section-title" style="margin-top:20px;">📊 Estadísticas Generales</div>
+            <div id="generalStats" class="general-stats-grid"></div>
+        </div>
+        
+        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
+            <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
+        </div>
     </div>
 </div>
 
@@ -1553,8 +1652,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="vacGeneralBody">
-                </tbody>
+                <tbody id="vacGeneralBody"></tbody>
             </table>
         </div>
         <button class="modal-close" onclick="closeVacacionesGeneralModal()" style="margin-top:15px;">Cerrar</button>
@@ -1631,8 +1729,6 @@ let changedDays = [];
 let newOtDays = [];
 let selectedPasswordUser = null;
 let editingVacacionesEmployee = null;
-
-// Variables para sistema de solicitudes
 let selectedTipoSolicitud = null;
 let solicitandoDia = null;
 let respondiendoSolicitud = null;
@@ -1668,18 +1764,13 @@ function getAbsenceLabel(shift) {
     return 'Ausencia';
 }
 
-// =====================================================
-// FUNCIONES DE DATOS
-// =====================================================
 function turnosStringToArray(turnosData) {
     if (Array.isArray(turnosData)) {
         const arr = turnosData.map(t => (t || '').toString().trim());
         while (arr.length < 365) arr.push('');
         return arr.slice(0, 365);
     }
-    if (!turnosData || typeof turnosData !== 'string') {
-        return new Array(365).fill('');
-    }
+    if (!turnosData || typeof turnosData !== 'string') return new Array(365).fill('');
     const arr = turnosData.split(',').map(t => t.trim());
     while (arr.length < 365) arr.push('');
     return arr.slice(0, 365);
@@ -1693,10 +1784,7 @@ function turnosArrayToString(turnosArray) {
 
 function normalizarEmpleados(empleados) {
     return empleados.map(emp => ({
-        crew: emp.crew || '',
-        login: emp.login || '',
-        name: emp.name || '',
-        role: emp.role || '',
+        crew: emp.crew || '', login: emp.login || '', name: emp.name || '', role: emp.role || '',
         turnos: turnosStringToArray(emp.turnos),
         vacPendientesAnt: parseFloat(emp.vacPendientesAnt) || 0,
         vacRestantesAnt: parseFloat(emp.vacRestantesAnt) || 0,
@@ -1727,9 +1815,7 @@ function getDayString(doy) {
 function getDayFromDoy(doy) {
     let remaining = doy;
     for (let m = 0; m < 12; m++) {
-        if (remaining < daysInMonth[m]) {
-            return { month: m + 1, day: remaining + 1 };
-        }
+        if (remaining < daysInMonth[m]) return { month: m + 1, day: remaining + 1 };
         remaining -= daysInMonth[m];
     }
     return { month: 12, day: 31 };
@@ -1742,10 +1828,15 @@ function setDataStatus(type, message) {
 
 function showNotification(msg, isError = false) {
     const n = document.getElementById('notification');
-    n.textContent = msg;
-    n.className = 'notification' + (isError ? ' error' : '');
+    n.textContent = msg; n.className = 'notification' + (isError ? ' error' : '');
     n.classList.add('show');
     setTimeout(() => n.classList.remove('show'), 2500);
+}
+
+function formatVacNumber(num) {
+    if (num === null || num === undefined || isNaN(num)) return '0';
+    const n = parseFloat(num);
+    return n % 1 === 0 ? n.toString() : n.toFixed(1);
 }
 
 // =====================================================
@@ -1755,16 +1846,13 @@ function getLastLoginTime(login) {
     try { const stored = localStorage.getItem('lastLogin_' + login); return stored ? new Date(stored) : null; }
     catch (e) { return null; }
 }
-
 function setLastLoginTime(login) {
     try { localStorage.setItem('lastLogin_' + login, new Date().toISOString()); } catch (e) { }
 }
-
 function getSeenOtDays(login) {
     try { const stored = localStorage.getItem('seenOtDays_' + login); return stored ? JSON.parse(stored) : []; }
     catch (e) { return []; }
 }
-
 function addSeenOtDays(login, otDoys) {
     try {
         const current = getSeenOtDays(login);
@@ -1772,22 +1860,16 @@ function addSeenOtDays(login, otDoys) {
         localStorage.setItem('seenOtDays_' + login, JSON.stringify(updated));
     } catch (e) { }
 }
-
 function getLastSolicitudCheckTime(login) {
-    try {
-        const stored = localStorage.getItem('lastSolicitudCheck_' + login);
-        return stored ? new Date(stored) : null;
-    } catch (e) { return null; }
+    try { const stored = localStorage.getItem('lastSolicitudCheck_' + login); return stored ? new Date(stored) : null; }
+    catch (e) { return null; }
 }
-
 function setLastSolicitudCheckTime(login) {
-    try {
-        localStorage.setItem('lastSolicitudCheck_' + login, new Date().toISOString());
-    } catch (e) { }
+    try { localStorage.setItem('lastSolicitudCheck_' + login, new Date().toISOString()); } catch (e) { }
 }
 
 // =====================================================
-// DETECTAR CAMBIOS Y ALERTAS
+// ALERTAS
 // =====================================================
 function detectChangesForUser(login, lastLoginTime) {
     if (!lastLoginTime || !allData.changelog) return [];
@@ -1807,7 +1889,6 @@ function detectNewOtDays(login) {
 
 function showAlertsIfNeeded() {
     if (!currentUser) return;
-    
     const lastLogin = getLastLoginTime(currentUser.login);
     changedDays = detectChangesForUser(currentUser.login, lastLogin);
     newOtDays = detectNewOtDays(currentUser.login);
@@ -1834,10 +1915,8 @@ function showAlertsIfNeeded() {
         ).join('');
     } else { otBox.classList.add('hidden'); }
     
-    // Mostrar alertas de solicitudes
     showSolicitudesAlerts();
     
-    // Verificar si hay alguna alerta visible
     const solicitudesVisible = !document.getElementById('solicitudesAlertBox').classList.contains('hidden');
     const misSolicitudesVisible = !document.getElementById('misSolicitudesAlertBox').classList.contains('hidden');
     
@@ -1852,21 +1931,25 @@ function dismissChangesAlert() {
     document.getElementById('changesAlertBox').classList.add('hidden');
     checkHideAlertsContainer();
 }
-
 function dismissOtAlert() {
-    if (currentUser && newOtDays.length > 0) {
-        addSeenOtDays(currentUser.login, newOtDays.map(ot => ot.doy));
-    }
+    if (currentUser && newOtDays.length > 0) addSeenOtDays(currentUser.login, newOtDays.map(ot => ot.doy));
     document.getElementById('newOtAlertBox').classList.add('hidden');
     checkHideAlertsContainer();
 }
-
+function dismissSolicitudesAlert() {
+    document.getElementById('solicitudesAlertBox').classList.add('hidden');
+    checkHideAlertsContainer();
+}
+function dismissMisSolicitudesAlert() {
+    setLastSolicitudCheckTime(currentUser.login);
+    document.getElementById('misSolicitudesAlertBox').classList.add('hidden');
+    checkHideAlertsContainer();
+}
 function checkHideAlertsContainer() {
     const changesHidden = document.getElementById('changesAlertBox').classList.contains('hidden');
     const otHidden = document.getElementById('newOtAlertBox').classList.contains('hidden');
     const solicitudesHidden = document.getElementById('solicitudesAlertBox').classList.contains('hidden');
     const misSolicitudesHidden = document.getElementById('misSolicitudesAlertBox').classList.contains('hidden');
-    
     if (changesHidden && otHidden && solicitudesHidden && misSolicitudesHidden) {
         document.getElementById('alertsContainer').classList.add('hidden');
     }
@@ -1879,34 +1962,22 @@ async function saveToCloud() {
     try {
         setDataStatus('loading', '⏳ Guardando...');
         const empleadosParaGuardar = allData.empleados.map(emp => ({
-            crew: emp.crew || '',
-            login: emp.login || '',
-            name: emp.name || '',
-            role: emp.role || '',
+            crew: emp.crew || '', login: emp.login || '', name: emp.name || '', role: emp.role || '',
             turnos: Array.isArray(emp.turnos) ? turnosArrayToString(emp.turnos) : (emp.turnos || ''),
-            vacPendientesAnt: emp.vacPendientesAnt || 0,
-            vacRestantesAnt: emp.vacRestantesAnt || 0,
-            vacConsumidasAnt: emp.vacConsumidasAnt || 0,
-            vacAsignadas2026: emp.vacAsignadas2026 || 0,
-            vacRestantes2026: emp.vacRestantes2026 || 0,
-            vacConsumidas2026: emp.vacConsumidas2026 || 0,
+            vacPendientesAnt: emp.vacPendientesAnt || 0, vacRestantesAnt: emp.vacRestantesAnt || 0,
+            vacConsumidasAnt: emp.vacConsumidasAnt || 0, vacAsignadas2026: emp.vacAsignadas2026 || 0,
+            vacRestantes2026: emp.vacRestantes2026 || 0, vacConsumidas2026: emp.vacConsumidas2026 || 0,
             apConsumidos: emp.apConsumidos || 0
         }));
         
         const response = await fetch(JSONBIN_URL, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': JSONBIN_API_KEY
-            },
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
             body: JSON.stringify({
-                empleados: empleadosParaGuardar,
-                userPasswords: allData.userPasswords || {},
-                changelog: (allData.changelog || []).slice(-500),
-                otDays: allData.otDays || [],
+                empleados: empleadosParaGuardar, userPasswords: allData.userPasswords || {},
+                changelog: (allData.changelog || []).slice(-500), otDays: allData.otDays || [],
                 solicitudes: (allData.solicitudes || []).slice(-200),
-                lastModified: new Date().toISOString(),
-                version: '2.2'
+                lastModified: new Date().toISOString(), version: '2.3'
             })
         });
         
@@ -1924,10 +1995,7 @@ async function saveToCloud() {
 async function loadFromCloud() {
     try {
         setDataStatus('loading', '⏳ Cargando...');
-        const response = await fetch(JSONBIN_URL + '/latest', {
-            headers: { 'X-Master-Key': JSONBIN_API_KEY }
-        });
-        
+        const response = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
         if (!response.ok) throw new Error('Error al cargar');
         const data = await response.json();
         
@@ -1935,12 +2003,9 @@ async function loadFromCloud() {
             const empleados = normalizarEmpleados(data.record.empleados);
             setDataStatus('online', '☁️ ' + empleados.length + ' empleados');
             return {
-                empleados: empleados,
-                userPasswords: data.record.userPasswords || {},
-                changelog: data.record.changelog || [],
-                otDays: data.record.otDays || [],
-                solicitudes: data.record.solicitudes || [],
-                festivos: festivos2026
+                empleados: empleados, userPasswords: data.record.userPasswords || {},
+                changelog: data.record.changelog || [], otDays: data.record.otDays || [],
+                solicitudes: data.record.solicitudes || [], festivos: festivos2026
             };
         }
         setDataStatus('online', '☁️ Sin datos');
@@ -1973,11 +2038,9 @@ function parseRawData(rawData) {
         let dataStartIndex = 3;
         
         if (parts[3].trim() !== '' && isNaN(parseFloat(parts[3].replace(',', '.')))) {
-            role = parts[3].trim();
-            dataStartIndex = 4;
+            role = parts[3].trim(); dataStartIndex = 4;
         } else if (parts[4] && parts[4].trim() !== '' && isNaN(parseFloat(parts[4].replace(',', '.')))) {
-            role = parts[4].trim();
-            dataStartIndex = 5;
+            role = parts[4].trim(); dataStartIndex = 5;
         }
         
         const vacPendientesAnt = parseFloat(String(parts[dataStartIndex] || '0').replace(',', '.')) || 0;
@@ -1989,7 +2052,6 @@ function parseRawData(rawData) {
         const apConsumidos = parseFloat(String(parts[dataStartIndex + 6] || '0').replace(',', '.')) || 0;
         
         const turnoStartIndex = dataStartIndex + 7;
-        
         const turnos = [];
         for (let i = turnoStartIndex; i < parts.length && turnos.length < 365; i++) {
             turnos.push((parts[i] || '').trim().toLowerCase());
@@ -1997,11 +2059,9 @@ function parseRawData(rawData) {
         while (turnos.length < 365) turnos.push('');
         
         empleados.push({ 
-            crew, login, name, role, 
-            turnos: turnos.slice(0, 365),
+            crew, login, name, role, turnos: turnos.slice(0, 365),
             vacPendientesAnt, vacRestantesAnt, vacConsumidasAnt,
-            vacAsignadas2026, vacRestantes2026, vacConsumidas2026,
-            apConsumidos
+            vacAsignadas2026, vacRestantes2026, vacConsumidas2026, apConsumidos
         });
     });
     
@@ -2097,8 +2157,6 @@ function showMainApp() {
     if (isManager) {
         document.getElementById('managerBadge').classList.remove('hidden');
         document.getElementById('btnManagerPanel').classList.remove('hidden');
-        document.getElementById('btnOtManager').classList.remove('hidden');
-        document.getElementById('btnVacacionesGeneral').classList.remove('hidden');
         document.getElementById('btnVerSolicitudes').classList.remove('hidden');
         document.getElementById('filterCrewGroup').classList.remove('hidden');
         document.getElementById('filterEmployeeGroup').classList.remove('hidden');
@@ -2124,8 +2182,6 @@ function logout() {
     document.getElementById('loginStatus').classList.add('hidden');
     document.getElementById('managerBadge').classList.add('hidden');
     document.getElementById('btnManagerPanel').classList.add('hidden');
-    document.getElementById('btnOtManager').classList.add('hidden');
-    document.getElementById('btnVacacionesGeneral').classList.add('hidden');
     document.getElementById('btnVerSolicitudes').classList.add('hidden');
     document.getElementById('alertsContainer').classList.add('hidden');
     document.getElementById('filterCrewGroup').classList.add('hidden');
@@ -2187,9 +2243,7 @@ function selectEmployee() {
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
     
-    generateCalendar(); 
-    generateStats();
-    updateVacacionesDisplay();
+    generateCalendar(); generateStats(); updateVacacionesDisplay();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
@@ -2212,11 +2266,10 @@ async function reloadFromCloud() {
 }
 
 // =====================================================
-// MI CALENDARIO
+// MI CALENDARIO Y VISTA GENERAL
 // =====================================================
 function showMyCalendar() {
     if (!currentUser) return;
-    
     isMyCalendarView = true; isGeneralView = false;
     selectedEmployee = allData.empleados.find(e => e.login === currentUser.login);
     if (!selectedEmployee) { showNotification('❌ No se encontró tu perfil', true); return; }
@@ -2232,15 +2285,10 @@ function showMyCalendar() {
     document.getElementById('employeeLogin').textContent = selectedEmployee.login;
     document.getElementById('employeeInfo').classList.add('active');
     
-    generateCalendar(); 
-    generateStats();
-    updateVacacionesDisplay();
+    generateCalendar(); generateStats(); updateVacacionesDisplay();
     document.getElementById('statsContainer').style.display = 'block';
 }
 
-// =====================================================
-// VISTA GENERAL
-// =====================================================
 function showGeneralView() {
     isGeneralView = true; isMyCalendarView = false; selectedEmployee = null;
     document.getElementById('filterEmployee').value = '';
@@ -2334,44 +2382,24 @@ function analyzeStaffingForDay(month, day) {
         const roleType = classifyRole(emp.role);
         const roleDisplay = emp.role || 'Sin rol';
         
-        const empData = { 
-            name: emp.name, 
-            crew: emp.crew, 
-            login: emp.login, 
-            role: roleDisplay,
-            roleType,
-            shift: shift.toUpperCase(), 
-            hours: shiftInfo.hours 
-        };
+        const empData = { name: emp.name, crew: emp.crew, login: emp.login, role: roleDisplay, roleType, shift: shift.toUpperCase(), hours: shiftInfo.hours };
         
         let shiftType = null;
         let absenceType = null;
         
-        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) {
-            shiftType = 'morning';
-        } else if (['wt', 't8', 't', 't-co'].includes(shift)) {
-            shiftType = 'afternoon';
-        } else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) {
-            shiftType = 'night';
-        } else if (['c', 'cw'].includes(shift)) {
-            shiftType = 'central';
-        } else if (['v', 'v25', 'v26'].includes(shift)) {
-            absenceType = 'vac';
-        } else if (shift.startsWith('ap')) {
-            absenceType = 'ap';
-        } else if (shift === 'tr') {
-            absenceType = 'tr';
-        } else if (['bm', 'bp'].includes(shift)) {
-            absenceType = 'baja';
-        }
+        if (['wm', 'm8', 'm', 'm-co'].includes(shift)) shiftType = 'morning';
+        else if (['wt', 't8', 't', 't-co'].includes(shift)) shiftType = 'afternoon';
+        else if (['n8', 'n', 'nn', 'wn', 'n-co'].includes(shift)) shiftType = 'night';
+        else if (['c', 'cw'].includes(shift)) shiftType = 'central';
+        else if (['v', 'v25', 'v26'].includes(shift)) absenceType = 'vac';
+        else if (shift.startsWith('ap')) absenceType = 'ap';
+        else if (shift === 'tr') absenceType = 'tr';
+        else if (['bm', 'bp'].includes(shift)) absenceType = 'baja';
         
         if (shiftType) {
             staffing[shiftType].total++;
             staffing[shiftType].employees.push(empData);
-            
-            if (!staffing[shiftType].roleCount[roleDisplay]) {
-                staffing[shiftType].roleCount[roleDisplay] = { count: 0, type: roleType };
-            }
+            if (!staffing[shiftType].roleCount[roleDisplay]) staffing[shiftType].roleCount[roleDisplay] = { count: 0, type: roleType };
             staffing[shiftType].roleCount[roleDisplay].count++;
         } else if (absenceType) {
             staffing.absent.total++;
@@ -2449,11 +2477,8 @@ function openDayOverviewModal(month, day) {
         document.getElementById('list' + shiftName).innerHTML = renderEmployeeListDetailed(data.employees, key);
         
         const column = document.getElementById('column' + shiftName);
-        if (!fest && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet)) {
-            column.classList.add('column-alarm');
-        } else {
-            column.classList.remove('column-alarm');
-        }
+        if (!fest && data.total > 0 && (alarm?.lowSrme || alarm?.lowRmet)) column.classList.add('column-alarm');
+        else column.classList.remove('column-alarm');
     });
     
     document.getElementById('countCentral').textContent = staffing.central.total;
@@ -2520,7 +2545,6 @@ function generateDetailedRoleBreakdown(data, alarm, checkAlarms) {
     if (data.total === 0) return '<span style="color:#999;">Sin personal</span>';
     
     const roles = Object.entries(data.roleCount).sort((a, b) => b[1].count - a[1].count);
-    
     let html = '<div class="role-summary">';
     roles.forEach(([role, info]) => {
         let chipClass = '';
@@ -2555,15 +2579,12 @@ function generateDetailedRoleBreakdown(data, alarm, checkAlarms) {
 
 function generateAbsenceBreakdown(absentData) {
     if (absentData.total === 0) return '<span style="color:#999;">Sin ausencias</span>';
-    
     const byType = absentData.byType;
     let html = '<div class="role-summary">';
-    
     if (byType.vac.length) html += `<span class="role-chip" style="background:#ffcdd2;color:#c62828;">${byType.vac.length} Vacaciones</span>`;
     if (byType.ap.length) html += `<span class="role-chip" style="background:#c8e6c9;color:#2e7d32;">${byType.ap.length} A. Propios</span>`;
     if (byType.tr.length) html += `<span class="role-chip" style="background:#ffe0b2;color:#e65100;">${byType.tr.length} Formación</span>`;
     if (byType.baja.length) html += `<span class="role-chip" style="background:#e0e0e0;color:#424242;">${byType.baja.length} Baja</span>`;
-    
     html += '</div>';
     return html;
 }
@@ -2635,6 +2656,7 @@ function selectEmployeeFromModal(login) {
 }
 
 function closeDayOverviewModal() { document.getElementById('dayOverviewModal').classList.remove('active'); }
+
 // =====================================================
 // CALENDARIO INDIVIDUAL
 // =====================================================
@@ -2887,15 +2909,9 @@ function cancelShiftChange() {
 function addChangelogEntry(employeeLogin, employeeName, doy, oldShift, newShift, comment = '') {
     const entry = {
         timestamp: new Date().toISOString(),
-        managerLogin: currentUser.login,
-        managerName: currentUser.name,
-        managerRole: currentUser.role,
-        employeeLogin, employeeName,
-        dayOfYear: doy,
-        dateStr: getDayString(doy),
-        oldShift: oldShift || 'LIBRE',
-        newShift: newShift || 'LIBRE',
-        comment: comment || ''
+        managerLogin: currentUser.login, managerName: currentUser.name, managerRole: currentUser.role,
+        employeeLogin, employeeName, dayOfYear: doy, dateStr: getDayString(doy),
+        oldShift: oldShift || 'LIBRE', newShift: newShift || 'LIBRE', comment: comment || ''
     };
     allData.changelog.unshift(entry);
     if (allData.changelog.length > 500) allData.changelog.pop();
@@ -2919,10 +2935,7 @@ function renderChangelog(searchFilter = '') {
     
     let filtered = allData.changelog;
     if (searchFilter) {
-        filtered = filtered.filter(c => 
-            c.employeeName.toLowerCase().includes(searchFilter) ||
-            c.managerName.toLowerCase().includes(searchFilter)
-        );
+        filtered = filtered.filter(c => c.employeeName.toLowerCase().includes(searchFilter) || c.managerName.toLowerCase().includes(searchFilter));
     }
     
     if (filtered.length === 0) {
@@ -2939,14 +2952,8 @@ function renderChangelog(searchFilter = '') {
         let borderColor = '#667eea';
         let extraBadge = '';
         
-        if (c.isPasswordChange) {
-            icon = '🔑';
-            borderColor = '#f39c12';
-        } else if (c.isImportChange) {
-            icon = '📥';
-            borderColor = '#9b59b6';
-            extraBadge = '<span class="import-badge">IMPORT</span>';
-        }
+        if (c.isPasswordChange) { icon = '🔑'; borderColor = '#f39c12'; }
+        else if (c.isImportChange) { icon = '📥'; borderColor = '#9b59b6'; extraBadge = '<span class="import-badge">IMPORT</span>'; }
         
         return `<div class="changelog-item" style="border-left-color:${borderColor};">
             <div class="change-header">
@@ -2966,10 +2973,6 @@ function renderChangelog(searchFilter = '') {
 // =====================================================
 // SISTEMA DE SOLICITUDES
 // =====================================================
-
-/**
- * Abre el modal para solicitar un día
- */
 function openSolicitarDiaModal() {
     if (!editingDay || !currentUser) return;
     
@@ -2979,23 +2982,17 @@ function openSolicitarDiaModal() {
     const date = new Date(2026, solicitandoDia.month - 1, solicitandoDia.day);
     document.getElementById('solicitarDiaFecha').textContent = `📅 ${dayOfWeek[date.getDay()]} ${solicitandoDia.day} de ${monthNames[solicitandoDia.month - 1]} 2026`;
     
-    // Mostrar turno actual
     const turnoActual = selectedEmployee ? (selectedEmployee.turnos[solicitandoDia.doy] || '').toUpperCase() : '';
     document.getElementById('solicitarDiaTurnoActual').textContent = turnoActual ? `Turno actual: ${turnoActual}` : 'Sin turno asignado';
     
-    // Resetear selecciones
     selectedTipoSolicitud = null;
     document.querySelectorAll('.solicitud-tipo-btn').forEach(btn => btn.classList.remove('selected'));
     document.getElementById('solicitarComentario').value = '';
     document.getElementById('solicitarManagerSelect').value = '';
     
-    // Llenar select de managers
     fillManagerSelect();
-    
-    // Mostrar info de staffing
     showSolicitarStaffingInfo(solicitandoDia.month, solicitandoDia.day);
     
-    // Cerrar modal de edición y abrir solicitar
     closeModal();
     document.getElementById('solicitarDiaModal').classList.add('active');
 }
@@ -3006,37 +3003,23 @@ function closeSolicitarModal() {
     selectedTipoSolicitud = null;
 }
 
-/**
- * Llena el select de managers
- */
 function fillManagerSelect() {
     const select = document.getElementById('solicitarManagerSelect');
     select.innerHTML = '<option value="">-- Selecciona un manager --</option>';
-    
     const managers = allData.empleados.filter(e => isManagerRole(e.role));
     managers.sort((a, b) => a.name.localeCompare(b.name));
-    
-    managers.forEach(m => {
-        select.innerHTML += `<option value="${m.login}">${m.name} (${m.role})</option>`;
-    });
+    managers.forEach(m => { select.innerHTML += `<option value="${m.login}">${m.name} (${m.role})</option>`; });
 }
 
-/**
- * Selecciona el tipo de solicitud
- */
 function selectTipoSolicitud(tipo, btn) {
     selectedTipoSolicitud = tipo;
     document.querySelectorAll('.solicitud-tipo-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
 }
 
-/**
- * Muestra información de staffing para el día solicitado
- */
 function showSolicitarStaffingInfo(month, day) {
     const { staffing, alarms } = analyzeStaffingForDay(month, day);
     
-    // Mini grid
     const miniGrid = document.getElementById('staffingMiniGrid');
     miniGrid.innerHTML = `
         <div class="staffing-mini-item morning">
@@ -3053,36 +3036,20 @@ function showSolicitarStaffingInfo(month, day) {
         </div>
     `;
     
-    // Warnings
     const warningBox = document.getElementById('solicitarStaffingWarning');
     const warningContent = document.getElementById('staffingWarningContent');
     let warnings = [];
     
-    // Detectar turno del usuario actual
     const userShift = selectedEmployee ? (selectedEmployee.turnos[getDayOfYear(month, day)] || '').toLowerCase() : '';
     const userShiftType = getShiftInfo(userShift).type;
     const userRole = classifyRole(currentUser.role);
     
-    // Verificar si el usuario es SRME y hay pocos SRME en su turno
     if (userRole === 'srme' && ['morning', 'afternoon', 'night'].includes(userShiftType)) {
         const srmeCount = staffing[userShiftType].srmeCount || 0;
         if (srmeCount <= MIN_SRME_PER_SHIFT) {
             warnings.push(`⚠️ Solo hay <strong>${srmeCount} SRME</strong> en tu turno. Si te ausentas, quedarían menos del mínimo (${MIN_SRME_PER_SHIFT}).`);
         }
     }
-    
-    // Verificar si hay pocos técnicos en algún turno
-    ['morning', 'afternoon', 'night'].forEach(shiftType => {
-        const shiftName = shiftType === 'morning' ? 'Mañana' : shiftType === 'afternoon' ? 'Tarde' : 'Noche';
-        if (staffing[shiftType].total > 0) {
-            if (alarms[shiftType].lowSrme) {
-                warnings.push(`⚠️ Turno de <strong>${shiftName}</strong>: Faltan SRME (${staffing[shiftType].srmeCount}/${MIN_SRME_PER_SHIFT})`);
-            }
-            if (alarms[shiftType].lowRmet) {
-                warnings.push(`⚠️ Turno de <strong>${shiftName}</strong>: Faltan Técnicos (${staffing[shiftType].rmetCount}/${MIN_RMET_PER_SHIFT})`);
-            }
-        }
-    });
     
     if (warnings.length > 0) {
         warningContent.innerHTML = warnings.map(w => `<div class="warning-item">${w}</div>`).join('');
@@ -3092,41 +3059,27 @@ function showSolicitarStaffingInfo(month, day) {
     }
 }
 
-/**
- * Ver detalles del turno (abre el modal de vista general)
- */
 function verDetallesTurno() {
     if (!solicitandoDia) return;
     closeSolicitarModal();
     openDayOverviewModal(solicitandoDia.month, solicitandoDia.day);
 }
-
 function verDetallesTurnoRespuesta() {
     if (!respondiendoSolicitud) return;
     closeResponderModal();
     openDayOverviewModal(respondiendoSolicitud.month, respondiendoSolicitud.day);
 }
 
-/**
- * Envía una solicitud
- */
 async function enviarSolicitud() {
     if (!solicitandoDia || !currentUser) return;
     
-    if (!selectedTipoSolicitud) {
-        showNotification('❌ Selecciona el tipo de solicitud', true);
-        return;
-    }
+    if (!selectedTipoSolicitud) { showNotification('❌ Selecciona el tipo de solicitud', true); return; }
     
     const managerLogin = document.getElementById('solicitarManagerSelect').value;
-    if (!managerLogin) {
-        showNotification('❌ Selecciona un manager', true);
-        return;
-    }
+    if (!managerLogin) { showNotification('❌ Selecciona un manager', true); return; }
     
     const comentario = document.getElementById('solicitarComentario').value.trim();
     
-    // Crear solicitud
     const solicitud = {
         id: Date.now().toString(),
         tipo: selectedTipoSolicitud,
@@ -3146,7 +3099,6 @@ async function enviarSolicitud() {
         fechaRespuesta: null
     };
     
-    // Añadir al array de solicitudes
     if (!allData.solicitudes) allData.solicitudes = [];
     allData.solicitudes.push(solicitud);
     
@@ -3158,33 +3110,21 @@ async function enviarSolicitud() {
     }
 }
 
-/**
- * Abre el modal de ver solicitudes (manager)
- */
 function openVerSolicitudesModal() {
     if (!isManager) return;
-    
     updateSolicitudesCounts();
     renderSolicitudesManager('pendientes');
     document.getElementById('verSolicitudesModal').classList.add('active');
 }
 
-function closeVerSolicitudesModal() {
-    document.getElementById('verSolicitudesModal').classList.remove('active');
-}
+function closeVerSolicitudesModal() { document.getElementById('verSolicitudesModal').classList.remove('active'); }
 
-/**
- * Cambia la pestaña de solicitudes (manager)
- */
 function switchSolicitudesTab(tab, btn) {
     document.querySelectorAll('#verSolicitudesModal .solicitudes-panel-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderSolicitudesManager(tab);
 }
 
-/**
- * Actualiza los contadores de solicitudes
- */
 function updateSolicitudesCounts() {
     const solicitudes = allData.solicitudes || [];
     const misSolicitudes = solicitudes.filter(s => s.managerLogin === currentUser.login);
@@ -3197,7 +3137,6 @@ function updateSolicitudesCounts() {
     document.getElementById('countAprobadas').textContent = aprobadas;
     document.getElementById('countRechazadas').textContent = rechazadas;
     
-    // Badge en botón
     const badge = document.getElementById('badgeSolicitudesPendientes');
     if (badge) {
         badge.textContent = pendientes > 0 ? `(${pendientes})` : '';
@@ -3205,22 +3144,14 @@ function updateSolicitudesCounts() {
     }
 }
 
-/**
- * Renderiza las solicitudes para el manager
- */
 function renderSolicitudesManager(filtro) {
     const container = document.getElementById('solicitudesManagerList');
     let solicitudes = (allData.solicitudes || []).filter(s => s.managerLogin === currentUser.login);
     
-    if (filtro === 'pendientes') {
-        solicitudes = solicitudes.filter(s => s.estado === 'pendiente');
-    } else if (filtro === 'aprobadas') {
-        solicitudes = solicitudes.filter(s => s.estado === 'aprobada');
-    } else if (filtro === 'rechazadas') {
-        solicitudes = solicitudes.filter(s => s.estado === 'rechazada');
-    }
+    if (filtro === 'pendientes') solicitudes = solicitudes.filter(s => s.estado === 'pendiente');
+    else if (filtro === 'aprobadas') solicitudes = solicitudes.filter(s => s.estado === 'aprobada');
+    else if (filtro === 'rechazadas') solicitudes = solicitudes.filter(s => s.estado === 'rechazada');
     
-    // Ordenar por fecha (más recientes primero)
     solicitudes.sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
     
     if (solicitudes.length === 0) {
@@ -3231,84 +3162,52 @@ function renderSolicitudesManager(filtro) {
     container.innerHTML = solicitudes.map(s => renderSolicitudItem(s, true)).join('');
 }
 
-/**
- * Renderiza un item de solicitud
- */
 function renderSolicitudItem(s, isManagerView) {
-    const tipoLabels = {
-        vacaciones: '🏖️ Vacaciones',
-        ap: '📋 Asunto Propio',
-        cambio: '🔄 Cambio Turno',
-        otro: '💬 Otro'
-    };
-    
+    const tipoLabels = { vacaciones: '🏖️ Vacaciones', ap: '📋 Asunto Propio', cambio: '🔄 Cambio Turno', otro: '💬 Otro' };
     const tipoClass = s.tipo === 'vacaciones' ? 'vac' : s.tipo === 'ap' ? 'ap' : s.tipo === 'cambio' ? 'cambio' : 'otro';
     const fechaCreacion = new Date(s.fechaCreacion).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
     
     let respuestaHtml = '';
     if (s.estado !== 'pendiente' && s.respuesta) {
         const fechaResp = s.fechaRespuesta ? new Date(s.fechaRespuesta).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '';
-        respuestaHtml = `
-            <div class="solicitud-respuesta ${s.estado}">
-                <strong>${s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}</strong> - ${fechaResp}<br>
-                ${s.respuesta}
-            </div>
-        `;
+        respuestaHtml = `<div class="solicitud-respuesta ${s.estado}">
+            <strong>${s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}</strong> - ${fechaResp}<br>${s.respuesta}
+        </div>`;
     }
     
     let actionsHtml = '';
     if (isManagerView && s.estado === 'pendiente') {
-        actionsHtml = `
-            <div class="solicitud-actions">
-                <button class="btn btn-small btn-save" onclick="openResponderSolicitudModal('${s.id}')">📝 Responder</button>
-            </div>
-        `;
+        actionsHtml = `<div class="solicitud-actions"><button class="btn btn-small btn-save" onclick="openResponderSolicitudModal('${s.id}')">📝 Responder</button></div>`;
     }
     
-    return `
-        <div class="solicitud-item ${s.estado}">
-            <div class="solicitud-header">
-                <div>
-                    <span class="solicitud-from">${isManagerView ? s.empleadoName : 'Para: ' + getManagerName(s.managerLogin)}</span>
-                    <span class="solicitud-tipo-badge ${tipoClass}">${tipoLabels[s.tipo]}</span>
-                </div>
-                <div>
-                    <span class="solicitud-status-badge ${s.estado}">${s.estado === 'pendiente' ? '⏳ Pendiente' : s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}</span>
-                </div>
+    return `<div class="solicitud-item ${s.estado}">
+        <div class="solicitud-header">
+            <div>
+                <span class="solicitud-from">${isManagerView ? s.empleadoName : 'Para: ' + getManagerName(s.managerLogin)}</span>
+                <span class="solicitud-tipo-badge ${tipoClass}">${tipoLabels[s.tipo]}</span>
             </div>
-            <div class="solicitud-dia">📅 ${s.dateStr}</div>
-            <div class="solicitud-date">Enviada: ${fechaCreacion}</div>
-            ${s.comentario ? `<div class="solicitud-comment-text">${s.comentario}</div>` : ''}
-            ${respuestaHtml}
-            ${actionsHtml}
+            <div><span class="solicitud-status-badge ${s.estado}">${s.estado === 'pendiente' ? '⏳ Pendiente' : s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}</span></div>
         </div>
-    `;
+        <div class="solicitud-dia">📅 ${s.dateStr}</div>
+        <div class="solicitud-date">Enviada: ${fechaCreacion}</div>
+        ${s.comentario ? `<div class="solicitud-comment-text">${s.comentario}</div>` : ''}
+        ${respuestaHtml}
+        ${actionsHtml}
+    </div>`;
 }
 
-/**
- * Obtiene el nombre de un manager por su login
- */
 function getManagerName(login) {
     const manager = allData.empleados.find(e => e.login === login);
     return manager ? manager.name : login;
 }
 
-/**
- * Abre el modal para responder una solicitud
- */
 function openResponderSolicitudModal(solicitudId) {
     const solicitud = (allData.solicitudes || []).find(s => s.id === solicitudId);
     if (!solicitud) return;
     
     respondiendoSolicitud = solicitud;
     
-    // Mostrar info de la solicitud
-    const tipoLabels = {
-        vacaciones: '🏖️ Vacaciones',
-        ap: '📋 Asunto Propio',
-        cambio: '🔄 Cambio Turno',
-        otro: '💬 Otro'
-    };
+    const tipoLabels = { vacaciones: '🏖️ Vacaciones', ap: '📋 Asunto Propio', cambio: '🔄 Cambio Turno', otro: '💬 Otro' };
     
     const infoDiv = document.getElementById('responderSolicitudInfo');
     infoDiv.innerHTML = `
@@ -3321,9 +3220,7 @@ function openResponderSolicitudModal(solicitudId) {
         ${solicitud.comentario ? `<div class="solicitud-comment-text">${solicitud.comentario}</div>` : ''}
     `;
     
-    // Mostrar info de staffing
     showResponderStaffingInfo(solicitud);
-    
     document.getElementById('respuestaComentario').value = '';
     
     closeVerSolicitudesModal();
@@ -3335,13 +3232,9 @@ function closeResponderModal() {
     respondiendoSolicitud = null;
 }
 
-/**
- * Muestra info de staffing en el modal de responder
- */
 function showResponderStaffingInfo(solicitud) {
     const { staffing, alarms } = analyzeStaffingForDay(solicitud.month, solicitud.day);
     
-    // Mini grid
     const miniGrid = document.getElementById('responderStaffingMiniGrid');
     miniGrid.innerHTML = `
         <div class="staffing-mini-item morning">
@@ -3358,12 +3251,10 @@ function showResponderStaffingInfo(solicitud) {
         </div>
     `;
     
-    // Warnings
     const warningBox = document.getElementById('responderStaffingWarning');
     const warningContent = document.getElementById('responderWarningContent');
     let warnings = [];
     
-    // Verificar rol del solicitante
     const solicitanteRole = classifyRole(solicitud.empleadoRole);
     const empleado = allData.empleados.find(e => e.login === solicitud.empleadoLogin);
     const userShift = empleado ? (empleado.turnos[solicitud.dayOfYear] || '').toLowerCase() : '';
@@ -3391,9 +3282,9 @@ function showResponderStaffingInfo(solicitud) {
     }
 }
 
-/**
- * Responde a una solicitud
- */
+// =====================================================
+// RESPONDER SOLICITUD - CON ACTUALIZACIÓN DE CALENDARIO
+// =====================================================
 async function responderSolicitud(estado) {
     if (!respondiendoSolicitud || !isManager) return;
     
@@ -3408,44 +3299,90 @@ async function responderSolicitud(estado) {
     allData.solicitudes[idx].respondidoPor = currentUser.login;
     allData.solicitudes[idx].respondidoPorName = currentUser.name;
     
+    // SI SE APRUEBA, ACTUALIZAR EL CALENDARIO Y VACACIONES
+    if (estado === 'aprobada') {
+        const solicitud = allData.solicitudes[idx];
+        const empIdx = allData.empleados.findIndex(e => e.login === solicitud.empleadoLogin);
+        
+        if (empIdx !== -1) {
+            const oldShift = allData.empleados[empIdx].turnos[solicitud.dayOfYear] || '';
+            let newShift = '';
+            
+            // Determinar el nuevo turno según el tipo de solicitud
+            if (solicitud.tipo === 'vacaciones') {
+                newShift = 'v';
+                // Actualizar contador de vacaciones
+                if (allData.empleados[empIdx].vacRestantes2026 > 0) {
+                    allData.empleados[empIdx].vacRestantes2026 = (parseFloat(allData.empleados[empIdx].vacRestantes2026) || 0) - 1;
+                    allData.empleados[empIdx].vacConsumidas2026 = (parseFloat(allData.empleados[empIdx].vacConsumidas2026) || 0) + 1;
+                } else if (allData.empleados[empIdx].vacRestantesAnt > 0) {
+                    allData.empleados[empIdx].vacRestantesAnt = (parseFloat(allData.empleados[empIdx].vacRestantesAnt) || 0) - 1;
+                    allData.empleados[empIdx].vacConsumidasAnt = (parseFloat(allData.empleados[empIdx].vacConsumidasAnt) || 0) + 1;
+                }
+            } else if (solicitud.tipo === 'ap') {
+                newShift = 'ap';
+                // Actualizar contador de asuntos propios
+                allData.empleados[empIdx].apConsumidos = (parseFloat(allData.empleados[empIdx].apConsumidos) || 0) + 1;
+            }
+            
+            // Si hay un nuevo turno que asignar
+            if (newShift) {
+                // Asegurarse de que turnos es un array
+                if (!Array.isArray(allData.empleados[empIdx].turnos)) {
+                    allData.empleados[empIdx].turnos = turnosStringToArray(allData.empleados[empIdx].turnos);
+                }
+                
+                // Cambiar el turno
+                allData.empleados[empIdx].turnos[solicitud.dayOfYear] = newShift;
+                
+                // Registrar en el changelog
+                addChangelogEntry(
+                    solicitud.empleadoLogin,
+                    solicitud.empleadoName,
+                    solicitud.dayOfYear,
+                    oldShift,
+                    newShift,
+                    `Aprobado por solicitud: ${solicitud.tipo}`
+                );
+            }
+        }
+    }
+    
     showNotification('⏳ Guardando respuesta...');
     
     if (await saveToCloud()) {
         closeResponderModal();
         updateSolicitudesCounts();
         openVerSolicitudesModal();
+        
+        // Actualizar vista si es necesario
+        if (selectedEmployee && selectedEmployee.login === respondiendoSolicitud.empleadoLogin) {
+            selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
+            generateCalendar();
+            generateStats();
+            updateVacacionesDisplay();
+        }
+        
         showNotification(`✅ Solicitud ${estado === 'aprobada' ? 'aprobada' : 'rechazada'}`);
     }
 }
 
-/**
- * Abre el modal de mis solicitudes (empleado)
- */
 function openMisSolicitudesModal() {
     updateMisSolicitudesCounts();
     renderMisSolicitudes('pendientes');
     document.getElementById('misSolicitudesModal').classList.add('active');
 }
 
-function closeMisSolicitudesModal() {
-    document.getElementById('misSolicitudesModal').classList.remove('active');
-}
+function closeMisSolicitudesModal() { document.getElementById('misSolicitudesModal').classList.remove('active'); }
 
-/**
- * Cambia la pestaña de mis solicitudes
- */
 function switchMisSolicitudesTab(tab, btn) {
     document.querySelectorAll('#misSolicitudesModal .solicitudes-panel-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderMisSolicitudes(tab);
 }
 
-/**
- * Actualiza los contadores de mis solicitudes
- */
 function updateMisSolicitudesCounts() {
     const solicitudes = (allData.solicitudes || []).filter(s => s.empleadoLogin === currentUser.login);
-    
     const pendientes = solicitudes.filter(s => s.estado === 'pendiente').length;
     const respondidas = solicitudes.filter(s => s.estado !== 'pendiente').length;
     
@@ -3453,18 +3390,12 @@ function updateMisSolicitudesCounts() {
     document.getElementById('countMisRespondidas').textContent = respondidas;
 }
 
-/**
- * Renderiza mis solicitudes
- */
 function renderMisSolicitudes(filtro) {
     const container = document.getElementById('misSolicitudesList');
     let solicitudes = (allData.solicitudes || []).filter(s => s.empleadoLogin === currentUser.login);
     
-    if (filtro === 'pendientes') {
-        solicitudes = solicitudes.filter(s => s.estado === 'pendiente');
-    } else if (filtro === 'respondidas') {
-        solicitudes = solicitudes.filter(s => s.estado !== 'pendiente');
-    }
+    if (filtro === 'pendientes') solicitudes = solicitudes.filter(s => s.estado === 'pendiente');
+    else if (filtro === 'respondidas') solicitudes = solicitudes.filter(s => s.estado !== 'pendiente');
     
     solicitudes.sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
     
@@ -3476,15 +3407,11 @@ function renderMisSolicitudes(filtro) {
     container.innerHTML = solicitudes.map(s => renderSolicitudItem(s, false)).join('');
 }
 
-/**
- * Muestra alertas de solicitudes al iniciar
- */
 function showSolicitudesAlerts() {
     if (!currentUser) return;
     
     const solicitudes = allData.solicitudes || [];
     
-    // Para managers: solicitudes pendientes
     if (isManager) {
         const pendientes = solicitudes.filter(s => s.managerLogin === currentUser.login && s.estado === 'pendiente');
         
@@ -3505,7 +3432,6 @@ function showSolicitudesAlerts() {
         }
     }
     
-    // Para empleados: respuestas nuevas (no vistas)
     const lastCheck = getLastSolicitudCheckTime(currentUser.login);
     const misRespuestas = solicitudes.filter(s => 
         s.empleadoLogin === currentUser.login && 
@@ -3528,16 +3454,6 @@ function showSolicitudesAlerts() {
     }
 }
 
-function dismissSolicitudesAlert() {
-    document.getElementById('solicitudesAlertBox').classList.add('hidden');
-    checkHideAlertsContainer();
-}
-
-function dismissMisSolicitudesAlert() {
-    setLastSolicitudCheckTime(currentUser.login);
-    document.getElementById('misSolicitudesAlertBox').classList.add('hidden');
-    checkHideAlertsContainer();
-}
 // =====================================================
 // OT FILE - FUNCIONES
 // =====================================================
@@ -3738,12 +3654,9 @@ async function createOtDay() {
     
     const newOtDay = {
         doy, month, day, name, notes,
-        createdBy: currentUser.login,
-        createdByName: currentUser.name,
-        createdAt: new Date().toISOString(),
-        status: 'open',
-        signups: [],
-        assignments: { morning: [], afternoon: [], night: [] }
+        createdBy: currentUser.login, createdByName: currentUser.name,
+        createdAt: new Date().toISOString(), status: 'open',
+        signups: [], assignments: { morning: [], afternoon: [], night: [] }
     };
     
     if (!allData.otDays) allData.otDays = [];
@@ -3867,9 +3780,7 @@ function assignToShift(login, shift) {
     const signup = signups.find(s => s.login === login);
     if (!signup) return;
     
-    if (!allData.otDays[otIdx].assignments) {
-        allData.otDays[otIdx].assignments = { morning: [], afternoon: [], night: [] };
-    }
+    if (!allData.otDays[otIdx].assignments) allData.otDays[otIdx].assignments = { morning: [], afternoon: [], night: [] };
     
     ['morning', 'afternoon', 'night'].forEach(s => {
         if (allData.otDays[otIdx].assignments[s]) {
@@ -3877,16 +3788,9 @@ function assignToShift(login, shift) {
         }
     });
     
-    if (!allData.otDays[otIdx].assignments[shift]) {
-        allData.otDays[otIdx].assignments[shift] = [];
-    }
+    if (!allData.otDays[otIdx].assignments[shift]) allData.otDays[otIdx].assignments[shift] = [];
     
-    allData.otDays[otIdx].assignments[shift].push({ 
-        login: signup.login, 
-        name: signup.name, 
-        role: signup.role, 
-        crew: signup.crew 
-    });
+    allData.otDays[otIdx].assignments[shift].push({ login: signup.login, name: signup.name, role: signup.role, crew: signup.crew });
     
     currentOtDay = allData.otDays[otIdx];
     renderAssignmentRequestsList(currentOtDay);
@@ -3915,27 +3819,17 @@ async function saveOtAssignments() {
     if (otIdx === -1) return;
     
     const hasAssignments = allData.otDays[otIdx].assignments && 
-        ['morning', 'afternoon', 'night'].some(s => 
-            allData.otDays[otIdx].assignments[s] && allData.otDays[otIdx].assignments[s].length > 0
-        );
+        ['morning', 'afternoon', 'night'].some(s => allData.otDays[otIdx].assignments[s] && allData.otDays[otIdx].assignments[s].length > 0);
     
     if (hasAssignments) allData.otDays[otIdx].status = 'assigned';
     
     showNotification('⏳ Guardando...');
-    if (await saveToCloud()) {
-        showNotification('✅ Asignaciones guardadas');
-    }
+    if (await saveToCloud()) showNotification('✅ Asignaciones guardadas');
 }
 
 // =====================================================
-// GESTIÓN DE VACACIONES Y ASUNTOS PROPIOS
+// GESTIÓN DE VACACIONES
 // =====================================================
-function formatVacNumber(num) {
-    if (num === null || num === undefined || isNaN(num)) return '0';
-    const n = parseFloat(num);
-    return n % 1 === 0 ? n.toString() : n.toFixed(1);
-}
-
 function renderVacacionesSection(employee, isEditable = false) {
     if (!employee) return '';
     
@@ -3957,87 +3851,46 @@ function renderVacacionesSection(employee, isEditable = false) {
     
     return `
     <div class="vacaciones-section" id="vacacionesSection">
-        <h3>🏖️ Vacaciones y Asuntos Propios 
-            ${isEditable ? '<span style="font-size:0.7rem; opacity:0.7;">(clic para editar)</span>' : ''}
-        </h3>
-        
+        <h3>🏖️ Vacaciones y Asuntos Propios ${isEditable ? '<span style="font-size:0.7rem; opacity:0.7;">(clic para editar)</span>' : ''}</h3>
         <div class="vac-subsection">
             <div class="vac-subsection-title">📅 Año Anterior (2025)</div>
             <div class="vacaciones-grid">
-                <div class="vac-card vac-anterior ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.pendientesAnt)}</div>
-                    <div class="vac-label">Pendientes<br>Año Anterior</div>
-                </div>
-                <div class="vac-card vac-anterior ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.restantesAnt)}</div>
-                    <div class="vac-label">Restantes<br>Año Anterior</div>
-                </div>
-                <div class="vac-card vac-anterior ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.consumidasAnt)}</div>
-                    <div class="vac-label">Consumidas<br>del Año Anterior</div>
-                </div>
+                <div class="vac-card vac-anterior ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.pendientesAnt)}</div><div class="vac-label">Pendientes<br>Año Anterior</div></div>
+                <div class="vac-card vac-anterior ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.restantesAnt)}</div><div class="vac-label">Restantes<br>Año Anterior</div></div>
+                <div class="vac-card vac-anterior ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.consumidasAnt)}</div><div class="vac-label">Consumidas<br>del Año Anterior</div></div>
             </div>
         </div>
-        
         <div class="vac-subsection">
             <div class="vac-subsection-title">🗓️ Año Actual (2026)</div>
             <div class="vacaciones-grid">
-                <div class="vac-card vac-actual ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.asignadas2026)}</div>
-                    <div class="vac-label">Asignadas<br>2026</div>
-                </div>
-                <div class="vac-card vac-actual ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.restantes2026)}</div>
-                    <div class="vac-label">Restantes<br>2026</div>
-                </div>
-                <div class="vac-card vac-actual ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.consumidas2026)}</div>
-                    <div class="vac-label">Consumidas<br>2026</div>
-                </div>
+                <div class="vac-card vac-actual ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.asignadas2026)}</div><div class="vac-label">Asignadas<br>2026</div></div>
+                <div class="vac-card vac-actual ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.restantes2026)}</div><div class="vac-label">Restantes<br>2026</div></div>
+                <div class="vac-card vac-actual ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.consumidas2026)}</div><div class="vac-label">Consumidas<br>2026</div></div>
             </div>
         </div>
-        
         <div class="vac-subsection">
             <div class="vac-subsection-title">📊 Resumen Total</div>
             <div class="vacaciones-grid">
-                <div class="vac-card vac-total">
-                    <div class="vac-value">${formatVacNumber(totalRestantes)}</div>
-                    <div class="vac-label">Total<br>Restantes</div>
-                </div>
-                <div class="vac-card vac-total">
-                    <div class="vac-value">${formatVacNumber(totalConsumidas)}</div>
-                    <div class="vac-label">Total<br>Consumidas</div>
-                </div>
-                <div class="vac-card vac-ap ${editableClass}" ${onclick}>
-                    <div class="vac-value">${formatVacNumber(vac.apConsumidos)}</div>
-                    <div class="vac-label">Asuntos Propios<br>Consumidos</div>
-                </div>
+                <div class="vac-card vac-total"><div class="vac-value">${formatVacNumber(totalRestantes)}</div><div class="vac-label">Total<br>Restantes</div></div>
+                <div class="vac-card vac-total"><div class="vac-value">${formatVacNumber(totalConsumidas)}</div><div class="vac-label">Total<br>Consumidas</div></div>
+                <div class="vac-card vac-ap ${editableClass}" ${onclick}><div class="vac-value">${formatVacNumber(vac.apConsumidos)}</div><div class="vac-label">Asuntos Propios<br>Consumidos</div></div>
             </div>
         </div>
-    </div>
-    `;
+    </div>`;
 }
 
 function updateVacacionesDisplay() {
     if (!selectedEmployee) return;
-    
     const existingSection = document.getElementById('vacacionesSection');
-    if (existingSection) {
-        existingSection.remove();
-    }
-    
+    if (existingSection) existingSection.remove();
     const canEdit = isManager;
     const vacHtml = renderVacacionesSection(selectedEmployee, canEdit);
-    
     const statsContainer = document.getElementById('statsContainer');
-    if (statsContainer) {
-        statsContainer.insertAdjacentHTML('beforebegin', vacHtml);
-    }
+    if (statsContainer) statsContainer.insertAdjacentHTML('beforebegin', vacHtml);
 }
 
 function openVacacionesEditModal(login) {
     if (!isManager) return;
-    
     const employee = allData.empleados.find(e => e.login === login);
     if (!employee) return;
     
@@ -4045,7 +3898,6 @@ function openVacacionesEditModal(login) {
     
     document.getElementById('vacEditEmployeeName').textContent = employee.name;
     document.getElementById('vacEditEmployeeLogin').textContent = employee.login;
-    
     document.getElementById('vacEditPendientesAnt').value = employee.vacPendientesAnt || 0;
     document.getElementById('vacEditRestantesAnt').value = employee.vacRestantesAnt || 0;
     document.getElementById('vacEditConsumidasAnt').value = employee.vacConsumidasAnt || 0;
@@ -4095,34 +3947,23 @@ async function saveVacacionesEdit() {
 
 function openVacacionesGeneralModal() {
     if (!isManager) return;
-    
     document.getElementById('vacGeneralSearch').value = '';
     renderVacacionesGeneralTable();
     document.getElementById('vacacionesGeneralModal').classList.add('active');
 }
 
-function closeVacacionesGeneralModal() {
-    document.getElementById('vacacionesGeneralModal').classList.remove('active');
-}
+function closeVacacionesGeneralModal() { document.getElementById('vacacionesGeneralModal').classList.remove('active'); }
 
-function filterVacacionesGeneral() {
-    renderVacacionesGeneralTable();
-}
+function filterVacacionesGeneral() { renderVacacionesGeneralTable(); }
 
 function renderVacacionesGeneralTable() {
     const searchTerm = document.getElementById('vacGeneralSearch').value.toLowerCase().trim();
     const tbody = document.getElementById('vacGeneralBody');
     
     let empleados = [...allData.empleados];
-    
     if (searchTerm) {
-        empleados = empleados.filter(e => 
-            e.name.toLowerCase().includes(searchTerm) || 
-            e.login.toLowerCase().includes(searchTerm) ||
-            e.crew.toLowerCase().includes(searchTerm)
-        );
+        empleados = empleados.filter(e => e.name.toLowerCase().includes(searchTerm) || e.login.toLowerCase().includes(searchTerm) || e.crew.toLowerCase().includes(searchTerm));
     }
-    
     empleados.sort((a, b) => a.name.localeCompare(b.name));
     
     if (empleados.length === 0) {
@@ -4134,7 +3975,6 @@ function renderVacacionesGeneralTable() {
         const restantesAnt = parseFloat(emp.vacRestantesAnt) || 0;
         const restantes2026 = parseFloat(emp.vacRestantes2026) || 0;
         const totalRestantes = restantesAnt + restantes2026;
-        
         const warningClass = totalRestantes <= 2 ? 'warning' : '';
         
         return `<tr>
@@ -4153,7 +3993,7 @@ function renderVacacionesGeneralTable() {
 }
 
 // =====================================================
-// PANEL MANAGER
+// PANEL MANAGER - FUNCIONES
 // =====================================================
 function openManagerModal() {
     if (!isManager || !currentUser) { showNotification('❌ Solo managers', true); return; }
@@ -4164,6 +4004,8 @@ function openManagerModal() {
     
     document.getElementById('changelogSearch').value = '';
     document.getElementById('passwordUserSearch').value = '';
+    const vacSearch = document.getElementById('vacPanelSearch');
+    if (vacSearch) vacSearch.value = '';
     
     renderChangelog();
     filterPasswordUsers();
@@ -4171,6 +4013,12 @@ function openManagerModal() {
     
     document.getElementById('passwordUserInfo').style.display = 'none';
     selectedPasswordUser = null;
+    
+    // Resetear a primer panel
+    document.querySelectorAll('#managerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
+    document.querySelector('#managerModal .panel-nav-btn').classList.add('active');
+    document.getElementById('panel-changelog').classList.add('active');
     
     document.getElementById('managerModal').classList.add('active');
 }
@@ -4182,12 +4030,82 @@ function switchPanel(panelName, btn) {
     document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('panel-' + panelName).classList.add('active');
+    
     if (panelName === 'changelog') renderChangelog();
     if (panelName === 'passwords') { filterPasswordUsers(); updatePasswordSummary(); }
+    if (panelName === 'vacaciones') renderVacacionesPanelTable();
+    if (panelName === 'herramientas') renderGeneralStats();
+}
+
+// Panel Vacaciones en Manager
+function filterVacacionesPanel() { renderVacacionesPanelTable(); }
+
+function renderVacacionesPanelTable() {
+    const searchTerm = document.getElementById('vacPanelSearch')?.value.toLowerCase().trim() || '';
+    const tbody = document.getElementById('vacPanelBody');
+    if (!tbody) return;
+    
+    let empleados = [...allData.empleados];
+    if (searchTerm) {
+        empleados = empleados.filter(e => e.name.toLowerCase().includes(searchTerm) || e.login.toLowerCase().includes(searchTerm) || e.crew.toLowerCase().includes(searchTerm));
+    }
+    empleados.sort((a, b) => a.name.localeCompare(b.name));
+    
+    if (empleados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#999; padding:20px;">No se encontraron empleados</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = empleados.map(emp => {
+        const restantesAnt = parseFloat(emp.vacRestantesAnt) || 0;
+        const restantes2026 = parseFloat(emp.vacRestantes2026) || 0;
+        const totalRestantes = restantesAnt + restantes2026;
+        const warningClass = totalRestantes <= 2 ? 'warning' : '';
+        
+        return `<tr>
+            <td class="emp-name">${emp.name}</td>
+            <td>${emp.crew}</td>
+            <td>${formatVacNumber(emp.vacPendientesAnt)}</td>
+            <td>${formatVacNumber(emp.vacRestantesAnt)}</td>
+            <td>${formatVacNumber(emp.vacAsignadas2026)}</td>
+            <td class="${warningClass}">${formatVacNumber(emp.vacRestantes2026)}</td>
+            <td>${formatVacNumber(emp.apConsumidos)}</td>
+            <td><button class="btn btn-small btn-save" onclick="openVacacionesEditFromPanel('${emp.login}')">✏️</button></td>
+        </tr>`;
+    }).join('');
+}
+
+function openVacacionesEditFromPanel(login) {
+    closeManagerModal();
+    setTimeout(() => openVacacionesEditModal(login), 200);
+}
+
+// Estadísticas generales
+function renderGeneralStats() {
+    const container = document.getElementById('generalStats');
+    if (!container) return;
+    
+    const totalEmpleados = allData.empleados.length;
+    const managers = allData.empleados.filter(e => isManagerRole(e.role)).length;
+    const srme = allData.empleados.filter(e => classifyRole(e.role) === 'srme').length;
+    const rmet = allData.empleados.filter(e => classifyRole(e.role) === 'rmet').length;
+    const crews = [...new Set(allData.empleados.map(e => e.crew))].length;
+    const otDays = allData.otDays?.length || 0;
+    const solicitudesPendientes = (allData.solicitudes || []).filter(s => s.estado === 'pendiente').length;
+    
+    container.innerHTML = `
+        <div class="general-stat-card" style="border-left:4px solid #667eea;"><div class="stat-value" style="color:#667eea;">${totalEmpleados}</div><div class="stat-name">Total Empleados</div></div>
+        <div class="general-stat-card" style="border-left:4px solid #9b59b6;"><div class="stat-value" style="color:#9b59b6;">${managers}</div><div class="stat-name">Managers</div></div>
+        <div class="general-stat-card" style="border-left:4px solid #2e7d32;"><div class="stat-value" style="color:#2e7d32;">${srme}</div><div class="stat-name">SRME</div></div>
+        <div class="general-stat-card" style="border-left:4px solid #1565c0;"><div class="stat-value" style="color:#1565c0;">${rmet}</div><div class="stat-name">RMET/Técnicos</div></div>
+        <div class="general-stat-card" style="border-left:4px solid #ff9800;"><div class="stat-value" style="color:#ff9800;">${crews}</div><div class="stat-name">Crews</div></div>
+        <div class="general-stat-card" style="border-left:4px solid #8e44ad;"><div class="stat-value" style="color:#8e44ad;">${otDays}</div><div class="stat-name">Días OT</div></div>
+        <div class="general-stat-card" style="border-left:4px solid #e74c3c;"><div class="stat-value" style="color:#e74c3c;">${solicitudesPendientes}</div><div class="stat-name">Solicitudes Pend.</div></div>
+    `;
 }
 
 // =====================================================
-// GESTIÓN DE CONTRASEÑAS (MANAGER)
+// CONTRASEÑAS
 // =====================================================
 function filterPasswordUsers() {
     const searchTerm = document.getElementById('passwordUserSearch').value.toLowerCase().trim();
@@ -4196,10 +4114,7 @@ function filterPasswordUsers() {
     select.innerHTML = '<option value="">-- Selecciona un usuario --</option>';
     if (!allData.empleados || allData.empleados.length === 0) return;
     
-    let filtered = searchTerm 
-        ? allData.empleados.filter(emp => emp.name.toLowerCase().includes(searchTerm) || emp.login.toLowerCase().includes(searchTerm))
-        : [...allData.empleados];
-    
+    let filtered = searchTerm ? allData.empleados.filter(emp => emp.name.toLowerCase().includes(searchTerm) || emp.login.toLowerCase().includes(searchTerm)) : [...allData.empleados];
     filtered.sort((a, b) => a.name.localeCompare(b.name));
     
     filtered.forEach(emp => {
@@ -4210,18 +4125,10 @@ function filterPasswordUsers() {
 }
 
 function showPasswordUserInfo(login) {
-    if (!login) {
-        document.getElementById('passwordUserInfo').style.display = 'none';
-        selectedPasswordUser = null;
-        return;
-    }
+    if (!login) { document.getElementById('passwordUserInfo').style.display = 'none'; selectedPasswordUser = null; return; }
     
     const user = allData.empleados.find(e => e.login === login);
-    if (!user) {
-        document.getElementById('passwordUserInfo').style.display = 'none';
-        selectedPasswordUser = null;
-        return;
-    }
+    if (!user) { document.getElementById('passwordUserInfo').style.display = 'none'; selectedPasswordUser = null; return; }
     
     selectedPasswordUser = user;
     
@@ -4232,20 +4139,14 @@ function showPasswordUserInfo(login) {
     
     const hasCustomPw = allData.userPasswords && allData.userPasswords[user.login];
     const statusEl = document.getElementById('pwStatus');
-    if (hasCustomPw) {
-        statusEl.textContent = '🔐 Personalizada';
-        statusEl.className = 'password-status custom';
-    } else {
-        statusEl.textContent = '🔓 Por defecto (1234)';
-        statusEl.className = 'password-status default';
-    }
+    if (hasCustomPw) { statusEl.textContent = '🔐 Personalizada'; statusEl.className = 'password-status custom'; }
+    else { statusEl.textContent = '🔓 Por defecto (1234)'; statusEl.className = 'password-status default'; }
     
     document.getElementById('passwordUserInfo').style.display = 'block';
 }
 
 async function resetUserPassword() {
     if (!selectedPasswordUser || !isManager) return;
-    
     if (!confirm(`¿Resetear la contraseña de ${selectedPasswordUser.name} a "1234"?`)) return;
     
     if (allData.userPasswords && allData.userPasswords[selectedPasswordUser.login]) {
@@ -4265,16 +4166,13 @@ async function resetUserPassword() {
 
 function setCustomPassword() {
     if (!selectedPasswordUser || !isManager) return;
-    
     document.getElementById('customPwUserName').textContent = selectedPasswordUser.name;
     document.getElementById('customNewPassword1').value = '';
     document.getElementById('customNewPassword2').value = '';
     document.getElementById('customPasswordModal').classList.add('active');
 }
 
-function closeCustomPasswordModal() {
-    document.getElementById('customPasswordModal').classList.remove('active');
-}
+function closeCustomPasswordModal() { document.getElementById('customPasswordModal').classList.remove('active'); }
 
 async function confirmCustomPassword() {
     if (!selectedPasswordUser || !isManager) return;
@@ -4282,14 +4180,8 @@ async function confirmCustomPassword() {
     const pass1 = document.getElementById('customNewPassword1').value;
     const pass2 = document.getElementById('customNewPassword2').value;
     
-    if (!pass1 || pass1.length < 4) {
-        showNotification('❌ Mínimo 4 caracteres', true);
-        return;
-    }
-    if (pass1 !== pass2) {
-        showNotification('❌ Las contraseñas no coinciden', true);
-        return;
-    }
+    if (!pass1 || pass1.length < 4) { showNotification('❌ Mínimo 4 caracteres', true); return; }
+    if (pass1 !== pass2) { showNotification('❌ Las contraseñas no coinciden', true); return; }
     
     if (!allData.userPasswords) allData.userPasswords = {};
     allData.userPasswords[selectedPasswordUser.login] = pass1;
@@ -4309,13 +4201,8 @@ async function confirmCustomPassword() {
 function addPasswordChangeLog(userLogin, userName, action) {
     const entry = {
         timestamp: new Date().toISOString(),
-        managerLogin: currentUser.login,
-        managerName: currentUser.name,
-        managerRole: currentUser.role,
-        employeeLogin: userLogin,
-        employeeName: userName,
-        dayOfYear: -1,
-        dateStr: 'Contraseña',
+        managerLogin: currentUser.login, managerName: currentUser.name, managerRole: currentUser.role,
+        employeeLogin: userLogin, employeeName: userName, dayOfYear: -1, dateStr: 'Contraseña',
         oldShift: action === 'reset' ? 'PERSONALIZADA' : 'ANTERIOR',
         newShift: action === 'reset' ? 'RESETEADA (1234)' : 'NUEVA',
         comment: action === 'reset' ? 'Contraseña reseteada a valor por defecto' : 'Contraseña modificada por manager',
@@ -4334,18 +4221,9 @@ function updatePasswordSummary() {
     const defaultPasswords = totalUsers - customPasswords;
     
     container.innerHTML = `
-        <div class="password-summary-item">
-            <span class="label">👥 Total usuarios</span>
-            <span class="count">${totalUsers}</span>
-        </div>
-        <div class="password-summary-item">
-            <span class="label">🔓 Con contraseña por defecto</span>
-            <span class="count" style="color:#856404;">${defaultPasswords}</span>
-        </div>
-        <div class="password-summary-item">
-            <span class="label">🔐 Con contraseña personalizada</span>
-            <span class="count" style="color:#155724;">${customPasswords}</span>
-        </div>
+        <div class="password-summary-item"><span class="label">👥 Total usuarios</span><span class="count">${totalUsers}</span></div>
+        <div class="password-summary-item"><span class="label">🔓 Con contraseña por defecto</span><span class="count" style="color:#856404;">${defaultPasswords}</span></div>
+        <div class="password-summary-item"><span class="label">🔐 Con contraseña personalizada</span><span class="count" style="color:#155724;">${customPasswords}</span></div>
     `;
 }
 
@@ -4354,15 +4232,12 @@ function updatePasswordSummary() {
 // =====================================================
 function openUserSettingsModal() {
     if (!currentUser) return;
-    
     document.getElementById('settingsUserName').textContent = currentUser.name;
     document.getElementById('settingsUserLogin').textContent = currentUser.login;
     document.getElementById('settingsUserCrew').textContent = currentUser.crew || 'N/A';
     document.getElementById('settingsUserRole').textContent = currentUser.role || 'Sin rol';
-    
     document.getElementById('userNewPassword1').value = '';
     document.getElementById('userNewPassword2').value = '';
-    
     document.getElementById('userSettingsModal').classList.add('active');
 }
 
@@ -4389,40 +4264,80 @@ async function changeUserPassword() {
 }
 
 // =====================================================
-// IMPORTACIÓN CON VACACIONES
+// IMPRESIÓN Y EXPORTACIÓN
+// =====================================================
+function printCalendar() {
+    if (!selectedEmployee) {
+        showNotification('❌ Selecciona primero un empleado', true);
+        closeManagerModal();
+        return;
+    }
+    
+    const printDate = document.getElementById('printDate');
+    if (printDate) {
+        printDate.textContent = new Date().toLocaleDateString('es-ES', {
+            day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+    }
+    
+    closeManagerModal();
+    setTimeout(() => window.print(), 300);
+}
+
+function exportData() {
+    if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
+    const exp = allData.empleados.map(emp => ({ ...emp, turnos: turnosArrayToString(emp.turnos) }));
+    const blob = new Blob([JSON.stringify({ 
+        empleados: exp, changelog: allData.changelog, otDays: allData.otDays, solicitudes: allData.solicitudes,
+        exportedAt: new Date().toISOString(), exportedBy: currentUser ? currentUser.name : 'Anónimo'
+    }, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    showNotification('📤 Exportado');
+}
+
+function exportToTSV() {
+    if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
+    
+    let tsv = 'CREW\tLOGIN\tNOMBRE\tROL\tVAC_PEND_ANT\tVAC_REST_ANT\tVAC_CONS_ANT\tVAC_ASIG_2026\tVAC_REST_2026\tVAC_CONS_2026\tAP_CONS';
+    for (let i = 1; i <= 365; i++) tsv += `\tDIA_${i}`;
+    tsv += '\n';
+    
+    allData.empleados.forEach(emp => {
+        const turnos = Array.isArray(emp.turnos) ? emp.turnos : turnosStringToArray(emp.turnos);
+        tsv += `${emp.crew}\t${emp.login}\t${emp.name}\t${emp.role || ''}`;
+        tsv += `\t${emp.vacPendientesAnt || 0}\t${emp.vacRestantesAnt || 0}\t${emp.vacConsumidasAnt || 0}`;
+        tsv += `\t${emp.vacAsignadas2026 || 0}\t${emp.vacRestantes2026 || 0}\t${emp.vacConsumidas2026 || 0}`;
+        tsv += `\t${emp.apConsumidos || 0}`;
+        turnos.forEach(t => tsv += `\t${t || ''}`);
+        tsv += '\n';
+    });
+    
+    const blob = new Blob([tsv], { type: 'text/tab-separated-values;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `turnos_${new Date().toISOString().slice(0,10)}.tsv`;
+    a.click();
+    showNotification('📊 Exportado a TSV');
+}
+
+// =====================================================
+// IMPORTACIÓN
 // =====================================================
 function detectAndLogImportChanges(nuevosEmpleados) {
-    const cambiosDetectados = {
-        turnosModificados: [],
-        empleadosNuevos: [],
-        empleadosActualizados: [],
-        totalCambiosTurnos: 0
-    };
-    
-    if (!nuevosEmpleados || nuevosEmpleados.length === 0) {
-        return cambiosDetectados;
-    }
+    const cambiosDetectados = { turnosModificados: [], empleadosNuevos: [], empleadosActualizados: [], totalCambiosTurnos: 0 };
+    if (!nuevosEmpleados || nuevosEmpleados.length === 0) return cambiosDetectados;
     
     nuevosEmpleados.forEach(nuevoEmp => {
         const empActual = allData.empleados.find(e => e.login === nuevoEmp.login);
-        
         if (!empActual) {
-            cambiosDetectados.empleadosNuevos.push({
-                login: nuevoEmp.login,
-                name: nuevoEmp.name,
-                crew: nuevoEmp.crew,
-                role: nuevoEmp.role
-            });
+            cambiosDetectados.empleadosNuevos.push({ login: nuevoEmp.login, name: nuevoEmp.name, crew: nuevoEmp.crew, role: nuevoEmp.role });
         } else {
             cambiosDetectados.empleadosActualizados.push(nuevoEmp.login);
-            
-            const turnosActuales = Array.isArray(empActual.turnos) 
-                ? empActual.turnos 
-                : turnosStringToArray(empActual.turnos);
-            
-            const turnosNuevos = Array.isArray(nuevoEmp.turnos) 
-                ? nuevoEmp.turnos 
-                : turnosStringToArray(nuevoEmp.turnos);
+            const turnosActuales = Array.isArray(empActual.turnos) ? empActual.turnos : turnosStringToArray(empActual.turnos);
+            const turnosNuevos = Array.isArray(nuevoEmp.turnos) ? nuevoEmp.turnos : turnosStringToArray(nuevoEmp.turnos);
             
             for (let doy = 0; doy < 365; doy++) {
                 const turnoAnterior = (turnosActuales[doy] || '').toLowerCase().trim();
@@ -4430,16 +4345,11 @@ function detectAndLogImportChanges(nuevosEmpleados) {
                 
                 if (turnoAnterior !== turnoNuevo) {
                     cambiosDetectados.totalCambiosTurnos++;
-                    
                     const cambio = {
-                        employeeLogin: nuevoEmp.login,
-                        employeeName: nuevoEmp.name,
-                        dayOfYear: doy,
-                        dateStr: getDayString(doy),
-                        oldShift: turnoAnterior || 'LIBRE',
-                        newShift: turnoNuevo || 'LIBRE'
+                        employeeLogin: nuevoEmp.login, employeeName: nuevoEmp.name,
+                        dayOfYear: doy, dateStr: getDayString(doy),
+                        oldShift: turnoAnterior || 'LIBRE', newShift: turnoNuevo || 'LIBRE'
                     };
-                    
                     cambiosDetectados.turnosModificados.push(cambio);
                     addImportChangelogEntry(cambio);
                 }
@@ -4456,26 +4366,18 @@ function addImportChangelogEntry(cambio) {
         managerLogin: currentUser ? currentUser.login : 'SYSTEM',
         managerName: currentUser ? currentUser.name : 'Sistema',
         managerRole: currentUser ? currentUser.role : 'IMPORT',
-        employeeLogin: cambio.employeeLogin,
-        employeeName: cambio.employeeName,
-        dayOfYear: cambio.dayOfYear,
-        dateStr: cambio.dateStr,
-        oldShift: cambio.oldShift || 'LIBRE',
-        newShift: cambio.newShift || 'LIBRE',
+        employeeLogin: cambio.employeeLogin, employeeName: cambio.employeeName,
+        dayOfYear: cambio.dayOfYear, dateStr: cambio.dateStr,
+                oldShift: cambio.oldShift || 'LIBRE', newShift: cambio.newShift || 'LIBRE',
         comment: '📥 Cambio por importación masiva',
         isImportChange: true
     };
-    
     allData.changelog.unshift(entry);
-    
-    if (allData.changelog.length > 500) {
-        allData.changelog = allData.changelog.slice(0, 500);
-    }
+    if (allData.changelog.length > 500) allData.changelog = allData.changelog.slice(0, 500);
 }
 
 function generateImportChangeSummary(cambios) {
     let html = '<div class="import-change-summary">';
-    
     html += '<div class="import-summary-header">';
     html += `<div class="summary-stat"><span class="stat-number">${cambios.empleadosNuevos.length}</span><span class="stat-label">Nuevos</span></div>`;
     html += `<div class="summary-stat"><span class="stat-number">${cambios.empleadosActualizados.length}</span><span class="stat-label">Actualizados</span></div>`;
@@ -4483,30 +4385,19 @@ function generateImportChangeSummary(cambios) {
     html += '</div>';
     
     if (cambios.empleadosNuevos.length > 0) {
-        html += '<div class="import-section">';
-        html += '<h5>👤 Empleados nuevos:</h5>';
-        html += '<ul class="import-list">';
+        html += '<div class="import-section"><h5>👤 Empleados nuevos:</h5><ul class="import-list">';
         cambios.empleadosNuevos.slice(0, 10).forEach(emp => {
             html += `<li><strong>${emp.name}</strong> (${emp.login}) - ${emp.crew}</li>`;
         });
-        if (cambios.empleadosNuevos.length > 10) {
-            html += `<li>... y ${cambios.empleadosNuevos.length - 10} más</li>`;
-        }
+        if (cambios.empleadosNuevos.length > 10) html += `<li>... y ${cambios.empleadosNuevos.length - 10} más</li>`;
         html += '</ul></div>';
     }
     
     if (cambios.turnosModificados.length > 0) {
-        html += '<div class="import-section">';
-        html += '<h5>📅 Cambios de turnos detectados:</h5>';
-        
+        html += '<div class="import-section"><h5>📅 Cambios de turnos detectados:</h5>';
         const cambiosPorEmpleado = {};
         cambios.turnosModificados.forEach(c => {
-            if (!cambiosPorEmpleado[c.employeeLogin]) {
-                cambiosPorEmpleado[c.employeeLogin] = {
-                    name: c.employeeName,
-                    cambios: []
-                };
-            }
+            if (!cambiosPorEmpleado[c.employeeLogin]) cambiosPorEmpleado[c.employeeLogin] = { name: c.employeeName, cambios: [] };
             cambiosPorEmpleado[c.employeeLogin].cambios.push(c);
         });
         
@@ -4518,31 +4409,16 @@ function generateImportChangeSummary(cambios) {
                 html += `<div class="import-change-item more">... y ${remaining} empleados más con cambios</div>`;
                 break;
             }
-            
-            html += `<div class="import-change-item">`;
-            html += `<div class="change-employee-name">👤 ${data.name} <span class="change-count">(${data.cambios.length} cambios)</span></div>`;
-            html += '<div class="change-details">';
-            
+            html += `<div class="import-change-item"><div class="change-employee-name">👤 ${data.name} <span class="change-count">(${data.cambios.length} cambios)</span></div><div class="change-details">`;
             data.cambios.slice(0, 3).forEach(c => {
-                html += `<div class="change-detail-row">
-                    <span class="change-date">${c.dateStr}</span>
-                    <span class="change-shifts">
-                        <span class="old-shift">${c.oldShift.toUpperCase()}</span> → 
-                        <span class="new-shift">${c.newShift.toUpperCase()}</span>
-                    </span>
-                </div>`;
+                html += `<div class="change-detail-row"><span class="change-date">${c.dateStr}</span><span class="change-shifts"><span class="old-shift">${c.oldShift.toUpperCase()}</span> → <span class="new-shift">${c.newShift.toUpperCase()}</span></span></div>`;
             });
-            
-            if (data.cambios.length > 3) {
-                html += `<div class="change-detail-row more">... y ${data.cambios.length - 3} cambios más</div>`;
-            }
-            
+            if (data.cambios.length > 3) html += `<div class="change-detail-row more">... y ${data.cambios.length - 3} cambios más</div>`;
             html += '</div></div>';
             count++;
         }
         html += '</div></div>';
     }
-    
     html += '</div>';
     return html;
 }
@@ -4550,31 +4426,20 @@ function generateImportChangeSummary(cambios) {
 function groupChangesByEmployee(cambios) {
     const grouped = {};
     cambios.forEach(c => {
-        if (!grouped[c.employeeLogin]) {
-            grouped[c.employeeLogin] = [];
-        }
+        if (!grouped[c.employeeLogin]) grouped[c.employeeLogin] = [];
         grouped[c.employeeLogin].push(c);
     });
     return grouped;
 }
 
 async function processBulkImportWithChanges() {
-    if (!isManager) { 
-        showNotification('❌ Solo managers pueden importar', true); 
-        return; 
-    }
+    if (!isManager) { showNotification('❌ Solo managers pueden importar', true); return; }
     
     const data = document.getElementById('bulkImportData').value;
-    if (!data.trim()) { 
-        showNotification('⚠️ No hay datos', true); 
-        return; 
-    }
+    if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
     
     const nuevosEmpleados = parseRawData(data);
-    if (nuevosEmpleados.length === 0) { 
-        showNotification('❌ No se pudieron importar', true); 
-        return; 
-    }
+    if (nuevosEmpleados.length === 0) { showNotification('❌ No se pudieron importar', true); return; }
     
     showNotification('🔍 Analizando cambios...');
     const cambiosDetectados = detectAndLogImportChanges(nuevosEmpleados);
@@ -4582,8 +4447,7 @@ async function processBulkImportWithChanges() {
     if (cambiosDetectados.totalCambiosTurnos > 0) {
         const confirmar = await showImportConfirmation(cambiosDetectados, nuevosEmpleados.length);
         if (!confirmar) {
-            allData.changelog = allData.changelog.filter(c => !c.isImportChange || 
-                new Date(c.timestamp) < new Date(Date.now() - 60000));
+            allData.changelog = allData.changelog.filter(c => !c.isImportChange || new Date(c.timestamp) < new Date(Date.now() - 60000));
             showNotification('❌ Importación cancelada');
             return;
         }
@@ -4593,28 +4457,14 @@ async function processBulkImportWithChanges() {
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
         if (idx >= 0) { 
-            // Mantener las vacaciones existentes si no vienen en la importación
-            if (!nuevo.vacPendientesAnt && allData.empleados[idx].vacPendientesAnt) {
-                nuevo.vacPendientesAnt = allData.empleados[idx].vacPendientesAnt;
-            }
-            if (!nuevo.vacRestantesAnt && allData.empleados[idx].vacRestantesAnt) {
-                nuevo.vacRestantesAnt = allData.empleados[idx].vacRestantesAnt;
-            }
-            if (!nuevo.vacConsumidasAnt && allData.empleados[idx].vacConsumidasAnt) {
-                nuevo.vacConsumidasAnt = allData.empleados[idx].vacConsumidasAnt;
-            }
-            if (!nuevo.vacAsignadas2026 && allData.empleados[idx].vacAsignadas2026) {
-                nuevo.vacAsignadas2026 = allData.empleados[idx].vacAsignadas2026;
-            }
-            if (!nuevo.vacRestantes2026 && allData.empleados[idx].vacRestantes2026) {
-                nuevo.vacRestantes2026 = allData.empleados[idx].vacRestantes2026;
-            }
-            if (!nuevo.vacConsumidas2026 && allData.empleados[idx].vacConsumidas2026) {
-                nuevo.vacConsumidas2026 = allData.empleados[idx].vacConsumidas2026;
-            }
-            if (!nuevo.apConsumidos && allData.empleados[idx].apConsumidos) {
-                nuevo.apConsumidos = allData.empleados[idx].apConsumidos;
-            }
+            // Mantener vacaciones existentes si no vienen en importación
+            if (!nuevo.vacPendientesAnt && allData.empleados[idx].vacPendientesAnt) nuevo.vacPendientesAnt = allData.empleados[idx].vacPendientesAnt;
+            if (!nuevo.vacRestantesAnt && allData.empleados[idx].vacRestantesAnt) nuevo.vacRestantesAnt = allData.empleados[idx].vacRestantesAnt;
+            if (!nuevo.vacConsumidasAnt && allData.empleados[idx].vacConsumidasAnt) nuevo.vacConsumidasAnt = allData.empleados[idx].vacConsumidasAnt;
+            if (!nuevo.vacAsignadas2026 && allData.empleados[idx].vacAsignadas2026) nuevo.vacAsignadas2026 = allData.empleados[idx].vacAsignadas2026;
+            if (!nuevo.vacRestantes2026 && allData.empleados[idx].vacRestantes2026) nuevo.vacRestantes2026 = allData.empleados[idx].vacRestantes2026;
+            if (!nuevo.vacConsumidas2026 && allData.empleados[idx].vacConsumidas2026) nuevo.vacConsumidas2026 = allData.empleados[idx].vacConsumidas2026;
+            if (!nuevo.apConsumidos && allData.empleados[idx].apConsumidos) nuevo.apConsumidos = allData.empleados[idx].apConsumidos;
             
             allData.empleados[idx] = nuevo; 
             actualizados++; 
@@ -4632,14 +4482,10 @@ async function processBulkImportWithChanges() {
         document.getElementById('importPreview').innerHTML = '';
         
         let mensaje = `✅ ${agregados} nuevos, ${actualizados} actualizados`;
-        if (cambiosDetectados.totalCambiosTurnos > 0) {
-            mensaje += ` (${cambiosDetectados.totalCambiosTurnos} turnos cambiados)`;
-        }
+        if (cambiosDetectados.totalCambiosTurnos > 0) mensaje += ` (${cambiosDetectados.totalCambiosTurnos} turnos cambiados)`;
         showNotification(mensaje);
         
-        if (document.getElementById('changelogList')) {
-            renderChangelog();
-        }
+        if (document.getElementById('changelogList')) renderChangelog();
     }
 }
 
@@ -4674,35 +4520,21 @@ function showImportConfirmation(cambios, totalEmpleados) {
         
         modal.classList.add('active');
         
-        document.getElementById('confirmImportBtn').onclick = () => {
-            modal.classList.remove('active');
-            resolve(true);
-        };
-        
-        document.getElementById('cancelImportBtn').onclick = () => {
-            modal.classList.remove('active');
-            resolve(false);
-        };
+        document.getElementById('confirmImportBtn').onclick = () => { modal.classList.remove('active'); resolve(true); };
+        document.getElementById('cancelImportBtn').onclick = () => { modal.classList.remove('active'); resolve(false); };
     });
 }
 
 function previewBulkImportWithChanges() {
     const data = document.getElementById('bulkImportData').value;
-    if (!data.trim()) { 
-        showNotification('⚠️ No hay datos', true); 
-        return; 
-    }
+    if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
     
     const empleados = parseRawData(data);
     const preview = document.getElementById('importPreview');
     
-    if (empleados.length === 0) { 
-        preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; 
-        return; 
-    }
+    if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
     
     const cambiosTemp = detectImportChangesPreview(empleados);
-    
     const managers = empleados.filter(e => isManagerRole(e.role));
     let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p>`;
     
@@ -4711,15 +4543,10 @@ function previewBulkImportWithChanges() {
         html += `<p style="color:#e74c3c; font-weight:bold;">⚠️ Se detectaron ${cambiosTemp.totalCambiosTurnos} cambios de turnos en ${empleadosAfectados} empleados</p>`;
     }
     
-    if (cambiosTemp.empleadosNuevos.length > 0) {
-        html += `<p style="color:#3498db;">👤 ${cambiosTemp.empleadosNuevos.length} empleados nuevos</p>`;
-    }
+    if (cambiosTemp.empleadosNuevos.length > 0) html += `<p style="color:#3498db;">👤 ${cambiosTemp.empleadosNuevos.length} empleados nuevos</p>`;
     
-    // Mostrar info de vacaciones
     const conVacaciones = empleados.filter(e => e.vacAsignadas2026 > 0 || e.vacPendientesAnt > 0);
-    if (conVacaciones.length > 0) {
-        html += `<p style="color:#00b894;">🏖️ ${conVacaciones.length} empleados con datos de vacaciones</p>`;
-    }
+    if (conVacaciones.length > 0) html += `<p style="color:#00b894;">🏖️ ${conVacaciones.length} empleados con datos de vacaciones</p>`;
     
     html += '<ul>';
     empleados.slice(0, 10).forEach(e => {
@@ -4735,25 +4562,15 @@ function previewBulkImportWithChanges() {
 }
 
 function detectImportChangesPreview(nuevosEmpleados) {
-    const cambios = {
-        turnosModificados: [],
-        empleadosNuevos: [],
-        totalCambiosTurnos: 0
-    };
+    const cambios = { turnosModificados: [], empleadosNuevos: [], totalCambiosTurnos: 0 };
     
     nuevosEmpleados.forEach(nuevoEmp => {
         const empActual = allData.empleados.find(e => e.login === nuevoEmp.login);
-        
         if (!empActual) {
             cambios.empleadosNuevos.push(nuevoEmp);
         } else {
-            const turnosActuales = Array.isArray(empActual.turnos) 
-                ? empActual.turnos 
-                : turnosStringToArray(empActual.turnos);
-            
-            const turnosNuevos = Array.isArray(nuevoEmp.turnos) 
-                ? nuevoEmp.turnos 
-                : turnosStringToArray(nuevoEmp.turnos);
+            const turnosActuales = Array.isArray(empActual.turnos) ? empActual.turnos : turnosStringToArray(empActual.turnos);
+            const turnosNuevos = Array.isArray(nuevoEmp.turnos) ? nuevoEmp.turnos : turnosStringToArray(nuevoEmp.turnos);
             
             for (let doy = 0; doy < 365; doy++) {
                 const turnoAnterior = (turnosActuales[doy] || '').toLowerCase().trim();
@@ -4762,11 +4579,8 @@ function detectImportChangesPreview(nuevosEmpleados) {
                 if (turnoAnterior !== turnoNuevo) {
                     cambios.totalCambiosTurnos++;
                     cambios.turnosModificados.push({
-                        employeeLogin: nuevoEmp.login,
-                        employeeName: nuevoEmp.name,
-                        dayOfYear: doy,
-                        oldShift: turnoAnterior || 'LIBRE',
-                        newShift: turnoNuevo || 'LIBRE'
+                        employeeLogin: nuevoEmp.login, employeeName: nuevoEmp.name,
+                        dayOfYear: doy, oldShift: turnoAnterior || 'LIBRE', newShift: turnoNuevo || 'LIBRE'
                     });
                 }
             }
@@ -4774,30 +4588,6 @@ function detectImportChangesPreview(nuevosEmpleados) {
     });
     
     return cambios;
-}
-
-// =====================================================
-// EXPORTACIÓN
-// =====================================================
-function exportData() {
-    if (!allData.empleados.length) { showNotification('⚠️ No hay datos', true); return; }
-    const exp = allData.empleados.map(emp => ({ 
-        ...emp, 
-        turnos: turnosArrayToString(emp.turnos) 
-    }));
-    const blob = new Blob([JSON.stringify({ 
-        empleados: exp, 
-        changelog: allData.changelog,
-        otDays: allData.otDays,
-        solicitudes: allData.solicitudes,
-        exportedAt: new Date().toISOString(),
-        exportedBy: currentUser ? currentUser.name : 'Anónimo'
-    }, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `turnos_backup_${new Date().toISOString().slice(0,10)}.json`;
-    a.click();
-    showNotification('📤 Exportado');
 }
 
 // =====================================================
