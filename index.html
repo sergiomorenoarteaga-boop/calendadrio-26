@@ -19,11 +19,17 @@
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 100vh; padding: 10px; }
         .header { text-align: center; padding: 15px; color: #fff; }
         .header h1 { font-size: 1.8rem; }
+        
+        /* FILTROS SIMPLIFICADOS */
         .filters-panel { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; }
         .filters-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: center; }
         .filter-group { display: flex; flex-direction: column; gap: 4px; }
         .filter-group label { color: #fff; font-size: 0.75rem; font-weight: 600; }
-        .filter-group select, .filter-group input { padding: 8px 12px; border: none; border-radius: 8px; font-size: 0.9rem; min-width: 180px; }
+        .filter-group select, .filter-group input { padding: 8px 12px; border: none; border-radius: 8px; font-size: 0.9rem; }
+        .filter-group input { min-width: 200px; }
+        .filter-group select { min-width: 280px; }
+        .filter-results-count { color: rgba(255,255,255,0.7); font-size: 0.7rem; margin-top: 2px; text-align: center; }
+        
         .employee-info { background: rgba(255,255,255,0.95); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: none; }
         .employee-info.active { display: block; }
         .general-view-info { background: linear-gradient(145deg, #667eea, #764ba2); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; color: white; text-align: center; display: none; }
@@ -163,17 +169,19 @@
         .current-shift-display .shift-badge-large { padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 1.2rem; }
         .current-shift-display .shift-time { font-size: 1rem; color: #333; }
         
+        /* LOGIN SEGURO - Sin autocompletado */
         .login-container { max-width: 400px; margin: 50px auto; padding: 30px; background: rgba(255,255,255,0.95); border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
         .login-container h2 { color: #333; margin-bottom: 10px; }
         .login-container p { color: #666; margin-bottom: 20px; font-size: 0.9rem; }
         .login-container .login-icon { font-size: 4rem; margin-bottom: 15px; }
-        .login-container input, .login-container select { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin-bottom: 10px; }
-        .login-container input:focus, .login-container select:focus { border-color: #667eea; outline: none; }
+        .login-container input { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin-bottom: 10px; }
+        .login-container input:focus { border-color: #667eea; outline: none; }
         .login-container .btn { width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px; }
         .login-status { padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: 600; }
         .login-status.error { background: #f8d7da; color: #721c24; }
         .login-status.success { background: #d4edda; color: #155724; }
-        .login-results-count { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
+        .login-security-note { margin-top: 20px; padding: 12px; background: #fff3cd; border-radius: 8px; font-size: 0.75rem; color: #856404; text-align: left; }
+        .login-security-note strong { display: block; margin-bottom: 5px; }
         
         .user-info-bar { background: linear-gradient(145deg, #667eea, #764ba2); padding: 10px 20px; border-radius: 12px; margin-bottom: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .user-info-bar .user-details { color: white; }
@@ -437,7 +445,7 @@
             .vacaciones-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* ===== SISTEMA DE SOLICITUDES ===== */
+        /* ===== SISTEMA DE SOLICITUDES MEJORADO ===== */
         .solicitud-section { margin-top: 15px; padding-top: 15px; border-top: 2px dashed #ddd; }
         .solicitud-section h4 { color: #667eea; margin-bottom: 10px; font-size: 0.9rem; }
         .solicitud-tipo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 15px; }
@@ -496,11 +504,43 @@
         .no-solicitudes { text-align: center; color: #999; padding: 30px; font-style: italic; }
         .badge-solicitudes { background: #e74c3c; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 5px; }
         
+        /* ===== SELECTOR DE DÍAS MÚLTIPLES ===== */
+        .dias-mode-selector { display: flex; gap: 8px; margin-bottom: 15px; justify-content: center; }
+        .dias-mode-btn { padding: 10px 16px; border: 2px solid #ddd; border-radius: 10px; background: white; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; }
+        .dias-mode-btn:hover { border-color: #667eea; background: #f0f4ff; }
+        .dias-mode-btn.selected { border-color: #667eea; background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        
+        .dias-rango-section { background: #f0f4f8; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .dias-rango-section h5 { margin-bottom: 12px; color: #333; font-size: 0.85rem; }
+        .fecha-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .fecha-input-group { }
+        .fecha-input-group label { display: block; font-size: 0.75rem; color: #666; margin-bottom: 5px; }
+        .fecha-input-group input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; }
+        .fecha-input-group input:focus { border-color: #667eea; outline: none; }
+        
+        .dias-sueltos-section { background: #f0f4f8; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .dias-sueltos-section h5 { margin-bottom: 12px; color: #333; font-size: 0.85rem; }
+        .dias-sueltos-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; min-height: 40px; padding: 10px; background: white; border-radius: 8px; border: 2px dashed #ddd; }
+        .dia-suelto-tag { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .dia-suelto-tag .remove-dia { background: rgba(255,255,255,0.3); border: none; color: white; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+        .dia-suelto-tag .remove-dia:hover { background: rgba(255,255,255,0.5); }
+        .add-dia-row { display: flex; gap: 8px; }
+        .add-dia-row input { flex: 1; padding: 8px; border: 2px solid #ddd; border-radius: 8px; }
+        .add-dia-row button { padding: 8px 15px; }
+        
+        .dias-preview { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 10px; padding: 12px; margin-bottom: 15px; }
+        .dias-preview h5 { color: #2e7d32; margin-bottom: 8px; font-size: 0.85rem; }
+        .dias-preview .dias-count { font-size: 1.5rem; font-weight: 800; color: #2e7d32; }
+        .dias-preview .dias-list-text { font-size: 0.8rem; color: #333; margin-top: 5px; max-height: 80px; overflow-y: auto; }
+        
         /* ===== HERRAMIENTAS GRID ===== */
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
         .tool-card { background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center; transition: transform 0.2s; }
         .tool-card:hover { transform: translateY(-3px); }
-        .tool-card .tool-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .tool-card .Continúo con el código:
+
+```html
+tool-icon { font-size: 2.5rem; margin-bottom: 10px; }
         .tool-card h5 { margin-bottom: 8px; color: #333; }
         .tool-card p { font-size: 0.8rem; color: #666; margin-bottom: 15px; line-height: 1.4; }
         .tool-card .btn { width: 100%; }
@@ -515,6 +555,8 @@
             .solicitud-tipo-grid { grid-template-columns: 1fr; }
             .staffing-mini-grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
+            .fecha-inputs { grid-template-columns: 1fr; }
+            .dias-mode-selector { flex-direction: column; }
         }
 
         .hidden { display: none !important; }
@@ -531,14 +573,14 @@
         @media (max-width: 600px) { 
             .calendar-grid { grid-template-columns: 1fr; } 
             .filters-row { flex-direction: column; } 
-            .filter-group select, .filter-group input { min-width: 100%; } 
+            .filter-group select, .filter-group input { min-width: 100%; width: 100%; } 
             .modal-buttons { grid-template-columns: 1fr; } 
             .modal-buttons-3col { grid-template-columns: 1fr; } 
             .user-info-bar { flex-direction: column; text-align: center; } 
             .bottom-sections { grid-template-columns: 1fr; }
         }
         
-        /* ===== ESTILOS DE IMPRESIÓN MEJORADOS ===== */
+        /* ===== ESTILOS DE IMPRESIÓN ===== */
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
@@ -558,7 +600,6 @@
                 font-size: 9pt !important;
             }
             
-            /* Ocultar elementos no necesarios */
             .header, 
             .filters-panel, 
             .controls, 
@@ -575,7 +616,6 @@
                 display: none !important;
             }
             
-            /* Mostrar info del empleado */
             .employee-info {
                 display: block !important;
                 background: white !important;
@@ -599,12 +639,10 @@
                 font-size: 9pt !important;
             }
             
-            /* Mostrar elementos solo de impresión */
             .print-only {
                 display: block !important;
             }
             
-            /* Grid del calendario */
             .calendar-grid {
                 display: grid !important;
                 grid-template-columns: repeat(3, 1fr) !important;
@@ -612,7 +650,6 @@
                 max-width: 100% !important;
             }
             
-            /* Tarjetas de mes */
             .month-card {
                 background: white !important;
                 border: 1px solid #ccc !important;
@@ -635,7 +672,6 @@
                 color: white !important;
             }
             
-            /* Tabla del calendario */
             .calendar-table {
                 border-collapse: separate !important;
                 border-spacing: 1px !important;
@@ -669,142 +705,29 @@
                 display: none !important;
             }
             
-                       /* Colores de turnos para impresión */
-            .shift-wm {
-                background: rgb(146, 208, 80) !important;
-                color: #1a5c1a !important;
-                border-left: 2px solid #2e7d32 !important;
-            }
+            .shift-wm { background: rgb(146, 208, 80) !important; color: #1a5c1a !important; border-left: 2px solid #2e7d32 !important; }
+            .shift-m8 { background: rgb(180, 220, 140) !important; color: #1a5c1a !important; border-left: 2px solid #43a047 !important; }
+            .shift-m { background: rgb(146, 208, 80) !important; color: #1a5c1a !important; border-left: 2px solid #66bb6a !important; }
+            .shift-m-co { background: rgb(200, 230, 200) !important; color: #2e7d32 !important; border-left: 2px dashed #66bb6a !important; }
+            .shift-wt { background: rgb(255, 192, 0) !important; color: #5a4000 !important; border-left: 2px solid #ef6c00 !important; }
+            .shift-t8 { background: rgb(255, 210, 80) !important; color: #5a4000 !important; border-left: 2px solid #f57c00 !important; }
+            .shift-t { background: rgb(255, 192, 0) !important; color: #5a4000 !important; border-left: 2px solid #ffb300 !important; }
+            .shift-t-co { background: rgb(255, 240, 180) !important; color: #5a4000 !important; border-left: 2px dashed #ffb300 !important; }
+            .shift-n8 { background: rgb(0, 32, 96) !important; color: white !important; border-left: 2px solid #4a148c !important; }
+            .shift-n { background: rgb(48, 63, 159) !important; color: white !important; border-left: 2px solid #283593 !important; }
+            .shift-nn { background: rgb(92, 107, 192) !important; color: white !important; border-left: 2px solid #1a237e !important; }
+            .shift-n-co { background: rgb(121, 134, 203) !important; color: white !important; border-left: 2px dashed #3949ab !important; }
+            .shift-c, .shift-cw { background: rgb(200, 200, 200) !important; color: #444 !important; border-left: 2px solid #757575 !important; }
+            .shift-v, .shift-v25, .shift-v26 { background: rgb(239, 83, 80) !important; color: white !important; border-left: 2px solid #b71c1c !important; }
+            .shift-ap { background: rgb(0, 176, 80) !important; color: white !important; border-left: 2px solid #1b5e20 !important; }
+            .shift-tr { background: rgb(255, 152, 0) !important; color: white !important; border-left: 2px solid #e65100 !important; }
+            .shift-bm, .shift-bp { background: rgb(224, 224, 224) !important; color: #666 !important; border-left: 2px solid #9e9e9e !important; }
+            .ot-file-day { background: rgb(155, 89, 182) !important; color: white !important; border: 2px solid #6c3483 !important; }
+            .libre { background: #f8f8f8 !important; color: #ccc !important; }
+            .empty { background: transparent !important; border: none !important; }
+            .festivo { border: 2px solid rgb(220, 53, 69) !important; }
+            .festivo::before { content: '' !important; position: absolute !important; top: 1px !important; right: 1px !important; width: 4px !important; height: 4px !important; background: rgb(220, 53, 69) !important; border-radius: 50% !important; }
             
-            .shift-m8 {
-                background: rgb(180, 220, 140) !important;
-                color: #1a5c1a !important;
-                border-left: 2px solid #43a047 !important;
-            }
-            
-            .shift-m {
-                background: rgb(146, 208, 80) !important;
-                color: #1a5c1a !important;
-                border-left: 2px solid #66bb6a !important;
-            }
-            
-            .shift-m-co {
-                background: rgb(200, 230, 200) !important;
-                color: #2e7d32 !important;
-                border-left: 2px dashed #66bb6a !important;
-            }
-            
-            .shift-wt {
-                background: rgb(255, 192, 0) !important;
-                color: #5a4000 !important;
-                border-left: 2px solid #ef6c00 !important;
-            }
-            
-            .shift-t8 {
-                background: rgb(255, 210, 80) !important;
-                color: #5a4000 !important;
-                border-left: 2px solid #f57c00 !important;
-            }
-            
-            .shift-t {
-                background: rgb(255, 192, 0) !important;
-                color: #5a4000 !important;
-                border-left: 2px solid #ffb300 !important;
-            }
-            
-            .shift-t-co {
-                background: rgb(255, 240, 180) !important;
-                color: #5a4000 !important;
-                border-left: 2px dashed #ffb300 !important;
-            }
-            
-            .shift-n8 {
-                background: rgb(0, 32, 96) !important;
-                color: white !important;
-                border-left: 2px solid #4a148c !important;
-            }
-            
-            .shift-n {
-                background: rgb(48, 63, 159) !important;
-                color: white !important;
-                border-left: 2px solid #283593 !important;
-            }
-            
-            .shift-nn {
-                background: rgb(92, 107, 192) !important;
-                color: white !important;
-                border-left: 2px solid #1a237e !important;
-            }
-            
-            .shift-n-co {
-                background: rgb(121, 134, 203) !important;
-                color: white !important;
-                border-left: 2px dashed #3949ab !important;
-            }
-            
-            .shift-c, .shift-cw {
-                background: rgb(200, 200, 200) !important;
-                color: #444 !important;
-                border-left: 2px solid #757575 !important;
-            }
-            
-            .shift-v, .shift-v25, .shift-v26 {
-                background: rgb(239, 83, 80) !important;
-                color: white !important;
-                border-left: 2px solid #b71c1c !important;
-            }
-            
-            .shift-ap {
-                background: rgb(0, 176, 80) !important;
-                color: white !important;
-                border-left: 2px solid #1b5e20 !important;
-            }
-            
-            .shift-tr {
-                background: rgb(255, 152, 0) !important;
-                color: white !important;
-                border-left: 2px solid #e65100 !important;
-            }
-            
-            .shift-bm, .shift-bp {
-                background: rgb(224, 224, 224) !important;
-                color: #666 !important;
-                border-left: 2px solid #9e9e9e !important;
-            }
-            
-            .ot-file-day {
-                background: rgb(155, 89, 182) !important;
-                color: white !important;
-                border: 2px solid #6c3483 !important;
-            }
-            
-            .libre {
-                background: #f8f8f8 !important;
-                color: #ccc !important;
-            }
-            
-            .empty {
-                background: transparent !important;
-                border: none !important;
-            }
-            
-            /* Festivos */
-            .festivo {
-                border: 2px solid rgb(220, 53, 69) !important;
-            }
-            
-            .festivo::before {
-                content: '' !important;
-                position: absolute !important;
-                top: 1px !important;
-                right: 1px !important;
-                width: 4px !important;
-                height: 4px !important;
-                background: rgb(220, 53, 69) !important;
-                border-radius: 50% !important;
-            }
-            
-            /* Pie de página con leyenda detallada */
             .print-footer {
                 display: block !important;
                 page-break-before: avoid !important;
@@ -815,71 +738,22 @@
                 background: #fafafa !important;
             }
             
-            .print-footer h4 {
-                font-size: 8pt !important;
-                margin-bottom: 6px !important;
-                color: #333 !important;
-            }
+            .print-footer h4 { font-size: 8pt !important; margin-bottom: 6px !important; color: #333 !important; }
+            .print-legend-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 3px !important; font-size: 6pt !important; }
+            .print-legend-item { display: flex !important; align-items: center !important; gap: 3px !important; padding: 2px 4px !important; background: white !important; border: 1px solid #ddd !important; border-radius: 3px !important; }
+            .print-legend-color { width: 12px !important; height: 12px !important; border-radius: 2px !important; flex-shrink: 0 !important; }
+            .print-legend-text { line-height: 1.1 !important; }
+            .print-legend-code { font-weight: 700 !important; }
+            .print-legend-desc { font-size: 5pt !important; color: #666 !important; }
             
-            .print-legend-grid {
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-                gap: 3px !important;
-                font-size: 6pt !important;
-            }
-            
-            .print-legend-item {
-                display: flex !important;
-                align-items: center !important;
-                gap: 3px !important;
-                padding: 2px 4px !important;
-                background: white !important;
-                border: 1px solid #ddd !important;
-                border-radius: 3px !important;
-            }
-            
-            .print-legend-color {
-                width: 12px !important;
-                height: 12px !important;
-                border-radius: 2px !important;
-                flex-shrink: 0 !important;
-            }
-            
-            .print-legend-text {
-                line-height: 1.1 !important;
-            }
-            
-            .print-legend-code {
-                font-weight: 700 !important;
-            }
-            
-            .print-legend-desc {
-                font-size: 5pt !important;
-                color: #666 !important;
-            }
-            
-            /* Quitar animaciones */
-            .day-changed::after,
-            .alarm-morning,
-            .alarm-afternoon,
-            .alarm-night,
-            .alarm-morning-afternoon,
-            .alarm-morning-night,
-            .alarm-afternoon-night,
-            .alarm-all {
-                animation: none !important;
-            }
-            
-            /* Ocultar elementos no imprimibles */
-            .hidden-print {
-                display: none !important;
-            }
+            .day-changed::after, .alarm-morning, .alarm-afternoon, .alarm-night, .alarm-morning-afternoon, .alarm-morning-night, .alarm-afternoon-night, .alarm-all { animation: none !important; }
+            .hidden-print { display: none !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- PANTALLA DE LOGIN -->
+<!-- PANTALLA DE LOGIN SEGURO - Sin autocompletado -->
 <div id="loginScreen">
     <div class="login-container">
         <div class="login-icon">🔐</div>
@@ -890,14 +764,17 @@
             <p style="color: #666;">Cargando datos...</p>
         </div>
         <div id="loginForm">
-            <input type="text" id="loginSearchInput" placeholder="🔍 Buscar por nombre o login..." oninput="filterLoginUsers()">
-            <div id="loginResultsCount" class="login-results-count"></div>
-            <select id="loginUserSelect"><option value="">-- Selecciona tu nombre --</option></select>
-            <input type="password" id="loginPassword" placeholder="Contraseña..." onkeypress="if(event.key==='Enter')attemptLogin()">
+            <input type="text" id="loginInput" placeholder="👤 Tu login..." autocomplete="off" onkeypress="if(event.key==='Enter')document.getElementById('loginPassword').focus()">
+            <input type="password" id="loginPassword" placeholder="🔑 Contraseña..." autocomplete="off" onkeypress="if(event.key==='Enter')attemptLogin()">
             <div id="loginStatus" class="login-status hidden"></div>
             <button class="btn btn-save" onclick="attemptLogin()">🚀 Entrar</button>
         </div>
-        <p style="margin-top: 20px; font-size: 0.75rem; color: #999;">Contraseña por defecto: <strong>1234</strong></p>
+        <div class="login-security-note">
+            <strong>🔒 Acceso Seguro</strong>
+            Debes conocer tu login exacto para acceder. Si no recuerdas tu login, contacta con tu manager.
+            <br><br>
+            <span style="font-size:0.7rem;">Contraseña por defecto: <st[REDACTED:PASSWORD]>1234</strong></span>
+        </div>
     </div>
 </div>
 
@@ -948,19 +825,19 @@
         </div>
     </div>
 
-    <div class="filters-panel" id="filtersPanel">
+    <!-- FILTROS SIMPLIFICADOS - Solo para managers -->
+    <div class="filters-panel hidden" id="filtersPanel">
         <div class="filters-row">
-            <div class="filter-group hidden" id="filterCrewGroup">
-                <label>👥 Crew:</label>
-                <select id="filterCrew" onchange="filterEmployees()"><option value="">Todos</option></select>
+            <div class="filter-group">
+                <label>🔍 Buscar Empleado:</label>
+                <input type="text" id="searchEmployee" placeholder="Nombre, login o crew..." oninput="filterAndUpdateEmployeeList()">
             </div>
-            <div class="filter-group hidden" id="filterEmployeeGroup">
-                <label>👤 Persona:</label>
-                <select id="filterEmployee" onchange="selectEmployee()"><option value="">-- Vista General --</option></select>
-            </div>
-            <div class="filter-group hidden" id="filterSearchGroup">
-                <label>🔍 Buscar:</label>
-                <input type="text" id="searchInput" placeholder="Nombre o login..." oninput="filterEmployees()">
+            <div class="filter-group">
+                <label>👤 Seleccionar:</label>
+                <select id="filterEmployee" onchange="selectEmployee()">
+                    <option value="">-- Vista General --</option>
+                </select>
+                <div class="filter-results-count" id="filterResultsCount"></div>
             </div>
         </div>
     </div>
@@ -992,10 +869,11 @@
         <div class="legend-item"><div class="legend-color" style="background:var(--rojo); border-radius:50%"></div><span>Festivo</span></div>
     </div>
 
-    <!-- CONTROLES - Solo Manager tiene acceso a Panel Manager -->
+    <!-- CONTROLES -->
     <div class="controls">
         <button class="btn btn-my-calendar active" id="btnMyCalendar" onclick="showMyCalendar()">📅 Mi Calendario</button>
         <button class="btn btn-general" id="btnGeneral" onclick="showGeneralView()">👥 Vista General</button>
+        <button class="btn btn-print" onclick="printCalendar()">🖨️ Imprimir</button>
         <button class="btn btn-user hidden" id="btnManagerPanel" onclick="openManagerModal()">👑 Panel Manager</button>
         <button class="btn btn-reload" onclick="reloadFromCloud()">🔄 Recargar</button>
         <span style="width:10px"></span>
@@ -1015,94 +893,22 @@
         <div class="stats-grid" id="statsGrid"></div>
     </div>
     
-    <!-- Pie de página para impresión con leyenda -->
+    <!-- Pie de página para impresión -->
     <div class="print-only print-footer" id="printFooter">
         <h4>📋 LEYENDA DE TURNOS</h4>
         <div class="print-legend-grid">
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(146,208,80);border:1px solid #2e7d32;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">WM</span>
-                    <span class="print-legend-desc">Mañana Larga 06:00-15:10</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(180,220,140);border:1px solid #43a047;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">M8</span>
-                    <span class="print-legend-desc">Mañana 8h 06:00-14:10</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(255,192,0);border:1px solid #ef6c00;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">WT</span>
-                    <span class="print-legend-desc">Tarde Larga 14:00-23:10</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(255,210,80);border:1px solid #f57c00;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">T8</span>
-                    <span class="print-legend-desc">Tarde 8h 14:00-22:10</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(0,32,96);border:1px solid #4a148c;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">N8</span>
-                    <span class="print-legend-desc">Noche 8h 22:00-06:10</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(48,63,159);border:1px solid #283593;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">N</span>
-                    <span class="print-legend-desc">Noche 22:00-06:30</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(200,200,200);border:1px solid #757575;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">C</span>
-                    <span class="print-legend-desc">Central 09:00-18:00</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(239,83,80);border:1px solid #b71c1c;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">V</span>
-                    <span class="print-legend-desc">Vacaciones</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(0,176,80);border:1px solid #1b5e20;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">AP</span>
-                    <span class="print-legend-desc">Asuntos Propios</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(255,152,0);border:1px solid #e65100;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">TR</span>
-                    <span class="print-legend-desc">Formación</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:rgb(155,89,182);border:1px solid #6c3483;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">OT</span>
-                    <span class="print-legend-desc">Día OT FILE</span>
-                </div>
-            </div>
-            <div class="print-legend-item">
-                <div class="print-legend-color" style="background:white;border:2px solid rgb(220,53,69);border-radius:50%;width:10px;height:10px;"></div>
-                <div class="print-legend-text">
-                    <span class="print-legend-code">●</span>
-                    <span class="print-legend-desc">Día Festivo</span>
-                </div>
-            </div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(146,208,80);border:1px solid #2e7d32;"></div><div class="print-legend-text"><span class="print-legend-code">WM</span><span class="print-legend-desc">Mañana Larga 06:00-15:10</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(180,220,140);border:1px solid #43a047;"></div><div class="print-legend-text"><span class="print-legend-code">M8</span><span class="print-legend-desc">Mañana 8h 06:00-14:10</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(255,192,0);border:1px solid #ef6c00;"></div><div class="print-legend-text"><span class="print-legend-code">WT</span><span class="print-legend-desc">Tarde Larga 14:00-23:10</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(255,210,80);border:1px solid #f57c00;"></div><div class="print-legend-text"><span class="print-legend-code">T8</span><span class="print-legend-desc">Tarde 8h 14:00-22:10</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(0,32,96);border:1px solid #4a148c;"></div><div class="print-legend-text"><span class="print-legend-code">N8</span><span class="print-legend-desc">Noche 8h 22:00-06:10</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(48,63,159);border:1px solid #283593;"></div><div class="print-legend-text"><span class="print-legend-code">N</span><span class="print-legend-desc">Noche 22:00-06:30</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(200,200,200);border:1px solid #757575;"></div><div class="print-legend-text"><span class="print-legend-code">C</span><span class="print-legend-desc">Central 09:00-18:00</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(239,83,80);border:1px solid #b71c1c;"></div><div class="print-legend-text"><span class="print-legend-code">V</span><span class="print-legend-desc">Vacaciones</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(0,176,80);border:1px solid #1b5e20;"></div><div class="print-legend-text"><span class="print-legend-code">AP</span><span class="print-legend-desc">Asuntos Propios</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(255,152,0);border:1px solid #e65100;"></div><div class="print-legend-text"><span class="print-legend-code">TR</span><span class="print-legend-desc">Formación</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:rgb(155,89,182);border:1px solid #6c3483;"></div><div class="print-legend-text"><span class="print-legend-code">OT</span><span class="print-legend-desc">Día OT FILE</span></div></div>
+            <div class="print-legend-item"><div class="print-legend-color" style="background:white;border:2px solid rgb(220,53,69);border-radius:50%;width:10px;height:10px;"></div><div class="print-legend-text"><span class="print-legend-code">●</span><span class="print-legend-desc">Día Festivo</span></div></div>
         </div>
         <div style="margin-top:6px;font-size:6pt;color:#666;text-align:center;">
             Calendario de Turnos 2026 - Dos Hermanas, Sevilla | Generado el <span id="printDate"></span>
@@ -1192,54 +998,84 @@
     </div>
 </div>
 
-<!-- Modal Solicitar Día -->
+<!-- Modal Solicitar Día MEJORADO con múltiples días -->
 <div class="modal-overlay" id="solicitarDiaModal">
     <div class="modal modal-large">
-        <h3>📝 Solicitar Día</h3>
-        <div id="solicitarDiaInfo" style="background:#f0f4f8; padding:12px; border-radius:8px; margin-bottom:15px;">
-            <strong id="solicitarDiaFecha"></strong>
-            <div id="solicitarDiaTurnoActual" style="margin-top:5px; font-size:0.85rem; color:#666;"></div>
-        </div>
-        <div id="solicitarStaffingWarning" class="staffing-warning" style="display:none;">
-            <h5>⚠️ Aviso de Personal</h5>
-            <div id="staffingWarningContent"></div>
-        </div>
-        <div id="solicitarStaffingInfo" class="staffing-info-compact">
-            <h5>👥 Personal en turno ese día</h5>
-            <div class="staffing-mini-grid" id="staffingMiniGrid"></div>
-            <button class="ver-turno-btn" onclick="verDetallesTurno()">👁️ Ver detalles completos</button>
-        </div>
+        <h3>📝 Solicitar Días</h3>
+        
         <div class="solicitud-section">
             <h4>¿Qué deseas solicitar?</h4>
             <div class="solicitud-tipo-grid">
-                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('vacaciones', this)">
-                    <span class="tipo-icon">🏖️</span>
-                    <span>Vacaciones</span>
-                </button>
-                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('ap', this)">
-                    <span class="tipo-icon">📋</span>
-                    <span>Asunto Propio</span>
-                </button>
-                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('cambio', this)">
-                    <span class="tipo-icon">🔄</span>
-                    <span>Cambio Turno</span>
-                </button>
-                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('otro', this)">
-                    <span class="tipo-icon">💬</span>
-                    <span>Otro</span>
-                </button>
+                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('vacaciones', this)"><span class="tipo-icon">🏖️</span><span>Vacaciones</span></button>
+                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('ap', this)"><span class="tipo-icon">📋</span><span>Asunto Propio</span></button>
+                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('cambio', this)"><span class="tipo-icon">🔄</span><span>Cambio Turno</span></button>
+                <button class="solicitud-tipo-btn" onclick="selectTipoSolicitud('otro', this)"><span class="tipo-icon">💬</span><span>Otro</span></button>
             </div>
         </div>
+        
+        <!-- SELECTOR DE MODO DE DÍAS -->
+        <div class="solicitud-section" id="diasModeSection">
+            <h4>📅 Selecciona los días</h4>
+            <div class="dias-mode-selector">
+                <button class="dias-mode-btn selected" onclick="selectDiasMode('unico', this)">📌 Día único</button>
+                <button class="dias-mode-btn" onclick="selectDiasMode('rango', this)">📆 Rango de fechas</button>
+                <button class="dias-mode-btn" onclick="selectDiasMode('sueltos', this)">🗓️ Días sueltos</button>
+            </div>
+            
+            <!-- Día único (por defecto) -->
+            <div id="diaUnicoSection" class="dias-rango-section">
+                <h5>📌 Día seleccionado</h5>
+                <div id="diaUnicoInfo" style="background:#e8f5e9; padding:12px; border-radius:8px; text-align:center;">
+                    <strong id="diaUnicoFecha"></strong>
+                    <div id="diaUnicoTurno" style="font-size:0.85rem; color:#666; margin-top:5px;"></div>
+                </div>
+            </div>
+            
+            <!-- Rango de fechas -->
+            <div id="rangoFechasSection" class="dias-rango-section hidden">
+                <h5>📆 Selecciona el rango de fechas</h5>
+                <div class="fecha-inputs">
+                    <div class="fecha-input-group">
+                        <label>Desde:</label>
+                        <input type="date" id="rangoFechaDesde" onchange="updateDiasPreview()" min="2026-01-01" max="2026-12-31">
+                    </div>
+                    <div class="fecha-input-group">
+                        <label>Hasta:</label>
+                        <input type="date" id="rangoFechaHasta" onchange="updateDiasPreview()" min="2026-01-01" max="2026-12-31">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Días sueltos -->
+            <div id="diasSueltosSection" class="dias-sueltos-section hidden">
+                <h5>🗓️ Añade los días que necesitas</h5>
+                <div class="dias-sueltos-list" id="diasSueltosList">
+                    <span style="color:#999; font-size:0.8rem;">Añade días usando el selector de abajo</span>
+                </div>
+                <div class="add-dia-row">
+                    <input type="date" id="addDiaSueltoInput" min="2026-01-01" max="2026-12-31">
+                    <button class="btn btn-save btn-small" onclick="addDiaSuelto()">➕ Añadir</button>
+                </div>
+            </div>
+            
+            <!-- Preview de días seleccionados -->
+            <div id="diasPreview" class="dias-preview hidden">
+                <h5>✅ Resumen de días solicitados</h5>
+                <div class="dias-count" id="diasCountPreview">0 días</div>
+                <div class="dias-list-text" id="diasListPreview"></div>
+            </div>
+        </div>
+        
         <div class="solicitud-section">
             <h4>Enviar solicitud a:</h4>
-            <select id="solicitarManagerSelect" class="solicitud-manager-select">
-                <option value="">-- Selecciona un manager --</option>
-            </select>
+            <select id="solicitarManagerSelect" class="solicitud-manager-select"><option value="">-- Selecciona un manager --</option></select>
         </div>
+        
         <div class="solicitud-section">
             <h4>Comentario (opcional):</h4>
             <textarea id="solicitarComentario" class="solicitud-comment-input" placeholder="Escribe aquí el motivo o detalles de tu solicitud..."></textarea>
         </div>
+        
         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:15px;">
             <button class="btn btn-save" onclick="enviarSolicitud()">📤 Enviar Solicitud</button>
             <button class="modal-close" onclick="closeSolicitarModal()">Cancelar</button>
@@ -1273,49 +1109,31 @@
     </div>
 </div>
 
-<!-- Modal Ver Solicitudes (para manager) -->
+<!-- Modal Ver Solicitudes -->
 <div class="modal-overlay" id="verSolicitudesModal">
     <div class="modal modal-large">
         <h3>📬 Gestionar Solicitudes</h3>
         <div class="solicitudes-panel-tabs">
-            <button class="solicitudes-panel-tab active" onclick="switchSolicitudesTab('pendientes', this)">
-                ⏳ Pendientes <span class="tab-count" id="countPendientes">0</span>
-            </button>
-            <button class="solicitudes-panel-tab" onclick="switchSolicitudesTab('aprobadas', this)">
-                ✅ Aprobadas <span class="tab-count" id="countAprobadas">0</span>
-            </button>
-            <button class="solicitudes-panel-tab" onclick="switchSolicitudesTab('rechazadas', this)">
-                ❌ Rechazadas <span class="tab-count" id="countRechazadas">0</span>
-            </button>
-            <button class="solicitudes-panel-tab" onclick="switchSolicitudesTab('todas', this)">
-                📋 Todas
-            </button>
+            <button class="solicitudes-panel-tab active" onclick="switchSolicitudesTab('pendientes', this)">⏳ Pendientes <span class="tab-count" id="countPendientes">0</span></button>
+            <button class="solicitudes-panel-tab" onclick="switchSolicitudesTab('aprobadas', this)">✅ Aprobadas <span class="tab-count" id="countAprobadas">0</span></button>
+            <button class="solicitudes-panel-tab" onclick="switchSolicitudesTab('rechazadas', this)">❌ Rechazadas <span class="tab-count" id="countRechazadas">0</span></button>
+            <button class="solicitudes-panel-tab" onclick="switchSolicitudesTab('todas', this)">📋 Todas</button>
         </div>
-        <div class="solicitudes-list" id="solicitudesManagerList">
-            <div class="no-solicitudes">No hay solicitudes</div>
-        </div>
+        <div class="solicitudes-list" id="solicitudesManagerList"><div class="no-solicitudes">No hay solicitudes</div></div>
         <button class="modal-close" onclick="closeVerSolicitudesModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
 
-<!-- Modal Mis Solicitudes (para empleados) -->
+<!-- Modal Mis Solicitudes -->
 <div class="modal-overlay" id="misSolicitudesModal">
     <div class="modal modal-large">
         <h3>📋 Mis Solicitudes</h3>
         <div class="solicitudes-panel-tabs">
-            <button class="solicitudes-panel-tab active" onclick="switchMisSolicitudesTab('pendientes', this)">
-                ⏳ Pendientes <span class="tab-count" id="countMisPendientes">0</span>
-            </button>
-            <button class="solicitudes-panel-tab" onclick="switchMisSolicitudesTab('respondidas', this)">
-                📨 Respondidas <span class="tab-count" id="countMisRespondidas">0</span>
-            </button>
-            <button class="solicitudes-panel-tab" onclick="switchMisSolicitudesTab('todas', this)">
-                📋 Todas
-            </button>
+            <button class="solicitudes-panel-tab active" onclick="switchMisSolicitudesTab('pendientes', this)">⏳ Pendientes <span class="tab-count" id="countMisPendientes">0</span></button>
+            <button class="solicitudes-panel-tab" onclick="switchMisSolicitudesTab('respondidas', this)">📨 Respondidas <span class="tab-count" id="countMisRespondidas">0</span></button>
+            <button class="solicitudes-panel-tab" onclick="switchMisSolicitudesTab('todas', this)">📋 Todas</button>
         </div>
-        <div class="solicitudes-list" id="misSolicitudesList">
-            <div class="no-solicitudes">No tienes solicitudes</div>
-        </div>
+        <div class="solicitudes-list" id="misSolicitudesList"><div class="no-solicitudes">No tienes solicitudes</div></div>
         <button class="modal-close" onclick="closeMisSolicitudesModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
@@ -1394,7 +1212,7 @@
     </div>
 </div>
 
-<!-- Modal Panel Manager MEJORADO -->
+<!-- Modal Panel Manager -->
 <div class="modal-overlay" id="managerModal">
     <div class="modal modal-large">
         <h3>👑 Panel Manager</h3>
@@ -1411,40 +1229,26 @@
             <button class="panel-nav-btn" onclick="switchPanel('herramientas', this)">🛠️ Herramientas</button>
         </div>
         
-        <!-- Panel Historial -->
         <div id="panel-changelog" class="panel-content active">
             <h4 style="margin-bottom:10px;">📋 Últimas modificaciones de turnos</h4>
-            <div style="margin-bottom:10px;">
-                <input type="text" id="changelogSearch" placeholder="🔍 Buscar por nombre..." oninput="filterChangelog()" style="padding:8px 12px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;">
-            </div>
+            <div style="margin-bottom:10px;"><input type="text" id="changelogSearch" placeholder="🔍 Buscar por nombre..." oninput="filterChangelog()" style="padding:8px 12px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;"></div>
             <div class="changelog-list" id="changelogList"><div class="changelog-empty">No hay modificaciones registradas</div></div>
         </div>
         
-        <!-- Panel Contraseñas -->
         <div id="panel-passwords" class="panel-content">
             <h4 style="margin-bottom:10px;">🔑 Gestión de Contraseñas</h4>
-            <div class="import-info">
-                <strong>📌 Información:</strong><br>
-                • La contraseña por defecto es: <[REDACTED:PASSWORD]ng>1234</strong><br>
-                • Al resetear, la contraseña volverá a: <strong>1234</strong><br>
-                • Los usuarios pueden cambiar su contraseña en "Mi Cuenta"
-            </div>
+            <div class="import-info"><strong>📌 Información:</strong><br>• La contraseña por defecto es <strong>1234</strong><br>• Al resetear, la contraseña volverá a <strong>1234</strong></div>
             <div style="margin:15px 0;">
                 <label style="display:block; margin-bottom:5px; font-weight:600;">👤 Selecciona usuario:</label>
                 <input type="text" id="passwordUserSearch" placeholder="🔍 Buscar por nombre..." oninput="filterPasswordUsers()" style="padding:8px 12px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px; margin-bottom:8px;">
-                <select id="passwordUserSelect" onchange="showPasswordUserInfo(this.value)" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:350px;">
-                    <option value="">-- Selecciona un usuario --</option>
-                </select>
+                <select id="passwordUserSelect" onchange="showPasswordUserInfo(this.value)" style="padding:10px; border:2px solid #ddd; border-radius:8px; font-size:1rem; width:100%; max-width:350px;"><option value="">-- Selecciona un usuario --</option></select>
             </div>
             <div id="passwordUserInfo" style="display:none; background:#f8f9fa; padding:15px; border-radius:12px; margin:15px 0;">
                 <h4 style="margin-bottom:8px;">👤 <span id="pwUserName"></span></h4>
                 <p style="font-size:0.85rem; color:#666;">Login: <strong id="pwUserLogin"></strong></p>
                 <p style="font-size:0.85rem; color:#666;">Crew: <strong id="pwUserCrew"></strong></p>
                 <p style="font-size:0.85rem; color:#666;">Rol: <strong id="pwUserRole"></strong></p>
-                <p style="font-size:0.85rem; margin-top:8px;">
-                    Estado contraseña: 
-                    <span id="pwStatus" class="password-status"></span>
-                </p>
+                <p style="font-size:0.85rem; margin-top:8px;">Estado contraseña: <span id="pwStatus" class="password-status"></span></p>
                 <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap;">
                     <button class="btn btn-warning" onclick="resetUserPassword()">🔄 Resetear a 1234</button>
                     <button class="btn btn-save" onclick="setCustomPassword()">🔐 Poner contraseña</button>
@@ -1454,16 +1258,8 @@
             <div id="passwordSummary" style="background:#f8f9fa; padding:15px; border-radius:12px;"></div>
         </div>
         
-        <!-- Panel Importar -->
         <div id="panel-import" class="panel-content">
-            <div class="import-info">
-                <strong>📌 Instrucciones:</strong><br>
-                1. Copia los datos TSV desde Excel<br>
-                2. Pégalos aquí<br>
-                3. Clic en Importar<br><br>
-                ⚠️ <strong>Las contraseñas NO se borrarán</strong> al importar.<br>
-                📊 <strong>Se registrarán todos los cambios</strong> en el historial.
-            </div>
+            <div class="import-info"><strong>📌 Instrucciones:</strong><br>1. Copia los datos TSV desde Excel<br>2. Pégalos aquí<br>3. Clic en Importar</div>
             <div class="import-panel">
                 <textarea id="bulkImportData" placeholder="Pega aquí los datos TSV..."></textarea>
                 <div class="btn-row">
@@ -1474,81 +1270,29 @@
             <div id="importPreview" style="margin-top:10px; text-align:left; font-size:0.8rem; max-height:150px; overflow-y:auto;"></div>
         </div>
         
-        <!-- Panel Vacaciones -->
         <div id="panel-vacaciones" class="panel-content">
             <h4 style="margin-bottom:15px;">🏖️ Gestión de Vacaciones y Asuntos Propios</h4>
-            <div class="import-info">
-                <strong>📌 Información:</strong><br>
-                Aquí puedes ver y editar las vacaciones de todos los empleados.<br>
-                Haz clic en ✏️ para editar los datos de cada empleado.
-            </div>
-            <div style="margin:15px 0;">
-                <input type="text" id="vacPanelSearch" placeholder="🔍 Buscar empleado..." oninput="filterVacacionesPanel()" style="padding:10px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;">
-            </div>
+            <div style="margin:15px 0;"><input type="text" id="vacPanelSearch" placeholder="🔍 Buscar empleado..." oninput="filterVacacionesPanel()" style="padding:10px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;"></div>
             <div class="vac-general-container" style="max-height:350px;">
                 <table class="vac-general-table" id="vacPanelTable">
-                    <thead>
-                        <tr>
-                            <th>Empleado</th>
-                            <th>Crew</th>
-                            <th style="background:#9c27b0;">Pend.</th>
-                            <th style="background:#9c27b0;">Rest.</th>
-                            <th style="background:#2196f3;">Asig.</th>
-                            <th style="background:#2196f3;">Rest.</th>
-                            <th style="background:#ff9800;">AP</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Empleado</th><th>Crew</th><th style="background:#9c27b0;">Pend.</th><th style="background:#9c27b0;">Rest.</th><th style="background:#2196f3;">Asig.</th><th style="background:#2196f3;">Rest.</th><th style="background:#ff9800;">AP</th><th>Acciones</th></tr></thead>
                     <tbody id="vacPanelBody"></tbody>
                 </table>
             </div>
         </div>
         
-        <!-- Panel Herramientas -->
         <div id="panel-herramientas" class="panel-content">
             <h4 style="margin-bottom:15px;">🛠️ Herramientas</h4>
-            
             <div class="tools-grid">
-                <!-- Imprimir -->
-                <div class="tool-card">
-                    <div class="tool-icon">🖨️</div>
-                    <h5>Imprimir Calendario</h5>
-                    <p>Imprime el calendario con colores y leyenda explicativa.</p>
-                    <button class="btn btn-print" onclick="printCalendar()">🖨️ Imprimir</button>
-                </div>
-                
-                <!-- Exportar JSON -->
-                <div class="tool-card">
-                    <div class="tool-icon">📤</div>
-                    <h5>Exportar JSON</h5>
-                    <p>Copia de seguridad de todos los datos.</p>
-                    <button class="btn btn-export" onclick="exportData()">📤 Exportar</button>
-                </div>
-                
-                <!-- Exportar Excel -->
-                <div class="tool-card">
-                    <div class="tool-icon">📊</div>
-                    <h5>Exportar a Excel</h5>
-                    <p>Exporta los turnos en formato TSV.</p>
-                    <button class="btn btn-save" onclick="exportToTSV()">📊 Exportar TSV</button>
-                </div>
-                
-                <!-- Gestionar OT -->
-                <div class="tool-card">
-                    <div class="tool-icon">🔧</div>
-                    <h5>Días OT FILE</h5>
-                    <p>Crear y gestionar días de OT FILE.</p>
-                    <button class="btn btn-ot" onclick="closeManagerModal(); openOtManagerModal();">🔧 Gestionar OT</button>
-                </div>
+                <div class="tool-card"><div class="tool-icon">📤</div><h5>Exportar JSON</h5><p>Copia de seguridad de todos los datos.</p><button class="btn btn-export" onclick="exportData()">📤 Exportar</button></div>
+                <div class="tool-card"><div class="tool-icon">📊</div><h5>Exportar a Excel</h5><p>Exporta los turnos en formato TSV.</p><button class="btn btn-save" onclick="exportToTSV()">📊 Exportar TSV</button></div>
+                <div class="tool-card"><div class="tool-icon">🔧</div><h5>Días OT FILE</h5><p>Crear y gestionar días de OT FILE.</p><button class="btn btn-ot" onclick="closeManagerModal(); openOtManagerModal();">🔧 Gestionar OT</button></div>
             </div>
-            
             <div class="modal-section-title" style="margin-top:20px;">📊 Estadísticas Generales</div>
             <div id="generalStats" class="general-stats-grid"></div>
         </div>
         
-        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
-            <button class="modal-close" onclick="closeManagerModal()">Cerrar</button>
-        </div>
+        <div style="margin-top:20px; border-top:1px solid #eee; padding-top:15px;"><button class="modal-close" onclick="closeManagerModal()">Cerrar</button></div>
     </div>
 </div>
 
@@ -1570,9 +1314,7 @@
 <div class="modal-overlay" id="customPasswordModal">
     <div class="modal">
         <h3>🔐 Establecer Contraseña</h3>
-        <div id="customPwUserInfo" style="background:#f0f4f8; padding:12px; border-radius:8px; margin-bottom:15px;">
-            <strong id="customPwUserName"></strong>
-        </div>
+        <div id="customPwUserInfo" style="background:#f0f4f8; padding:12px; border-radius:8px; margin-bottom:15px;"><strong id="customPwUserName"></strong></div>
         <input type="password" id="customNewPassword1" placeholder="Nueva contraseña..." style="width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; margin-bottom:10px; max-width:300px;">
         <input type="password" id="customNewPassword2" placeholder="Repetir contraseña..." style="width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; margin-bottom:15px; max-width:300px;">
         <div style="display:flex; gap:10px; justify-content:center;">
@@ -1590,72 +1332,19 @@
             <h4>👤 <span id="vacEditEmployeeName"></span></h4>
             <p>Login: <strong id="vacEditEmployeeLogin"></strong></p>
         </div>
-        
         <div class="vac-edit-grid">
-            <div class="vac-edit-group anterior">
-                <label>📅 Vac. Pendientes Año Anterior</label>
-                <input type="number" id="vacEditPendientesAnt" step="0.5" min="0">
-            </div>
-            <div class="vac-edit-group anterior">
-                <label>📅 Vac. Restantes Año Anterior</label>
-                <input type="number" id="vacEditRestantesAnt" step="0.5" min="0">
-            </div>
-            <div class="vac-edit-group anterior">
-                <label>📅 Vac. Consumidas del Año Anterior</label>
-                <input type="number" id="vacEditConsumidasAnt" step="0.5" min="0">
-            </div>
-            <div class="vac-edit-group actual">
-                <label>🗓️ Vac. Asignadas 2026</label>
-                <input type="number" id="vacEditAsignadas2026" step="0.5" min="0">
-            </div>
-            <div class="vac-edit-group actual">
-                <label>🗓️ Vac. Restantes 2026</label>
-                <input type="number" id="vacEditRestantes2026" step="0.5" min="0">
-            </div>
-            <div class="vac-edit-group actual">
-                <label>🗓️ Vac. Consumidas 2026</label>
-                <input type="number" id="vacEditConsumidas2026" step="0.5" min="0">
-            </div>
-            <div class="vac-edit-group ap" style="grid-column: span 2;">
-                <label>📋 Asuntos Propios Consumidos</label>
-                <input type="number" id="vacEditApConsumidos" step="0.5" min="0">
-            </div>
+            <div class="vac-edit-group anterior"><label>📅 Vac. Pendientes Año Anterior</label><input type="number" id="vacEditPendientesAnt" step="0.5" min="0"></div>
+            <div class="vac-edit-group anterior"><label>📅 Vac. Restantes Año Anterior</label><input type="number" id="vacEditRestantesAnt" step="0.5" min="0"></div>
+            <div class="vac-edit-group anterior"><label>📅 Vac. Consumidas del Año Anterior</label><input type="number" id="vacEditConsumidasAnt" step="0.5" min="0"></div>
+            <div class="vac-edit-group actual"><label>🗓️ Vac. Asignadas 2026</label><input type="number" id="vacEditAsignadas2026" step="0.5" min="0"></div>
+            <div class="vac-edit-group actual"><label>🗓️ Vac. Restantes 2026</label><input type="number" id="vacEditRestantes2026" step="0.5" min="0"></div>
+            <div class="vac-edit-group actual"><label>🗓️ Vac. Consumidas 2026</label><input type="number" id="vacEditConsumidas2026" step="0.5" min="0"></div>
+            <div class="vac-edit-group ap" style="grid-column: span 2;"><label>📋 Asuntos Propios Consumidos</label><input type="number" id="vacEditApConsumidos" step="0.5" min="0"></div>
         </div>
-        
         <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
             <button class="btn btn-save" onclick="saveVacacionesEdit()">💾 Guardar</button>
             <button class="modal-close" onclick="closeVacacionesModal()">Cancelar</button>
         </div>
-    </div>
-</div>
-
-<!-- Modal Vista General Vacaciones -->
-<div class="modal-overlay" id="vacacionesGeneralModal">
-    <div class="modal modal-xlarge">
-        <h3>🏖️ Resumen General de Vacaciones y AP</h3>
-        <div style="margin-bottom:15px;">
-            <input type="text" id="vacGeneralSearch" placeholder="🔍 Buscar empleado..." oninput="filterVacacionesGeneral()" style="padding:10px; border:2px solid #ddd; border-radius:8px; width:100%; max-width:300px;">
-        </div>
-        <div class="vac-general-container">
-            <table class="vac-general-table" id="vacGeneralTable">
-                <thead>
-                    <tr>
-                        <th>Empleado</th>
-                        <th>Crew</th>
-                        <th style="background:#9c27b0;">Pend. Ant.</th>
-                        <th style="background:#9c27b0;">Rest. Ant.</th>
-                        <th style="background:#9c27b0;">Cons. Ant.</th>
-                        <th style="background:#2196f3;">Asig. 2026</th>
-                        <th style="background:#2196f3;">Rest. 2026</th>
-                        <th style="background:#2196f3;">Cons. 2026</th>
-                        <th style="background:#ff9800;">AP</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="vacGeneralBody"></tbody>
-            </table>
-        </div>
-        <button class="modal-close" onclick="closeVacacionesGeneralModal()" style="margin-top:15px;">Cerrar</button>
     </div>
 </div>
 
@@ -1732,6 +1421,11 @@ let editingVacacionesEmployee = null;
 let selectedTipoSolicitud = null;
 let solicitandoDia = null;
 let respondiendoSolicitud = null;
+
+// Variables para solicitud de múltiples días
+let diasMode = 'unico'; // 'unico', 'rango', 'sueltos'
+let diasSueltosSeleccionados = [];
+
 // =====================================================
 // FUNCIONES UTILIDAD
 // =====================================================
@@ -1819,6 +1513,18 @@ function getDayFromDoy(doy) {
         remaining -= daysInMonth[m];
     }
     return { month: 12, day: 31 };
+}
+
+function formatDateToString(dateStr) {
+    const date = new Date(dateStr);
+    const day = date.getDate();
+    const month = date.getMonth();
+    return `${day} de ${monthNames[month]}`;
+}
+
+function dateToMonthDay(dateStr) {
+    const date = new Date(dateStr);
+    return { month: date.getMonth() + 1, day: date.getDate() };
 }
 
 function setDataStatus(type, message) {
@@ -1977,7 +1683,7 @@ async function saveToCloud() {
                 empleados: empleadosParaGuardar, userPasswords: allData.userPasswords || {},
                 changelog: (allData.changelog || []).slice(-500), otDays: allData.otDays || [],
                 solicitudes: (allData.solicitudes || []).slice(-200),
-                lastModified: new Date().toISOString(), version: '2.3'
+                lastModified: new Date().toISOString(), version: '2.4'
             })
         });
         
@@ -2069,28 +1775,8 @@ function parseRawData(rawData) {
 }
 
 // =====================================================
-// LOGIN
+// LOGIN SEGURO - Sin autocompletado
 // =====================================================
-function filterLoginUsers() {
-    const searchTerm = document.getElementById('loginSearchInput').value.toLowerCase().trim();
-    const select = document.getElementById('loginUserSelect');
-    const countDiv = document.getElementById('loginResultsCount');
-    
-    select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
-    if (!allData.empleados || allData.empleados.length === 0) { countDiv.textContent = ''; return; }
-    
-    let filtered = searchTerm ? allData.empleados.filter(emp => emp.name.toLowerCase().includes(searchTerm) || emp.login.toLowerCase().includes(searchTerm)) : [...allData.empleados];
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
-    
-    filtered.forEach(emp => {
-        const managerIcon = isManagerRole(emp.role) ? ' 👑' : '';
-        select.innerHTML += `<option value="${emp.login}">${emp.name}${managerIcon}</option>`;
-    });
-    
-    countDiv.textContent = searchTerm ? `${filtered.length} resultado(s)` : `${allData.empleados.length} empleados`;
-    if (filtered.length === 1) select.value = filtered[0].login;
-}
-
 async function initializeLogin() {
     document.getElementById('loginLoading').classList.remove('hidden');
     document.getElementById('loginForm').classList.add('hidden');
@@ -2115,22 +1801,37 @@ async function initializeLogin() {
         document.getElementById('loginStatus').classList.remove('hidden');
         return;
     }
-    
-    filterLoginUsers();
 }
 
 function attemptLogin() {
-    const login = document.getElementById('loginUserSelect').value;
+    const login = document.getElementById('loginInput').value.trim();
     const password = document.getElementById('loginPassword').value;
     const statusEl = document.getElementById('loginStatus');
     
-    if (!login) { statusEl.textContent = '❌ Selecciona tu nombre'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
-    if (!password) { statusEl.textContent = '❌ Introduce tu contraseña'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
+    if (!login) { 
+        statusEl.textContent = '❌ Introduce tu login'; 
+        statusEl.className = 'login-status error'; 
+        statusEl.classList.remove('hidden'); 
+        return; 
+    }
+    if (!password) { 
+        statusEl.textContent = '❌ Introduce tu contraseña'; 
+        statusEl.className = 'login-status error'; 
+        statusEl.classList.remove('hidden'); 
+        return; 
+    }
     
-    const user = allData.empleados.find(e => e.login === login);
-    if (!user) { statusEl.textContent = '❌ Usuario no encontrado'; statusEl.className = 'login-status error'; statusEl.classList.remove('hidden'); return; }
+    // Buscar usuario por login exacto (case insensitive)
+    const user = allData.empleados.find(e => e.login.toLowerCase() === login.toLowerCase());
     
-    const storedPassword = allData.userPasswords[login] || DEFAULT_PASSWORD;
+    if (!user) { 
+        statusEl.textContent = '❌ Login no encontrado'; 
+        statusEl.className = 'login-status error'; 
+        statusEl.classList.remove('hidden'); 
+        return; 
+    }
+    
+    const storedPassword = allData.userPasswords[user.login] || DEFAULT_PASSWORD;
     
     if (password === storedPassword) {
         currentUser = { login: user.login, name: user.name, role: user.role, crew: user.crew };
@@ -2158,9 +1859,7 @@ function showMainApp() {
         document.getElementById('managerBadge').classList.remove('hidden');
         document.getElementById('btnManagerPanel').classList.remove('hidden');
         document.getElementById('btnVerSolicitudes').classList.remove('hidden');
-        document.getElementById('filterCrewGroup').classList.remove('hidden');
-        document.getElementById('filterEmployeeGroup').classList.remove('hidden');
-        document.getElementById('filterSearchGroup').classList.remove('hidden');
+        document.getElementById('filtersPanel').classList.remove('hidden');
     }
     
     initializeFilters();
@@ -2176,52 +1875,59 @@ function logout() {
     
     document.getElementById('mainApp').classList.add('hidden');
     document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('loginInput').value = '';
     document.getElementById('loginPassword').value = '';
-    document.getElementById('loginSearchInput').value = '';
-    document.getElementById('loginUserSelect').value = '';
     document.getElementById('loginStatus').classList.add('hidden');
     document.getElementById('managerBadge').classList.add('hidden');
     document.getElementById('btnManagerPanel').classList.add('hidden');
     document.getElementById('btnVerSolicitudes').classList.add('hidden');
     document.getElementById('alertsContainer').classList.add('hidden');
-    document.getElementById('filterCrewGroup').classList.add('hidden');
-    document.getElementById('filterEmployeeGroup').classList.add('hidden');
-    document.getElementById('filterSearchGroup').classList.add('hidden');
+    document.getElementById('filtersPanel').classList.add('hidden');
     
     const vacSection = document.getElementById('vacacionesSection');
     if (vacSection) vacSection.remove();
     
-    filterLoginUsers();
     showNotification('👋 Sesión cerrada');
 }
 
 // =====================================================
-// FILTROS Y NAVEGACIÓN
+// FILTROS SIMPLIFICADOS
 // =====================================================
 function initializeFilters() {
     if (!allData.empleados.length) return;
-    const crews = [...new Set(allData.empleados.map(e => e.crew))].sort();
-    const crewSelect = document.getElementById('filterCrew');
-    crewSelect.innerHTML = '<option value="">Todos</option>';
-    crews.forEach(c => crewSelect.innerHTML += `<option value="${c}">${c}</option>`);
-    filterEmployees();
+    filterAndUpdateEmployeeList();
     document.getElementById('employeeCount').textContent = `📊 ${allData.empleados.length} empleados`;
 }
 
-function filterEmployees() {
+function filterAndUpdateEmployeeList() {
     if (!allData.empleados.length) return;
-    const crewFilter = document.getElementById('filterCrew').value;
-    const searchFilter = document.getElementById('searchInput').value.toLowerCase();
-    let filtered = allData.empleados;
-    if (crewFilter) filtered = filtered.filter(e => e.crew === crewFilter);
-    if (searchFilter) filtered = filtered.filter(e => e.name.toLowerCase().includes(searchFilter) || e.login.toLowerCase().includes(searchFilter));
+    
+    const searchTerm = document.getElementById('searchEmployee')?.value.toLowerCase().trim() || '';
     const empSelect = document.getElementById('filterEmployee');
+    const countDiv = document.getElementById('filterResultsCount');
+    
+    let filtered = [...allData.empleados];
+    
+    if (searchTerm) {
+        filtered = filtered.filter(e => 
+            e.name.toLowerCase().includes(searchTerm) || 
+            e.login.toLowerCase().includes(searchTerm) ||
+            e.crew.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+    
     empSelect.innerHTML = '<option value="">-- Vista General --</option>';
-    filtered.sort((a,b) => a.name.localeCompare(b.name));
     filtered.forEach(e => {
         const managerIcon = isManagerRole(e.role) ? ' 👑' : '';
-        empSelect.innerHTML += `<option value="${e.login}">${e.name}${managerIcon}</option>`;
+        const crewTag = e.crew ? ` (${e.crew})` : '';
+        empSelect.innerHTML += `<option value="${e.login}">${e.name}${crewTag}${managerIcon}</option>`;
     });
+    
+    if (countDiv) {
+        countDiv.textContent = searchTerm ? `${filtered.length} de ${allData.empleados.length}` : `${allData.empleados.length} empleados`;
+    }
 }
 
 function selectEmployee() {
@@ -2274,7 +1980,7 @@ function showMyCalendar() {
     selectedEmployee = allData.empleados.find(e => e.login === currentUser.login);
     if (!selectedEmployee) { showNotification('❌ No se encontró tu perfil', true); return; }
     
-    document.getElementById('filterEmployee').value = '';
+    if (document.getElementById('filterEmployee')) document.getElementById('filterEmployee').value = '';
     document.getElementById('btnMyCalendar').classList.add('active');
     document.getElementById('btnGeneral').classList.remove('active');
     document.getElementById('generalViewInfo').style.display = 'none';
@@ -2291,7 +1997,7 @@ function showMyCalendar() {
 
 function showGeneralView() {
     isGeneralView = true; isMyCalendarView = false; selectedEmployee = null;
-    document.getElementById('filterEmployee').value = '';
+    if (document.getElementById('filterEmployee')) document.getElementById('filterEmployee').value = '';
     document.getElementById('btnGeneral').classList.add('active');
     document.getElementById('btnMyCalendar').classList.remove('active');
     document.getElementById('generalViewInfo').style.display = 'block';
@@ -2971,27 +2677,54 @@ function renderChangelog(searchFilter = '') {
 }
 
 // =====================================================
-// SISTEMA DE SOLICITUDES
+// SISTEMA DE SOLICITUDES MEJORADO - MÚLTIPLES DÍAS
 // =====================================================
 function openSolicitarDiaModal() {
-    if (!editingDay || !currentUser) return;
+    if (!currentUser) return;
     
-    solicitandoDia = { ...editingDay };
-    
-    const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const date = new Date(2026, solicitandoDia.month - 1, solicitandoDia.day);
-    document.getElementById('solicitarDiaFecha').textContent = `📅 ${dayOfWeek[date.getDay()]} ${solicitandoDia.day} de ${monthNames[solicitandoDia.month - 1]} 2026`;
-    
-    const turnoActual = selectedEmployee ? (selectedEmployee.turnos[solicitandoDia.doy] || '').toUpperCase() : '';
-    document.getElementById('solicitarDiaTurnoActual').textContent = turnoActual ? `Turno actual: ${turnoActual}` : 'Sin turno asignado';
-    
+    // Resetear estado
     selectedTipoSolicitud = null;
+    diasMode = 'unico';
+    diasSueltosSeleccionados = [];
+    
     document.querySelectorAll('.solicitud-tipo-btn').forEach(btn => btn.classList.remove('selected'));
+    document.querySelectorAll('.dias-mode-btn').forEach(btn => btn.classList.remove('selected'));
+    document.querySelector('.dias-mode-btn').classList.add('selected');
+    
     document.getElementById('solicitarComentario').value = '';
     document.getElementById('solicitarManagerSelect').value = '';
+    document.getElementById('rangoFechaDesde').value = '';
+    document.getElementById('rangoFechaHasta').value = '';
+    document.getElementById('addDiaSueltoInput').value = '';
+    
+    // Mostrar sección de día único si viene de editingDay
+    if (editingDay) {
+        solicitandoDia = { ...editingDay };
+        const dayOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const date = new Date(2026, solicitandoDia.month - 1, solicitandoDia.day);
+        document.getElementById('diaUnicoFecha').textContent = `📅 ${dayOfWeek[date.getDay()]} ${solicitandoDia.day} de ${monthNames[solicitandoDia.month - 1]} 2026`;
+        
+        const turnoActual = selectedEmployee ? (selectedEmployee.turnos[solicitandoDia.doy] || '').toUpperCase() : '';
+        document.getElementById('diaUnicoTurno').textContent = turnoActual ? `Turno actual: ${turnoActual}` : 'Sin turno asignado';
+        
+        // Pre-seleccionar fecha en rango y sueltos
+        const dateStr = `2026-${String(solicitandoDia.month).padStart(2,'0')}-${String(solicitandoDia.day).padStart(2,'0')}`;
+        document.getElementById('rangoFechaDesde').value = dateStr;
+        document.getElementById('rangoFechaHasta').value = dateStr;
+    } else {
+        solicitandoDia = null;
+        document.getElementById('diaUnicoFecha').textContent = 'Selecciona un día desde el calendario';
+        document.getElementById('diaUnicoTurno').textContent = '';
+    }
+    
+    // Mostrar/ocultar secciones
+    document.getElementById('diaUnicoSection').classList.remove('hidden');
+    document.getElementById('rangoFechasSection').classList.add('hidden');
+    document.getElementById('diasSueltosSection').classList.add('hidden');
+    document.getElementById('diasPreview').classList.add('hidden');
+    document.getElementById('diasSueltosList').innerHTML = '<span style="color:#999; font-size:0.8rem;">Añade días usando el selector de abajo</span>';
     
     fillManagerSelect();
-    showSolicitarStaffingInfo(solicitandoDia.month, solicitandoDia.day);
     
     closeModal();
     document.getElementById('solicitarDiaModal').classList.add('active');
@@ -3001,6 +2734,185 @@ function closeSolicitarModal() {
     document.getElementById('solicitarDiaModal').classList.remove('active');
     solicitandoDia = null;
     selectedTipoSolicitud = null;
+    diasMode = 'unico';
+    diasSueltosSeleccionados = [];
+}
+
+function selectDiasMode(mode, btn) {
+    diasMode = mode;
+    document.querySelectorAll('.dias-mode-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    
+    document.getElementById('diaUnicoSection').classList.add('hidden');
+    document.getElementById('rangoFechasSection').classList.add('hidden');
+    document.getElementById('diasSueltosSection').classList.add('hidden');
+    document.getElementById('diasPreview').classList.add('hidden');
+    
+    if (mode === 'unico') {
+        document.getElementById('diaUnicoSection').classList.remove('hidden');
+    } else if (mode === 'rango') {
+        document.getElementById('rangoFechasSection').classList.remove('hidden');
+        updateDiasPreview();
+    } else if (mode === 'sueltos') {
+        document.getElementById('diasSueltosSection').classList.remove('hidden');
+        updateDiasPreview();
+    }
+}
+
+function addDiaSuelto() {
+    const input = document.getElementById('addDiaSueltoInput');
+    const dateStr = input.value;
+    
+    if (!dateStr) {
+        showNotification('❌ Selecciona una fecha', true);
+        return;
+    }
+    
+    const date = new Date(dateStr);
+    if (date.getFullYear() !== 2026) {
+        showNotification('❌ Solo fechas de 2026', true);
+        return;
+    }
+    
+    // Verificar si ya está añadido
+    if (diasSueltosSeleccionados.includes(dateStr)) {
+        showNotification('⚠️ Este día ya está añadido', true);
+        return;
+    }
+    
+    diasSueltosSeleccionados.push(dateStr);
+    diasSueltosSeleccionados.sort();
+    
+    input.value = '';
+    renderDiasSueltosList();
+    updateDiasPreview();
+}
+
+function removeDiaSuelto(dateStr) {
+    diasSueltosSeleccionados = diasSueltosSeleccionados.filter(d => d !== dateStr);
+    renderDiasSueltosList();
+    updateDiasPreview();
+}
+
+function renderDiasSueltosList() {
+    const container = document.getElementById('diasSueltosList');
+    
+    if (diasSueltosSeleccionados.length === 0) {
+        container.innerHTML = '<span style="color:#999; font-size:0.8rem;">Añade días usando el selector de abajo</span>';
+        return;
+    }
+    
+    container.innerHTML = diasSueltosSeleccionados.map(dateStr => {
+        const formatted = formatDateToString(dateStr);
+        return `<span class="dia-suelto-tag">${formatted}<button class="remove-dia" onclick="removeDiaSuelto('${dateStr}')">×</button></span>`;
+    }).join('');
+}
+
+function updateDiasPreview() {
+    const previewDiv = document.getElementById('diasPreview');
+    const countDiv = document.getElementById('diasCountPreview');
+    const listDiv = document.getElementById('diasListPreview');
+    
+    let dias = [];
+    
+    if (diasMode === 'rango') {
+        const desde = document.getElementById('rangoFechaDesde').value;
+        const hasta = document.getElementById('rangoFechaHasta').value;
+        
+        if (desde && hasta) {
+            const fechaDesde = new Date(desde);
+            const fechaHasta = new Date(hasta);
+            
+            if (fechaDesde <= fechaHasta) {
+                let current = new Date(fechaDesde);
+                while (current <= fechaHasta) {
+                    if (current.getFullYear() === 2026) {
+                        dias.push({
+                            month: current.getMonth() + 1,
+                            day: current.getDate(),
+                            doy: getDayOfYear(current.getMonth() + 1, current.getDate()),
+                            dateStr: `${current.getDate()} de ${monthNames[current.getMonth()]}`
+                        });
+                    }
+                    current.setDate(current.getDate() + 1);
+                }
+            }
+        }
+    } else if (diasMode === 'sueltos') {
+        dias = diasSueltosSeleccionados.map(dateStr => {
+            const { month, day } = dateToMonthDay(dateStr);
+            return {
+                month, day,
+                doy: getDayOfYear(month, day),
+                dateStr: `${day} de ${monthNames[month - 1]}`
+            };
+        });
+    }
+    
+    if (dias.length > 0) {
+        previewDiv.classList.remove('hidden');
+        countDiv.textContent = `${dias.length} día${dias.length > 1 ? 's' : ''}`;
+        
+        if (dias.length <= 10) {
+            listDiv.textContent = dias.map(d => d.dateStr).join(', ');
+        } else {
+            const primeros = dias.slice(0, 5).map(d => d.dateStr).join(', ');
+            const ultimos = dias.slice(-3).map(d => d.dateStr).join(', ');
+            listDiv.textContent = `${primeros} ... ${ultimos}`;
+        }
+    } else {
+        previewDiv.classList.add('hidden');
+    }
+}
+
+function getDiasSeleccionados() {
+    let dias = [];
+    
+    if (diasMode === 'unico') {
+        if (solicitandoDia) {
+            dias.push({
+                month: solicitandoDia.month,
+                day: solicitandoDia.day,
+                doy: solicitandoDia.doy,
+                dateStr: `${solicitandoDia.day} de ${monthNames[solicitandoDia.month - 1]}`
+            });
+        }
+    } else if (diasMode === 'rango') {
+        const desde = document.getElementById('rangoFechaDesde').value;
+        const hasta = document.getElementById('rangoFechaHasta').value;
+        
+        if (desde && hasta) {
+            const fechaDesde = new Date(desde);
+            const fechaHasta = new Date(hasta);
+            
+            if (fechaDesde <= fechaHasta) {
+                let current = new Date(fechaDesde);
+                while (current <= fechaHasta) {
+                    if (current.getFullYear() === 2026) {
+                        const month = current.getMonth() + 1;
+                        const day = current.getDate();
+                        dias.push({
+                            month, day,
+                            doy: getDayOfYear(month, day),
+                            dateStr: `${day} de ${monthNames[month - 1]}`
+                        });
+                    }
+                    current.setDate(current.getDate() + 1);
+                }
+            }
+        }
+    } else if (diasMode === 'sueltos') {
+        dias = diasSueltosSeleccionados.map(dateStr => {
+            const { month, day } = dateToMonthDay(dateStr);
+            return {
+                month, day,
+                doy: getDayOfYear(month, day),
+                dateStr: `${day} de ${monthNames[month - 1]}`
+            };
+        });
+    }
+    
+    return dias;
 }
 
 function fillManagerSelect() {
@@ -3017,68 +2929,56 @@ function selectTipoSolicitud(tipo, btn) {
     btn.classList.add('selected');
 }
 
-function showSolicitarStaffingInfo(month, day) {
-    const { staffing, alarms } = analyzeStaffingForDay(month, day);
-    
-    const miniGrid = document.getElementById('staffingMiniGrid');
-    miniGrid.innerHTML = `
-        <div class="staffing-mini-item morning">
-            <span class="mini-count">${staffing.morning.total}</span>
-            <span class="mini-detail">☀️ Mañana<br>${staffing.morning.srmeCount || 0} SRME · ${staffing.morning.rmetCount || 0} RMET</span>
-        </div>
-        <div class="staffing-mini-item afternoon">
-            <span class="mini-count">${staffing.afternoon.total}</span>
-            <span class="mini-detail">🌅 Tarde<br>${staffing.afternoon.srmeCount || 0} SRME · ${staffing.afternoon.rmetCount || 0} RMET</span>
-        </div>
-        <div class="staffing-mini-item night">
-            <span class="mini-count">${staffing.night.total}</span>
-            <span class="mini-detail">🌙 Noche<br>${staffing.night.srmeCount || 0} SRME · ${staffing.night.rmetCount || 0} RMET</span>
-        </div>
-    `;
-    
-    const warningBox = document.getElementById('solicitarStaffingWarning');
-    const warningContent = document.getElementById('staffingWarningContent');
-    let warnings = [];
-    
-    const userShift = selectedEmployee ? (selectedEmployee.turnos[getDayOfYear(month, day)] || '').toLowerCase() : '';
-    const userShiftType = getShiftInfo(userShift).type;
-    const userRole = classifyRole(currentUser.role);
-    
-    if (userRole === 'srme' && ['morning', 'afternoon', 'night'].includes(userShiftType)) {
-        const srmeCount = staffing[userShiftType].srmeCount || 0;
-        if (srmeCount <= MIN_SRME_PER_SHIFT) {
-            warnings.push(`⚠️ Solo hay <strong>${srmeCount} SRME</strong> en tu turno. Si te ausentas, quedarían menos del mínimo (${MIN_SRME_PER_SHIFT}).`);
-        }
-    }
-    
-    if (warnings.length > 0) {
-        warningContent.innerHTML = warnings.map(w => `<div class="warning-item">${w}</div>`).join('');
-        warningBox.style.display = 'block';
-    } else {
-        warningBox.style.display = 'none';
-    }
-}
-
 function verDetallesTurno() {
     if (!solicitandoDia) return;
     closeSolicitarModal();
     openDayOverviewModal(solicitandoDia.month, solicitandoDia.day);
 }
+
 function verDetallesTurnoRespuesta() {
     if (!respondiendoSolicitud) return;
     closeResponderModal();
-    openDayOverviewModal(respondiendoSolicitud.month, respondiendoSolicitud.day);
+    
+    // Si tiene múltiples días, abrir el primero
+    if (respondiendoSolicitud.dias && respondiendoSolicitud.dias.length > 0) {
+        const primerDia = respondiendoSolicitud.dias[0];
+        openDayOverviewModal(primerDia.month, primerDia.day);
+    } else {
+        openDayOverviewModal(respondiendoSolicitud.month, respondiendoSolicitud.day);
+    }
 }
 
 async function enviarSolicitud() {
-    if (!solicitandoDia || !currentUser) return;
+    if (!currentUser) return;
     
-    if (!selectedTipoSolicitud) { showNotification('❌ Selecciona el tipo de solicitud', true); return; }
+    if (!selectedTipoSolicitud) { 
+        showNotification('❌ Selecciona el tipo de solicitud', true); 
+        return; 
+    }
     
     const managerLogin = document.getElementById('solicitarManagerSelect').value;
-    if (!managerLogin) { showNotification('❌ Selecciona un manager', true); return; }
+    if (!managerLogin) { 
+        showNotification('❌ Selecciona un manager', true); 
+        return; 
+    }
+    
+    const dias = getDiasSeleccionados();
+    if (dias.length === 0) {
+        showNotification('❌ Selecciona al menos un día', true);
+        return;
+    }
     
     const comentario = document.getElementById('solicitarComentario').value.trim();
+    
+    // Crear texto descriptivo de los días
+    let diasDescripcion = '';
+    if (dias.length === 1) {
+        diasDescripcion = dias[0].dateStr;
+    } else if (diasMode === 'rango') {
+        diasDescripcion = `Del ${dias[0].dateStr} al ${dias[dias.length - 1].dateStr} (${dias.length} días)`;
+    } else {
+        diasDescripcion = `${dias.length} días: ${dias.slice(0, 3).map(d => d.dateStr).join(', ')}${dias.length > 3 ? '...' : ''}`;
+    }
     
     const solicitud = {
         id: Date.now().toString(),
@@ -3088,10 +2988,17 @@ async function enviarSolicitud() {
         empleadoRole: currentUser.role,
         empleadoCrew: currentUser.crew,
         managerLogin: managerLogin,
-        dayOfYear: solicitandoDia.doy,
-        dateStr: `${solicitandoDia.day} de ${monthNames[solicitandoDia.month - 1]}`,
-        month: solicitandoDia.month,
-        day: solicitandoDia.day,
+        // Datos de días múltiples
+        dias: dias,
+        diasCount: dias.length,
+        diasDescripcion: diasDescripcion,
+        diasMode: diasMode,
+        // Para compatibilidad con código existente (primer día)
+        dayOfYear: dias[0].doy,
+        dateStr: diasDescripcion,
+        month: dias[0].month,
+        day: dias[0].day,
+        // Resto de datos
         comentario: comentario,
         estado: 'pendiente',
         fechaCreacion: new Date().toISOString(),
@@ -3106,7 +3013,7 @@ async function enviarSolicitud() {
     
     if (await saveToCloud()) {
         closeSolicitarModal();
-        showNotification('✅ Solicitud enviada correctamente');
+        showNotification(`✅ Solicitud enviada (${dias.length} día${dias.length > 1 ? 's' : ''})`);
     }
 }
 
@@ -3167,6 +3074,19 @@ function renderSolicitudItem(s, isManagerView) {
     const tipoClass = s.tipo === 'vacaciones' ? 'vac' : s.tipo === 'ap' ? 'ap' : s.tipo === 'cambio' ? 'cambio' : 'otro';
     const fechaCreacion = new Date(s.fechaCreacion).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
     
+    // Mostrar cantidad de días si son múltiples
+    const diasBadge = s.diasCount && s.diasCount > 1 ? 
+        `<span style="background:#667eea; color:white; padding:2px 8px; border-radius:10px; font-size:0.7rem; margin-left:5px;">${s.diasCount} días</span>` : '';
+    
+    // Mostrar lista de días si hay múltiples
+    let diasListHtml = '';
+    if (s.dias && s.dias.length > 1) {
+        const diasTexto = s.dias.length <= 5 ? 
+            s.dias.map(d => d.dateStr).join(', ') :
+            `${s.dias.slice(0, 3).map(d => d.dateStr).join(', ')} ... y ${s.dias.length - 3} más`;
+        diasListHtml = `<div style="font-size:0.75rem; color:#666; margin-top:3px;">📅 ${diasTexto}</div>`;
+    }
+    
     let respuestaHtml = '';
     if (s.estado !== 'pendiente' && s.respuesta) {
         const fechaResp = s.fechaRespuesta ? new Date(s.fechaRespuesta).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '';
@@ -3185,10 +3105,12 @@ function renderSolicitudItem(s, isManagerView) {
             <div>
                 <span class="solicitud-from">${isManagerView ? s.empleadoName : 'Para: ' + getManagerName(s.managerLogin)}</span>
                 <span class="solicitud-tipo-badge ${tipoClass}">${tipoLabels[s.tipo]}</span>
+                ${diasBadge}
             </div>
             <div><span class="solicitud-status-badge ${s.estado}">${s.estado === 'pendiente' ? '⏳ Pendiente' : s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}</span></div>
         </div>
-        <div class="solicitud-dia">📅 ${s.dateStr}</div>
+        <div class="solicitud-dia">📅 ${s.diasDescripcion || s.dateStr}</div>
+        ${diasListHtml}
         <div class="solicitud-date">Enviada: ${fechaCreacion}</div>
         ${s.comentario ? `<div class="solicitud-comment-text">${s.comentario}</div>` : ''}
         ${respuestaHtml}
@@ -3209,18 +3131,32 @@ function openResponderSolicitudModal(solicitudId) {
     
     const tipoLabels = { vacaciones: '🏖️ Vacaciones', ap: '📋 Asunto Propio', cambio: '🔄 Cambio Turno', otro: '💬 Otro' };
     
+    // Mostrar lista de días si hay múltiples
+    let diasListHtml = '';
+    if (solicitud.dias && solicitud.dias.length > 1) {
+        const diasTexto = solicitud.dias.map(d => d.dateStr).join(', ');
+        diasListHtml = `<div style="margin-top:8px; padding:8px; background:#e3f2fd; border-radius:6px; font-size:0.8rem;">
+            <strong>📅 Días solicitados (${solicitud.dias.length}):</strong><br>${diasTexto}
+        </div>`;
+    }
+    
     const infoDiv = document.getElementById('responderSolicitudInfo');
     infoDiv.innerHTML = `
         <div class="solicitud-header">
             <span class="solicitud-from">${solicitud.empleadoName}</span>
             <span class="solicitud-tipo-badge">${tipoLabels[solicitud.tipo]}</span>
+            ${solicitud.diasCount > 1 ? `<span style="background:#667eea; color:white; padding:2px 8px; border-radius:10px; font-size:0.7rem; margin-left:5px;">${solicitud.diasCount} días</span>` : ''}
         </div>
-        <div class="solicitud-dia">📅 ${solicitud.dateStr}</div>
+        <div class="solicitud-dia">📅 ${solicitud.diasDescripcion || solicitud.dateStr}</div>
         <div style="font-size:0.8rem; color:#666;">Rol: ${solicitud.empleadoRole} · Crew: ${solicitud.empleadoCrew}</div>
+        ${diasListHtml}
         ${solicitud.comentario ? `<div class="solicitud-comment-text">${solicitud.comentario}</div>` : ''}
     `;
     
-    showResponderStaffingInfo(solicitud);
+    // Mostrar staffing del primer día (o único día)
+    const primerDia = solicitud.dias && solicitud.dias.length > 0 ? solicitud.dias[0] : { month: solicitud.month, day: solicitud.day };
+    showResponderStaffingInfo(solicitud, primerDia);
+    
     document.getElementById('respuestaComentario').value = '';
     
     closeVerSolicitudesModal();
@@ -3232,8 +3168,8 @@ function closeResponderModal() {
     respondiendoSolicitud = null;
 }
 
-function showResponderStaffingInfo(solicitud) {
-    const { staffing, alarms } = analyzeStaffingForDay(solicitud.month, solicitud.day);
+function showResponderStaffingInfo(solicitud, dia) {
+    const { staffing, alarms } = analyzeStaffingForDay(dia.month, dia.day);
     
     const miniGrid = document.getElementById('responderStaffingMiniGrid');
     miniGrid.innerHTML = `
@@ -3251,40 +3187,17 @@ function showResponderStaffingInfo(solicitud) {
         </div>
     `;
     
-    const warningBox = document.getElementById('responderStaffingWarning');
-    const warningContent = document.getElementById('responderWarningContent');
-    let warnings = [];
-    
-    const solicitanteRole = classifyRole(solicitud.empleadoRole);
-    const empleado = allData.empleados.find(e => e.login === solicitud.empleadoLogin);
-    const userShift = empleado ? (empleado.turnos[solicitud.dayOfYear] || '').toLowerCase() : '';
-    const userShiftType = getShiftInfo(userShift).type;
-    
-    if (solicitanteRole === 'srme' && ['morning', 'afternoon', 'night'].includes(userShiftType)) {
-        const srmeCount = staffing[userShiftType].srmeCount || 0;
-        if (srmeCount <= MIN_SRME_PER_SHIFT) {
-            warnings.push(`⚠️ <strong>${solicitud.empleadoName}</strong> es SRME. Si se aprueba, quedarían <strong>${srmeCount - 1} SRME</strong> en el turno (mínimo: ${MIN_SRME_PER_SHIFT}).`);
-        }
-    }
-    
-    if (solicitanteRole === 'rmet' && ['morning', 'afternoon', 'night'].includes(userShiftType)) {
-        const rmetCount = staffing[userShiftType].rmetCount || 0;
-        if (rmetCount <= MIN_RMET_PER_SHIFT) {
-            warnings.push(`⚠️ Si se aprueba, quedarían <strong>${rmetCount - 1} Técnicos</strong> en el turno (mínimo: ${MIN_RMET_PER_SHIFT}).`);
-        }
-    }
-    
-    if (warnings.length > 0) {
-        warningContent.innerHTML = warnings.map(w => `<div class="warning-item">${w}</div>`).join('');
-        warningBox.style.display = 'block';
+    // Aviso si son múltiples días
+    if (solicitud.dias && solicitud.dias.length > 1) {
+        document.getElementById('responderStaffingWarning').style.display = 'block';
+        document.getElementById('responderWarningContent').innerHTML = `
+            <div class="warning-item">ℹ️ Esta solicitud incluye <strong>${solicitud.dias.length} días</strong>. El staffing mostrado es del primer día (${dia.day} de ${monthNames[dia.month - 1]}).</div>
+        `;
     } else {
-        warningBox.style.display = 'none';
+        document.getElementById('responderStaffingWarning').style.display = 'none';
     }
 }
 
-// =====================================================
-// RESPONDER SOLICITUD - CON ACTUALIZACIÓN DE CALENDARIO
-// =====================================================
 async function responderSolicitud(estado) {
     if (!respondiendoSolicitud || !isManager) return;
     
@@ -3299,51 +3212,58 @@ async function responderSolicitud(estado) {
     allData.solicitudes[idx].respondidoPor = currentUser.login;
     allData.solicitudes[idx].respondidoPorName = currentUser.name;
     
-    // SI SE APRUEBA, ACTUALIZAR EL CALENDARIO Y VACACIONES
+    // Si se aprueba, aplicar cambios a TODOS los días
     if (estado === 'aprobada') {
         const solicitud = allData.solicitudes[idx];
         const empIdx = allData.empleados.findIndex(e => e.login === solicitud.empleadoLogin);
         
         if (empIdx !== -1) {
-            const oldShift = allData.empleados[empIdx].turnos[solicitud.dayOfYear] || '';
-            let newShift = '';
+            // Obtener los días a modificar
+            const diasAModificar = solicitud.dias && solicitud.dias.length > 0 ? 
+                solicitud.dias : 
+                [{ doy: solicitud.dayOfYear, month: solicitud.month, day: solicitud.day }];
             
-            // Determinar el nuevo turno según el tipo de solicitud
-            if (solicitud.tipo === 'vacaciones') {
-                newShift = 'v';
-                // Actualizar contador de vacaciones
-                if (allData.empleados[empIdx].vacRestantes2026 > 0) {
-                    allData.empleados[empIdx].vacRestantes2026 = (parseFloat(allData.empleados[empIdx].vacRestantes2026) || 0) - 1;
-                    allData.empleados[empIdx].vacConsumidas2026 = (parseFloat(allData.empleados[empIdx].vacConsumidas2026) || 0) + 1;
-                } else if (allData.empleados[empIdx].vacRestantesAnt > 0) {
-                    allData.empleados[empIdx].vacRestantesAnt = (parseFloat(allData.empleados[empIdx].vacRestantesAnt) || 0) - 1;
-                    allData.empleados[empIdx].vacConsumidasAnt = (parseFloat(allData.empleados[empIdx].vacConsumidasAnt) || 0) + 1;
+            let diasModificados = 0;
+            
+            for (const dia of diasAModificar) {
+                const oldShift = allData.empleados[empIdx].turnos[dia.doy] || '';
+                let newShift = '';
+                
+                if (solicitud.tipo === 'vacaciones') {
+                    newShift = 'v';
+                    // Descontar vacaciones
+                    if (allData.empleados[empIdx].vacRestantes2026 > 0) {
+                        allData.empleados[empIdx].vacRestantes2026 = (parseFloat(allData.empleados[empIdx].vacRestantes2026) || 0) - 1;
+                        allData.empleados[empIdx].vacConsumidas2026 = (parseFloat(allData.empleados[empIdx].vacConsumidas2026) || 0) + 1;
+                    } else if (allData.empleados[empIdx].vacRestantesAnt > 0) {
+                        allData.empleados[empIdx].vacRestantesAnt = (parseFloat(allData.empleados[empIdx].vacRestantesAnt) || 0) - 1;
+                        allData.empleados[empIdx].vacConsumidasAnt = (parseFloat(allData.empleados[empIdx].vacConsumidasAnt) || 0) + 1;
+                    }
+                } else if (solicitud.tipo === 'ap') {
+                    newShift = 'ap';
+                    allData.empleados[empIdx].apConsumidos = (parseFloat(allData.empleados[empIdx].apConsumidos) || 0) + 1;
                 }
-            } else if (solicitud.tipo === 'ap') {
-                newShift = 'ap';
-                // Actualizar contador de asuntos propios
-                allData.empleados[empIdx].apConsumidos = (parseFloat(allData.empleados[empIdx].apConsumidos) || 0) + 1;
+                
+                if (newShift) {
+                    if (!Array.isArray(allData.empleados[empIdx].turnos)) {
+                        allData.empleados[empIdx].turnos = turnosStringToArray(allData.empleados[empIdx].turnos);
+                    }
+                    allData.empleados[empIdx].turnos[dia.doy] = newShift;
+                    addChangelogEntry(
+                        solicitud.empleadoLogin, 
+                        solicitud.empleadoName, 
+                        dia.doy, 
+                        oldShift, 
+                        newShift, 
+                        `Aprobado por solicitud: ${solicitud.tipo} (${diasAModificar.length} días)`
+                    );
+                    diasModificados++;
+                }
             }
             
-            // Si hay un nuevo turno que asignar
-            if (newShift) {
-                // Asegurarse de que turnos es un array
-                if (!Array.isArray(allData.empleados[empIdx].turnos)) {
-                    allData.empleados[empIdx].turnos = turnosStringToArray(allData.empleados[empIdx].turnos);
-                }
-                
-                // Cambiar el turno
-                allData.empleados[empIdx].turnos[solicitud.dayOfYear] = newShift;
-                
-                // Registrar en el changelog
-                addChangelogEntry(
-                    solicitud.empleadoLogin,
-                    solicitud.empleadoName,
-                    solicitud.dayOfYear,
-                    oldShift,
-                    newShift,
-                    `Aprobado por solicitud: ${solicitud.tipo}`
-                );
+            // Actualizar respuesta con info de días modificados
+            if (diasModificados > 0) {
+                allData.solicitudes[idx].respuesta += ` (${diasModificados} día${diasModificados > 1 ? 's' : ''} aplicado${diasModificados > 1 ? 's' : ''})`;
             }
         }
     }
@@ -3355,7 +3275,7 @@ async function responderSolicitud(estado) {
         updateSolicitudesCounts();
         openVerSolicitudesModal();
         
-        // Actualizar vista si es necesario
+        // Actualizar calendario si el empleado seleccionado es el solicitante
         if (selectedEmployee && selectedEmployee.login === respondiendoSolicitud.empleadoLogin) {
             selectedEmployee = allData.empleados.find(e => e.login === selectedEmployee.login);
             generateCalendar();
@@ -3363,7 +3283,8 @@ async function responderSolicitud(estado) {
             updateVacacionesDisplay();
         }
         
-        showNotification(`✅ Solicitud ${estado === 'aprobada' ? 'aprobada' : 'rechazada'}`);
+        const diasCount = respondiendoSolicitud.dias ? respondiendoSolicitud.dias.length : 1;
+        showNotification(`✅ Solicitud ${estado === 'aprobada' ? 'aprobada' : 'rechazada'} (${diasCount} día${diasCount > 1 ? 's' : ''})`);
     }
 }
 
@@ -3418,12 +3339,13 @@ function showSolicitudesAlerts() {
         const alertBox = document.getElementById('solicitudesAlertBox');
         if (pendientes.length > 0) {
             alertBox.classList.remove('hidden');
-            document.getElementById('solicitudesAlertList').innerHTML = pendientes.slice(0, 3).map(s => `
-                <div class="solicitud-item pendiente" style="cursor:pointer;" onclick="openVerSolicitudesModal();">
-                    <div class="solicitud-from">${s.empleadoName}</div>
-                    <div class="solicitud-dia">📅 ${s.dateStr}</div>
-                </div>
-            `).join('') + (pendientes.length > 3 ? `<p style="text-align:center; color:#666; font-size:0.8rem;">... y ${pendientes.length - 3} más</p>` : '');
+            document.getElementById('solicitudesAlertList').innerHTML = pendientes.slice(0, 3).map(s => {
+                const diasInfo = s.diasCount > 1 ? ` (${s.diasCount} días)` : '';
+                return `<div class="solicitud-item pendiente" style="cursor:pointer;" onclick="openVerSolicitudesModal();">
+                    <div class="solicitud-from">${s.empleadoName}${diasInfo}</div>
+                    <div class="solicitud-dia">📅 ${s.diasDescripcion || s.dateStr}</div>
+                </div>`;
+            }).join('') + (pendientes.length > 3 ? `<p style="text-align:center; color:#666; font-size:0.8rem;">... y ${pendientes.length - 3} más</p>` : '');
             
             document.getElementById('btnVerSolicitudes').classList.remove('hidden');
             updateSolicitudesCounts();
@@ -3443,19 +3365,20 @@ function showSolicitudesAlerts() {
     const miAlertBox = document.getElementById('misSolicitudesAlertBox');
     if (misRespuestas.length > 0) {
         miAlertBox.classList.remove('hidden');
-        document.getElementById('misSolicitudesAlertList').innerHTML = misRespuestas.slice(0, 3).map(s => `
-            <div class="solicitud-item ${s.estado}" style="cursor:pointer;" onclick="openMisSolicitudesModal();">
-                <div class="solicitud-from">${s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}: ${s.dateStr}</div>
+        document.getElementById('misSolicitudesAlertList').innerHTML = misRespuestas.slice(0, 3).map(s => {
+            const diasInfo = s.diasCount > 1 ? ` (${s.diasCount} días)` : '';
+            return `<div class="solicitud-item ${s.estado}" style="cursor:pointer;" onclick="openMisSolicitudesModal();">
+                <div class="solicitud-from">${s.estado === 'aprobada' ? '✅ Aprobada' : '❌ Rechazada'}: ${s.diasDescripcion || s.dateStr}${diasInfo}</div>
                 <div style="font-size:0.8rem; color:#666;">Por: ${s.respondidoPorName || getManagerName(s.managerLogin)}</div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
     } else {
         miAlertBox.classList.add('hidden');
     }
 }
 
 // =====================================================
-// OT FILE - FUNCIONES
+// OT FILE
 // =====================================================
 function openOtFileModal(month, day) {
     const doy = getDayOfYear(month, day);
@@ -3828,7 +3751,7 @@ async function saveOtAssignments() {
 }
 
 // =====================================================
-// GESTIÓN DE VACACIONES
+// VACACIONES
 // =====================================================
 function renderVacacionesSection(employee, isEditable = false) {
     if (!employee) return '';
@@ -3945,99 +3868,6 @@ async function saveVacacionesEdit() {
     }
 }
 
-function openVacacionesGeneralModal() {
-    if (!isManager) return;
-    document.getElementById('vacGeneralSearch').value = '';
-    renderVacacionesGeneralTable();
-    document.getElementById('vacacionesGeneralModal').classList.add('active');
-}
-
-function closeVacacionesGeneralModal() { document.getElementById('vacacionesGeneralModal').classList.remove('active'); }
-
-function filterVacacionesGeneral() { renderVacacionesGeneralTable(); }
-
-function renderVacacionesGeneralTable() {
-    const searchTerm = document.getElementById('vacGeneralSearch').value.toLowerCase().trim();
-    const tbody = document.getElementById('vacGeneralBody');
-    
-    let empleados = [...allData.empleados];
-    if (searchTerm) {
-        empleados = empleados.filter(e => e.name.toLowerCase().includes(searchTerm) || e.login.toLowerCase().includes(searchTerm) || e.crew.toLowerCase().includes(searchTerm));
-    }
-    empleados.sort((a, b) => a.name.localeCompare(b.name));
-    
-    if (empleados.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:#999; padding:20px;">No se encontraron empleados</td></tr>';
-        return;
-    }
-    
-    tbody.innerHTML = empleados.map(emp => {
-        const restantesAnt = parseFloat(emp.vacRestantesAnt) || 0;
-        const restantes2026 = parseFloat(emp.vacRestantes2026) || 0;
-        const totalRestantes = restantesAnt + restantes2026;
-        const warningClass = totalRestantes <= 2 ? 'warning' : '';
-        
-        return `<tr>
-            <td class="emp-name">${emp.name}</td>
-            <td>${emp.crew}</td>
-            <td>${formatVacNumber(emp.vacPendientesAnt)}</td>
-            <td>${formatVacNumber(emp.vacRestantesAnt)}</td>
-            <td>${formatVacNumber(emp.vacConsumidasAnt)}</td>
-            <td>${formatVacNumber(emp.vacAsignadas2026)}</td>
-            <td class="${warningClass}">${formatVacNumber(emp.vacRestantes2026)}</td>
-            <td>${formatVacNumber(emp.vacConsumidas2026)}</td>
-            <td>${formatVacNumber(emp.apConsumidos)}</td>
-            <td><button class="btn btn-small btn-save" onclick="openVacacionesEditModal('${emp.login}'); closeVacacionesGeneralModal();">✏️</button></td>
-        </tr>`;
-    }).join('');
-}
-
-// =====================================================
-// PANEL MANAGER - FUNCIONES
-// =====================================================
-function openManagerModal() {
-    if (!isManager || !currentUser) { showNotification('❌ Solo managers', true); return; }
-    
-    document.getElementById('currentManagerName').textContent = currentUser.name;
-    document.getElementById('currentManagerLogin').textContent = currentUser.login;
-    document.getElementById('currentManagerRole').textContent = currentUser.role;
-    
-    document.getElementById('changelogSearch').value = '';
-    document.getElementById('passwordUserSearch').value = '';
-    const vacSearch = document.getElementById('vacPanelSearch');
-    if (vacSearch) vacSearch.value = '';
-    
-    renderChangelog();
-    filterPasswordUsers();
-    updatePasswordSummary();
-    
-    document.getElementById('passwordUserInfo').style.display = 'none';
-    selectedPasswordUser = null;
-    
-    // Resetear a primer panel
-    document.querySelectorAll('#managerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
-    document.querySelector('#managerModal .panel-nav-btn').classList.add('active');
-    document.getElementById('panel-changelog').classList.add('active');
-    
-    document.getElementById('managerModal').classList.add('active');
-}
-
-function closeManagerModal() { document.getElementById('managerModal').classList.remove('active'); }
-
-function switchPanel(panelName, btn) {
-    document.querySelectorAll('#managerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-' + panelName).classList.add('active');
-    
-    if (panelName === 'changelog') renderChangelog();
-    if (panelName === 'passwords') { filterPasswordUsers(); updatePasswordSummary(); }
-    if (panelName === 'vacaciones') renderVacacionesPanelTable();
-    if (panelName === 'herramientas') renderGeneralStats();
-}
-
-// Panel Vacaciones en Manager
 function filterVacacionesPanel() { renderVacacionesPanelTable(); }
 
 function renderVacacionesPanelTable() {
@@ -4080,7 +3910,50 @@ function openVacacionesEditFromPanel(login) {
     setTimeout(() => openVacacionesEditModal(login), 200);
 }
 
-// Estadísticas generales
+// =====================================================
+// PANEL MANAGER
+// =====================================================
+function openManagerModal() {
+    if (!isManager || !currentUser) { showNotification('❌ Solo managers', true); return; }
+    
+    document.getElementById('currentManagerName').textContent = currentUser.name;
+    document.getElementById('currentManagerLogin').textContent = currentUser.login;
+    document.getElementById('currentManagerRole').textContent = currentUser.role;
+    
+    document.getElementById('changelogSearch').value = '';
+    document.getElementById('passwordUserSearch').value = '';
+    const vacSearch = document.getElementById('vacPanelSearch');
+    if (vacSearch) vacSearch.value = '';
+    
+    renderChangelog();
+    filterPasswordUsers();
+    updatePasswordSummary();
+    
+    document.getElementById('passwordUserInfo').style.display = 'none';
+    selectedPasswordUser = null;
+    
+    document.querySelectorAll('#managerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
+    document.querySelector('#managerModal .panel-nav-btn').classList.add('active');
+    document.getElementById('panel-changelog').classList.add('active');
+    
+    document.getElementById('managerModal').classList.add('active');
+}
+
+function closeManagerModal() { document.getElementById('managerModal').classList.remove('active'); }
+
+function switchPanel(panelName, btn) {
+    document.querySelectorAll('#managerModal .panel-nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#managerModal .panel-content').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + panelName).classList.add('active');
+    
+    if (panelName === 'changelog') renderChangelog();
+    if (panelName === 'passwords') { filterPasswordUsers(); updatePasswordSummary(); }
+    if (panelName === 'vacaciones') renderVacacionesPanelTable();
+    if (panelName === 'herramientas') renderGeneralStats();
+}
+
 function renderGeneralStats() {
     const container = document.getElementById('generalStats');
     if (!container) return;
@@ -4268,8 +4141,7 @@ async function changeUserPassword() {
 // =====================================================
 function printCalendar() {
     if (!selectedEmployee) {
-        showNotification('❌ Selecciona primero un empleado', true);
-        closeManagerModal();
+        showNotification('❌ Primero ve a "Mi Calendario" o selecciona un empleado', true);
         return;
     }
     
@@ -4280,7 +4152,6 @@ function printCalendar() {
         });
     }
     
-    closeManagerModal();
     setTimeout(() => window.print(), 300);
 }
 
@@ -4368,68 +4239,12 @@ function addImportChangelogEntry(cambio) {
         managerRole: currentUser ? currentUser.role : 'IMPORT',
         employeeLogin: cambio.employeeLogin, employeeName: cambio.employeeName,
         dayOfYear: cambio.dayOfYear, dateStr: cambio.dateStr,
-                oldShift: cambio.oldShift || 'LIBRE', newShift: cambio.newShift || 'LIBRE',
+        oldShift: cambio.oldShift || 'LIBRE', newShift: cambio.newShift || 'LIBRE',
         comment: '📥 Cambio por importación masiva',
         isImportChange: true
     };
     allData.changelog.unshift(entry);
     if (allData.changelog.length > 500) allData.changelog = allData.changelog.slice(0, 500);
-}
-
-function generateImportChangeSummary(cambios) {
-    let html = '<div class="import-change-summary">';
-    html += '<div class="import-summary-header">';
-    html += `<div class="summary-stat"><span class="stat-number">${cambios.empleadosNuevos.length}</span><span class="stat-label">Nuevos</span></div>`;
-    html += `<div class="summary-stat"><span class="stat-number">${cambios.empleadosActualizados.length}</span><span class="stat-label">Actualizados</span></div>`;
-    html += `<div class="summary-stat"><span class="stat-number" style="color:#e74c3c;">${cambios.totalCambiosTurnos}</span><span class="stat-label">Turnos cambiados</span></div>`;
-    html += '</div>';
-    
-    if (cambios.empleadosNuevos.length > 0) {
-        html += '<div class="import-section"><h5>👤 Empleados nuevos:</h5><ul class="import-list">';
-        cambios.empleadosNuevos.slice(0, 10).forEach(emp => {
-            html += `<li><strong>${emp.name}</strong> (${emp.login}) - ${emp.crew}</li>`;
-        });
-        if (cambios.empleadosNuevos.length > 10) html += `<li>... y ${cambios.empleadosNuevos.length - 10} más</li>`;
-        html += '</ul></div>';
-    }
-    
-    if (cambios.turnosModificados.length > 0) {
-        html += '<div class="import-section"><h5>📅 Cambios de turnos detectados:</h5>';
-        const cambiosPorEmpleado = {};
-        cambios.turnosModificados.forEach(c => {
-            if (!cambiosPorEmpleado[c.employeeLogin]) cambiosPorEmpleado[c.employeeLogin] = { name: c.employeeName, cambios: [] };
-            cambiosPorEmpleado[c.employeeLogin].cambios.push(c);
-        });
-        
-        html += '<div class="import-changes-list">';
-        let count = 0;
-        for (const [login, data] of Object.entries(cambiosPorEmpleado)) {
-            if (count >= 5) {
-                const remaining = Object.keys(cambiosPorEmpleado).length - 5;
-                html += `<div class="import-change-item more">... y ${remaining} empleados más con cambios</div>`;
-                break;
-            }
-            html += `<div class="import-change-item"><div class="change-employee-name">👤 ${data.name} <span class="change-count">(${data.cambios.length} cambios)</span></div><div class="change-details">`;
-            data.cambios.slice(0, 3).forEach(c => {
-                html += `<div class="change-detail-row"><span class="change-date">${c.dateStr}</span><span class="change-shifts"><span class="old-shift">${c.oldShift.toUpperCase()}</span> → <span class="new-shift">${c.newShift.toUpperCase()}</span></span></div>`;
-            });
-            if (data.cambios.length > 3) html += `<div class="change-detail-row more">... y ${data.cambios.length - 3} cambios más</div>`;
-            html += '</div></div>';
-            count++;
-        }
-        html += '</div></div>';
-    }
-    html += '</div>';
-    return html;
-}
-
-function groupChangesByEmployee(cambios) {
-    const grouped = {};
-    cambios.forEach(c => {
-        if (!grouped[c.employeeLogin]) grouped[c.employeeLogin] = [];
-        grouped[c.employeeLogin].push(c);
-    });
-    return grouped;
 }
 
 async function processBulkImportWithChanges() {
@@ -4445,8 +4260,7 @@ async function processBulkImportWithChanges() {
     const cambiosDetectados = detectAndLogImportChanges(nuevosEmpleados);
     
     if (cambiosDetectados.totalCambiosTurnos > 0) {
-        const confirmar = await showImportConfirmation(cambiosDetectados, nuevosEmpleados.length);
-        if (!confirmar) {
+        if (!confirm(`Se detectaron ${cambiosDetectados.totalCambiosTurnos} cambios de turnos. ¿Continuar?`)) {
             allData.changelog = allData.changelog.filter(c => !c.isImportChange || new Date(c.timestamp) < new Date(Date.now() - 60000));
             showNotification('❌ Importación cancelada');
             return;
@@ -4457,7 +4271,6 @@ async function processBulkImportWithChanges() {
     nuevosEmpleados.forEach(nuevo => {
         const idx = allData.empleados.findIndex(e => e.login === nuevo.login);
         if (idx >= 0) { 
-            // Mantener vacaciones existentes si no vienen en importación
             if (!nuevo.vacPendientesAnt && allData.empleados[idx].vacPendientesAnt) nuevo.vacPendientesAnt = allData.empleados[idx].vacPendientesAnt;
             if (!nuevo.vacRestantesAnt && allData.empleados[idx].vacRestantesAnt) nuevo.vacRestantesAnt = allData.empleados[idx].vacRestantesAnt;
             if (!nuevo.vacConsumidasAnt && allData.empleados[idx].vacConsumidasAnt) nuevo.vacConsumidasAnt = allData.empleados[idx].vacConsumidasAnt;
@@ -4489,42 +4302,6 @@ async function processBulkImportWithChanges() {
     }
 }
 
-function showImportConfirmation(cambios, totalEmpleados) {
-    return new Promise((resolve) => {
-        const modalId = 'importConfirmModal';
-        let modal = document.getElementById(modalId);
-        
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = modalId;
-            modal.className = 'modal-overlay';
-            document.body.appendChild(modal);
-        }
-        
-        const empleadosAfectados = Object.keys(groupChangesByEmployee(cambios.turnosModificados)).length;
-        
-        modal.innerHTML = `
-            <div class="modal modal-large">
-                <h3>⚠️ Cambios Detectados en Importación</h3>
-                <div class="import-warning-box">
-                    <p>Se han detectado <strong>${cambios.totalCambiosTurnos} cambios de turnos</strong> en ${empleadosAfectados} empleados.</p>
-                    <p>Estos cambios quedarán registrados en el historial.</p>
-                </div>
-                ${generateImportChangeSummary(cambios)}
-                <div style="margin-top:20px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                    <button class="btn btn-save" id="confirmImportBtn">✅ Confirmar Importación</button>
-                    <button class="btn btn-danger" id="cancelImportBtn">❌ Cancelar</button>
-                </div>
-            </div>
-        `;
-        
-        modal.classList.add('active');
-        
-        document.getElementById('confirmImportBtn').onclick = () => { modal.classList.remove('active'); resolve(true); };
-        document.getElementById('cancelImportBtn').onclick = () => { modal.classList.remove('active'); resolve(false); };
-    });
-}
-
 function previewBulkImportWithChanges() {
     const data = document.getElementById('bulkImportData').value;
     if (!data.trim()) { showNotification('⚠️ No hay datos', true); return; }
@@ -4534,16 +4311,8 @@ function previewBulkImportWithChanges() {
     
     if (empleados.length === 0) { preview.innerHTML = '<p style="color:red;">❌ No se detectaron empleados</p>'; return; }
     
-    const cambiosTemp = detectImportChangesPreview(empleados);
     const managers = empleados.filter(e => isManagerRole(e.role));
     let html = `<p style="color:green;">✅ ${empleados.length} empleados (${managers.length} managers)</p>`;
-    
-    if (cambiosTemp.totalCambiosTurnos > 0) {
-        const empleadosAfectados = Object.keys(groupChangesByEmployee(cambiosTemp.turnosModificados)).length;
-        html += `<p style="color:#e74c3c; font-weight:bold;">⚠️ Se detectaron ${cambiosTemp.totalCambiosTurnos} cambios de turnos en ${empleadosAfectados} empleados</p>`;
-    }
-    
-    if (cambiosTemp.empleadosNuevos.length > 0) html += `<p style="color:#3498db;">👤 ${cambiosTemp.empleadosNuevos.length} empleados nuevos</p>`;
     
     const conVacaciones = empleados.filter(e => e.vacAsignadas2026 > 0 || e.vacPendientesAnt > 0);
     if (conVacaciones.length > 0) html += `<p style="color:#00b894;">🏖️ ${conVacaciones.length} empleados con datos de vacaciones</p>`;
@@ -4552,42 +4321,12 @@ function previewBulkImportWithChanges() {
     empleados.slice(0, 10).forEach(e => {
         const isM = isManagerRole(e.role) ? ' 👑' : '';
         const turnosCount = e.turnos.filter(t => t).length;
-        const vacInfo = e.vacAsignadas2026 > 0 ? ` | Vac: ${e.vacAsignadas2026}` : '';
-        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos${vacInfo}</li>`;
+        html += `<li><strong>${e.name}</strong> (${e.role})${isM} - ${turnosCount} turnos</li>`;
     });
     if (empleados.length > 10) html += `<li>... y ${empleados.length - 10} más</li>`;
     html += '</ul>';
     
     preview.innerHTML = html;
-}
-
-function detectImportChangesPreview(nuevosEmpleados) {
-    const cambios = { turnosModificados: [], empleadosNuevos: [], totalCambiosTurnos: 0 };
-    
-    nuevosEmpleados.forEach(nuevoEmp => {
-        const empActual = allData.empleados.find(e => e.login === nuevoEmp.login);
-        if (!empActual) {
-            cambios.empleadosNuevos.push(nuevoEmp);
-        } else {
-            const turnosActuales = Array.isArray(empActual.turnos) ? empActual.turnos : turnosStringToArray(empActual.turnos);
-            const turnosNuevos = Array.isArray(nuevoEmp.turnos) ? nuevoEmp.turnos : turnosStringToArray(nuevoEmp.turnos);
-            
-            for (let doy = 0; doy < 365; doy++) {
-                const turnoAnterior = (turnosActuales[doy] || '').toLowerCase().trim();
-                const turnoNuevo = (turnosNuevos[doy] || '').toLowerCase().trim();
-                
-                if (turnoAnterior !== turnoNuevo) {
-                    cambios.totalCambiosTurnos++;
-                    cambios.turnosModificados.push({
-                        employeeLogin: nuevoEmp.login, employeeName: nuevoEmp.name,
-                        dayOfYear: doy, oldShift: turnoAnterior || 'LIBRE', newShift: turnoNuevo || 'LIBRE'
-                    });
-                }
-            }
-        }
-    });
-    
-    return cambios;
 }
 
 // =====================================================
