@@ -2639,7 +2639,10 @@ function renderChangelog(searchFilter = '') {
     
     let filtered = allData.changelog;
     if (searchFilter) {
-        filtered = filtered.filter(c => c.employeeName.toLowerCase().includes(searchFilter) || c.managerName.toLowerCase().includes(searchFilter));
+        filtered = filtered.filter(c => 
+            (c.employeeName && c.employeeName.toLowerCase().includes(searchFilter)) || 
+            (c.managerName && c.managerName.toLowerCase().includes(searchFilter))
+        );
     }
     
     if (filtered.length === 0) {
@@ -2648,8 +2651,15 @@ function renderChangelog(searchFilter = '') {
     }
     
     container.innerHTML = filtered.slice(0, 50).map(c => {
+        // Protección contra valores undefined
+        const oldShift = c.oldShift || 'LIBRE';
+        const newShift = c.newShift || 'LIBRE';
+        const employeeName = c.employeeName || 'Desconocido';
+        const managerName = c.managerName || 'Sistema';
+        const dateStr = c.dateStr || 'Fecha desconocida';
+        
         const date = new Date(c.timestamp);
-        const dateStr = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        const dateFormatted = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
         const commentHtml = c.comment ? `<div class="change-comment">${c.comment}</div>` : '';
         
         let icon = '📅';
@@ -2661,13 +2671,13 @@ function renderChangelog(searchFilter = '') {
         
         return `<div class="changelog-item" style="border-left-color:${borderColor};">
             <div class="change-header">
-                <span class="change-manager">👤 ${c.managerName}${extraBadge}</span>
-                <span class="change-date">${dateStr}</span>
+                <span class="change-manager">👤 ${managerName}${extraBadge}</span>
+                <span class="change-date">${dateFormatted}</span>
             </div>
             <div class="change-detail">
-                <strong>${icon} ${c.employeeName}</strong> - ${c.dateStr}<br>
-                <span class="change-shift shift-old">${c.oldShift.toUpperCase()}</span> → 
-                <span class="change-shift shift-new">${c.newShift.toUpperCase()}</span>
+                <strong>${icon} ${employeeName}</strong> - ${dateStr}<br>
+                <span class="change-shift shift-old">${oldShift.toUpperCase()}</span> → 
+                <span class="change-shift shift-new">${newShift.toUpperCase()}</span>
             </div>
             ${commentHtml}
         </div>`;
@@ -4345,4 +4355,5 @@ initializeLogin();
 </script>
 </body>
 </html>
+
 
