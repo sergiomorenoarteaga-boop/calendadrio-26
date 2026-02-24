@@ -2161,11 +2161,13 @@ function buildAttendance() {
         else if (mc === 'central') mondayC.push(entry);
     });
 
-    // ── Step 4: Night workers — all who work night at least 1 day ──
+      // ── Step 4: Night workers — EXCLUDING those already covered on Monday ──
     const nightWorkerLogins = new Set();
     activeList.forEach(wd => {
+        if (mondayLogins.has(wd.emp.login)) return; // Ya cubierto el lunes
         if (wd.days.some(d => d.cat === 'noche')) nightWorkerLogins.add(wd.emp.login);
     });
+
 
     // Build night availability per day Tue-Sun (indices 1-6)
     const nightDayData = [];
@@ -2188,13 +2190,18 @@ function buildAttendance() {
 
     const nightResult = attFindOptimalSessions([...nightWorkerLogins], nightDayData, 3);
 
-    // ── Step 5: Remaining day workers (not Monday, not OOTO) ──
+        // ── Step 5: Remaining day workers (not Monday, not night-covered, not OOTO) ──
+    const nightCoveredLogins = new Set();
+    nightResult.sessions.forEach(s => s.allEmployees.forEach(e => nightCoveredLogins.add(e.login)));
+    
     const remainingDayLogins = new Set();
     activeList.forEach(wd => {
-        if (mondayLogins.has(wd.emp.login)) return;
+        if (mondayLogins.has(wd.emp.login)) return;       // Ya cubierto lunes
+        if (nightCoveredLogins.has(wd.emp.login)) return;  // Ya cubierto en sesión noche
         const hasDay = wd.days.some((d, di) => di > 0 && d.cat && d.cat !== 'noche');
         if (hasDay) remainingDayLogins.add(wd.emp.login);
     });
+
 
     const dayDayData = [];
     for (let di = 1; di <= 6; di++) {
@@ -2453,4 +2460,5 @@ initializeLogin();
 </script>
 </body>
 </html>
+
 
