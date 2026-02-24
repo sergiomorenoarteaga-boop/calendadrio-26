@@ -73,6 +73,7 @@ body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, 
 .calendar-table td { text-align: center; padding: 2px 1px; border-radius: 6px; font-size: 0.65rem; height: 42px; vertical-align: middle; position: relative; cursor: pointer; transition: transform 0.2s; overflow: hidden; }
 .calendar-table td:not(.empty):hover { transform: scale(1.15); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
 .day-num { font-weight: 700; display: block; font-size: 0.75rem; line-height: 1.1; }
+.shift-c, .shift-cw { background: linear-gradient(135deg, #e0e0e0, #bdbdbd) !important; color: #444 !important; border-left: 3px solid #757575; }
 .shift-code { font-size: 0.55rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase; }
 .shift-hours { font-size: 0.4rem; display: block; opacity: 0.8; line-height: 1; }
 .shift-wm { background: linear-gradient(135deg, var(--verde), #7cb342) !important; color: #1a5c1a !important; border-left: 3px solid #2e7d32; }
@@ -901,6 +902,8 @@ const SHIFT_SCHEDULES = {
     'wn': {hours:'22:00 - 06:30',desc:'Noche Larga', type:'night'},
     'c': {hours:'09:00 - 18:00',desc:'Central', type:'central'},
     'cw': {hours:'09:00 - 18:00',desc:'Central', type:'central'},
+    'wc': {hours:'09:00 - 18:00',desc:'Central Larga', type:'central'},
+    'c8': {hours:'09:00 - 17:00',desc:'Central 8h', type:'central'},
     'v': {hours:'-',desc:'Vacaciones', type:'vacation'},
     'v25': {hours:'-',desc:'Vacaciones 2025',type:'vacation'},
     'v26': {hours:'-',desc:'Vacaciones 2026',type:'vacation'},
@@ -933,6 +936,20 @@ let currentOtDay = null;
 let newOtDays = [];
 let selectedPasswordUser = null;
 let editingVacacionesEmployee = null;
+
+    
+    function isCentralShift(shift) {
+    if (!shift) return false;
+    const s = shift.toLowerCase().trim();
+    // Cualquier combinación: c, cw, wc, c8, c10, etc.
+    // Excluye los que no son central (como 'co' suelto si existiera)
+    if (s === 'c' || s === 'cw' || s === 'wc' || s === 'c8') return true;
+    // Genérico: empieza por 'c' seguido de número = central
+    if (/^c\d/.test(s)) return true;
+    // Empieza por 'wc' = central larga
+    if (s.startsWith('wc')) return true;
+    return false;
+}
 
 // =====================================================
 // UTILIDAD
@@ -1273,7 +1290,7 @@ function analyzeStaffingForDay(month,day){
         if(['wm','m8','m','m-co'].includes(shift))st='morning';
         else if(['wt','t8','t','t-co'].includes(shift))st='afternoon';
         else if(['n8','n','nn','wn','n-co'].includes(shift))st='night';
-        else if(['c','cw'].includes(shift))st='central';
+        else if(isCentralShift(shift))st='central';
         else if(['v','v25','v26'].includes(shift))at='vac';
         else if(shift.startsWith('ap'))at='ap';
         else if(shift==='tr')at='tr';
@@ -1441,7 +1458,7 @@ function getShiftClass(shift){
     if(s==='wm')return'shift-wm';if(s==='m8')return'shift-m8';if(s==='m')return'shift-m';if(s==='m-co')return'shift-m-co';
     if(s==='wt')return'shift-wt';if(s==='t8')return'shift-t8';if(s==='t')return'shift-t';if(s==='t-co')return'shift-t-co';
     if(s==='n8')return'shift-n8';if(s==='n'||s==='wn')return'shift-n';if(s==='nn')return'shift-nn';if(s==='n-co')return'shift-n-co';
-    if(s==='c'||s==='cw')return'shift-c';if(s==='v'||s==='v25'||s==='v26')return'shift-v';
+    if(isCentralShift(s))return'shift-c';if(s==='v'||s==='v25'||s==='v26')return'shift-v';
     if(s.startsWith('ap'))return'shift-ap';if(s==='tr')return'shift-tr';if(s==='bm'||s==='bp')return'shift-bm';
     return'libre';
 }
@@ -1456,7 +1473,7 @@ function generateStats(){
         if(shift==='wm')st.wm++;else if(shift==='m8'||shift==='m'||shift==='m-co')st.m8++;
         else if(shift==='wt')st.wt++;else if(shift==='t8'||shift==='t'||shift==='t-co')st.t8++;
         else if(shift==='n8')st.n8++;else if(shift==='n'||shift==='wn'||shift==='nn'||shift==='n-co')st.n++;
-        else if(shift==='c'||shift==='cw')st.central++;else if(shift==='v'||shift==='v25'||shift==='v26')st.vacaciones++;
+        else if(isCentralShift(shift))st.central++;else if(shift==='v'||shift==='v25'||shift==='v26')st.vacaciones++;
         else if(shift.startsWith('ap'))st.ap++;
     }
     const total=st.wm+st.m8+st.wt+st.t8+st.n8+st.n+st.central+st.ot;
@@ -1507,7 +1524,7 @@ function getShiftColor(shift){
     if(['n','wn'].includes(s))return'linear-gradient(135deg,#303f9f,var(--azul))';
     if(s==='nn')return'linear-gradient(135deg,#5c6bc0,#3949ab)';
     if(s==='n-co')return'linear-gradient(135deg,#7986cb,#5c6bc0)';
-    if(['c','cw'].includes(s))return'linear-gradient(135deg,#e0e0e0,#bdbdbd)';
+    if(isCentralShift(s))return'linear-gradient(135deg,#e0e0e0,#bdbdbd)';
     if(['v','v25','v26'].includes(s))return'linear-gradient(135deg,#ef5350,#e53935)';
     if(s.startsWith('ap'))return'linear-gradient(135deg,var(--verde-fuerte),#00c853)';
     if(s==='tr')return'linear-gradient(135deg,#ff9800,#f57c00)';
@@ -1519,7 +1536,7 @@ function getShiftTextColor(shift){
     if(['wm','m8','m','m-co'].includes(s))return'#1a5c1a';
     if(['wt','t8','t','t-co'].includes(s))return'#5a4000';
     if(['n8','n','nn','wn','n-co'].includes(s))return'white';
-    if(['c','cw'].includes(s))return'#444';
+    if(isCentralShift(s))return'#444';
     if(['v','v25','v26'].includes(s)||s.startsWith('ap')||s==='tr')return'white';
     return'#999';
 }
@@ -2006,7 +2023,8 @@ function attShiftCat(shift) {
     if (s==='wm'||s==='m8'||s==='m'||s==='m-co') return 'manana';
     if (s==='wt'||s==='t8'||s==='t'||s==='t-co') return 'tarde';
     if (s==='n8'||s==='n'||s==='nn'||s==='n-co'||s==='wn') return 'noche';
-    if (s==='c'||s==='cw') return 'central';
+    if (isCentralShift(s)) return 'central';
+
     return null;
 }
 function attGetShift(emp, doy) {
@@ -2460,5 +2478,6 @@ initializeLogin();
 </script>
 </body>
 </html>
+
 
 
