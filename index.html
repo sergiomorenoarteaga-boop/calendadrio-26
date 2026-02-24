@@ -2286,19 +2286,20 @@ function buildAttendance() {
                 <span style="opacity:0.9;">Mañana + Tarde + Central (${mondayLogins.size} pers.)</span>
             </div>`;
 
-    nightResult.sessions.forEach((s, i) => {
+       nightResult.sessions.forEach((s, i) => {
         html += `<div style="background:rgba(0,32,96,0.5);padding:8px 14px;border-radius:8px;font-size:0.8rem;">
             <strong>${String.fromCharCode(0x2461 + i)} ${s.dayName} ${attFmt2(s.date)} 🌙</strong><br>
-            <span style="opacity:0.9;">Noche (${s.allEmployees.length} pers.)</span>
+            <span style="opacity:0.9;">Noche (${s.newEmployees.length} pers.)</span>
         </div>`;
     });
 
     dayResult.sessions.forEach((s, i) => {
         html += `<div style="background:rgba(255,152,0,0.4);padding:8px 14px;border-radius:8px;font-size:0.8rem;">
             <strong>${String.fromCharCode(0x2461 + nightResult.sessions.length + i)} ${s.dayName} ${attFmt2(s.date)} ☀️</strong><br>
-            <span style="opacity:0.9;">Incorporaciones (${s.allEmployees.length} pers.)</span>
+            <span style="opacity:0.9;">Incorporaciones (${s.newEmployees.length} pers.)</span>
         </div>`;
     });
+
 
     html += `</div></div>`;
 
@@ -2328,23 +2329,21 @@ function buildAttendance() {
     // ──────────────────────────────────────────────
     // SESIONES NOCHE
     // ──────────────────────────────────────────────
-    nightResult.sessions.forEach((sess, idx) => {
+        nightResult.sessions.forEach((sess, idx) => {
         const sesNum = idx + 2;
         const isMultiple = nightResult.sessions.length > 1;
         const suffix = isMultiple ? ` (${idx+1}ª sesión noche)` : '';
 
         html += `<div class="att-info-box" style="background:#e8eaf6;color:#1a237e;border-color:#3949ab;margin-top:18px;">
             🌙 <strong>SESIÓN ${sesNum} — ${sess.dayName} ${attFmt(sess.date)} Noche${suffix}</strong> —
-            ${sess.allEmployees.length} persona${sess.allEmployees.length!==1?'s':''}
-            ${isMultiple ? `<br><span style="font-size:0.75rem;opacity:0.8;">✨ Nuevos en esta sesión: ${sess.newEmployees.length} · Ya cubiertos en sesión anterior: ${sess.allEmployees.length - sess.newEmployees.length}</span>` : ''}
+            ${sess.newEmployees.length} persona${sess.newEmployees.length!==1?'s':''}
         </div>`;
 
-        const hlLogins = isMultiple ? sess.newLogins : null;
-
         html += attRenderSection('att-head-noche', '🌙', `Turno Noche${suffix}`,
-            `${sess.dayName} ${attFmt2(sess.date)} · ${sess.allEmployees.length} persona${sess.allEmployees.length!==1?'s':''}`,
-            sess.allEmployees, { highlightLogins: hlLogins });
+            `${sess.dayName} ${attFmt2(sess.date)} · ${sess.newEmployees.length} persona${sess.newEmployees.length!==1?'s':''}`,
+            sess.newEmployees, {});
     });
+
 
     if (nightResult.uncovered.length > 0) {
         const uncNames = nightResult.uncovered.map(login => {
@@ -2359,7 +2358,7 @@ function buildAttendance() {
     // ──────────────────────────────────────────────
     // SESIONES INCORPORACIONES (día)
     // ──────────────────────────────────────────────
-    if (dayResult.sessions.length > 0) {
+        if (dayResult.sessions.length > 0) {
         dayResult.sessions.forEach((sess, idx) => {
             const sesNum = 2 + nightResult.sessions.length + idx;
             const isMultiple = dayResult.sessions.length > 1;
@@ -2368,26 +2367,24 @@ function buildAttendance() {
             html += `<div class="att-info-box att-info-otros" style="margin-top:18px;">
                 📅 <strong>SESIÓN ${sesNum} — ${sess.dayName} ${attFmt(sess.date)} Incorporaciones${suffix}</strong> —
                 Personal que no estuvo el lunes.
-                ${sess.allEmployees.length} persona${sess.allEmployees.length!==1?'s':''}
-                ${isMultiple ? `<br><span style="font-size:0.75rem;opacity:0.8;">✨ Nuevos: ${sess.newEmployees.length} · Ya cubiertos: ${sess.allEmployees.length - sess.newEmployees.length}</span>` : ''}
+                ${sess.newEmployees.length} persona${sess.newEmployees.length!==1?'s':''}
             </div>`;
 
-            const hlLogins = isMultiple ? sess.newLogins : null;
-
-            const mList = sess.allEmployees.filter(e => ['WM','M8','M','M-CO'].includes(e.shift));
-            const tList = sess.allEmployees.filter(e => ['WT','T8','T','T-CO'].includes(e.shift));
-            const cList = sess.allEmployees.filter(e => ['C','CW'].includes(e.shift));
+            const mList = sess.newEmployees.filter(e => ['WM','M8','M','M-CO'].includes(e.shift));
+            const tList = sess.newEmployees.filter(e => ['WT','T8','T','T-CO'].includes(e.shift));
+            const cList = sess.newEmployees.filter(e => isCentralShift(e.shift));
 
             if (mList.length > 0)
                 html += attRenderSection('att-head-manana', '🟢', `Mañana${suffix}`,
-                    `${sess.dayName} ${attFmt2(sess.date)} · ${mList.length}`, mList, { highlightLogins: hlLogins });
+                    `${sess.dayName} ${attFmt2(sess.date)} · ${mList.length}`, mList, {});
             if (tList.length > 0)
                 html += attRenderSection('att-head-tarde', '🟡', `Tarde${suffix}`,
-                    `${sess.dayName} ${attFmt2(sess.date)} · ${tList.length}`, tList, { highlightLogins: hlLogins });
+                    `${sess.dayName} ${attFmt2(sess.date)} · ${tList.length}`, tList, {});
             if (cList.length > 0)
                 html += attRenderSection('att-head-central', '⬜', `Central${suffix}`,
-                    `${sess.dayName} ${attFmt2(sess.date)} · ${cList.length}`, cList, { highlightLogins: hlLogins });
+                    `${sess.dayName} ${attFmt2(sess.date)} · ${cList.length}`, cList, {});
         });
+
 
         if (dayResult.uncovered.length > 0) {
             const uncNames = dayResult.uncovered.map(login => {
@@ -2478,6 +2475,7 @@ initializeLogin();
 </script>
 </body>
 </html>
+
 
 
 
