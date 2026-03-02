@@ -433,6 +433,246 @@ body.att-printing .att-section { page-break-inside: avoid; }
     .att-topbar { flex-direction: column; }
     .att-week-select { min-width: 100%; }
 }
+    /* SAFETY BRIEFING HEADER */
+.att-briefing-header {
+    background: white;
+    border: 2px solid #1a1a2e;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    page-break-inside: avoid;
+}
+.att-briefing-title {
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: white;
+    padding: 12px 18px;
+    text-align: center;
+}
+.att-briefing-title h3 {
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+    color: white;
+}
+.att-briefing-title p {
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+.att-briefing-fields {
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.att-briefing-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.att-briefing-field label {
+    font-size: 0.7rem;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.att-briefing-field input,
+.att-briefing-field textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+.att-briefing-field textarea {
+    resize: vertical;
+    min-height: 50px;
+}
+.att-briefing-field .att-field-line {
+    border: none;
+    border-bottom: 1px solid #333;
+    padding: 6px 2px;
+    min-height: 28px;
+    font-size: 0.85rem;
+}
+.att-briefing-grid3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+.att-session-trainer {
+    background: #f0f4ff;
+    border: 1px solid #c5cae9;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    page-break-inside: avoid;
+}
+.att-session-trainer label {
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: 600;
+}
+.att-session-trainer .trainer-field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.att-session-trainer .trainer-field input {
+    padding: 5px 8px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    width: 140px;
+}
+.att-session-trainer .trainer-firma {
+    border: 1px solid #999;
+    border-radius: 4px;
+    width: 130px;
+    height: 30px;
+    background: white;
+}
+
+/* Personal OOTO Report */
+.ooto-report-header {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.ooto-report-header h4 { margin-bottom: 5px; }
+.ooto-report-header p { font-size: 0.85rem; opacity: 0.9; }
+.ooto-week-item {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    page-break-inside: avoid;
+}
+.ooto-week-item .week-info {
+    flex: 1;
+}
+.ooto-week-item .week-num {
+    font-weight: 700;
+    color: #e67e22;
+    font-size: 0.9rem;
+}
+.ooto-week-item .week-dates {
+    font-size: 0.8rem;
+    color: #666;
+}
+.ooto-week-item .week-reason {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.ooto-week-item .ooto-firma {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+.ooto-week-item .ooto-firma-box {
+    border: 1px solid #999;
+    border-radius: 4px;
+    width: 130px;
+    height: 32px;
+}
+.ooto-week-item .ooto-firma label {
+    font-size: 0.6rem;
+    color: #888;
+}
+.ooto-summary-box {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border: 2px solid #ff9800;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.ooto-summary-stat {
+    text-align: center;
+}
+.ooto-summary-stat .stat-val {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #e65100;
+}
+.ooto-summary-stat .stat-lbl {
+    font-size: 0.7rem;
+    color: #666;
+}
+.ooto-final-signature {
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    page-break-inside: avoid;
+}
+.ooto-final-signature .sig-block {
+    text-align: center;
+}
+.ooto-final-signature .sig-block label {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.ooto-final-signature .sig-line {
+    border-bottom: 1px solid #333;
+    height: 40px;
+    margin: 0 20px;
+}
+.ooto-final-signature .sig-name {
+    font-size: 0.7rem;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* Print personal OOTO */
+body.ooto-printing * { visibility: hidden; }
+body.ooto-printing #personalOotoModal,
+body.ooto-printing #personalOotoModal * { visibility: visible; }
+body.ooto-printing #personalOotoModal {
+    position: absolute !important;
+    top: 0; left: 0;
+    width: 100%;
+    background: white !important;
+    overflow: visible !important;
+}
+body.ooto-printing #personalOotoModal .modal-overlay {
+    background: white !important;
+}
+body.ooto-printing #personalOotoModal .modal {
+    max-width: 100% !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+body.ooto-printing #personalOotoModal .btn,
+body.ooto-printing #personalOotoModal .modal-close,
+body.ooto-printing #personalOotoModal select,
+body.ooto-printing #personalOotoModal input[type="text"] {
+    display: none !important;
+}
+
 @media print {
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
     @page { size: A4 portrait; margin: 8mm; }
@@ -848,29 +1088,52 @@ body.att-printing .att-section { page-break-inside: avoid; }
     </div>
 </div>
 
-<!-- ATTENDANCE SHEET v2 -->
+<!-- ATTENDANCE / SAFETY BRIEFING SHEET v3 -->
 <div class="att-overlay" id="attOverlay">
     <div class="att-container">
         <div class="att-topbar">
             <div class="att-topbar-left">
-                <h2>📋 Attendance Sheet — Formación Semanal 2026</h2>
+                <h2>📋 Safety Briefing Semanal 2026</h2>
                 <p id="attWeekLabel">Selecciona una semana para generar el documento</p>
             </div>
             <div class="att-topbar-right">
                 <select class="att-week-select" id="attWeekSel" onchange="buildAttendance()">
                     <option value="">— Selecciona semana —</option>
                 </select>
+                <button class="att-btn" style="background:linear-gradient(145deg,#e67e22,#d35400);" onclick="openPersonalOotoModal()">📄 OOTO Personal</button>
                 <button class="att-btn att-btn-print" onclick="printAttendance()">🖨️ Imprimir</button>
                 <button class="att-btn att-btn-close" onclick="closeAttendance()">✕ Cerrar</button>
             </div>
         </div>
         <div class="att-body" id="attBody">
             <p style="text-align:center;color:#aaa;padding:40px;font-size:0.9rem;">
-                Selecciona una semana para generar el attendance sheet.
+                Selecciona una semana para generar el Safety Briefing sheet.
             </p>
         </div>
     </div>
 </div>
+
+<!-- MODAL: Personal OOTO History -->
+<div class="modal-overlay" id="personalOotoModal">
+    <div class="modal modal-large">
+        <h3>📄 Safety Briefings Perdidos — Historial Personal</h3>
+        <div style="margin:15px 0;">
+            <label style="display:block;margin-bottom:5px;font-weight:600;">👤 Selecciona empleado:</label>
+            <input type="text" id="ootoSearchEmployee" placeholder="🔍 Buscar por nombre o login..." oninput="filterOotoEmployeeList()" style="padding:10px;border:2px solid #ddd;border-radius:8px;width:100%;max-width:300px;margin-bottom:8px;">
+            <select id="ootoEmployeeSelect" onchange="generatePersonalOotoReport()" style="padding:10px;border:2px solid #ddd;border-radius:8px;font-size:1rem;width:100%;max-width:350px;">
+                <option value="">-- Selecciona un empleado --</option>
+            </select>
+        </div>
+        <div id="personalOotoContent">
+            <p style="text-align:center;color:#aaa;padding:30px;">Selecciona un empleado para ver sus Safety Briefings perdidos.</p>
+        </div>
+        <div style="margin-top:15px;display:flex;gap:10px;justify-content:center;">
+            <button class="btn btn-print" onclick="printPersonalOoto()">🖨️ Imprimir Historial</button>
+            <button class="modal-close" onclick="closePersonalOotoModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
 
 <div class="notification" id="notification"></div>
 
@@ -2002,11 +2265,10 @@ function setView(cols,btn){
 }
 
 // =====================================================
-// ★★★ ATTENDANCE SHEET v2 - AGRUPACIÓN INTELIGENTE ★★★
+// ★★★ SAFETY BRIEFING SHEET v3 ★★★
 // =====================================================
 const ATT_FIRST_MONDAY = new Date(2026, 0, 5);
 const ATT_DAY_NAMES = ['LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO','DOMINGO'];
-const ATT_DAY_SHORT = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
 
 function attDateToDoy(date) {
     return Math.round((date - new Date(2026, 0, 1)) / 86400000);
@@ -2024,7 +2286,6 @@ function attShiftCat(shift) {
     if (s==='wt'||s==='t8'||s==='t'||s==='t-co') return 'tarde';
     if (s==='n8'||s==='n'||s==='nn'||s==='n-co'||s==='wn') return 'noche';
     if (isCentralShift(s)) return 'central';
-
     return null;
 }
 function attGetShift(emp, doy) {
@@ -2037,21 +2298,30 @@ function attIsOoto(shift) {
     return ['v','v25','v26','ap','bm','bp','tr'].includes(s) || s.startsWith('ap');
 }
 
+function attGetWeekDates(weekIndex) {
+    const lunes = new Date(ATT_FIRST_MONDAY);
+    lunes.setDate(ATT_FIRST_MONDAY.getDate() + weekIndex * 7);
+    const dias = [];
+    for (let d = 0; d < 7; d++) {
+        const dt = new Date(lunes); dt.setDate(lunes.getDate() + d);
+        dias.push(dt);
+    }
+    return { lunes, dias };
+}
+
 function attPopulateWeeks() {
     const sel = document.getElementById('attWeekSel');
     sel.innerHTML = '<option value="">— Selecciona semana —</option>';
     for (let w = 0; w < 53; w++) {
-        const lunes = new Date(ATT_FIRST_MONDAY);
-        lunes.setDate(ATT_FIRST_MONDAY.getDate() + w * 7);
+        const { lunes, dias } = attGetWeekDates(w);
         if (lunes.getFullYear() > 2026) break;
-        const dom = new Date(lunes); dom.setDate(lunes.getDate() + 6);
-        sel.innerHTML += `<option value="${w}">Sem ${w+1} · ${attFmt2(lunes)} – ${attFmt2(dom)}</option>`;
+        sel.innerHTML += `<option value="${w}">Sem ${w+1} · ${attFmt2(lunes)} – ${attFmt2(dias[6])}</option>`;
     }
 }
 
 // ── Render helpers ────────────────────────────────
 function attRenderTable(list, opts = {}) {
-    const { showDay = false, highlightLogins = null } = opts;
+    const { showDay = false } = opts;
     if (!list.length)
         return `<div class="att-empty">— Sin personal en este grupo —</div>`;
     list.sort((a, b) => a.name.localeCompare(b.name));
@@ -2066,19 +2336,15 @@ function attRenderTable(list, opts = {}) {
             <th style="width:140px">Firma</th>
         </tr></thead>
         <tbody>
-        ${list.map(e => {
-            const hl = highlightLogins && !highlightLogins.has(e.login)
-                ? ' style="opacity:0.45;"' : '';
-            return `<tr${hl}>
-                <td><span class="att-td-login">${e.login}</span></td>
-                <td><span class="att-td-name">${e.name}</span></td>
-                <td><span class="att-td-crew">${e.crew}</span></td>
-                <td><span class="att-td-role">${e.role||'—'}</span></td>
-                <td class="att-td-shift">${e.shift}</td>
-                ${showDay ? `<td class="att-td-day">${e.dayShort||''}</td>` : ''}
-                <td class="att-firma-cell"><div class="att-firma-box"></div></td>
-            </tr>`;
-        }).join('')}
+        ${list.map(e => `<tr>
+            <td><span class="att-td-login">${e.login}</span></td>
+            <td><span class="att-td-name">${e.name}</span></td>
+            <td><span class="att-td-crew">${e.crew}</span></td>
+            <td><span class="att-td-role">${e.role||'—'}</span></td>
+            <td class="att-td-shift">${e.shift}</td>
+            ${showDay ? `<td class="att-td-day">${e.dayShort||''}</td>` : ''}
+            <td class="att-firma-cell"><div class="att-firma-box"></div></td>
+        </tr>`).join('')}
         </tbody></table>`;
 }
 
@@ -2091,12 +2357,29 @@ function attRenderSection(headClass, icon, title, badge, list, opts) {
     </div>`;
 }
 
-// ── Greedy set-cover: pick best days to cover employees ──
+function attRenderTrainerBlock(sessionNum) {
+    return `<div class="att-session-trainer">
+        <span style="font-weight:700;font-size:0.85rem;">👤 Impartido por:</span>
+        <div class="trainer-field">
+            <label>Login:</label>
+            <input type="text" placeholder="Login..." id="trainerLogin${sessionNum}">
+        </div>
+        <div class="trainer-field">
+            <label>Nombre:</label>
+            <input type="text" placeholder="Nombre..." id="trainerName${sessionNum}">
+        </div>
+        <div class="trainer-field">
+            <label>Firma:</label>
+            <div class="trainer-firma"></div>
+        </div>
+    </div>`;
+}
+
+// ── Greedy set-cover ──
 function attFindOptimalSessions(employeeLogins, dayData, maxSessions = 3) {
     const sessions = [];
     const covered = new Set();
     const target = new Set(employeeLogins);
-
     while (covered.size < target.size && sessions.length < maxSessions) {
         let bestIdx = -1, bestNew = 0;
         dayData.forEach((dd, idx) => {
@@ -2104,23 +2387,18 @@ function attFindOptimalSessions(employeeLogins, dayData, maxSessions = 3) {
             if (newCount > bestNew) { bestNew = newCount; bestIdx = idx; }
         });
         if (bestIdx === -1 || bestNew === 0) break;
-
         const dd = dayData[bestIdx];
         const newEmps = dd.employees.filter(e => target.has(e.login) && !covered.has(e.login));
         newEmps.forEach(e => covered.add(e.login));
-
         sessions.push({
-            dayIndex: dd.dayIndex,
-            dayName: dd.dayName,
+            dayIndex: dd.dayIndex, dayName: dd.dayName,
             date: dd.date,
             allEmployees: dd.employees.filter(e => target.has(e.login)),
             newEmployees: newEmps,
             newLogins: new Set(newEmps.map(e => e.login))
         });
     }
-
-    const uncovered = [...target].filter(l => !covered.has(l));
-    return { sessions, uncovered };
+    return { sessions, uncovered: [...target].filter(l => !covered.has(l)) };
 }
 
 // ══════════════════════════════════════════════════
@@ -2131,18 +2409,11 @@ function buildAttendance() {
     const wi = parseInt(document.getElementById('attWeekSel').value);
     if (isNaN(wi)) return;
 
-    // ── Dates Mon-Sun ──
-    const lunes = new Date(ATT_FIRST_MONDAY);
-    lunes.setDate(ATT_FIRST_MONDAY.getDate() + wi * 7);
-    const diasSemana = [];
-    for (let d = 0; d < 7; d++) {
-        const dt = new Date(lunes); dt.setDate(lunes.getDate() + d);
-        diasSemana.push(dt);
-    }
+    const { lunes, dias: diasSemana } = attGetWeekDates(wi);
     document.getElementById('attWeekLabel').textContent =
         `Semana ${wi+1} · Lunes ${attFmt(lunes)} — Domingo ${attFmt(diasSemana[6])}`;
 
-    // ── Step 1: Weekly schedule per employee ──
+    // Weekly schedule per employee
     const weeklyData = allData.empleados.map(emp => {
         const days = diasSemana.map(dt => {
             const doy = attDateToDoy(dt);
@@ -2152,223 +2423,194 @@ function buildAttendance() {
         return { emp, days };
     });
 
-    // ── Step 2: OOTO = no working shift any day ──
-    const ootoList = [];
-    const activeList = [];
+    const ootoList = [], activeList = [];
     weeklyData.forEach(wd => {
-        const hasWork = wd.days.some(d => d.cat !== null);
-        if (hasWork) activeList.push(wd);
+        if (wd.days.some(d => d.cat !== null)) activeList.push(wd);
         else ootoList.push(wd);
     });
 
-    // ── Step 3: Monday meeting — Mañana / Tarde / Central ──
+    // Monday: M/T/C
     const mondayM = [], mondayT = [], mondayC = [];
     const mondayLogins = new Set();
-
     activeList.forEach(wd => {
         const mc = wd.days[0].cat;
         if (!mc || mc === 'noche') return;
-        const entry = {
-            login: wd.emp.login, name: wd.emp.name,
-            crew: wd.emp.crew, role: wd.emp.role,
-            shift: wd.days[0].shift
-        };
+        const entry = { login: wd.emp.login, name: wd.emp.name, crew: wd.emp.crew, role: wd.emp.role, shift: wd.days[0].shift };
         mondayLogins.add(wd.emp.login);
         if (mc === 'manana') mondayM.push(entry);
         else if (mc === 'tarde') mondayT.push(entry);
         else if (mc === 'central') mondayC.push(entry);
     });
 
-      // ── Step 4: Night workers — EXCLUDING those already covered on Monday ──
+    // Night workers (excluding Monday covered)
     const nightWorkerLogins = new Set();
     activeList.forEach(wd => {
-        if (mondayLogins.has(wd.emp.login)) return; // Ya cubierto el lunes
+        if (mondayLogins.has(wd.emp.login)) return;
         if (wd.days.some(d => d.cat === 'noche')) nightWorkerLogins.add(wd.emp.login);
     });
 
-
-    // Build night availability per day Tue-Sun (indices 1-6)
     const nightDayData = [];
     for (let di = 1; di <= 6; di++) {
         const emps = [];
         activeList.forEach(wd => {
             if (nightWorkerLogins.has(wd.emp.login) && wd.days[di].cat === 'noche') {
-                emps.push({
-                    login: wd.emp.login, name: wd.emp.name,
-                    crew: wd.emp.crew, role: wd.emp.role,
-                    shift: wd.days[di].shift
-                });
+                emps.push({ login: wd.emp.login, name: wd.emp.name, crew: wd.emp.crew, role: wd.emp.role, shift: wd.days[di].shift });
             }
         });
-        nightDayData.push({
-            dayIndex: di, dayName: ATT_DAY_NAMES[di],
-            date: diasSemana[di], employees: emps
-        });
+        nightDayData.push({ dayIndex: di, dayName: ATT_DAY_NAMES[di], date: diasSemana[di], employees: emps });
     }
-
     const nightResult = attFindOptimalSessions([...nightWorkerLogins], nightDayData, 3);
 
-        // ── Step 5: Remaining day workers (not Monday, not night-covered, not OOTO) ──
+    // Remaining day workers
     const nightCoveredLogins = new Set();
-    nightResult.sessions.forEach(s => s.allEmployees.forEach(e => nightCoveredLogins.add(e.login)));
-    
+    nightResult.sessions.forEach(s => s.newEmployees.forEach(e => nightCoveredLogins.add(e.login)));
+
     const remainingDayLogins = new Set();
     activeList.forEach(wd => {
-        if (mondayLogins.has(wd.emp.login)) return;       // Ya cubierto lunes
-        if (nightCoveredLogins.has(wd.emp.login)) return;  // Ya cubierto en sesión noche
-        const hasDay = wd.days.some((d, di) => di > 0 && d.cat && d.cat !== 'noche');
-        if (hasDay) remainingDayLogins.add(wd.emp.login);
+        if (mondayLogins.has(wd.emp.login)) return;
+        if (nightCoveredLogins.has(wd.emp.login)) return;
+        if (wd.days.some((d, di) => di > 0 && d.cat && d.cat !== 'noche')) remainingDayLogins.add(wd.emp.login);
     });
-
 
     const dayDayData = [];
     for (let di = 1; di <= 6; di++) {
         const emps = [];
         activeList.forEach(wd => {
-            if (remainingDayLogins.has(wd.emp.login) &&
-                wd.days[di].cat && wd.days[di].cat !== 'noche') {
-                emps.push({
-                    login: wd.emp.login, name: wd.emp.name,
-                    crew: wd.emp.crew, role: wd.emp.role,
-                    shift: wd.days[di].shift
-                });
+            if (remainingDayLogins.has(wd.emp.login) && wd.days[di].cat && wd.days[di].cat !== 'noche') {
+                emps.push({ login: wd.emp.login, name: wd.emp.name, crew: wd.emp.crew, role: wd.emp.role, shift: wd.days[di].shift });
             }
         });
-        dayDayData.push({
-            dayIndex: di, dayName: ATT_DAY_NAMES[di],
-            date: diasSemana[di], employees: emps
-        });
+        dayDayData.push({ dayIndex: di, dayName: ATT_DAY_NAMES[di], date: diasSemana[di], employees: emps });
     }
-
     const dayResult = attFindOptimalSessions([...remainingDayLogins], dayDayData, 3);
 
     // ══════════════════════════════════════════════
-    //  RENDER HTML
+    //  RENDER
     // ══════════════════════════════════════════════
     let html = '';
+    let sessionCounter = 0;
 
-    // ── Summary box ──
+    // ── STANDARD HEADER ──
+    html += `<div class="att-briefing-header">
+        <div class="att-briefing-title">
+            <h3>📋 SAFETY BRIEFING SEMANAL</h3>
+            <p>Semana ${wi+1} · ${attFmt(lunes)} — ${attFmt(diasSemana[6])} · Dos Hermanas, Sevilla</p>
+        </div>
+        <div class="att-briefing-fields">
+            <div class="att-briefing-field" style="grid-column:span 2;">
+                <label>📝 Tema / Descripción del Safety Briefing</label>
+                <textarea id="attBriefingTopic" placeholder="Describe brevemente el contenido del Safety Briefing de esta semana..." rows="3"></textarea>
+            </div>
+            <div class="att-briefing-field">
+                <label>📅 Fecha de elaboración</label>
+                <input type="text" value="${new Date().toLocaleDateString('es-ES')}" id="attBriefingDate">
+            </div>
+            <div class="att-briefing-field">
+                <label>👤 Elaborado por</label>
+                <input type="text" value="${currentUser ? currentUser.name : ''}" id="attBriefingAuthor">
+            </div>
+        </div>
+    </div>`;
+
+    // ── Summary ──
     const totalActive = activeList.length;
     const totalSessions = 1 + nightResult.sessions.length + dayResult.sessions.length;
     html += `<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:16px;">
-        <div style="background:#e8f5e9;padding:10px 16px;border-radius:10px;text-align:center;min-width:100px;">
-            <div style="font-size:1.6rem;font-weight:800;color:#2e7d32;">${totalActive}</div>
-            <div style="font-size:0.7rem;color:#555;">Activos</div>
+        <div style="background:#e8f5e9;padding:10px 16px;border-radius:10px;text-align:center;min-width:90px;">
+            <div style="font-size:1.5rem;font-weight:800;color:#2e7d32;">${totalActive}</div>
+            <div style="font-size:0.65rem;color:#555;">Activos</div>
         </div>
-        <div style="background:#fff3e0;padding:10px 16px;border-radius:10px;text-align:center;min-width:100px;">
-            <div style="font-size:1.6rem;font-weight:800;color:#e65100;">${ootoList.length}</div>
-            <div style="font-size:0.7rem;color:#555;">OOTO</div>
+        <div style="background:#fff3e0;padding:10px 16px;border-radius:10px;text-align:center;min-width:90px;">
+            <div style="font-size:1.5rem;font-weight:800;color:#e65100;">${ootoList.length}</div>
+            <div style="font-size:0.65rem;color:#555;">OOTO</div>
         </div>
-        <div style="background:#e3f2fd;padding:10px 16px;border-radius:10px;text-align:center;min-width:100px;">
-            <div style="font-size:1.6rem;font-weight:800;color:#1565c0;">${totalSessions}</div>
-            <div style="font-size:0.7rem;color:#555;">Sesiones</div>
+        <div style="background:#e3f2fd;padding:10px 16px;border-radius:10px;text-align:center;min-width:90px;">
+            <div style="font-size:1.5rem;font-weight:800;color:#1565c0;">${totalSessions}</div>
+            <div style="font-size:0.65rem;color:#555;">Sesiones</div>
         </div>
-        <div style="background:#f3e5f5;padding:10px 16px;border-radius:10px;text-align:center;min-width:100px;">
-            <div style="font-size:1.6rem;font-weight:800;color:#7b1fa2;">${mondayLogins.size}</div>
-            <div style="font-size:0.7rem;color:#555;">Lunes Día</div>
+        <div style="background:#f3e5f5;padding:10px 16px;border-radius:10px;text-align:center;min-width:90px;">
+            <div style="font-size:1.5rem;font-weight:800;color:#7b1fa2;">${mondayLogins.size}</div>
+            <div style="font-size:0.65rem;color:#555;">Lunes Día</div>
         </div>
-        <div style="background:#e0f2f1;padding:10px 16px;border-radius:10px;text-align:center;min-width:100px;">
-            <div style="font-size:1.6rem;font-weight:800;color:#00695c;">${nightWorkerLogins.size}</div>
-            <div style="font-size:0.7rem;color:#555;">Noche</div>
+        <div style="background:#e0f2f1;padding:10px 16px;border-radius:10px;text-align:center;min-width:90px;">
+            <div style="font-size:1.5rem;font-weight:800;color:#00695c;">${nightWorkerLogins.size}</div>
+            <div style="font-size:0.65rem;color:#555;">Noche</div>
         </div>
-        <div style="background:#fce4ec;padding:10px 16px;border-radius:10px;text-align:center;min-width:100px;">
-            <div style="font-size:1.6rem;font-weight:800;color:#c62828;">${remainingDayLogins.size}</div>
-            <div style="font-size:0.7rem;color:#555;">Incorp.</div>
+        <div style="background:#fce4ec;padding:10px 16px;border-radius:10px;text-align:center;min-width:90px;">
+            <div style="font-size:1.5rem;font-weight:800;color:#c62828;">${remainingDayLogins.size}</div>
+            <div style="font-size:0.65rem;color:#555;">Incorp.</div>
         </div>
     </div>`;
 
-    // ── SESSION PLAN ──
+    // ── Session Plan ──
     html += `<div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:14px 18px;border-radius:12px;margin-bottom:16px;">
-        <h4 style="margin-bottom:10px;">📋 Plan de Sesiones de la Semana</h4>
+        <h4 style="margin-bottom:10px;">📋 Plan de Sesiones</h4>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
             <div style="background:rgba(255,255,255,0.2);padding:8px 14px;border-radius:8px;font-size:0.8rem;">
                 <strong>① LUNES ${attFmt2(lunes)}</strong><br>
-                <span style="opacity:0.9;">Mañana + Tarde + Central (${mondayLogins.size} pers.)</span>
+                <span style="opacity:0.9;">M + T + C (${mondayLogins.size})</span>
             </div>`;
-
-       nightResult.sessions.forEach((s, i) => {
+    nightResult.sessions.forEach((s, i) => {
         html += `<div style="background:rgba(0,32,96,0.5);padding:8px 14px;border-radius:8px;font-size:0.8rem;">
-            <strong>${String.fromCharCode(0x2461 + i)} ${s.dayName} ${attFmt2(s.date)} 🌙</strong><br>
-            <span style="opacity:0.9;">Noche (${s.newEmployees.length} pers.)</span>
+            <strong>${String.fromCharCode(0x2461+i)} ${s.dayName} ${attFmt2(s.date)} 🌙</strong><br>
+            <span style="opacity:0.9;">Noche (${s.newEmployees.length})</span>
         </div>`;
     });
-
     dayResult.sessions.forEach((s, i) => {
         html += `<div style="background:rgba(255,152,0,0.4);padding:8px 14px;border-radius:8px;font-size:0.8rem;">
-            <strong>${String.fromCharCode(0x2461 + nightResult.sessions.length + i)} ${s.dayName} ${attFmt2(s.date)} ☀️</strong><br>
-            <span style="opacity:0.9;">Incorporaciones (${s.newEmployees.length} pers.)</span>
+            <strong>${String.fromCharCode(0x2461+nightResult.sessions.length+i)} ${s.dayName} ${attFmt2(s.date)} ☀️</strong><br>
+            <span style="opacity:0.9;">Incorp. (${s.newEmployees.length})</span>
         </div>`;
     });
-
-
     html += `</div></div>`;
 
-    // ──────────────────────────────────────────────
-    // SESIÓN 1: LUNES
-    // ──────────────────────────────────────────────
+    // ─── SESIÓN 1: LUNES ───
+    sessionCounter++;
     html += `<div class="att-info-box att-info-lunes">
-        📌 <strong>SESIÓN 1 — Lunes ${attFmt(lunes)}</strong> —
-        Reunión de cambio de turno: Mañana · Tarde · Central &nbsp;|&nbsp;
-        ${mondayLogins.size} personas
+        📌 <strong>SESIÓN ${sessionCounter} — Lunes ${attFmt(lunes)}</strong> —
+        Cambio de turno: Mañana · Tarde · Central | ${mondayLogins.size} personas
     </div>`;
+    html += attRenderTrainerBlock(sessionCounter);
 
     html += attRenderSection('att-head-manana', '🟢', 'Turno Mañana (WM / M8)',
-        `LUNES ${attFmt2(lunes)} · ${mondayM.length} persona${mondayM.length!==1?'s':''}`,
-        mondayM, {});
-
+        `LUNES ${attFmt2(lunes)} · ${mondayM.length} pers.`, mondayM, {});
     html += attRenderSection('att-head-tarde', '🟡', 'Turno Tarde (WT / T8)',
-        `LUNES ${attFmt2(lunes)} · ${mondayT.length} persona${mondayT.length!==1?'s':''}`,
-        mondayT, {});
+        `LUNES ${attFmt2(lunes)} · ${mondayT.length} pers.`, mondayT, {});
+    if (mondayC.length > 0)
+        html += attRenderSection('att-head-central', '⬜', 'Central',
+            `LUNES ${attFmt2(lunes)} · ${mondayC.length} pers.`, mondayC, {});
 
-    if (mondayC.length > 0) {
-        html += attRenderSection('att-head-central', '⬜', 'Central (C / CW)',
-            `LUNES ${attFmt2(lunes)} · ${mondayC.length} persona${mondayC.length!==1?'s':''}`,
-            mondayC, {});
-    }
-
-    // ──────────────────────────────────────────────
-    // SESIONES NOCHE
-    // ──────────────────────────────────────────────
-        nightResult.sessions.forEach((sess, idx) => {
-        const sesNum = idx + 2;
-        const isMultiple = nightResult.sessions.length > 1;
-        const suffix = isMultiple ? ` (${idx+1}ª sesión noche)` : '';
-
+    // ─── SESIONES NOCHE ───
+    nightResult.sessions.forEach((sess, idx) => {
+        sessionCounter++;
+        const suffix = nightResult.sessions.length > 1 ? ` (${idx+1}ª sesión noche)` : '';
         html += `<div class="att-info-box" style="background:#e8eaf6;color:#1a237e;border-color:#3949ab;margin-top:18px;">
-            🌙 <strong>SESIÓN ${sesNum} — ${sess.dayName} ${attFmt(sess.date)} Noche${suffix}</strong> —
+            🌙 <strong>SESIÓN ${sessionCounter} — ${sess.dayName} ${attFmt(sess.date)} Noche${suffix}</strong> —
             ${sess.newEmployees.length} persona${sess.newEmployees.length!==1?'s':''}
         </div>`;
-
+        html += attRenderTrainerBlock(sessionCounter);
         html += attRenderSection('att-head-noche', '🌙', `Turno Noche${suffix}`,
-            `${sess.dayName} ${attFmt2(sess.date)} · ${sess.newEmployees.length} persona${sess.newEmployees.length!==1?'s':''}`,
+            `${sess.dayName} ${attFmt2(sess.date)} · ${sess.newEmployees.length} pers.`,
             sess.newEmployees, {});
     });
 
-
     if (nightResult.uncovered.length > 0) {
-        const uncNames = nightResult.uncovered.map(login => {
-            const emp = allData.empleados.find(e => e.login === login);
-            return emp ? emp.name : login;
-        });
+        const names = nightResult.uncovered.map(l => { const e = allData.empleados.find(x => x.login === l); return e ? e.name : l; });
         html += `<div style="background:#ffebee;padding:10px 14px;border-radius:8px;margin-top:8px;font-size:0.8rem;color:#c62828;border-left:4px solid #e53935;">
-            ⚠️ <strong>${nightResult.uncovered.length} trabajadores nocturnos no cubiertos:</strong> ${uncNames.join(', ')}
+            ⚠️ <strong>${nightResult.uncovered.length} nocturnos no cubiertos:</strong> ${names.join(', ')}
         </div>`;
     }
 
-    // ──────────────────────────────────────────────
-    // SESIONES INCORPORACIONES (día)
-    // ──────────────────────────────────────────────
-        if (dayResult.sessions.length > 0) {
+    // ─── SESIONES INCORPORACIONES ───
+    if (dayResult.sessions.length > 0) {
         dayResult.sessions.forEach((sess, idx) => {
-            const sesNum = 2 + nightResult.sessions.length + idx;
-            const isMultiple = dayResult.sessions.length > 1;
-            const suffix = isMultiple ? ` (${idx+1}ª sesión)` : '';
-
+            sessionCounter++;
+            const suffix = dayResult.sessions.length > 1 ? ` (${idx+1}ª sesión)` : '';
             html += `<div class="att-info-box att-info-otros" style="margin-top:18px;">
-                📅 <strong>SESIÓN ${sesNum} — ${sess.dayName} ${attFmt(sess.date)} Incorporaciones${suffix}</strong> —
-                Personal que no estuvo el lunes.
+                📅 <strong>SESIÓN ${sessionCounter} — ${sess.dayName} ${attFmt(sess.date)} Incorporaciones${suffix}</strong> —
                 ${sess.newEmployees.length} persona${sess.newEmployees.length!==1?'s':''}
             </div>`;
+            html += attRenderTrainerBlock(sessionCounter);
 
             const mList = sess.newEmployees.filter(e => ['WM','M8','M','M-CO'].includes(e.shift));
             const tList = sess.newEmployees.filter(e => ['WT','T8','T','T-CO'].includes(e.shift));
@@ -2385,21 +2627,15 @@ function buildAttendance() {
                     `${sess.dayName} ${attFmt2(sess.date)} · ${cList.length}`, cList, {});
         });
 
-
         if (dayResult.uncovered.length > 0) {
-            const uncNames = dayResult.uncovered.map(login => {
-                const emp = allData.empleados.find(e => e.login === login);
-                return emp ? emp.name : login;
-            });
+            const names = dayResult.uncovered.map(l => { const e = allData.empleados.find(x => x.login === l); return e ? e.name : l; });
             html += `<div style="background:#ffebee;padding:10px 14px;border-radius:8px;margin-top:8px;font-size:0.8rem;color:#c62828;border-left:4px solid #e53935;">
-                ⚠️ <strong>${dayResult.uncovered.length} trabajadores diurnos no cubiertos:</strong> ${uncNames.join(', ')}
+                ⚠️ <strong>${dayResult.uncovered.length} diurnos no cubiertos:</strong> ${names.join(', ')}
             </div>`;
         }
     }
 
-    // ──────────────────────────────────────────────
-    // OOTO
-    // ──────────────────────────────────────────────
+    // ─── OOTO ───
     if (ootoList.length > 0) {
         html += `<div style="margin-top:20px;border-top:2px dashed #ddd;padding-top:16px;">
             <div style="background:#f5f5f5;padding:12px 16px;border-radius:10px;border-left:4px solid #9e9e9e;">
@@ -2412,7 +2648,7 @@ function buildAttendance() {
                             if (s) {
                                 if (['V','V25','V26'].includes(s)) { reason = '🏖️ Vac'; break; }
                                 if (s === 'BM') { reason = '🏥 Baja'; break; }
-                                if (s === 'BP') { reason = '👶 Baja Pat.'; break; }
+                                if (s === 'BP') { reason = '👶 Pat.'; break; }
                                 if (s === 'TR') { reason = '📚 Form.'; break; }
                                 if (s.startsWith('AP')) { reason = '📋 AP'; break; }
                             }
@@ -2427,20 +2663,174 @@ function buildAttendance() {
         </div>`;
     }
 
-    // ── Coverage check ──
+    // Coverage
     const allCovered = new Set([...mondayLogins]);
-    nightResult.sessions.forEach(s => s.allEmployees.forEach(e => allCovered.add(e.login)));
-    dayResult.sessions.forEach(s => s.allEmployees.forEach(e => allCovered.add(e.login)));
-    const totalCovered = allCovered.size;
-    const coverPct = totalActive > 0 ? Math.round(totalCovered / totalActive * 100) : 0;
-
+    nightResult.sessions.forEach(s => s.newEmployees.forEach(e => allCovered.add(e.login)));
+    dayResult.sessions.forEach(s => s.newEmployees.forEach(e => allCovered.add(e.login)));
+    const coverPct = totalActive > 0 ? Math.round(allCovered.size / totalActive * 100) : 0;
     html += `<div style="text-align:center;margin-top:16px;padding:12px;background:${coverPct===100?'#e8f5e9':'#fff3e0'};border-radius:10px;">
         <span style="font-size:1.1rem;font-weight:700;color:${coverPct===100?'#2e7d32':'#e65100'};">
-            ${coverPct === 100 ? '✅' : '⚠️'} Cobertura: ${totalCovered}/${totalActive} personas activas (${coverPct}%)
+            ${coverPct===100?'✅':'⚠️'} Cobertura: ${allCovered.size}/${totalActive} activos (${coverPct}%)
         </span>
     </div>`;
 
     document.getElementById('attBody').innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════
+// PERSONAL OOTO HISTORY
+// ══════════════════════════════════════════════════
+function openPersonalOotoModal() {
+    filterOotoEmployeeList();
+    document.getElementById('personalOotoContent').innerHTML =
+        '<p style="text-align:center;color:#aaa;padding:30px;">Selecciona un empleado para ver sus Safety Briefings perdidos.</p>';
+    document.getElementById('personalOotoModal').classList.add('active');
+}
+
+function closePersonalOotoModal() {
+    document.getElementById('personalOotoModal').classList.remove('active');
+}
+
+function filterOotoEmployeeList() {
+    const st = document.getElementById('ootoSearchEmployee')?.value.toLowerCase().trim() || '';
+    const sel = document.getElementById('ootoEmployeeSelect');
+    sel.innerHTML = '<option value="">-- Selecciona un empleado --</option>';
+    let emps = [...allData.empleados];
+    if (st) emps = emps.filter(e => e.name.toLowerCase().includes(st) || e.login.toLowerCase().includes(st));
+    emps.sort((a, b) => a.name.localeCompare(b.name));
+    emps.forEach(e => { sel.innerHTML += `<option value="${e.login}">${e.name} (${e.crew})</option>`; });
+}
+
+function generatePersonalOotoReport() {
+    const login = document.getElementById('ootoEmployeeSelect').value;
+    const container = document.getElementById('personalOotoContent');
+    if (!login) { container.innerHTML = '<p style="text-align:center;color:#aaa;padding:30px;">Selecciona un empleado.</p>'; return; }
+
+    const emp = allData.empleados.find(e => e.login === login);
+    if (!emp) return;
+
+    // Find all weeks where this employee was OOTO
+    const missedWeeks = [];
+    const today = new Date();
+    const currentWeekIdx = Math.max(0, Math.floor((today - ATT_FIRST_MONDAY) / (7 * 86400000)));
+
+    for (let w = 0; w < 53; w++) {
+        const { lunes, dias } = attGetWeekDates(w);
+        if (lunes.getFullYear() > 2026) break;
+        if (w > currentWeekIdx) break; // Don't show future weeks
+
+        let hasWorkingShift = false;
+        let reason = 'Ausente';
+        for (let d = 0; d < 7; d++) {
+            const doy = attDateToDoy(dias[d]);
+            const shift = attGetShift(emp, doy);
+            const cat = attShiftCat(shift);
+            if (cat !== null) { hasWorkingShift = true; break; }
+            if (shift) {
+                const s = shift.toUpperCase();
+                if (['V','V25','V26'].includes(s)) reason = '🏖️ Vacaciones';
+                else if (s === 'BM') reason = '🏥 Baja Médica';
+                else if (s === 'BP') reason = '👶 Baja Paternidad';
+                else if (s === 'TR') reason = '📚 Formación';
+                else if (s.startsWith('AP')) reason = '📋 A. Propios';
+            }
+        }
+
+        if (!hasWorkingShift) {
+            missedWeeks.push({
+                weekIndex: w,
+                weekNum: w + 1,
+                lunes: lunes,
+                domingo: dias[6],
+                reason: reason
+            });
+        }
+    }
+
+    // Render report
+    let html = '';
+
+    html += `<div class="ooto-report-header">
+        <h4>📄 Historial de Safety Briefings Perdidos</h4>
+        <p><strong>${emp.name}</strong> · ${emp.login} · ${emp.crew} · ${emp.role || 'Sin rol'}</p>
+    </div>`;
+
+    if (missedWeeks.length === 0) {
+        html += `<div style="text-align:center;padding:30px;background:#e8f5e9;border-radius:10px;">
+            <span style="font-size:2rem;">✅</span><br>
+            <strong style="color:#2e7d32;">No tiene Safety Briefings pendientes</strong><br>
+            <span style="color:#666;font-size:0.85rem;">Ha estado presente en todas las semanas hasta la fecha.</span>
+        </div>`;
+    } else {
+        html += `<div class="ooto-summary-box">
+            <div class="ooto-summary-stat">
+                <div class="stat-val">${missedWeeks.length}</div>
+                <div class="stat-lbl">Semanas Perdidas</div>
+            </div>
+            <div class="ooto-summary-stat">
+                <div class="stat-val">${currentWeekIdx + 1 - missedWeeks.length}</div>
+                <div class="stat-lbl">Semanas Asistidas</div>
+            </div>
+            <div class="ooto-summary-stat">
+                <div class="stat-val">${Math.round((1 - missedWeeks.length / (currentWeekIdx + 1)) * 100)}%</div>
+                <div class="stat-lbl">Asistencia</div>
+            </div>
+        </div>`;
+
+        const reasonColors = {
+            '🏖️ Vacaciones': 'background:#ffcdd2;color:#c62828;',
+            '🏥 Baja Médica': 'background:#e0e0e0;color:#424242;',
+            '👶 Baja Paternidad': 'background:#e0e0e0;color:#424242;',
+            '📚 Formación': 'background:#ffe0b2;color:#e65100;',
+            '📋 A. Propios': 'background:#c8e6c9;color:#2e7d32;',
+            'Ausente': 'background:#f5f5f5;color:#666;'
+        };
+
+        html += `<div style="margin-bottom:10px;font-weight:600;color:#333;font-size:0.9rem;">
+            📋 Semanas pendientes de firma (${missedWeeks.length}):
+        </div>`;
+
+        missedWeeks.forEach(mw => {
+            const rc = reasonColors[mw.reason] || reasonColors['Ausente'];
+            html += `<div class="ooto-week-item">
+                <div class="week-info">
+                    <div class="week-num">Semana ${mw.weekNum}</div>
+                    <div class="week-dates">${attFmt(mw.lunes)} — ${attFmt(mw.domingo)}</div>
+                </div>
+                <span class="week-reason" style="${rc}">${mw.reason}</span>
+                <div class="ooto-firma">
+                    <label>Firma</label>
+                    <div class="ooto-firma-box"></div>
+                </div>
+            </div>`;
+        });
+
+        // Final signature block
+        html += `<div class="ooto-final-signature">
+            <div class="sig-block">
+                <label>Empleado</label>
+                <div class="sig-line"></div>
+                <div class="sig-name">${emp.name}<br>${emp.login}</div>
+            </div>
+            <div class="sig-block">
+                <label>Responsable / Manager</label>
+                <div class="sig-line"></div>
+                <div class="sig-name">Nombre y firma</div>
+            </div>
+        </div>`;
+
+        html += `<div style="text-align:center;margin-top:15px;font-size:0.7rem;color:#999;">
+            Documento generado el ${new Date().toLocaleDateString('es-ES')} — Safety Briefing Semanal 2026 — Dos Hermanas, Sevilla
+        </div>`;
+    }
+
+    container.innerHTML = html;
+}
+
+function printPersonalOoto() {
+    document.body.classList.add('ooto-printing');
+    window.print();
+    setTimeout(() => document.body.classList.remove('ooto-printing'), 800);
 }
 
 function openAttendance() {
@@ -2475,6 +2865,7 @@ initializeLogin();
 </script>
 </body>
 </html>
+
 
 
 
