@@ -645,33 +645,49 @@ body.att-printing .att-section { page-break-inside: avoid; }
     color: #999;
     margin-top: 4px;
 }
+    /* OOTO Modal - por encima del attendance overlay */
+#personalOotoModal {
+    z-index: 2000 !important;
+}
+#personalOotoModal .modal {
+    max-width: 900px;
+}
 
-/* Print personal OOTO */
-body.ooto-printing * { visibility: hidden; }
-body.ooto-printing #personalOotoModal,
-body.ooto-printing #personalOotoModal * { visibility: visible; }
-body.ooto-printing #personalOotoModal {
-    position: absolute !important;
+
+/* Print personal OOTO - CORREGIDO */
+body.ooto-printing * { visibility: hidden !important; }
+body.ooto-printing #personalOotoModal { 
+    visibility: visible !important;
+    display: flex !important;
+    position: fixed !important;
     top: 0; left: 0;
-    width: 100%;
+    width: 100%; height: 100%;
+    z-index: 99999 !important;
     background: white !important;
+    align-items: flex-start !important;
     overflow: visible !important;
 }
-body.ooto-printing #personalOotoModal .modal-overlay {
-    background: white !important;
-}
+body.ooto-printing #personalOotoModal * { visibility: visible !important; }
 body.ooto-printing #personalOotoModal .modal {
     max-width: 100% !important;
+    width: 100% !important;
     max-height: none !important;
+    overflow: visible !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    padding: 10px !important;
 }
+body.ooto-printing #personalOotoModal .modal h3,
 body.ooto-printing #personalOotoModal .btn,
 body.ooto-printing #personalOotoModal .modal-close,
 body.ooto-printing #personalOotoModal select,
 body.ooto-printing #personalOotoModal input[type="text"] {
     display: none !important;
 }
+body.ooto-printing .att-overlay {
+    display: none !important;
+}
+
 
 @media print {
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -2709,15 +2725,15 @@ function generatePersonalOotoReport() {
     const emp = allData.empleados.find(e => e.login === login);
     if (!emp) return;
 
-    // Find all weeks where this employee was OOTO
     const missedWeeks = [];
+    const attendedWeeks = [];
     const today = new Date();
     const currentWeekIdx = Math.max(0, Math.floor((today - ATT_FIRST_MONDAY) / (7 * 86400000)));
 
     for (let w = 0; w < 53; w++) {
         const { lunes, dias } = attGetWeekDates(w);
         if (lunes.getFullYear() > 2026) break;
-        if (w > currentWeekIdx) break; // Don't show future weeks
+        if (w > currentWeekIdx) break;
 
         let hasWorkingShift = false;
         let reason = 'Ausente';
@@ -2736,102 +2752,198 @@ function generatePersonalOotoReport() {
             }
         }
 
-        if (!hasWorkingShift) {
-            missedWeeks.push({
-                weekIndex: w,
-                weekNum: w + 1,
-                lunes: lunes,
-                domingo: dias[6],
-                reason: reason
-            });
-        }
+        const weekData = { weekIndex: w, weekNum: w + 1, lunes, domingo: dias[6], reason };
+
+        if (hasWorkingShift) attendedWeeks.push(weekData);
+        else missedWeeks.push(weekData);
     }
 
-    // Render report
+    const totalWeeks = currentWeekIdx + 1;
+    const pctAttended = totalWeeks > 0 ? Math.round(attendedWeeks.length / totalWeeks * 100) : 0;
+
     let html = '';
 
-    html += `<div class="ooto-report-header">
-        <h4>📄 Historial de Safety Briefings Perdidos</h4>
-        <p><strong>${emp.name}</strong> · ${emp.login} · ${emp.crew} · ${emp.role || 'Sin rol'}</p>
+    // ── HEADER ESTÁNDAR (formato Training Attendance) ──
+    html += `<div style="border:2px solid #333;border-radius:0;overflow:hidden;margin-bottom:20px;page-break-inside:avoid;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <tr>
+                <td rowspan="4" style="width:120px;text-align:center;padding:10px;border-right:2px solid #333;border-bottom:2px solid #333;">
+                    <div style="font-size:2.5rem;">📋</div>
+                    <div style="font-weight:700;font-size:0.75rem;color:#333;margin-top:5px;">SAFETY<br>BRIEFING</div>
+                </td>
+                <td colspan="4" style="text-align:center;padding:8px;border-bottom:2px solid #333;background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;font-weight:700;font-size:1rem;">
+                    Training Attendance - Safety Briefing Record
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;font-weight:600;width:25%;background:#f5f5f5;">Empleado</td>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;" colspan="3"><strong>${emp.name}</strong></td>
+            </tr>
+            <tr>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;font-weight:600;background:#f5f5f5;">Login</td>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;font-family:monospace;font-weight:700;color:#667eea;">${emp.login}</td>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:1px solid #ccc;font-weight:600;background:#f5f5f5;">Grupo</td>
+                <td style="padding:6px 10px;border-bottom:1px solid #ccc;">${emp.crew}</td>
+            </tr>
+            <tr>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:2px solid #333;font-weight:600;background:#f5f5f5;">Rol</td>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:2px solid #333;">${emp.role || 'Sin rol'}</td>
+                <td style="padding:6px 10px;border-right:1px solid #ccc;border-bottom:2px solid #333;font-weight:600;background:#f5f5f5;">Fecha informe</td>
+                <td style="padding:6px 10px;border-bottom:2px solid #333;">${new Date().toLocaleDateString('es-ES')}</td>
+            </tr>
+        </table>
     </div>`;
 
-    if (missedWeeks.length === 0) {
-        html += `<div style="text-align:center;padding:30px;background:#e8f5e9;border-radius:10px;">
-            <span style="font-size:2rem;">✅</span><br>
-            <strong style="color:#2e7d32;">No tiene Safety Briefings pendientes</strong><br>
-            <span style="color:#666;font-size:0.85rem;">Ha estado presente en todas las semanas hasta la fecha.</span>
-        </div>`;
-    } else {
-        html += `<div class="ooto-summary-box">
-            <div class="ooto-summary-stat">
-                <div class="stat-val">${missedWeeks.length}</div>
-                <div class="stat-lbl">Semanas Perdidas</div>
-            </div>
-            <div class="ooto-summary-stat">
-                <div class="stat-val">${currentWeekIdx + 1 - missedWeeks.length}</div>
-                <div class="stat-lbl">Semanas Asistidas</div>
-            </div>
-            <div class="ooto-summary-stat">
-                <div class="stat-val">${Math.round((1 - missedWeeks.length / (currentWeekIdx + 1)) * 100)}%</div>
-                <div class="stat-lbl">Asistencia</div>
-            </div>
-        </div>`;
+    // ── RESUMEN ──
+    html += `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
+        <div style="flex:1;min-width:120px;background:#e8f5e9;border:2px solid #4caf50;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#2e7d32;">${attendedWeeks.length}</div>
+            <div style="font-size:0.7rem;color:#555;">✅ Asistidas</div>
+        </div>
+        <div style="flex:1;min-width:120px;background:#ffebee;border:2px solid #e53935;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#c62828;">${missedWeeks.length}</div>
+            <div style="font-size:0.7rem;color:#555;">❌ Perdidas</div>
+        </div>
+        <div style="flex:1;min-width:120px;background:#e3f2fd;border:2px solid #1565c0;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:#1565c0;">${totalWeeks}</div>
+            <div style="font-size:0.7rem;color:#555;">📅 Total Semanas</div>
+        </div>
+        <div style="flex:1;min-width:120px;background:${pctAttended>=80?'#e8f5e9':'#fff3e0'};border:2px solid ${pctAttended>=80?'#4caf50':'#ff9800'};border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:2rem;font-weight:800;color:${pctAttended>=80?'#2e7d32':'#e65100'};">${pctAttended}%</div>
+            <div style="font-size:0.7rem;color:#555;">📊 Asistencia</div>
+        </div>
+    </div>`;
 
-        const reasonColors = {
-            '🏖️ Vacaciones': 'background:#ffcdd2;color:#c62828;',
-            '🏥 Baja Médica': 'background:#e0e0e0;color:#424242;',
-            '👶 Baja Paternidad': 'background:#e0e0e0;color:#424242;',
-            '📚 Formación': 'background:#ffe0b2;color:#e65100;',
-            '📋 A. Propios': 'background:#c8e6c9;color:#2e7d32;',
-            'Ausente': 'background:#f5f5f5;color:#666;'
-        };
+    // ── TABLA COMPLETA: Todas las semanas (formato Training Attendance) ──
+    html += `<div style="border:2px solid #333;border-radius:0;overflow:hidden;margin-bottom:20px;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+            <thead>
+                <tr style="background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;">
+                    <th style="padding:8px 6px;text-align:center;width:35px;border-right:1px solid rgba(255,255,255,0.2);">Nº</th>
+                    <th style="padding:8px 6px;text-align:center;width:60px;border-right:1px solid rgba(255,255,255,0.2);">Semana</th>
+                    <th style="padding:8px 10px;text-align:left;border-right:1px solid rgba(255,255,255,0.2);">Período</th>
+                    <th style="padding:8px 6px;text-align:center;width:80px;border-right:1px solid rgba(255,255,255,0.2);">Estado</th>
+                    <th style="padding:8px 6px;text-align:center;width:80px;border-right:1px solid rgba(255,255,255,0.2);">Motivo</th>
+                    <th style="padding:8px 6px;text-align:center;width:130px;">Firma</th>
+                </tr>
+            </thead>
+            <tbody>`;
 
-        html += `<div style="margin-bottom:10px;font-weight:600;color:#333;font-size:0.9rem;">
-            📋 Semanas pendientes de firma (${missedWeeks.length}):
-        </div>`;
+    // Combine and sort all weeks
+    const allWeeks = [];
+    attendedWeeks.forEach(w => allWeeks.push({...w, attended: true}));
+    missedWeeks.forEach(w => allWeeks.push({...w, attended: false}));
+    allWeeks.sort((a, b) => a.weekIndex - b.weekIndex);
 
-        missedWeeks.forEach(mw => {
-            const rc = reasonColors[mw.reason] || reasonColors['Ausente'];
-            html += `<div class="ooto-week-item">
-                <div class="week-info">
-                    <div class="week-num">Semana ${mw.weekNum}</div>
-                    <div class="week-dates">${attFmt(mw.lunes)} — ${attFmt(mw.domingo)}</div>
-                </div>
-                <span class="week-reason" style="${rc}">${mw.reason}</span>
-                <div class="ooto-firma">
-                    <label>Firma</label>
-                    <div class="ooto-firma-box"></div>
-                </div>
-            </div>`;
+    allWeeks.forEach((wk, idx) => {
+        const bgColor = wk.attended ? '#f0fff0' : '#fff5f5';
+        const statusIcon = wk.attended ? '✅' : '❌';
+        const statusText = wk.attended ? 'Asistió' : 'OOTO';
+        const statusColor = wk.attended ? '#2e7d32' : '#c62828';
+        const reasonText = wk.attended ? '—' : wk.reason;
+        const firmaContent = wk.attended 
+            ? '<div style="text-align:center;color:#4caf50;font-size:0.7rem;font-weight:600;">Registrado ✓</div>'
+            : '<div style="border:1px solid #999;border-radius:3px;height:28px;width:115px;margin:0 auto;"></div>';
+
+        html += `<tr style="background:${bgColor};${!wk.attended?'font-weight:600':''}">
+            <td style="padding:6px;text-align:center;border-right:1px solid #ddd;border-bottom:1px solid #ddd;color:#888;">${idx + 1}</td>
+            <td style="padding:6px;text-align:center;border-right:1px solid #ddd;border-bottom:1px solid #ddd;">
+                <span style="font-weight:700;color:${statusColor};">S${wk.weekNum}</span>
+            </td>
+            <td style="padding:6px 10px;border-right:1px solid #ddd;border-bottom:1px solid #ddd;font-size:0.75rem;">
+                ${attFmt2(wk.lunes)} — ${attFmt2(wk.domingo)}
+            </td>
+            <td style="padding:6px;text-align:center;border-right:1px solid #ddd;border-bottom:1px solid #ddd;">
+                <span style="color:${statusColor};font-size:0.75rem;">${statusIcon} ${statusText}</span>
+            </td>
+            <td style="padding:6px;text-align:center;border-right:1px solid #ddd;border-bottom:1px solid #ddd;font-size:0.7rem;">
+                ${reasonText}
+            </td>
+            <td style="padding:4px;text-align:center;border-bottom:1px solid #ddd;">
+                ${firmaContent}
+            </td>
+        </tr>`;
+    });
+
+    html += `</tbody></table></div>`;
+
+    // ── SECCIÓN SOLO PENDIENTES (resaltada) ──
+    if (missedWeeks.length > 0) {
+        html += `<div style="margin-top:20px;page-break-before:auto;">
+            <div style="background:#c62828;color:white;padding:10px 14px;font-weight:700;font-size:0.9rem;">
+                ⚠️ SEMANAS PENDIENTES DE RECUPERAR — ${missedWeeks.length} Safety Briefings
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:0.8rem;border:2px solid #c62828;">
+                <thead>
+                    <tr style="background:#ffcdd2;">
+                        <th style="padding:6px;border:1px solid #e57373;width:35px;">Nº</th>
+                        <th style="padding:6px;border:1px solid #e57373;width:60px;">Semana</th>
+                        <th style="padding:6px;border:1px solid #e57373;">Período</th>
+                        <th style="padding:6px;border:1px solid #e57373;width:90px;">Motivo</th>
+                        <th style="padding:6px;border:1px solid #e57373;width:130px;">Firma recuperación</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+        missedWeeks.forEach((mw, idx) => {
+            html += `<tr>
+                <td style="padding:6px;text-align:center;border:1px solid #e57373;font-weight:700;">${idx + 1}</td>
+                <td style="padding:6px;text-align:center;border:1px solid #e57373;font-weight:700;color:#c62828;">S${mw.weekNum}</td>
+                <td style="padding:6px;border:1px solid #e57373;">${attFmt(mw.lunes)} — ${attFmt(mw.domingo)}</td>
+                <td style="padding:6px;text-align:center;border:1px solid #e57373;font-size:0.75rem;">${mw.reason}</td>
+                <td style="padding:4px;border:1px solid #e57373;">
+                    <div style="border:1px solid #999;border-radius:3px;height:28px;width:115px;margin:0 auto;"></div>
+                </td>
+            </tr>`;
         });
 
-        // Final signature block
-        html += `<div class="ooto-final-signature">
-            <div class="sig-block">
-                <label>Empleado</label>
-                <div class="sig-line"></div>
-                <div class="sig-name">${emp.name}<br>${emp.login}</div>
-            </div>
-            <div class="sig-block">
-                <label>Responsable / Manager</label>
-                <div class="sig-line"></div>
-                <div class="sig-name">Nombre y firma</div>
-            </div>
-        </div>`;
-
-        html += `<div style="text-align:center;margin-top:15px;font-size:0.7rem;color:#999;">
-            Documento generado el ${new Date().toLocaleDateString('es-ES')} — Safety Briefing Semanal 2026 — Dos Hermanas, Sevilla
-        </div>`;
+        html += `</tbody></table></div>`;
     }
+
+    // ── BLOQUE FIRMA FINAL (formato estándar) ──
+    html += `<div style="margin-top:25px;border:2px solid #333;padding:20px;page-break-inside:avoid;">
+        <div style="text-align:center;font-weight:700;font-size:0.85rem;margin-bottom:15px;color:#333;">
+            DECLARACIÓN — He sido informado/a de los Safety Briefings correspondientes a las semanas indicadas.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:20px;">
+            <div style="text-align:center;">
+                <div style="font-size:0.7rem;color:#666;font-weight:600;margin-bottom:8px;">EMPLEADO</div>
+                <div style="border-bottom:1px solid #333;height:45px;margin:0 15px;"></div>
+                <div style="font-size:0.75rem;margin-top:6px;color:#333;font-weight:600;">${emp.name}</div>
+                <div style="font-size:0.65rem;color:#888;">${emp.login} · ${emp.crew}</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-size:0.7rem;color:#666;font-weight:600;margin-bottom:8px;">RESPONSABLE / MANAGER</div>
+                <div style="border-bottom:1px solid #333;height:45px;margin:0 15px;"></div>
+                <div style="font-size:0.75rem;margin-top:6px;color:#333;">Nombre y firma</div>
+                <div style="font-size:0.65rem;color:#888;">Fecha: ___/___/______</div>
+            </div>
+        </div>
+    </div>`;
+
+    // ── Footer ──
+    html += `<div style="text-align:center;margin-top:15px;font-size:0.65rem;color:#999;border-top:1px solid #eee;padding-top:10px;">
+        Training Attendance — Safety Briefing Semanal 2026 — Dos Hermanas, Sevilla — 
+        Generado: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}
+    </div>`;
 
     container.innerHTML = html;
 }
 
 function printPersonalOoto() {
+    // Asegurarse de que el modal es visible
+    const modal = document.getElementById('personalOotoModal');
+    if (!modal.classList.contains('active')) {
+        showNotification('❌ Primero genera un informe', true);
+        return;
+    }
     document.body.classList.add('ooto-printing');
-    window.print();
-    setTimeout(() => document.body.classList.remove('ooto-printing'), 800);
+    setTimeout(() => {
+        window.print();
+        setTimeout(() => document.body.classList.remove('ooto-printing'), 1000);
+    }, 200);
 }
+
 
 function openAttendance() {
     if (!allData || !allData.empleados.length) {
@@ -2865,6 +2977,7 @@ initializeLogin();
 </script>
 </body>
 </html>
+
 
 
 
